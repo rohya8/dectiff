@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cardview"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/recyclerview"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/appcompat_v7"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/google-play-services_lib"/>
+	<classpathentry exported="true" kind="lib" path="D:/Jars/commons-collections-3.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Jars/commons-httpclient-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Jars/gson-2.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Jars/spring-android-core-1.0.1.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Jars/spring-android-rest-template-1.0.1.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Jars/spring-context-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/Jars/tiffeat-web.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
