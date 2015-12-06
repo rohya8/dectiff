@@ -1,7 +1,5 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.Map;
 
 import android.app.ProgressDialog;
@@ -10,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.mobile.PaymentGatewayFragment;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -19,6 +16,7 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
+import com.rns.tiffeat.web.util.Constants;
 
 public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
@@ -61,12 +59,9 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 			Validation.showError(previousActivity, ERROR_FETCHING_DATA);
 			return;
 		}
-		Type typeMap = new TypeToken<Map<String, Object>>() {
-		}.getType();
-		Map<String, Object> validateOrderMap = new HashMap<String, Object>();
-		validateOrderMap = new Gson().fromJson(result, typeMap);
-		validationResult = (String) validateOrderMap.get("result");
-		String customerOrderString = (String) validateOrderMap.get("customerOrder");
+		Map<String, Object> validateOrderMap = CustomerUtils.convertToStringObjectMap(result);
+		validationResult = (String) validateOrderMap.get(Constants.MODEL_RESULT);
+		String customerOrderString = (String) validateOrderMap.get(Constants.MODEL_CUSTOMER_ORDER);
 		customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 		if ("OK".equals(validationResult)) {
 			nextActivity();

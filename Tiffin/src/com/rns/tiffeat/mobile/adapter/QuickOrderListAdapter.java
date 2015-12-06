@@ -1,11 +1,7 @@
 package com.rns.tiffeat.mobile.adapter;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -15,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,28 +22,26 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.MealStatus;
+import com.rns.tiffeat.web.bo.domain.OrderStatus;
 
-public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implements AndroidConstants
-{
+public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implements AndroidConstants {
 	private FragmentActivity activity;
 	private List<CustomerOrder> quickOrders;
 	private Customer customer;
-	private CustomerOrder customerOrder ;
+	private CustomerOrder customerOrder;
 	private ViewHolder holder;
-	private QuickOrderHomeScreen quickHome;
-	String todaydate,orderdate;
+	String todaydate, orderdate;
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {
-		this.quickHome = quickHome;
 	}
 
 	public ViewHolder getHolder() {
 		return holder;
 	}
 
-	public class ViewHolder 
-	{
-		TextView title,tiffintype,price,status,date;
+	public class ViewHolder {
+		TextView title, tiffintype, price, mealStatus, date, orderStatus;
 		ImageView foodimage;
 		TextView viewmenuButton;
 		boolean viewMenuClicked;
@@ -61,92 +56,71 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 
 	}
 
-
-	public QuickOrderListAdapter(FragmentActivity activity,
-			int activityQuickorderListAdapter,
-			List<CustomerOrder> quickOrders, Customer customer) 
-	{
-		super(activity,activityQuickorderListAdapter,quickOrders);
-		this.quickOrders=new ArrayList<CustomerOrder>();
+	public QuickOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter, List<CustomerOrder> quickOrders, Customer customer) {
+		super(activity, activityQuickorderListAdapter, quickOrders);
+		this.quickOrders = quickOrders;
 		this.activity = activity;
-		this.customer=customer;
-		this.quickOrders.addAll(quickOrders);
-		Collections.reverse(this.quickOrders);
+		this.customer = customer;
 	}
-
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
 		if (convertView == null) {
-			LayoutInflater vi = (LayoutInflater)activity.getSystemService(
-					Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.activity_quickorder_list_adapter, null);
 
 			holder = new ViewHolder();
-			fontChanger.replaceFonts((ViewGroup)convertView);
-			holder.title = (TextView)convertView.findViewById(R.id.quickorder_list_adapter_name_textView);
-			holder.tiffintype = (TextView)convertView.findViewById(R.id.quickorder_list_adapter_type_textView);
-			holder.date = (TextView)convertView.findViewById(R.id.quickorder_list_adapter_date_textView);
-			holder.foodimage=(ImageView)convertView.findViewById(R.id.quickorder_list_adapter_imageview);
-			holder.status=(TextView)convertView.findViewById(R.id.quickorder_list_adapter_status_textView);
-			//	holder.price = (TextView)convertView.findViewById(R.id.quickorderlist_tiffin_price_textView);
-			holder.viewmenuButton = (TextView)convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
+			fontChanger.replaceFonts((ViewGroup) convertView);
+			holder.title = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_name_textView);
+			holder.tiffintype = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_type_textView);
+			holder.date = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_date_textView);
+			holder.foodimage = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
+			holder.mealStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_meal_status_textView);
+			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
+			// holder.price =
+			// (TextView)convertView.findViewById(R.id.quickorderlist_tiffin_price_textView);
+			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
 
 			convertView.setTag(holder);
 
-		} 
-		else {
+		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		customerOrder= quickOrders.get(position);
+		customerOrder = quickOrders.get(position);
+
+		if (customerOrder == null) {
+			return convertView;
+		}
 
 		holder.title.setText(customerOrder.getMeal().getTitle());
-		holder.tiffintype.setText(customerOrder.getMealType().toString());
-
+		if (customerOrder.getMealType() != null) {
+			holder.tiffintype.setText(customerOrder.getMealType().getDescription());
+		}
 
 		if (holder.foodimage != null) {
 
-			//	new ImageDownloaderTask(getActivity(),holder.foodimage).execute(objmeal.getImage());
+			// new
+			// ImageDownloaderTask(getActivity(),holder.foodimage).execute(objmeal.getImage());
 		}
 
-
-		if(customerOrder.getMealStatus()!=null)
-		{
-			try 
-			{
-				if(customerOrder.getContent()!= null)
-				{
-					if(compareDate(customerOrder.getDate())== true)
-					{		
-						holder.status.setText(customerOrder.getMealStatus().toString());
-					}
-					else
-						holder.status.setText("Menu is not Updated yet!!");
-				}
-
-			} 
-			catch (ParseException e) 
-			{
-
-				holder.status.setText("Menu is not Updated yet!!");
-			}
+		if (OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
+			setMealStatus();
+		} else {
+			holder.viewmenuButton.setVisibility(View.GONE);
 		}
-		else
-			holder.status.setText("PLEASE TRY AGAIN");
 
-		DateFormat dt = new SimpleDateFormat("MM-dd-yyyy");
+		setOrderStatus();
+		DateFormat dt = new SimpleDateFormat();
 		holder.date.setText(dt.format(customerOrder.getDate()));
 
 		holder.viewmenuButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-
 				ShowMenu(customerOrder);
-
 			}
 		});
 
@@ -154,41 +128,39 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 
 	}
 
-	private boolean compareDate(Date date) throws ParseException 
-	{
-		DateFormat dt = new SimpleDateFormat("MM-dd-yyyy");
-		Date currentdate = new Date();
-
-		orderdate  = dt.format(date);
-		todaydate = dt.format(currentdate); 
-
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-		Date d1 = sdf.parse(orderdate);
-		Date d2 = sdf.parse(todaydate);
-
-		if(d2.compareTo(d1)==0)
-			return true;
-		else
-			return false;
-
+	private void setOrderStatus() {
+		if (customerOrder.getStatus() == null) {
+			return;
+		}
+		if (OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
+			holder.orderStatus.setText("Your Order has been cancelled..");
+		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) {
+			holder.orderStatus.setText("Your order has been delivered!! Please rate us!!");
+		}
 	}
 
-	//	private void repeatActivity(CustomerOrder customerOrder2) 
-	//	{
-	//
-	//		Fragment fragment = null;		
-	//		fragment = new SelectType(customerOrder2);
-	//
-	//		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-	//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-	//		fragmentTransaction.replace(R.id.container_body, fragment);
-	//		fragmentTransaction.commit();
-	//	}
-	//
-	private void ShowMenu(CustomerOrder customerOrder2) 
-	{
+	private void setMealStatus() {
+		if (customerOrder.getMealStatus() == null) {
+			return;
+		}
+		if (customerOrder.getContent() == null) {
+			holder.mealStatus.setText("Vendor has not decided your menu yet. Hang on..");
+			holder.viewmenuButton.setVisibility(View.GONE);
+			return;
+		}
+		if (MealStatus.PREPARE.equals(customerOrder.getMealStatus())) {
+			holder.mealStatus.setText("Vendor is preparing your meal..");
+		} else if (MealStatus.COOKING.equals(customerOrder.getMealStatus())) {
+			holder.mealStatus.setText("Vendor started cooking your meal");
+		} else if (MealStatus.DISPATCH.equals(customerOrder.getMealStatus())) {
+			holder.mealStatus.setText("Your tiffin is dispatched and will reach you soon..");
+		}
+		// holder.status.setText(customerOrder.getMealStatus().name());
+	}
+
+	private void ShowMenu(CustomerOrder customerOrder2) {
 		customerOrder.setCustomer(customer);
-		new GetMealMenuAsyncTask(activity,"QuickOrder",null,customerOrder2).execute();
+		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder2).execute();
 	}
 
 }

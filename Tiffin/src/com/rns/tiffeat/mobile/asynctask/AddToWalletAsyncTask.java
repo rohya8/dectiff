@@ -59,8 +59,8 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 
 	private void nextActivity() {
 
-		Fragment fobj = new ScheduledUser(currentCustomer, false);
-		CustomerUtils.nextFragment(fobj, activity.getSupportFragmentManager(), false);
+		Fragment scheduledHomeFragment = new ScheduledUser(currentCustomer, false);
+		CustomerUtils.nextFragment(scheduledHomeFragment, activity.getSupportFragmentManager(), false);
 	}
 
 }

@@ -1,6 +1,11 @@
 package com.rns.tiffeat.mobile.util;
 
-import android.app.Activity;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -11,8 +16,10 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.web.bo.domain.Customer;
+import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class CustomerUtils implements AndroidConstants {
 
@@ -64,8 +71,30 @@ public class CustomerUtils implements AndroidConstants {
 		fragmentTransaction.commit();
 	}
 
-	public static void changeFont(AssetManager assets,Fragment fragment){
+	public static void changeFont(AssetManager assets, Fragment fragment) {
 		FontChangeCrawler fontChanger = new FontChangeCrawler(assets, FONT);
-		fontChanger.replaceFonts((ViewGroup) fragment.getView() );
+		fontChanger.replaceFonts((ViewGroup) fragment.getView());
 	}
+
+	public static Map<String, Object> convertToStringObjectMap(String mapJson) {
+		Type typeMap = new TypeToken<Map<String, Object>>() {
+		}.getType();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = new Gson().fromJson(mapJson, typeMap);
+		return map;
+	}
+
+	public static Map<MealType, Date> convertToMealTypeDateMap(String mapJson) {
+		Type typeMap = new TypeToken<Map<MealType, Date>>() {
+		}.getType();
+		Map<MealType, Date> map = new HashMap<MealType, Date>();
+		map = new Gson().fromJson(mapJson, typeMap);
+		return map;
+	}
+
+	public static String convertDate(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		return sdf.format(date);
+	}
+
 }

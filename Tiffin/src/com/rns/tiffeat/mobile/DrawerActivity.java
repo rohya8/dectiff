@@ -74,19 +74,19 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 			if (customer == null || TextUtils.isEmpty(customer.getEmail())) {
 				fragment = new FirstTimeUse();
-				title="Make New Order";
+				title = "Make New Order";
 			} else if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new ScheduledUser(customer, false);
-				title = getString(R.string.nav_item_notification);
-			} else if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
+				title = "Home";
+			} else {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new QuickOrderHomeScreen(customer);
 				title = "Home";
 			}
 			break;
 		case 1:
-			
+
 			if (customer != null) {
 				if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
 					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
@@ -141,8 +141,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	}
 
 	private boolean isFragmentToBeAddedToBackStack(Fragment fragment) {
-		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment
-				|| fragment instanceof QuickOrderHomeScreen || fragment instanceof ScheduledUser;
+		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment || fragment instanceof QuickOrderHomeScreen
+				|| fragment instanceof ScheduledUser;
 	}
 
 	public void setContentView(View view) {

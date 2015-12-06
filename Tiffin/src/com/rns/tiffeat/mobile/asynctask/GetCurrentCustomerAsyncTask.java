@@ -34,12 +34,10 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 			try {
 				Customer currentCustomer = CustomerUtils.getCurrentCustomer(context);
 				Customer latestCustomer = currentCustomer;
-				try {
-					latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
-				} catch (Exception e) {
-				}
+				latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
 				return latestCustomer;
 			} catch (Exception e) {
+				
 			}
 		}
 		return null;

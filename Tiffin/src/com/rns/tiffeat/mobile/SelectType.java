@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
-import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
@@ -59,26 +58,6 @@ public class SelectType extends Fragment implements AndroidConstants {
 					if (!Validation.isNetworkAvailable(getActivity())) {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
-						/*
-						 * try {
-						 * 
-						 * if (customerOrder.getCustomer().getName().toString()
-						 * == null) {
-						 * 
-						 * } else if (customerOrder.getMeal() == null) {
-						 * customerOrder.setMeal(meal);
-						 * customerOrder.setArea(meal.getVendor().getPinCode());
-						 * 
-						 * }
-						 * 
-						 * } catch (Exception e) {
-						 * 
-						 * customerOrder = new CustomerOrder();
-						 * customerOrder.setMeal(meal);
-						 * customerOrder.setArea(meal.getVendor().getPinCode());
-						 * 
-						 * }
-						 */
 						prepareCustomerOrder();
 
 						customerOrder.setMealFormat(MealFormat.QUICK);
@@ -97,7 +76,6 @@ public class SelectType extends Fragment implements AndroidConstants {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						prepareCustomerOrder();
-
 						customerOrder.setMealFormat(MealFormat.SCHEDULED);
 						nextActivity();
 					}
@@ -124,18 +102,6 @@ public class SelectType extends Fragment implements AndroidConstants {
 	private void nextActivity() {
 
 		Fragment fragment = null;
-		// try {
-		//
-		// if (customerOrder.getCustomer().getName().toString() != null)
-		// new ExistingUserAsyncTask(getActivity(), customerOrder).execute();
-		// else {
-		// fragment = new FirstTimeUse(customerOrder);
-		// CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
-		// }
-		// } catch (Exception e) {
-		// fragment = new LoginFragment(customerOrder);
-		// CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
-		// }
 
 		if (customerOrder.getCustomer() == null) {
 			fragment = new LoginFragment(customerOrder);
@@ -159,13 +125,9 @@ public class SelectType extends Fragment implements AndroidConstants {
 	private void prepareCustomerOrder() {
 		if (customerOrder == null) {
 			customerOrder = new CustomerOrder();
-			customerOrder.setMeal(meal);
-			customerOrder.setArea(meal.getVendor().getPinCode());
-		} else {
-			customerOrder.setMeal(meal);
-			customerOrder.setArea(meal.getVendor().getPinCode());
-
 		}
+		customerOrder.setMeal(meal);
+		customerOrder.setArea(meal.getVendor().getPinCode());
 	}
 
 }

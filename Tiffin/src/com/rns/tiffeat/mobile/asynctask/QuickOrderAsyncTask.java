@@ -31,7 +31,6 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		
 		progressdialog = UserUtils.showLoadingDialog(proceedtopay, "Download Data ", "Please Wait...");
 	}
 
@@ -63,26 +62,18 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 			Validation.showError(proceedtopay, ERROR_FETCHING_DATA);
 			return;
 		}
-		try {
-			if ("OK".equals(result)) {
-				Toast.makeText(proceedtopay, "Order Successfull! ", Toast.LENGTH_SHORT).show();
-				if (currentCustomer != null) {
-					nextActivity();
-				}
-			} else {
-				Toast.makeText(proceedtopay, "Order Failed due to : " + result, Toast.LENGTH_SHORT).show();
+		if ("OK".equals(result)) {
+			Toast.makeText(proceedtopay, "Order Successfull! ", Toast.LENGTH_SHORT).show();
+			if (currentCustomer != null) {
+				nextActivity();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			Toast.makeText(proceedtopay, " Request failed ", Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(proceedtopay, "Order Failed due to : " + result, Toast.LENGTH_SHORT).show();
 		}
-
 	}
 
 	private void nextActivity() {
-
 		Fragment fragment = new QuickOrderHomeScreen(currentCustomer);
-
 		CustomerUtils.nextFragment(fragment, proceedtopay.getSupportFragmentManager(), false);
 	}
 

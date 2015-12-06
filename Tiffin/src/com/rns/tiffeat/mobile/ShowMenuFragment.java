@@ -1,13 +1,10 @@
 package com.rns.tiffeat.mobile;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,22 +14,18 @@ import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
-import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
-	private Toolbar mToolbar;
 	private Button alertbtn;
 	private TextView roti, sabji, rice, salad, extra, price;
 	private View rootView;
 	private CustomerOrder customerOrder;
-	private String todaydate, orderdate;
 
-	public ShowMenuFragment(CustomerOrder customerOrder2) {
-		customerOrder = new CustomerOrder();
-		this.customerOrder = customerOrder2;
+	public ShowMenuFragment(CustomerOrder customerOrder) {
+		this.customerOrder = customerOrder;
 	}
 
 	@Override
@@ -50,25 +43,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-			if (customerOrder.getContent() != null)
-				try {
-					if (compareDate(customerOrder.getDate()) == true) {
-						sabji.setText(customerOrder.getContent().getMainItem().toString());
-						roti.setText(customerOrder.getContent().getSubItem1().toString());
-						rice.setText(customerOrder.getContent().getSubItem2().toString());
-						salad.setText(customerOrder.getContent().getSubItem3().toString());
-						extra.setText(customerOrder.getContent().getSubItem4().toString());
-					} else {
-						sabji.setText("Menu not available yet..");
-						roti.setText("");
-						rice.setText("");
-						salad.setText("");
-						extra.setText("");
-					}
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-
+			
 			if (customerOrder == null || customerOrder.getContent() == null) {
 				sabji.setText("Menu not available yet..");
 			}
@@ -77,6 +52,15 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 				price.setText(customerOrder.getMeal().getPrice().toString());
 			}
 
+			if (customerOrder.getContent() != null) {
+				//TODO: Show menu date
+				//TODO: Add title e.g Non Veg Special Menu for Date
+				sabji.setText(customerOrder.getContent().getMainItem());
+				roti.setText(customerOrder.getContent().getSubItem1());
+				rice.setText(customerOrder.getContent().getSubItem2());
+				salad.setText(customerOrder.getContent().getSubItem3());
+				extra.setText(customerOrder.getContent().getSubItem4());
+			} 
 			alertbtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
@@ -98,24 +82,6 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		return rootView;
 	}
 
-	private boolean compareDate(Date date) throws ParseException {
-		DateFormat dt = new SimpleDateFormat("MM-dd-yyyy");
-		Date currentdate = new Date();
-
-		orderdate = dt.format(date);
-		todaydate = dt.format(currentdate);
-
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-		Date d1 = sdf.parse(orderdate);
-		Date d2 = sdf.parse(todaydate);
-
-		if (d2.compareTo(d1) == 0)
-			return true;
-		else
-			return false;
-
-	}
-
 	public static String getToday(String format) {
 		Date date = new Date();
 		return new SimpleDateFormat(format).format(date);
@@ -128,14 +94,12 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		salad = (TextView) rootView.findViewById(R.id.salad_status_tv);
 		extra = (TextView) rootView.findViewById(R.id.extra_status_tv);
 		price = (TextView) rootView.findViewById(R.id.price_status_tv);
-		mToolbar = (Toolbar) rootView.findViewById(R.id.tool_bar);
 		alertbtn = (Button) rootView.findViewById(R.id.menu_done_button);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
 		CustomerUtils.changeFont(getActivity().getAssets(), this);
 	}
 

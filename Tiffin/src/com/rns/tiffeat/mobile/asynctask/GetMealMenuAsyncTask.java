@@ -1,7 +1,8 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -19,17 +20,14 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> implements AndroidConstants {
 
-	private String quickOrderHome, scheduledUser;
+	private String quickOrderHome;
 	private FragmentActivity context;
-	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ProgressDialog progressDialog;
 
-	public GetMealMenuAsyncTask(FragmentActivity context, String quickHome, String scheduledUser, CustomerOrder customerOrder2) {
+	public GetMealMenuAsyncTask(FragmentActivity context, String quickHome, String scheduledUser, CustomerOrder customerOrder) {
 		this.quickOrderHome = quickHome;
-		customer = new Customer();
-		this.scheduledUser = scheduledUser;
-		this.customerOrder = customerOrder2;
+		this.customerOrder = customerOrder;
 		this.context = context;
 	}
 
@@ -59,43 +57,37 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 	}
 
 	@Override
-	protected void onPostExecute(Customer result) {
-		super.onPostExecute(result);
+	protected void onPostExecute(Customer customer) {
+		super.onPostExecute(customer);
 		progressDialog.dismiss();
 
-		if (result == null) {
+		if (customer == null) {
 			Validation.showError(context, ERROR_FETCHING_DATA);
 			return;
 		}
-		List<CustomerOrder> Orders = new ArrayList<CustomerOrder>();
 		Fragment fragment = null;
 
 		if (quickOrderHome != null) {
+			extractCustomerOrder(customer.getQuickOrders());
 
-			Orders.addAll(result.getQuickOrders());
-			for (int i = 0; i < Orders.size(); i++) {
-				if (Orders.get(i).getId() == customerOrder.getId()) {
-					customer = customerOrder.getCustomer();
-					customerOrder = Orders.get(i);
-					customerOrder.setCustomer(customer);
-					break;
-				}
-			}
-
-		} else if (scheduledUser != null) {
-			Orders.addAll(result.getScheduledOrder());
-
-			for (int i = 0; i < Orders.size(); i++) {
-				if (Orders.get(i).getId() == customerOrder.getId()) {
-					customer = customerOrder.getCustomer();
-					customerOrder = Orders.get(i);
-					customerOrder.setCustomer(customer);
-					break;
-				}
-			}
+		} else {
+			extractCustomerOrder(customer.getScheduledOrder());
 		}
 
 		fragment = new ShowMenuFragment(customerOrder);
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), false);
+	}
+
+	private void extractCustomerOrder(List<CustomerOrder> orders) {
+		if (CollectionUtils.isEmpty(orders)) {
+			return;
+		}
+
+		for (CustomerOrder order : orders) {
+			if (order.getId() == customerOrder.getId()) {
+				customerOrder = order;
+				break;
+			}
+		}
 	}
 }
