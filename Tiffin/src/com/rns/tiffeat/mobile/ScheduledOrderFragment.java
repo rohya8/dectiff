@@ -1,24 +1,21 @@
 package com.rns.tiffeat.mobile;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import org.apache.commons.collections.CollectionUtils;
+
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -34,12 +31,10 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	private RadioButton lunch, dinner, both;
 	private EditText lunchaddr;
 	private CustomerOrder customerOrder;
-	private TextView tiffindesc, name, emailid, phone, amount, wallet;
+	private TextView tiffindesc, name, emailid, phone, wallet;
 	private View rootView;
 	private Button proceed;
 	private Map<MealType, Date> availableMealType;
-	private Date lunchdate, dinnerdate;
-	private DateFormat dateFormat;
 
 	public ScheduledOrderFragment(CustomerOrder customerOrder, Map<MealType, Date> availableMealType) {
 		this.customerOrder = customerOrder;
@@ -52,20 +47,74 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 	}
 
-	private void getMealDate(Map<MealType, Date> availableMealType2) {
+	private void getMealDate(Map<MealType, Date> availableMealTypeDatesMap) {
+		//Filter to see if customer already has any scheduled order
+		List<MealType> availableMealTypes = filterAvailableMealTypes();
+		
+		both.setVisibility(View.GONE);
+		lunch.setVisibility(View.GONE);
+		dinner.setVisibility(View.GONE);
+		
+		if(CollectionUtils.isEmpty(availableMealTypes)) {
+			//TODO: Show error saying already scheduled both lunch and dinner
+			return;
+		}
+		
+		// Check if its an Add dinner or Add lunch scenario
+		if (customerOrder.getMealType() != null && availableMealTypes.contains(customerOrder.getMealType())) {
+			if (MealType.LUNCH.equals(customerOrder.getMealType())) {
+				lunchaddr.setVisibility(View.VISIBLE);
+				lunch.setText("Lunch ");
+				lunch.setVisibility(View.VISIBLE);
+			}
+			else if (MealType.DINNER.equals(customerOrder.getMealType())) {
+				lunchaddr.setVisibility(View.VISIBLE);
+				dinner.setText("Dinner ");
+				dinner.setVisibility(View.VISIBLE);
+			}
+			if(View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
+				lunchaddr.setVisibility(View.VISIBLE);
+				both.setText("Both ");
+				both.setVisibility(View.VISIBLE);
+			}
+			customerOrder.setDate(availableMealTypeDatesMap.get(availableMealTypes.get(0)));
+			return;
+		}
 
-		dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-
-		if (availableMealType2.get("LUNCH") != null) {
+		//Normal scenario
+		if (availableMealTypeDatesMap.get(MealType.LUNCH) != null && availableMealTypes.contains(MealType.LUNCH)) {
 			lunchaddr.setVisibility(View.VISIBLE);
 			lunch.setText("Lunch ");
 			lunch.setVisibility(View.VISIBLE);
 		}
-		if (availableMealType2.get("DINNER") != null) {
+		if (availableMealTypeDatesMap.get(MealType.DINNER) != null && availableMealTypes.contains(MealType.DINNER)) {
 			lunchaddr.setVisibility(View.VISIBLE);
 			dinner.setText("Dinner ");
 			dinner.setVisibility(View.VISIBLE);
 		}
+		if(View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
+			lunchaddr.setVisibility(View.VISIBLE);
+			both.setText("Both ");
+			both.setVisibility(View.VISIBLE);
+		}
+		customerOrder.setDate(availableMealTypeDatesMap.get(availableMealTypes.get(0)));
+	}
+
+	private List<MealType> filterAvailableMealTypes() {
+		if (customerOrder == null || customerOrder.getCustomer() == null) {
+			return null;
+		}
+		List<MealType> mealTypes = new ArrayList<MealType>();
+		mealTypes.add(MealType.LUNCH);
+		mealTypes.add(MealType.DINNER);
+		if (CollectionUtils.isEmpty(customerOrder.getCustomer().getScheduledOrder())) {
+			return mealTypes;
+		}
+		for (CustomerOrder order : customerOrder.getCustomer().getScheduledOrder()) {
+			mealTypes.remove(order.getMealType());
+		}
+
+		return mealTypes;
 	}
 
 	@Override
@@ -93,13 +142,12 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		both = (RadioButton) rootView.findViewById(R.id.scheduled_order_radioButton_both);
 
 		lunchaddr = (EditText) rootView.findViewById(R.id.scheduled_order_editText_LunchAddress);
-		dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		new SimpleDateFormat("MM-dd-yyyy");
 
 		tiffindesc = (TextView) rootView.findViewById(R.id.scheduled_order_editText_TiffinName);
 		name = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Name);
 		emailid = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Email);
 		phone = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
-		amount = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Price);
 		proceed = (Button) rootView.findViewById(R.id.scheduled_order_proceed_button);
 		wallet = (TextView) rootView.findViewById(R.id.scheduled_order_textview_Wallet);
 
@@ -118,36 +166,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			wallet.setText(" 0 ");
 		else
 			wallet.setText(customerOrder.getCustomer().getBalance().toString());
-
-		// if(MealType.BOTH.equals(customerOrder.getMealType()))
-		// {
-		// both.setVisibility(View.VISIBLE);
-		// lunch.setVisibility(View.VISIBLE);
-		// dinner.setVisibility(View.VISIBLE);
-		//
-		// if(lunchdate!=null && dinnerdate!=null)
-		// {
-		// lunch.setText("Lunch for ( " + dateFormat.format(lunchdate) +" )");
-		// dinner.setText("Dinner for ( " + dateFormat.format( dinnerdate)
-		// +" )");
-		// }
-		// }
-		// else if(MealType.LUNCH.equals(customerOrder.getMealType()))
-		// {
-		// lunchaddr.setVisibility(View.VISIBLE);
-		// if(lunchdate!=null )
-		// lunch.setText("Lunch for ( " + dateFormat.format(lunchdate) +" )");
-		// lunch.setVisibility(View.VISIBLE);
-		// }
-		// else if(MealType.DINNER.equals(customerOrder.getMealType()))
-		// {
-		// lunchaddr.setVisibility(View.VISIBLE);
-		// dinner.setVisibility(View.VISIBLE);
-		// if( dinnerdate!=null)
-		// dinner.setText("Dinner for ( " + dateFormat.format( dinnerdate)
-		// +" )");
-		// lunchaddr.setHint("Dinner Address");
-		// }
 
 	}
 
@@ -183,7 +201,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 			} else {
 				if (lunchaddr.getText().toString().equals(""))
-					Toast.makeText(getActivity(), " Donot Leave Empty Field ", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), " Do not Leave Empty Field ", Toast.LENGTH_SHORT).show();
 				else if (lunchaddr.getText().toString().length() <= 8)
 					Toast.makeText(getActivity(), " Enter Valid Address ", Toast.LENGTH_SHORT).show();
 				else {

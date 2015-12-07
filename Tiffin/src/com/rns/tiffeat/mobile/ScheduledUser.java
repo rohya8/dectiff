@@ -7,11 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -43,20 +39,18 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 	private Button cancelorder, switchorder, viewmenu, edit, card2cancelorder, card2switchorder, card2viewmenu;
 	private Customer customer;
 	private View view;
-	private TextView tiffmenu, tiffstatus, tiffschedulefrom, tiffintextview;
-	private TextView tiffcard2menu, tiffcard2status, tiffcard2schedulefrom, tiffcard2textview;
+	private TextView tiffmenu, tiffstatus, tiffschedulefrom;
+	private TextView tiffcard2menu, tiffcard2status, tiffcard2schedulefrom;
 	private CustomerOrder customerOrder;
 	private EditText balanceEditText;
 	private BigDecimal b1, b2 = BigDecimal.ZERO;
 	List<CustomerOrder> schedulCustomerOrders;
-	private boolean showAddToWalletDialog;
-	private Dialog addToWalletDialog, networkDialog;
-	private CardView card1, card2, card3;
+	private Dialog addToWalletDialog;
+	private CardView card2, card3;
 	private int arraySize = 0, flagcheck = 0;
 
 	public ScheduledUser(Customer currentCustomer, boolean showAddToWallet) {
 		this.customer = currentCustomer;
-		this.showAddToWalletDialog = showAddToWallet;
 	}
 
 	@Override
@@ -271,7 +265,6 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		builder.setMessage("Are you sure you want to cancel your order?.");
 
 		builder.setNegativeButton("No", null);
-
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 			@Override
@@ -307,7 +300,6 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		tiffmenu = (TextView) view.findViewById(R.id.scheduled_user_homescreen_todays_menu_textView);
 		tiffstatus = (TextView) view.findViewById(R.id.scheduled_user_homescreen_status_textView);
 		edit = (Button) view.findViewById(R.id.scheduled_user_homescreen_edit_button);
-		tiffintextview = (TextView) view.findViewById(R.id.scheduled_user_homescreen_status_textView);
 		tiffcard2menu = (TextView) view.findViewById(R.id.scheduled_user_homescreen_card2_todays_menu_textView);
 		tiffcard2status = (TextView) view.findViewById(R.id.scheduled_user_homescreen_card2_status_textView);
 		tiffcard2schedulefrom = (TextView) view.findViewById(R.id.scheduled_user_homescreen_card2_scheduled_from_textView);
@@ -398,11 +390,6 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), true);
-		// FragmentManager fragmentManager = getFragmentManager();
-		// FragmentTransaction fragmentTransaction = fragmentManager
-		// .beginTransaction();
-		// fragmentTransaction.replace(R.id.container_body, fragment);
-		// fragmentTransaction.commit();
 	}
 
 	private void ShowMenu(CustomerOrder customerOrder2) {
