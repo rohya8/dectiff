@@ -9,8 +9,6 @@ import java.util.List;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +21,7 @@ import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -132,9 +131,10 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		Fragment fragment = null;
 		fragment = new SelectType(customerOrder2);
 
-		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.container_body, fragment);
-		fragmentTransaction.commit();
+		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
+//		FragmentManager fragmentManager = activity.getSupportFragmentManager();
+//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//		fragmentTransaction.replace(R.id.container_body, fragment);
+//		fragmentTransaction.commit();
 	}
 }
