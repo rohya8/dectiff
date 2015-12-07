@@ -94,10 +94,23 @@ public class CustomerServerUtils implements AndroidConstants {
 
 		removeCircularReferences(customerOrderObject);
 		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrderObject, type));
-		result = CoreServerUtils.serverCall(CUSTOMER_GETMEAL_URL, uriVariables, HttpMethod.POST).getBody();
+		result = CoreServerUtils.serverCall(CUSTOMER_GET_MEAL_URL, uriVariables, HttpMethod.POST).getBody();
 		Log.d(MYTAG, "Result of Get Vailable Meals :" + result);
 		return result;
 	}
+	
+	public static String customerGetMealAndroid(CustomerOrder customerOrderObject) {
+
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		Type type = new TypeToken<CustomerOrder>() {
+		}.getType();
+
+		removeCircularReferences(customerOrderObject);
+		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrderObject, type));
+		result = CoreServerUtils.serverCall(CUSTOMER_GET_MENU_URL, uriVariables, HttpMethod.POST).getBody();
+		return result;
+	}
+
 
 	public static Customer getCurrentCustomer(Customer customer) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
