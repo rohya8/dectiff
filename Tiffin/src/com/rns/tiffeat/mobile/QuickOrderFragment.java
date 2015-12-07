@@ -165,6 +165,8 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 	}
 
+	//order mealtype & meal
+	
 	private void prepareCustomerOrder() {
 		customerOrder.setMealType(MealType.LUNCH);
 		if (dinner.isChecked()) {

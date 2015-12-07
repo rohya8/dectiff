@@ -16,5 +16,6 @@
 	<classpathentry exported="true" kind="lib" path="D:/Jars/spring-android-rest-template-1.0.1.RELEASE.jar"/>
 	<classpathentry exported="true" kind="lib" path="D:/Jars/spring-context-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="D:/Jars/tiffeat-web.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rohit/Desktop/adt-bundle-windows-x86-20140702/sdk/extras/android/support/multidex/library/libs/android-support-multidex.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -5,20 +5,22 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
+import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -41,10 +43,11 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	public class ViewHolder {
-		TextView title, tiffintype, price, mealStatus, date, orderStatus;
+		TextView title, tiffintype,repeatorder, price, mealStatus, date, orderStatus;
 		ImageView foodimage;
 		TextView viewmenuButton;
 		boolean viewMenuClicked;
+		boolean repeatorderclicked;
 
 		public void setViewMenuClicked(boolean viewMenuClicked) {
 			this.viewMenuClicked = viewMenuClicked;
@@ -52,6 +55,14 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 
 		public boolean isViewMenuClicked() {
 			return viewMenuClicked;
+		}
+
+		public void setRepeatOrderClicked(boolean repeatorderclicked) {
+			this.repeatorderclicked = repeatorderclicked;
+		}
+
+		public boolean isRepeatOrderClicked() {
+			return repeatorderclicked;
 		}
 
 	}
@@ -79,10 +90,9 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_meal_status_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
-			// holder.price =
-			// (TextView)convertView.findViewById(R.id.quickorderlist_tiffin_price_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
-
+			holder.repeatorder = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_repeatorder_button);
+			
 			convertView.setTag(holder);
 
 		} else {
@@ -124,6 +134,17 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			}
 		});
 
+		holder.repeatorder.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+					customerOrder.setCustomer(customer);
+					repeatOrder(customerOrder);
+			}
+
+			
+		});
+		
 		return convertView;
 
 	}
@@ -155,12 +176,20 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		} else if (MealStatus.DISPATCH.equals(customerOrder.getMealStatus())) {
 			holder.mealStatus.setText("Your tiffin is dispatched and will reach you soon..");
 		}
-		// holder.status.setText(customerOrder.getMealStatus().name());
 	}
 
 	private void ShowMenu(CustomerOrder customerOrder2) {
 		customerOrder.setCustomer(customer);
 		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder2).execute();
+	}
+	
+	private void repeatOrder(CustomerOrder customerOrder) {
+
+		Fragment fragment = null;
+		fragment = new SelectType(customerOrder);
+
+		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
+
 	}
 
 }

@@ -7,7 +7,7 @@ public interface AndroidConstants {
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "tiffEAT";
-	String ROOT_URL = "http://192.168.1.101:8080/tiffeat-web/";
+	String ROOT_URL = "http://192.168.0.3:8080/tiffeat-web/";
 	// String ROOT_URL="http://www.tiffeat.com/";
 	// String ROOT_URL="http://www.itrmitra.com/";
 	String CUSTOMER_OBJECT = "customer";
@@ -21,9 +21,8 @@ public interface AndroidConstants {
 	String CUSTOMER_QUICK_ORDER_URL = ROOT_URL + "quickOrderAndroid?customerOrder={customerOrderObject}";
 	String CUSTOMER_SCHEDULED_ORDER_URL = ROOT_URL + "scheduledOrderAndroid?customerOrder={customerOrderObject}";
 	String GET_AREAS = ROOT_URL + "getAreasAndroid.htm";
-	String CUSTOMER_GETMEAL_URL = ROOT_URL + "getAvailableMealTypeDatesAndroid?customerOrder={customerOrderObject}";
-	// String
-	// CUSTOMER_GETMEAL_URL=ROOT_URL+"getAvailableMealTypeAndroid?customerOrder={customerOrderObject}";
+	String CUSTOMER_GET_MEAL_URL = ROOT_URL + "getAvailableMealTypeDatesAndroid?customerOrder={customerOrderObject}";
+	 String	CUSTOMER_GET_MENU_URL=ROOT_URL+"getMenuAndroid?customerOrder={customerOrderObject}";
 	String GET_CURRENT_CUSTOMER_URL = ROOT_URL + "getCurrentCustomerAndroid?customer={customer}";
 	String CUSTOMER_LOGIN_URL = ROOT_URL + "loginCustomerAndroid?customer={customer}";
 	String PAYMENT_URL = ROOT_URL + "paymentAndroid?customerOrder={customerOrderObject}";
