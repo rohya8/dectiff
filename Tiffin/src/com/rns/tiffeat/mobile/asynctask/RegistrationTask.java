@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
@@ -66,7 +65,6 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		} catch (Exception e) {
 		}
 		return null;
-
 	}
 
 	@Override
@@ -74,6 +72,9 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 
+		customerOrder.setCustomer(customer);
+		nextActivity();
+		
 		if (result == null) {
 			Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			return;
@@ -86,8 +87,7 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			return;
 		}
-		customerOrder.setCustomer(customer);
-		nextActivity();
+		
 	}
 
 	private void nextActivity() {
@@ -100,9 +100,9 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED))
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
 
-		Bundle bundle = new Bundle();
-		bundle.putString("MyObject", customerOrderobj);
-		fragment.setArguments(bundle);
+//		Bundle bundle = new Bundle();
+//		bundle.putString("MyObject", customerOrderobj);
+//		fragment.setArguments(bundle);
 
 		CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), true);
 

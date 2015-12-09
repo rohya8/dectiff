@@ -1,15 +1,15 @@
 package com.rns.tiffeat.mobile.util;
 
 public interface AndroidConstants {
-
+//Hello
 	String GOOGLE_PROJECT_ID = " ";
 	String RESPONSE_INVALID = "INVALID";
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "tiffEAT";
-	String ROOT_URL = "http://192.168.0.3:8080/tiffeat-web/";
-	// String ROOT_URL="http://www.tiffeat.com/";
-	// String ROOT_URL="http://www.itrmitra.com/";
+	//String ROOT_URL = "http://192.168.0.6:8080/tiffeat-web/";
+	String ROOT_URL="http://www.tiffeat.com/";
+	//String ROOT_URL="http://www.itrmitra.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
 	String CUSTOMERORDER_OBJECT = "customerOrder";
@@ -22,7 +22,7 @@ public interface AndroidConstants {
 	String CUSTOMER_SCHEDULED_ORDER_URL = ROOT_URL + "scheduledOrderAndroid?customerOrder={customerOrderObject}";
 	String GET_AREAS = ROOT_URL + "getAreasAndroid.htm";
 	String CUSTOMER_GET_MEAL_URL = ROOT_URL + "getAvailableMealTypeDatesAndroid?customerOrder={customerOrderObject}";
-	 String	CUSTOMER_GET_MENU_URL=ROOT_URL+"getMenuAndroid?customerOrder={customerOrderObject}";
+	String	CUSTOMER_GET_MENU_URL=ROOT_URL+"getMenuAndroid?customerOrder={customerOrderObject}";
 	String GET_CURRENT_CUSTOMER_URL = ROOT_URL + "getCurrentCustomerAndroid?customer={customer}";
 	String CUSTOMER_LOGIN_URL = ROOT_URL + "loginCustomerAndroid?customer={customer}";
 	String PAYMENT_URL = ROOT_URL + "paymentAndroid?customerOrder={customerOrderObject}";
@@ -42,6 +42,6 @@ public interface AndroidConstants {
 	String ERROR_NO_INTERNET_CONNECTION = "No Internet connection";
 	String ERROR_FETCHING_DATA = "something went wrong..... Please check internet connection";
 	String NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA = "No Vendors Currently available in this area ";
-	
+
 	String DATE_FORMAT = "EEE, MMM d";
 }

@@ -146,7 +146,6 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 
 					if (customerOrder.getId() == 0) {
-
 						availableMealType.put(customerOrder.getMealType(), customerOrder.getDate());
 						fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
 						CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);

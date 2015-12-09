@@ -1,10 +1,5 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
@@ -14,11 +9,14 @@ import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+
 public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Customer> implements AndroidConstants{
 
 	private QuickOrderHomeScreen quickOrderHome;
 	private Context context;
-	private ProgressDialog progressDialog;
 
 	public GetCurrentCustomerAsyncTask(Context context, QuickOrderHomeScreen quickHome) {
 		this.quickOrderHome = quickHome;
@@ -47,9 +45,6 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	@Override
 	protected void onPostExecute(Customer result) {
 		super.onPostExecute(result);
-		if (progressDialog != null) {
-			progressDialog.dismiss();
-		}
 		if (result == null) {
 			Validation.showError(context, ERROR_FETCHING_DATA);
 			return;

@@ -103,7 +103,6 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		holder.date.setText("" + orderdate);
 
 		if (holder.foodimage != null) {
-
 			// new
 			// ImageDownloaderTask(getActivity(),holder.foodimage).execute(objmeal.getImage());
 		}
@@ -126,15 +125,12 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 
 	}
 
+
 	private void repeatActivity(CustomerOrder customerOrder2) {
 
 		Fragment fragment = null;
 		fragment = new SelectType(customerOrder2);
 
 		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
-//		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//		fragmentTransaction.replace(R.id.container_body, fragment);
-//		fragmentTransaction.commit();
 	}
 }

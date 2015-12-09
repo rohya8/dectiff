@@ -42,7 +42,8 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		return holder;
 	}
 
-	public class ViewHolder {
+	public class ViewHolder 
+	{
 		TextView title, tiffintype,repeatorder, price, mealStatus, date, orderStatus;
 		ImageView foodimage;
 		TextView viewmenuButton;
@@ -137,7 +138,8 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		holder.repeatorder.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) 
+			{
 					customerOrder.setCustomer(customer);
 					repeatOrder(customerOrder);
 			}
@@ -179,12 +181,12 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	private void ShowMenu(CustomerOrder customerOrder2) {
-		customerOrder.setCustomer(customer);
+		customerOrder2.setCustomer(customer);
 		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder2).execute();
 	}
 	
 	private void repeatOrder(CustomerOrder customerOrder) {
-
+		customerOrder.setCustomer(customer);
 		Fragment fragment = null;
 		fragment = new SelectType(customerOrder);
 

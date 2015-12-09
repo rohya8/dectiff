@@ -61,6 +61,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 				salad.setText(customerOrder.getContent().getSubItem3());
 				extra.setText(customerOrder.getContent().getSubItem4());
 			} 
+			
 			alertbtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {

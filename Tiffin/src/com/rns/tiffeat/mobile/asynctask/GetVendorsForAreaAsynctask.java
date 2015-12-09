@@ -63,7 +63,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 
 	@Override
 	protected String doInBackground(String... params) {
-		
+
 		if (!Validation.isNetworkAvailable(myactivity)) {
 			return null;
 		}
@@ -80,19 +80,20 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
+		progressDialog.dismiss();
 		if (result == null) {
 			Validation.showError(myactivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		Type typelist = new TypeToken<ArrayList<Vendor>>() {}.getType();
 		vendors = new Gson().fromJson(result, typelist);
-		progressDialog.dismiss();
+
 		if(CollectionUtils.isEmpty(vendors)){
 			resultTextView.setText(NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA);
 			return;
 		}
 		prepareVendorListAdapter();
-		
+
 	}
 
 	public void prepareVendorListAdapter() {

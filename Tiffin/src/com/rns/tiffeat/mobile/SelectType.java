@@ -1,5 +1,12 @@
 package com.rns.tiffeat.mobile;
 
+import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
+import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.Meal;
+import com.rns.tiffeat.web.bo.domain.MealFormat;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,14 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
-import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CustomerUtils;
-import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.Meal;
-import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class SelectType extends Fragment implements AndroidConstants {
 
@@ -29,11 +28,11 @@ public class SelectType extends Fragment implements AndroidConstants {
 
 	public SelectType(Meal meal, CustomerOrder customerOrder2) {
 		this.meal = meal;
-		customerOrder = customerOrder2;
+		this.customerOrder = customerOrder2;
 	}
 
-	public SelectType(CustomerOrder customerOrder2) {
-		customerOrder = customerOrder2;
+	public SelectType(CustomerOrder customerOrder3) {
+		this.customerOrder = customerOrder3;
 	}
 
 	@Override
@@ -58,7 +57,8 @@ public class SelectType extends Fragment implements AndroidConstants {
 					if (!Validation.isNetworkAvailable(getActivity())) {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
-						prepareCustomerOrder();
+						if(customerOrder==null)
+							prepareCustomerOrder();
 
 						customerOrder.setMealFormat(MealFormat.QUICK);
 						nextActivity();
@@ -75,7 +75,9 @@ public class SelectType extends Fragment implements AndroidConstants {
 					if (!Validation.isNetworkAvailable(getActivity())) {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
-						prepareCustomerOrder();
+						if(customerOrder==null)
+							prepareCustomerOrder();
+						
 						customerOrder.setMealFormat(MealFormat.SCHEDULED);
 						nextActivity();
 					}
@@ -91,11 +93,11 @@ public class SelectType extends Fragment implements AndroidConstants {
 		scheduled = (ImageView) view.findViewById(R.id.select_type_scheduled_imageView);
 		quick = (ImageView) view.findViewById(R.id.select_type_quick_imageView);
 
-		Bundle b = this.getArguments();
-		if (b != null) {
-			String objmeal = b.getString("MymealObject");
-			meal = new Gson().fromJson(objmeal, Meal.class);
-		}
+		// Bundle b = this.getArguments();
+		// if (b != null) {
+		// String objmeal = b.getString("MymealObject");
+		// meal = new Gson().fromJson(objmeal, Meal.class);
+		// }
 
 	}
 
@@ -126,6 +128,7 @@ public class SelectType extends Fragment implements AndroidConstants {
 		if (customerOrder == null) {
 			customerOrder = new CustomerOrder();
 		}
+
 		customerOrder.setMeal(meal);
 		customerOrder.setArea(meal.getVendor().getPinCode());
 	}

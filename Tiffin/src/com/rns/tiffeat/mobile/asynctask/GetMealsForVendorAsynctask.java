@@ -50,13 +50,13 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
-
+		progressDialog.dismiss();
 		if (result == null) {
 			Validation.showError(activity, ERROR_FETCHING_DATA);
 			return;
 		}
 		vendor = new Gson().fromJson(result, Vendor.class);
-		progressDialog.dismiss();
+		
 		Fragment fragment = new ListOfMeals(vendor, customerOrder);
 		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
 	}
