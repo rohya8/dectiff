@@ -3,8 +3,6 @@ package com.rns.tiffeat.mobile.asynctask;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,19 +18,12 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 	private FragmentActivity mscheduleorder;
 	private ProgressDialog progressDialog;
 	private CustomerOrder customerOrder;
-	private Button cancel, switchordr, menu;
 	private String result1;
-	private TextView status, tiffmenu;
 
-	public ScheduleCancelOrderTask(FragmentActivity contxt, CustomerOrder customerOrder, Button switchorder, Button cancelorder, TextView tiffstatus,
-			Button viewmenu, TextView tiffmenu) {
-		mscheduleorder = contxt;
-		this.customerOrder = customerOrder;
-		this.switchordr = switchorder;
-		cancel = cancelorder;
-		menu = viewmenu;
-		status = tiffstatus;
-		this.tiffmenu = tiffmenu;
+
+	public ScheduleCancelOrderTask(FragmentActivity scheduledOrderFragment, CustomerOrder order) {
+		this.customerOrder = order;
+		this.mscheduleorder = scheduledOrderFragment;
 	}
 
 	@Override
@@ -67,12 +58,6 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 
 		if (result1.equals("OK")) {
 			Toast.makeText(mscheduleorder, "Cancel Order Successful !! ", Toast.LENGTH_LONG).show();
-			switchordr.setVisibility(View.GONE);
-			cancel.setVisibility(View.GONE);
-			menu.setVisibility(View.GONE);
-			status.setText("Your Order has been CANCELLED");
-
-			tiffmenu.setText("");
 		} else
 			Toast.makeText(mscheduleorder, "Cancel failed due to :" + result, Toast.LENGTH_LONG).show();
 	}

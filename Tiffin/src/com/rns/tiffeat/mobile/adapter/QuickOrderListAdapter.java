@@ -163,10 +163,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	private void setMealStatus() {
-		if (customerOrder.getMealStatus() == null) {
-			return;
-		}
-		if (customerOrder.getContent() == null) {
+		if (customerOrder.getContent() == null || customerOrder.getMealStatus() == null) {
 			holder.mealStatus.setText("Vendor has not decided your menu yet. Hang on..");
 			holder.viewmenuButton.setVisibility(View.GONE);
 			return;

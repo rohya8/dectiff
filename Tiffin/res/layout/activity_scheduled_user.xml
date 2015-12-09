@@ -1,8 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#fff"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context="com.rns.tiffeat.mobile.ScheduledUser" >
 
     <RelativeLayout
@@ -16,6 +16,17 @@
             android:gravity="center"
             android:orientation="vertical" >
 
+            <ListView
+                android:id="@+id/scheduled_user_scheduled_orders_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:transcriptMode="alwaysScroll" >
+            </ListView>
+
+            <!--
             <android.support.v7.widget.CardView
                 android:id="@+id/scheduled_user_homescreen_card1_cardView1"
                 android:layout_width="match_parent"
@@ -25,7 +36,7 @@
                 android:padding="5dp"
                 android:visibility="gone" >
 
-                <LinearLayout
+                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
@@ -297,6 +308,7 @@
                     android:layout_marginRight="10dp"
                     android:textSize="17sp" />
             </LinearLayout>
+            -->
         </LinearLayout>
     </RelativeLayout>
 

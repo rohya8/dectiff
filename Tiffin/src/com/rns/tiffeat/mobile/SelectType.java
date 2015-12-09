@@ -1,5 +1,7 @@
 package com.rns.tiffeat.mobile;
 
+import org.springframework.util.StringUtils;
+
 import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -57,10 +59,7 @@ public class SelectType extends Fragment implements AndroidConstants {
 					if (!Validation.isNetworkAvailable(getActivity())) {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
-						if(customerOrder==null)
-							prepareCustomerOrder();
-
-						customerOrder.setMealFormat(MealFormat.QUICK);
+						prepareCustomerOrder(MealFormat.QUICK);
 						nextActivity();
 					}
 				}
@@ -75,10 +74,7 @@ public class SelectType extends Fragment implements AndroidConstants {
 					if (!Validation.isNetworkAvailable(getActivity())) {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
-						if(customerOrder==null)
-							prepareCustomerOrder();
-						
-						customerOrder.setMealFormat(MealFormat.SCHEDULED);
+						prepareCustomerOrder(MealFormat.SCHEDULED);
 						nextActivity();
 					}
 				}
@@ -124,13 +120,19 @@ public class SelectType extends Fragment implements AndroidConstants {
 		// fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
 
-	private void prepareCustomerOrder() {
+	private void prepareCustomerOrder(MealFormat mealFormat) {
 		if (customerOrder == null) {
 			customerOrder = new CustomerOrder();
 		}
-
-		customerOrder.setMeal(meal);
-		customerOrder.setArea(meal.getVendor().getPinCode());
+		if (customerOrder.getMeal() == null) {
+			customerOrder.setMeal(meal);
+		}
+		if (customerOrder.getArea() == null) {
+			customerOrder.setArea(meal.getVendor().getPinCode());
+		}
+		if (customerOrder.getMealFormat() == null) {
+			customerOrder.setMealFormat(mealFormat);
+		}
 	}
 
 }

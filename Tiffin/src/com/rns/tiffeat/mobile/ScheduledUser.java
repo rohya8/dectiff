@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -18,9 +20,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rns.tiffeat.mobile.adapter.ScheduledOrderListAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetNewOrderAreaAsynctask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleCancelOrderTask;
@@ -48,6 +52,8 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 	private Dialog addToWalletDialog;
 	private CardView card2, card3;
 	private int arraySize = 0, flagcheck = 0;
+	private ScheduledOrderListAdapter scheduledOrdersAdapter;
+	private ListView scheduledOrdersListView;
 
 	public ScheduledUser(Customer currentCustomer, boolean showAddToWallet) {
 		this.customer = currentCustomer;
@@ -56,8 +62,6 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		orderValidation();
-
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,22 +72,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		} else {
 			initialise();
 
-			
-			if (flagcheck == 1) {
-				if (arraySize == 1) {
-					Toast.makeText(getActivity(), "Your Order is cancelled!!", Toast.LENGTH_SHORT).show();
-					cancelorder.setVisibility(View.GONE);
-					viewmenu.setVisibility(View.GONE);
-					switchorder.setVisibility(View.GONE);
-				} else {
-					Toast.makeText(getActivity(), "Your Order is cancelled!!", Toast.LENGTH_SHORT).show();
-					card2cancelorder.setVisibility(View.GONE);
-					card2viewmenu.setVisibility(View.GONE);
-					card2switchorder.setVisibility(View.GONE);
-				}
-			}
-			
-			b1 = customer.getBalance();
+			/*b1 = customer.getBalance();
 			schedulCustomerOrders.addAll(customer.getScheduledOrder());
 
 			for (int i = 0; i < schedulCustomerOrders.size(); i++) {
@@ -98,9 +87,9 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 				}
 
 			} catch (Exception e) {
-			}
+			}*/
 
-			cancelorder.setOnClickListener(new OnClickListener() {
+			/*cancelorder.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -199,7 +188,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 						ShowMenu(customerOrder);
 					}
 				}
-			});
+			});*/
 
 		}
 		return view;
@@ -213,7 +202,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 
 	}
 
-	private void showwalletdialogbox() {
+	private void showWalletDialogbox() {
 		customerOrder = new CustomerOrder();
 
 		addToWalletDialog = new Dialog(getActivity());
@@ -258,7 +247,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 
 	}
 
-	private void alertbox(final MealStatus mealStatus, CustomerOrder customerOrder2, final int i) {
+	/*private void alertbox(final MealStatus mealStatus, CustomerOrder customerOrder2, final int i) {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
 		builder.setTitle("Order Status");
@@ -289,11 +278,11 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		});
 
 		builder.show();
-	}
+	}*/
 
 	private void initialise() {
 
-		cancelorder = (Button) view.findViewById(R.id.scheduled_user_homescreen_cancel_button);
+		/*cancelorder = (Button) view.findViewById(R.id.scheduled_user_homescreen_cancel_button);
 		switchorder = (Button) view.findViewById(R.id.scheduled_user_homescreen_switch_button);
 		tiffschedulefrom = (TextView) view.findViewById(R.id.scheduled_user_homescreen_scheduled_from_textView);
 		viewmenu = (Button) view.findViewById(R.id.scheduled_order_homescreen_viewmenu_button);
@@ -309,13 +298,37 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		card2viewmenu = (Button) view.findViewById(R.id.scheduled_order_homescreen_card2_viewmenu_button);
 		card2 = (CardView) view.findViewById(R.id.scheduled_user_homescreen_card2_cardView2);
 
-		card3 = (CardView) view.findViewById(R.id.scheduled_user_homescreen_card2_cardView3);
-		schedulCustomerOrders = new ArrayList<CustomerOrder>();
-		gatherData();
+		card3 = (CardView) view.findViewById(R.id.scheduled_user_homescreen_card2_cardView3);*/
+		
+		scheduledOrdersListView = (ListView) view.findViewById(R.id.scheduled_user_scheduled_orders_list);
+		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder());
+		scheduledOrdersListView.setAdapter(scheduledOrdersAdapter);
+		
+		if(isOrderPayable()) {
+			showWalletDialogbox();
+		}
+		else if(customer.getBalance()!=null && BigDecimal.TEN.compareTo(customer.getBalance()) > 0) {
+			showWalletDialogbox();
+		}
+		
+		/*schedulCustomerOrders = new ArrayList<CustomerOrder>();
+		gatherData();*/
 
 	}
 
-	private void gatherData() {
+	private boolean isOrderPayable() {
+		if(CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+			return false;
+		}
+		for(CustomerOrder order:customer.getScheduledOrder()) {
+			if(OrderStatus.PAYABLE.equals(order.getStatus())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/*private void gatherData() {
 		CustomerOrder customerOrder1 = new CustomerOrder();
 		arraySize = customer.getScheduledOrder().size();
 		if (arraySize == 1) {
@@ -327,17 +340,17 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 			showCard1(customerOrder1);
 		}
 		
-		/*
+		
 		 * TODO: hide change btn when menu nt available (check mealtype then hide btn resp) 
-		 */
+		 
 		
-		/*
+		
 		 * TODO: check cancel and add btn flow 
-		 */
+		 
 		
-	}
+	}*/
 
-	private void showCard1(CustomerOrder customerOrder1) {
+	/*private void showCard1(CustomerOrder customerOrder1) {
 		customerOrder1 = customer.getScheduledOrder().get(0);
 		tiffmenu.setText("Todays " + customerOrder1.getMealType() + " Menu of " + customerOrder1.getMeal().getVendor().getName() + " :");
 		if (customerOrder1.getMealStatus() == null || MealStatus.PREPARE.equals(customerOrder1.getStatus()))
@@ -427,6 +440,6 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 
 		}
 
-	}
+	}*/
 
 }

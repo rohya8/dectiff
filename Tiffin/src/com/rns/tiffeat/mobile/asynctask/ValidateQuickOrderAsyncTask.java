@@ -54,7 +54,6 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
-<<<<<<< HEAD
 
 		if (result == null) {
 			Validation.showError(previousActivity, ERROR_FETCHING_DATA);
@@ -68,21 +67,6 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 			nextActivity();
 		}
 		progressDialog.dismiss();
-=======
-		progressDialog.dismiss();
-		if (result == null) {
-			Validation.showError(previousActivity, ERROR_FETCHING_DATA);
-			return;
-		}
-		Map<String, Object> validateOrderMap = CustomerUtils.convertToStringObjectMap(result);
-		validationResult = (String) validateOrderMap.get(Constants.MODEL_RESULT);
-		String customerOrderString = (String) validateOrderMap.get(Constants.MODEL_CUSTOMER_ORDER);
-		customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
-		if ("OK".equals(validationResult)) {
-			nextActivity();
-		}
-
->>>>>>> refs/remotes/origin/master
 	}
 
 	private void nextActivity() {

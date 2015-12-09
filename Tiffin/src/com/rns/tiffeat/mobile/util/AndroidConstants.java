@@ -8,7 +8,7 @@ public interface AndroidConstants {
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "tiffEAT";
 	//String ROOT_URL = "http://192.168.0.6:8080/tiffeat-web/";
-	String ROOT_URL="http://www.tiffeat.com/";
+	String ROOT_URL="http://www.itrmitra.com/";
 	//String ROOT_URL="http://www.itrmitra.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
