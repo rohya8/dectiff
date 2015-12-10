@@ -115,10 +115,18 @@ public class CustomerServerUtils implements AndroidConstants {
 	public static Customer getCurrentCustomer(Customer customer) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		removeCircularReferences(customer);
-		uriVariables.put(CUSTOMER_OBJECT, new Gson().toJson(customer));
+		Customer customerRefernce = reduceLength(customer);
+		uriVariables.put(CUSTOMER_OBJECT, new Gson().toJson(customerRefernce));
 		result = CoreServerUtils.serverCall(GET_CURRENT_CUSTOMER_URL, uriVariables, HttpMethod.POST).getBody();
 		Log.d(MYTAG, "Got the latest customer :" + result);
 		return new Gson().fromJson(result, Customer.class);
+	}
+
+	private static Customer reduceLength(Customer customer) {
+		Customer reducedCustomer = new Customer();
+		reducedCustomer.setId(customer.getId());
+		reducedCustomer.setEmail(customer.getEmail());
+		return reducedCustomer;
 	}
 
 	public static void removeCircularReferences(CustomerOrder customerOrderObject) {

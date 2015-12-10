@@ -12,6 +12,7 @@ import com.rns.tiffeat.web.bo.domain.Customer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Customer> implements AndroidConstants{
 
@@ -35,7 +36,7 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 				latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
 				return latestCustomer;
 			} catch (Exception e) {
-				
+				Log.d(MYTAG, "Exception occurred :" + e.getMessage());
 			}
 		}
 		return null;

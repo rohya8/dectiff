@@ -55,8 +55,8 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			holder.title = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_meal_title_textView);
 			// holder.mealType = (TextView)
 			// convertView.findViewById(R.id.quickorder_list_adapter_type_textView);
-			holder.date = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_scheduled_from_textView);
-			holder.mealImage = (ImageView) convertView.findViewById(R.id.scheduled_orders_adapter_food_imageView);
+			holder.date = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_date_textView);
+			holder.mealImage = (ImageView) convertView.findViewById(R.id.scheduled_orders_adapter_imageview);
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_meal_status_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_order_status_textView);
 			// holder.viewMenuButton = (TextView)
@@ -86,7 +86,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		holder.title.setText(customerOrder.getMeal().getTitle());
 		holder.date.setText("Scheduled From :" + CustomerUtils.convertDate(customerOrder.getDate()));
 		setOrderStatus(customerOrder);
-		if (OrderStatus.DELIVERED.equals(customerOrder.getStatus()) || OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
+		if (!OrderStatus.DELIVERED.equals(customerOrder.getStatus()) || !OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
 			setMealStatus(customerOrder);
 		}
 		else {
