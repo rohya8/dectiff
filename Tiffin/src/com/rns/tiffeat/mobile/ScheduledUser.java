@@ -1,19 +1,13 @@
 package com.rns.tiffeat.mobile;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,37 +15,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.adapter.ScheduledOrderListAdapter;
-import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.GetNewOrderAreaAsynctask;
-import com.rns.tiffeat.mobile.asynctask.ScheduleCancelOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
-import com.rns.tiffeat.web.bo.domain.MealStatus;
-import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.OrderStatus;
 
 public class ScheduledUser extends Fragment implements AndroidConstants {
 
-	private Button cancelorder, switchorder, viewmenu, edit, card2cancelorder, card2switchorder, card2viewmenu;
 	private Customer customer;
 	private View view;
-	private TextView tiffmenu, tiffstatus, tiffschedulefrom;
-	private TextView tiffcard2menu, tiffcard2status, tiffcard2schedulefrom;
 	private CustomerOrder customerOrder;
 	private EditText balanceEditText;
-	private BigDecimal b1, b2 = BigDecimal.ZERO;
-	List<CustomerOrder> schedulCustomerOrders;
 	private Dialog addToWalletDialog;
-	private CardView card2, card3;
-	private int arraySize = 0, flagcheck = 0;
 	private ScheduledOrderListAdapter scheduledOrdersAdapter;
 	private ListView scheduledOrdersListView;
 
@@ -194,13 +174,6 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		return view;
 	}
 
-	private void newOrder(CustomerOrder customerOrder) {
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else
-			new GetNewOrderAreaAsynctask(getActivity(), customerOrder).execute();
-
-	}
 
 	private void showWalletDialogbox() {
 		customerOrder = new CustomerOrder();
@@ -223,7 +196,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 					customerOrder = new CustomerOrder();
 					customerOrder.setMealFormat(MealFormat.SCHEDULED);
 					if (balanceEditText.getText().toString().equals("") || balanceEditText.getText().toString().length() == 0) {
-						Toast.makeText(getActivity(), "Invalid amount!", Toast.LENGTH_LONG);
+						Toast.makeText(getActivity(), "Invalid amount!", Toast.LENGTH_LONG).show();
 						return;
 					}
 					customer.setBalance(new BigDecimal(balanceEditText.getText().toString()));
@@ -299,18 +272,18 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		card2 = (CardView) view.findViewById(R.id.scheduled_user_homescreen_card2_cardView2);
 
 		card3 = (CardView) view.findViewById(R.id.scheduled_user_homescreen_card2_cardView3);*/
-		
+
 		scheduledOrdersListView = (ListView) view.findViewById(R.id.scheduled_user_scheduled_orders_list);
-		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder());
+		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(),customer);
 		scheduledOrdersListView.setAdapter(scheduledOrdersAdapter);
-		
+
 		if(isOrderPayable()) {
 			showWalletDialogbox();
 		}
 		else if(customer.getBalance()!=null && BigDecimal.TEN.compareTo(customer.getBalance()) > 0) {
 			showWalletDialogbox();
 		}
-		
+
 		/*schedulCustomerOrders = new ArrayList<CustomerOrder>();
 		gatherData();*/
 
@@ -328,26 +301,14 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		return false;
 	}
 
-	/*private void gatherData() {
-		CustomerOrder customerOrder1 = new CustomerOrder();
-		arraySize = customer.getScheduledOrder().size();
-		if (arraySize == 1) {
-			card3.setVisibility(View.GONE);
-			card2.setVisibility(View.GONE);
-			showCard1(customerOrder1);
-		} else {
-			showCard2(customerOrder1);
-			showCard1(customerOrder1);
-		}
-		
-		
-		 * TODO: hide change btn when menu nt available (check mealtype then hide btn resp) 
-		 
-		
-		
-		 * TODO: check cancel and add btn flow 
-		 
-		
+	/*
+	  TODO: hide change btn when menu nt available (check mealtype then hide btn resp) 
+
+
+
+	 * TODO: check cancel and add btn flow 
+
+
 	}*/
 
 	/*private void showCard1(CustomerOrder customerOrder1) {

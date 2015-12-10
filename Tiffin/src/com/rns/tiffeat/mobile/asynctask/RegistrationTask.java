@@ -33,7 +33,7 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 	private Map<MealType, Date> availableMealType;
 
 	public RegistrationTask(FragmentActivity contxt, CustomerOrder customerOrder) {
-		mregistration = contxt;
+		this.mregistration = contxt;
 		this.customerOrder = customerOrder;
 	}
 
@@ -92,17 +92,11 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 
 	private void nextActivity() {
 
-		String customerOrderobj = new Gson().toJson(customerOrder, CustomerOrder.class);
-
 		Fragment fragment = null;
 		if (customerOrder.getMealFormat().equals(MealFormat.QUICK))
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
 		else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED))
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
-
-//		Bundle bundle = new Bundle();
-//		bundle.putString("MyObject", customerOrderobj);
-//		fragment.setArguments(bundle);
 
 		CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), true);
 

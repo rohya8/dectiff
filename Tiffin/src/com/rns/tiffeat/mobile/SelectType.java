@@ -89,12 +89,6 @@ public class SelectType extends Fragment implements AndroidConstants {
 		scheduled = (ImageView) view.findViewById(R.id.select_type_scheduled_imageView);
 		quick = (ImageView) view.findViewById(R.id.select_type_quick_imageView);
 
-		// Bundle b = this.getArguments();
-		// if (b != null) {
-		// String objmeal = b.getString("MymealObject");
-		// meal = new Gson().fromJson(objmeal, Meal.class);
-		// }
-
 	}
 
 	private void nextActivity() {
@@ -115,9 +109,6 @@ public class SelectType extends Fragment implements AndroidConstants {
 		super.onActivityCreated(savedInstanceState);
 
 		CustomerUtils.changeFont(getActivity().getAssets(), this);
-		// FontChangeCrawler fontChanger = new
-		// FontChangeCrawler(getActivity().getAssets(), FONT);
-		// fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
 
 	private void prepareCustomerOrder(MealFormat mealFormat) {
@@ -130,9 +121,8 @@ public class SelectType extends Fragment implements AndroidConstants {
 		if (customerOrder.getArea() == null) {
 			customerOrder.setArea(meal.getVendor().getPinCode());
 		}
-		if (customerOrder.getMealFormat() == null) {
+		
 			customerOrder.setMealFormat(mealFormat);
-		}
 	}
 
 }

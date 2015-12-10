@@ -68,6 +68,7 @@ public class ListOfMeals extends Fragment implements AndroidConstants {
 						if (CollectionUtils.isEmpty(vendor.getMeals())) {
 							return;
 						}
+						
 						Meal meal = vendor.getMeals().get(position);
 						meal.setVendor(vendor);
 
@@ -106,8 +107,6 @@ public class ListOfMeals extends Fragment implements AndroidConstants {
 		super.onActivityCreated(savedInstanceState);
 
 		CustomerUtils.changeFont(getActivity().getAssets(), this);
-//		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
-//		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
 
 }
