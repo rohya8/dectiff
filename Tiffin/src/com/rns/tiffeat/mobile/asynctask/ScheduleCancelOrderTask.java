@@ -3,7 +3,6 @@ package com.rns.tiffeat.mobile.asynctask;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,7 +18,6 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 	private ProgressDialog progressDialog;
 	private CustomerOrder customerOrder;
 	private String result1;
-
 
 	public ScheduleCancelOrderTask(FragmentActivity scheduledOrderFragment, CustomerOrder order) {
 		this.customerOrder = order;

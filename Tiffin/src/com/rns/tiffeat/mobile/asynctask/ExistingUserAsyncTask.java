@@ -82,11 +82,11 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 
 		Fragment fragment = null;
 
-		if (customerOrder.getMealFormat().toString().equals(MealFormat.QUICK.toString()))
+		if (MealFormat.QUICK.equals(customerOrder.getMealFormat()))
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
-		else if (customerOrder.getMealFormat().toString().equals(MealFormat.SCHEDULED.toString()))
+		else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()))
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
-			
+
 
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), true);
 

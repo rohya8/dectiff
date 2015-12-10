@@ -48,31 +48,30 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	}
 
 	private void getMealDate(Map<MealType, Date> availableMealTypeDatesMap) {
-		//Filter to see if customer already has any scheduled order
 		List<MealType> availableMealTypes = filterAvailableMealTypes();
-		
+
 		both.setVisibility(View.GONE);
 		lunch.setVisibility(View.GONE);
 		dinner.setVisibility(View.GONE);
-		
-		if(CollectionUtils.isEmpty(availableMealTypes)) {
-			//TODO: Show error saying already scheduled both lunch and dinner
+
+		if (CollectionUtils.isEmpty(availableMealTypes)) {
+
+			Validation.showError(getActivity(), "already scheduled both lunch and dinner");
+
 			return;
 		}
-		
-		// Check if its an Add dinner or Add lunch scenario
+
 		if (customerOrder.getMealType() != null && availableMealTypes.contains(customerOrder.getMealType())) {
 			if (MealType.LUNCH.equals(customerOrder.getMealType())) {
 				lunchaddr.setVisibility(View.VISIBLE);
 				lunch.setText("Lunch ");
 				lunch.setVisibility(View.VISIBLE);
-			}
-			else if (MealType.DINNER.equals(customerOrder.getMealType())) {
+			} else if (MealType.DINNER.equals(customerOrder.getMealType())) {
 				lunchaddr.setVisibility(View.VISIBLE);
 				dinner.setText("Dinner ");
 				dinner.setVisibility(View.VISIBLE);
 			}
-			if(View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
+			if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 				lunchaddr.setVisibility(View.VISIBLE);
 				both.setText("Both ");
 				both.setVisibility(View.VISIBLE);
@@ -81,7 +80,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			return;
 		}
 
-		//Normal scenario
 		if (availableMealTypeDatesMap.get(MealType.LUNCH) != null && availableMealTypes.contains(MealType.LUNCH)) {
 			lunchaddr.setVisibility(View.VISIBLE);
 			lunch.setText("Lunch ");
@@ -92,7 +90,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			dinner.setText("Dinner ");
 			dinner.setVisibility(View.VISIBLE);
 		}
-		if(View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
+		if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 			lunchaddr.setVisibility(View.VISIBLE);
 			both.setText("Both ");
 			both.setVisibility(View.VISIBLE);
