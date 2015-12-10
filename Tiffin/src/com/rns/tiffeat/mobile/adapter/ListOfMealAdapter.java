@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.util.CollectionUtils;
-
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,7 +22,6 @@ import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.Validation;
-import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetMenuAndroidAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -64,7 +61,6 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, meallist);
-		customerOrder = new CustomerOrder();
 		this.customerOrder = customerOrder;
 		this.meals = new ArrayList<Meal>();
 		this.activity = activity;

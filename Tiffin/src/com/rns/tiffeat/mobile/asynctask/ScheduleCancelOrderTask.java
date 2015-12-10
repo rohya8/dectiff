@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -18,6 +19,7 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 	private ProgressDialog progressDialog;
 	private CustomerOrder customerOrder;
 	private String result1;
+	private ScheduledUser scheduledUser;
 
 	public ScheduleCancelOrderTask(FragmentActivity scheduledOrderFragment, CustomerOrder order) {
 		this.customerOrder = order;
@@ -55,9 +57,19 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 		String result1 = new Gson().fromJson(result, String.class);
 
 		if (result1.equals("OK")) {
+			new GetCurrentCustomerAsyncTask(mscheduleorder, scheduledUser).execute("");
 			Toast.makeText(mscheduleorder, "Cancel Order Successful !! ", Toast.LENGTH_LONG).show();
 		} else
 			Toast.makeText(mscheduleorder, "Cancel failed due to :" + result, Toast.LENGTH_LONG).show();
+		
+	}
+
+	public ScheduledUser getScheduledUser() {
+		return scheduledUser;
+	}
+
+	public void setScheduledUser(ScheduledUser scheduledUser) {
+		this.scheduledUser = scheduledUser;
 	}
 
 }

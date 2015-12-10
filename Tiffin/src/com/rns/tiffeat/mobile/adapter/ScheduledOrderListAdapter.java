@@ -6,11 +6,9 @@ import org.apache.commons.collections.CollectionUtils;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.opengl.Visibility;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
-import android.transition.Scene;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,10 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.R;
+import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetNewOrderAreaAsynctask;
@@ -44,6 +42,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private ViewHolder holder;
 	private Customer customer;
 	private CustomerOrder customerOrder;
+	private ScheduledUser scheduledUserHome;
 
 	public class ViewHolder {
 		TextView title, mealType, price, mealStatus, date, orderStatus;
@@ -172,7 +171,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		holder.mealType.setText(customerOrder.getMealType().toString());
 
 		setOrderStatus(customerOrder);
-		if (!OrderStatus.DELIVERED.equals(customerOrder.getStatus()) || !OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
+		if (customerOrder.getStatus() == null || OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
 			setMealStatus(customerOrder);
 		} else {
 			hideControls();
@@ -190,7 +189,10 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setText("Your order has been delivered!! Please rate us!!");
 			hideControls();
+		} else if (OrderStatus.PAYABLE.equals(customerOrder.getStatus())) {
+			holder.orderStatus.setText("Insufficient funds in the wallet!!!");
 		}
+		
 	}
 
 	private void setMealStatus(CustomerOrder customerOrder) {
@@ -222,14 +224,12 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void cancelOrder() {
 		customerOrder.setCustomer(customer);
-		new ScheduleCancelOrderTask(scheduledOrderFragment, customerOrder).execute("");
+		ScheduleCancelOrderTask cancelOrderTask = new ScheduleCancelOrderTask(scheduledOrderFragment, customerOrder);
+		cancelOrderTask.setScheduledUser(scheduledUserHome);
+		cancelOrderTask.execute("");
 	}
 
 	private void switchOrder() {
-	/*
-	 * TODO: Not Working .Even After logged-in selectype screen is shown. check li
-	 * 
-	*/	
 		customerOrder.setCustomer(customer);
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
@@ -262,6 +262,14 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		});
 
 		builder.show();
+	}
+
+	public ScheduledUser getScheduledUserHome() {
+		return scheduledUserHome;
+	}
+
+	public void setScheduledUserHome(ScheduledUser scheduledUserHome) {
+		this.scheduledUserHome = scheduledUserHome;
 	}
 
 }

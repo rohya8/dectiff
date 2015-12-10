@@ -103,51 +103,27 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 
 	private boolean checkValidation() {
 
-		boolean ret = true;
-
+		//TODO : Validation error message
 		if (!Validation.isName(name, true))
-			ret = false;
+			return false;
 		if (!Validation.isEmailAddress(emailid, true))
-			ret = false;
+			return  false;
 		if (!Validation.isPhoneNumber(phone, true))
-			ret = false;
+			return false;
 		if (!Validation.hasText(emailid))
-			ret = false;
+			return false;
 		if (!Validation.hasText(name))
-			ret = false;
+			return false;
 		if (!Validation.hasText(password))
-			ret = false;
+			return false;
 		if (!Validation.hasText(confirmpass))
-			ret = false;
+			return false;
 		if (!Validation.hasText(phone))
-			ret = false;
+			return false;
 
-		return ret;
+		return true;
 	}
 
-	// private boolean checkVerification()
-	// {
-	// boolean ret = true;
-	// if (!Validation.isVerificationCode(verification,true)) ret=false;
-	// return ret;
-	// }
-
-	// private void sendSMS(String phoneNumber, String message)
-	// {
-	// SmsManager sms = SmsManager.getDefault();
-	// sms.sendTextMessage(phoneNumber, null, message, null, null);
-	// }
-
-	// public String verification()
-	// {
-	//
-	// int randomPIN = (int)(Math.random()*9000)+1000;
-	//
-	// //Store integer in a string
-	// String PINString = String.valueOf(randomPIN);
-	// return(PINString);
-	//
-	// }
 
 	private void getDetails() {
 		registeremailid = emailid.getText().toString();

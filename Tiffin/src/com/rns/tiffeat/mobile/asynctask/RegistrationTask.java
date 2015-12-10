@@ -45,26 +45,25 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 
 	@Override
 	protected String doInBackground(String... args) {
-
+		String resultRegistration = "";
 		if (!Validation.isNetworkAvailable(mregistration)) {
 			return null;
 		}
 		try {
-			String resultRegistration = CustomerServerUtils.customerRegistration(customerOrder.getCustomer());
+			resultRegistration = CustomerServerUtils.customerRegistration(customerOrder.getCustomer());
 			customer = new Gson().fromJson(resultRegistration, Customer.class);
 			CustomerUtils.storeCurrentCustomer(mregistration, customer);
 
 			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
 			Map<String, Object> customerorderavail = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
-			
+
 			String customerOrderString = (String) customerorderavail.get(Constants.MODEL_CUSTOMER_ORDER);
 			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerorderavail.get(Constants.MODEL_MEAL_TYPE));
 
-			return resultRegistration;
 		} catch (Exception e) {
 		}
-		return null;
+		return resultRegistration;
 	}
 
 	@Override
@@ -72,9 +71,6 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 
-		customerOrder.setCustomer(customer);
-		nextActivity();
-		
 		if (result == null) {
 			Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			return;
@@ -83,11 +79,13 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			Toast.makeText(mregistration, "Registration failed due to :" + result, Toast.LENGTH_LONG).show();
 			return;
 		}
-		if(customerOrder == null) {
+		if (customerOrder == null) {
 			Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			return;
 		}
-		
+
+		customerOrder.setCustomer(customer);
+		nextActivity();
 	}
 
 	private void nextActivity() {

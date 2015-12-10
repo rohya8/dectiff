@@ -51,7 +51,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants{
 		if (TextUtils.isEmpty(customer.getEmail())) {
 			new GetAreaAsynctask(this).execute();
 		} else {
-			new GetCurrentCustomerAsyncTask(this, null).execute();
+			new GetCurrentCustomerAsyncTask(this).execute();
 		}
 	}
 

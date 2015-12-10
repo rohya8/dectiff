@@ -1,27 +1,39 @@
 package com.rns.tiffeat.mobile.asynctask;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
+import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.util.Log;
-
-public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Customer> implements AndroidConstants{
+public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Customer> implements AndroidConstants {
 
 	private QuickOrderHomeScreen quickOrderHome;
 	private Context context;
+	private ScheduledUser scheduledHome;
 
 	public GetCurrentCustomerAsyncTask(Context context, QuickOrderHomeScreen quickHome) {
 		this.quickOrderHome = quickHome;
 		this.context = context;
+	}
+
+	public GetCurrentCustomerAsyncTask(Context activity, ScheduledUser scheduledUser) {
+		this.scheduledHome = scheduledUser;
+		this.context = activity;
+	}
+
+
+	public GetCurrentCustomerAsyncTask(Context activity) {
+		this.context = activity;
 	}
 
 	@Override
@@ -51,7 +63,10 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 			return;
 		}
 		CustomerUtils.storeCurrentCustomer(context, result);
-		if (quickOrderHome == null) {
+		if (scheduledHome != null) {
+			scheduledHome.setCustomer(result);
+			scheduledHome.prepareScreen();
+		} else if (quickOrderHome == null) {
 			nextActivity(result);
 		} else {
 			quickOrderHome.setCustomer(result);

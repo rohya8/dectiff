@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -155,6 +154,9 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 	private void customerData() {
 
+		if (customerOrder.getMeal() == null || customerOrder.getCustomer() == null) {
+			return;
+		}
 		tiffindesc.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
