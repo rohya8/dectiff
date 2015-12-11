@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
@@ -79,7 +78,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			return;
 		}
 		if (customerlogin == null) {
-			Toast.makeText(mlogin, "Login failed due to :" + result, Toast.LENGTH_LONG).show();
+			CustomerUtils.alertbox(MYTAG, "Login failed due to : " + result, mlogin);
 			return;
 		}
 		if (customerOrder == null) {

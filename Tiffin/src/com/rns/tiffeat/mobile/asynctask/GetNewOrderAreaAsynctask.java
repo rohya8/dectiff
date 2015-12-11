@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.Validation;
@@ -57,8 +56,7 @@ public class GetNewOrderAreaAsynctask extends AsyncTask<String, String, String> 
 			Validation.showError(mneworder, ERROR_FETCHING_DATA);
 			return;
 		}
-
-		Toast.makeText(mneworder, result, Toast.LENGTH_LONG).show();
+		CustomerUtils.alertbox(MYTAG, result, mneworder);
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
 

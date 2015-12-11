@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
@@ -77,7 +76,7 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			return;
 		}
 		if (customer == null) {
-			Toast.makeText(mregistration, "Registration failed due to :" + result, Toast.LENGTH_LONG).show();
+			CustomerUtils.alertbox(MYTAG, "Registration failed due to : "+ result, mregistration);
 			return;
 		}
 		if (customerOrder == null) {

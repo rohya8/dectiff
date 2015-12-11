@@ -18,10 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealType;
 
@@ -201,9 +201,9 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 			} else {
 				if (lunchaddr.getText().toString().equals(""))
-					Toast.makeText(getActivity(), " Do not Leave Empty Field ", Toast.LENGTH_SHORT).show();
+					CustomerUtils.alertbox(MYTAG, " Do not Leave Empty Field ", getActivity());
 				else if (lunchaddr.getText().toString().length() <= 8)
-					Toast.makeText(getActivity(), " Enter Valid Address ", Toast.LENGTH_SHORT).show();
+					CustomerUtils.alertbox(MYTAG, " Enter Valid Address ", getActivity());
 				else {
 					new ScheduledOrderAsyncTask(prepareCustomerOrders(), getActivity()).execute();
 				}

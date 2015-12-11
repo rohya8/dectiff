@@ -168,14 +168,14 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		alertDialog.setTitle("Select Meal Type");
 		alertDialog.setCancelable(true);
 
-		RadioButton lunch = (RadioButton) alertDialog.findViewById(R.id.mealtype_lunch_radioButton);
-		RadioButton dinner = (RadioButton) alertDialog.findViewById(R.id.mealtype_dinner_radioButton);
+		final RadioButton lunch = (RadioButton) alertDialog.findViewById(R.id.mealtype_lunch_radioButton);
+		final RadioButton dinner = (RadioButton) alertDialog.findViewById(R.id.mealtype_dinner_radioButton);
 
 		lunch.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-
+				lunch.setChecked(false);
 				if(customerOrder==null)
 				{
 					CustomerOrder custOrder = new CustomerOrder();
@@ -198,6 +198,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 			@Override
 			public void onClick(View v) {
+				dinner.setChecked(false);
 				if(customerOrder==null)
 				{
 					CustomerOrder custOrder = new CustomerOrder();

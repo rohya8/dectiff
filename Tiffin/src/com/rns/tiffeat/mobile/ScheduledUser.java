@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.adapter.ScheduledOrderListAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
@@ -81,7 +81,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 					customerOrder = new CustomerOrder();
 					customerOrder.setMealFormat(MealFormat.SCHEDULED);
 					if (balanceEditText.getText().toString().equals("") || balanceEditText.getText().toString().length() == 0) {
-						Toast.makeText(getActivity(), "Invalid amount!", Toast.LENGTH_LONG).show();
+						CustomerUtils.alertbox(MYTAG, "Invalid amount!", getActivity());
 						return;
 					}
 					customer.setBalance(new BigDecimal(balanceEditText.getText().toString()));

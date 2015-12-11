@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -117,7 +116,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 					}
 				} catch (Exception e) {
 					CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-					Toast.makeText(myactivity, "Please try again later!!", Toast.LENGTH_SHORT).show();
+					CustomerUtils.alertbox(MYTAG, "Please try again later!!" , myactivity);
 					Fragment fragment = new FirstTimeUse();
 					CustomerUtils.nextFragment(fragment, myactivity.getSupportFragmentManager(), true);
 				}

@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.asynctask.GetAreaAsynctask;
@@ -94,7 +93,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 					title = "Quick Orders";
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), "Sorry You dont have order ", Toast.LENGTH_LONG).show();
+				CustomerUtils.alertbox(MYTAG, "Sorry You dont have order ", getApplicationContext());
 				fragment = new FirstTimeUse();
 			}
 			break;
@@ -120,7 +119,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				CustomerUtils.logout(this);
 				new GetAreaAsynctask(this).execute();
 			} else {
-				Toast.makeText(getApplicationContext(), " You Are not Logged In  ", Toast.LENGTH_LONG).show();
+				CustomerUtils.alertbox(MYTAG, " You Are not Logged In  ", getApplicationContext());
 				fragment = new FirstTimeUse();
 			}
 			break;

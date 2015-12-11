@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.ScheduledUser;
@@ -73,7 +72,8 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		if ("OK".equals(result)) {
 			nextActivity();
 		}
-		Toast.makeText(previousActivity, result, Toast.LENGTH_LONG).show();
+		CustomerUtils.alertbox(MYTAG, result, previousActivity);
+		
 
 	}
 

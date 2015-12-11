@@ -3,7 +3,6 @@ package com.rns.tiffeat.mobile.asynctask;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.ScheduledUser;
@@ -59,10 +58,10 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 		String result1 = new Gson().fromJson(result, String.class);
 
 		if (result1.equals("OK")) {
+			CustomerUtils.alertbox(MYTAG, "Cancel Order Successful !! ", mscheduleorder);
 			new GetCurrentCustomerAsyncTask(mscheduleorder, scheduledUser).execute("");
-			Toast.makeText(mscheduleorder, "Cancel Order Successful !! ", Toast.LENGTH_LONG).show();
 		} else
-			Toast.makeText(mscheduleorder, "Cancel failed due to :" + result, Toast.LENGTH_LONG).show();
+			CustomerUtils.alertbox(MYTAG, "Cancel failed due to : " + result, mscheduleorder);
 		
 	}
 

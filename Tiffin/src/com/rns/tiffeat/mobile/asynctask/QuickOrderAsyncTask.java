@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
@@ -64,12 +63,12 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 			return;
 		}
 		if ("OK".equals(result)) {
-			Toast.makeText(proceedtopay, "Order Successfull! ", Toast.LENGTH_SHORT).show();
+			CustomerUtils.alertbox(MYTAG, "Order Successfull! ", proceedtopay);
 			if (currentCustomer != null) {
 				nextActivity();
 			}
 		} else {
-			Toast.makeText(proceedtopay, "Order Failed due to : " + result, Toast.LENGTH_SHORT).show();
+			CustomerUtils.alertbox(MYTAG, "Order Failed due to : "+ result, proceedtopay);
 		}
 	}
 

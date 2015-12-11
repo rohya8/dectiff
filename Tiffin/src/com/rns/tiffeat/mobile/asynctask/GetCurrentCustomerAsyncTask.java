@@ -3,7 +3,6 @@ package com.rns.tiffeat.mobile.asynctask;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.DrawerActivity;

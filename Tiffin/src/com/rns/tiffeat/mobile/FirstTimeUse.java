@@ -19,6 +19,7 @@ import com.rns.tiffeat.mobile.adapter.AutocompleteTvAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CoreServerUtils;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
@@ -79,7 +80,8 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 							getVendorsForAreaAsynctask.execute(area);
 
 						} else
-							Toast.makeText(getActivity(), "Please Enter Area ", Toast.LENGTH_SHORT).show();
+							CustomerUtils.alertbox(MYTAG, "Please Enter Area ", getActivity());
+							
 					}
 				}
 			});

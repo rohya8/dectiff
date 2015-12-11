@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.asynctask.RegistrationTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -75,13 +73,13 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 
 								if (!confirmpass.getText().toString().equals(password.getText().toString())) {
 									confirmpass.setError("Password Do Not Match");
-									Toast.makeText(getActivity(), "Password do not match", Toast.LENGTH_SHORT).show();
+									CustomerUtils.alertbox(MYTAG, "Password do not match", getActivity());
 								} else
 									new RegistrationTask(getActivity(), customerOrder).execute();
 							}
 						} catch (Exception e) {
+							CustomerUtils.alertbox(MYTAG, "Enter valid credentials", getActivity());
 							CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-							Toast.makeText(getActivity(), "Enter valid credentials", Toast.LENGTH_SHORT).show();
 						}
 					}
 				}

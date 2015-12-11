@@ -18,7 +18,6 @@ public class Validation {
 	private static final String Name_REGEX = "[A-Za-z]+([A-Za-z])";
 
 	private static final String REQUIRED_MSG = "Field can not be blank";
-	private static final String PASSWORD_MSG = "Password don't match";
 	private static final String EMAIL_MSG = "Invalid email";
 	private static final String PHONE_MSG = "Contact number should be of 10 digits";
 	private static final String NAME_MSG = "Invalid Name";

@@ -91,6 +91,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		customerOrder = scheduledOrders.get(position);
 		prepareCustomerOrder(customerOrder);
 
+		if (MealType.DINNER.equals(customerOrder.getMealType())) {
+			holder.editButton.setText(MealType.LUNCH.toString());
+		} else
+			holder.editButton.setText(MealType.DINNER.toString());
+
 		holder.cancelOrderButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -127,7 +132,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				} else
 					viewMenu();
 			}
-
 		});
 
 		holder.editButton.setOnClickListener(new OnClickListener() {
@@ -255,7 +259,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
 					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
 				} else {
-
 					cancelOrder();
 				}
 			}

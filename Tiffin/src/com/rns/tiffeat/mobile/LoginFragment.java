@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -65,7 +64,7 @@ public class LoginFragment extends Fragment implements AndroidConstants {
 							customerOrder.setCustomer(customer);
 							new LoginAsyncTask(getActivity(), customerOrder).execute();
 						} else
-							Toast.makeText(getActivity(), " Enter Valid Credentials ", Toast.LENGTH_SHORT).show();
+							CustomerUtils.alertbox(MYTAG, " Enter Valid Credentials ", getActivity());
 					}
 				}
 			});

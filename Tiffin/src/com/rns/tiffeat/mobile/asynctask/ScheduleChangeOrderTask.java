@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.FirstTimeUse;
@@ -79,10 +78,10 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 		String result1 = new Gson().fromJson(result, String.class);
 
 		if (!result1.equals("OK")) {
-			Toast.makeText(mchangeorder, "You can't order this meal!!", Toast.LENGTH_LONG).show();
+			CustomerUtils.alertbox(MYTAG, "You can't order this meal!!", mchangeorder);
 			homeActivity();
 		} else if (result1.equals("OK")) {
-			Toast.makeText(mchangeorder, "Change Order Successful !! ", Toast.LENGTH_LONG).show();
+			CustomerUtils.alertbox(MYTAG, "Change Order Successful !! ", mchangeorder);
 			nextActivity();
 		}
 

@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -135,13 +134,13 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
 				if (TextUtils.isEmpty(address.getText()))
-					Toast.makeText(getActivity(), " Do not Leave Empty Field ", Toast.LENGTH_SHORT).show();
+					CustomerUtils.alertbox(MYTAG, " Do not Leave Empty Field ", getActivity());
 				else if (address.getText().toString().length() <= 8)
-					Toast.makeText(getActivity(), " Enter Valid Address ", Toast.LENGTH_SHORT).show();
+					CustomerUtils.alertbox(MYTAG, " Enter Valid Address ", getActivity());
 				else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false)
-					Toast.makeText(getActivity(), " Select A Payment Method ", Toast.LENGTH_SHORT).show();
+					CustomerUtils.alertbox(MYTAG, " Select A Payment Method ", getActivity());
 				else if (dinner.isChecked() == false && lunch.isChecked() == false)
-					Toast.makeText(getActivity(), " Select Address ", Toast.LENGTH_SHORT).show();
+					CustomerUtils.alertbox(MYTAG, " Select Address ", getActivity());
 				else {
 					prepareCustomerOrder();
 					new ValidateQuickOrderAsyncTask(getActivity(), customerOrder).execute();
