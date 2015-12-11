@@ -21,7 +21,7 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 	private CustomerOrder customerOrder;
 	private ProgressDialog progressDialog;
 
-	public GetMenuAndroidAsyncTask(FragmentActivity context,CustomerOrder customerOrder) {
+	public GetMenuAndroidAsyncTask(FragmentActivity context, CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
 		this.context = context;
 	}
@@ -44,6 +44,7 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 			return new Gson().fromJson(CustomerServerUtils.customerGetMealAndroid(customerOrder), DailyContent.class);
 
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 
 		return null;
@@ -64,6 +65,5 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 		fragment = new ShowMenuFragment(customerOrder);
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), false);
 	}
-
 
 }

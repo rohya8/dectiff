@@ -62,6 +62,7 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerorderavail.get(Constants.MODEL_MEAL_TYPE));
 
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return resultRegistration;
 	}

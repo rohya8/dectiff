@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CoreServerUtils;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 
 public class GetAreaAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
@@ -28,7 +30,7 @@ public class GetAreaAsynctask extends AsyncTask<String, String, String> implemen
 			try {
 				CoreServerUtils.retrieveVendorAreaNames();
 			} catch (Exception e) {
-				e.printStackTrace();
+				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 			}
 			return "Hello";
 		}

@@ -10,12 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ContactusFragment extends Fragment implements AndroidConstants{
+public class ContactusFragment extends Fragment implements AndroidConstants {
 
-
-
-	public ContactusFragment() 
-	{
+	public ContactusFragment() {
 	}
 
 	@Override
@@ -25,34 +22,18 @@ public class ContactusFragment extends Fragment implements AndroidConstants{
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_contactus, container, false);
-
 
 		return rootView;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
+		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
 
-	@Override
-	public void onDetach() {
-		super.onDetach();
-	}
-
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
-	{
-	    super.onActivityCreated(savedInstanceState);
-
-	    FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
-	    fontChanger.replaceFonts((ViewGroup) this.getView());
-	}
-	
-	
 }

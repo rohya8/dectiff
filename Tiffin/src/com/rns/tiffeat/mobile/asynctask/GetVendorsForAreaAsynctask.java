@@ -71,6 +71,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 			String result = CustomerServerUtils.getVendorForArea(params[0]);
 			return result;
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 
@@ -115,6 +116,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 						getMealsForVendorAsynctask.execute();
 					}
 				} catch (Exception e) {
+					CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 					Toast.makeText(myactivity, "Please try again later!!", Toast.LENGTH_SHORT).show();
 					Fragment fragment = new FirstTimeUse();
 					CustomerUtils.nextFragment(fragment, myactivity.getSupportFragmentManager(), true);

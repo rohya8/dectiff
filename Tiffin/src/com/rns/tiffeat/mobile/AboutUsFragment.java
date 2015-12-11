@@ -1,17 +1,7 @@
 package com.rns.tiffeat.mobile;
 
-import com.rns.tiffeat.mobile.asynctask.AddToWalletAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.QuickOrderAsyncTask;
-import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CustomerUtils;
-import com.rns.tiffeat.mobile.util.FontChangeCrawler;
-import com.rns.tiffeat.web.bo.domain.MealFormat;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +9,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 
 public class AboutUsFragment extends Fragment implements AndroidConstants {
-
 
 	private WebView aboutweb;
 
 	public AboutUsFragment() {
-		// Required empty public constructor
 	}
 
 	@Override
@@ -36,26 +27,20 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_aboutus, container, false);
 
-		aboutweb=(WebView) rootView.findViewById(R.id.aboutus_webview);
+		aboutweb = (WebView) rootView.findViewById(R.id.aboutus_webview);
 
 		WebSettings webSettings = aboutweb.getSettings();
 		webSettings.setJavaScriptEnabled(true);
-		//setSupportActionBar(mToolbar);
-
 
 		aboutweb.loadUrl("file:///android_asset/aboutUs.html");
 
-
 		WebViewClient webViewClient = new WebViewClient() {
 			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) 
-			{
-				if(url!=null && url.contains("tiffeat.com")) 
-				{
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				if (url != null && url.contains("tiffeat.com")) {
 					nextActivity();
 					return true;
 
@@ -64,34 +49,25 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 			}
 
 		};
-		aboutweb.setWebViewClient(webViewClient);  
-
+		aboutweb.setWebViewClient(webViewClient);
 
 		return rootView;
 	}
 
-
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
-	{
+	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
 
-	private void nextActivity() 
-	{
+	private void nextActivity() {
 
-		Fragment fragment = null;		
+		Fragment fragment = null;
 		fragment = new FirstTimeUse();
 
-//		FragmentManager fragmentManager = getFragmentManager();
-//		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//		fragmentTransaction.replace(R.id.container_body, fragment);
-//		fragmentTransaction.commit();
-		
-		CustomerUtils.nextFragment(fragment,getFragmentManager(),false);
+		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 
 }

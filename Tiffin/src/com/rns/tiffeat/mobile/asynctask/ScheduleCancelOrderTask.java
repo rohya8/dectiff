@@ -10,6 +10,7 @@ import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
@@ -42,6 +43,7 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 			result1 = CustomerServerUtils.cancelScheduleOrder(customerOrder);
 			return result1;
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 	}

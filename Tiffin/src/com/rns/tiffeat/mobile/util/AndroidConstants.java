@@ -1,7 +1,6 @@
 package com.rns.tiffeat.mobile.util;
 
 public interface AndroidConstants {
-//Hello
 	String GOOGLE_PROJECT_ID = " ";
 	String RESPONSE_INVALID = "INVALID";
 	String RESPONSE_OK = "OK";

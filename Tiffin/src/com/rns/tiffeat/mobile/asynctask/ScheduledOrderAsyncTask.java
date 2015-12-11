@@ -55,6 +55,7 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 			return result;
 
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 

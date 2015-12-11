@@ -50,6 +50,7 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 			latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
 			return latestCustomer;
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 
 		return null;

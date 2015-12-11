@@ -30,7 +30,6 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private Customer customerlogin;
 	private CustomerOrder customerOrder;
 	private String availableMealTypeResult;
-	// private Map<MealType, Date> availableMealType;
 	private Map<MealType, Date> availableMealType;
 
 	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2) {
@@ -65,7 +64,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 
 		} catch (Exception e) {
-
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return resultLogin;
 

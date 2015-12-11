@@ -49,6 +49,7 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 			}
 			return result;
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 

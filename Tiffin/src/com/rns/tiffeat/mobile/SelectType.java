@@ -1,14 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import org.springframework.util.StringUtils;
-
-import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
-import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CustomerUtils;
-import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.Meal;
-import com.rns.tiffeat.web.bo.domain.MealFormat;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +7,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
+import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.Meal;
+import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class SelectType extends Fragment implements AndroidConstants {
 

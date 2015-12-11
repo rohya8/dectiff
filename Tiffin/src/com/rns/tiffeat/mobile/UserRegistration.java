@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.asynctask.RegistrationTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -78,6 +80,7 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 									new RegistrationTask(getActivity(), customerOrder).execute();
 							}
 						} catch (Exception e) {
+							CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 							Toast.makeText(getActivity(), "Enter valid credentials", Toast.LENGTH_SHORT).show();
 						}
 					}

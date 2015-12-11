@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.adapter.ListOfMealAdapter.ViewHolder;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.mobile.util.VendorServerUtils;
 import com.rns.tiffeat.web.bo.domain.Meal;
@@ -45,7 +46,7 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 		try {
 			bitmap = setimage(arg[0]);
 		} catch (IOException e) {
-			e.printStackTrace();
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return bitmap;
 	}

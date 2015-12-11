@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -61,6 +64,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, meallist);
+		customerOrder = new CustomerOrder();
 		this.customerOrder = customerOrder;
 		this.meals = new ArrayList<Meal>();
 		this.activity = activity;
@@ -104,9 +108,12 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 			@Override
 			public void onClick(View v) {
+				if (!Validation.isNetworkAvailable(activity)) {
+					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
+				} else {
 
-				orderMeal(mealposition);
-
+					orderMeal(mealposition);
+				}
 			}
 
 		});
@@ -115,17 +122,15 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 			@Override
 			public void onClick(View arg0) {
-				CustomerOrder custOrder = new CustomerOrder();
-				custOrder.setMeal(meal);
+				if (!Validation.isNetworkAvailable(activity)) {
+					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
+				} else {
 
-				custOrder.setMealType(MealType.LUNCH);
-				
-				//
-				//	TODO: Dialog for lunch and dinner 
-				//
+					showMenu();
 
-				new GetMenuAndroidAsyncTask(activity, custOrder).execute();
+				}
 			}
+
 		});
 
 		return convertView;
@@ -154,5 +159,64 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			}
 
 		}
+	}
+
+	private void showMenu() {
+		Dialog alertDialog = null;
+		alertDialog = new Dialog(activity);
+		alertDialog.setContentView(R.layout.activity_mealtype);
+		alertDialog.setTitle("Select Meal Type");
+		alertDialog.setCancelable(true);
+
+		RadioButton lunch = (RadioButton) alertDialog.findViewById(R.id.mealtype_lunch_radioButton);
+		RadioButton dinner = (RadioButton) alertDialog.findViewById(R.id.mealtype_dinner_radioButton);
+
+		lunch.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				if(customerOrder==null)
+				{
+					CustomerOrder custOrder = new CustomerOrder();
+					custOrder.setMeal(meal);
+
+					custOrder.setMealType(MealType.LUNCH);
+
+					nextActivity(custOrder);
+
+				}
+				else
+					nextActivity(customerOrder);
+
+			}
+
+
+		});
+
+		dinner.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if(customerOrder==null)
+				{
+					CustomerOrder custOrder = new CustomerOrder();
+					custOrder.setMeal(meal);
+
+					custOrder.setMealType(MealType.DINNER);
+
+					nextActivity(custOrder);
+
+				}
+				else
+					nextActivity(customerOrder);
+
+
+			}
+		});
+	}
+
+	private void nextActivity(CustomerOrder custOrder) {
+		new GetMenuAndroidAsyncTask(activity, custOrder).execute();
 	}
 }

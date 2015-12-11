@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.adapter.FirstTimeUsedAdapter.ViewHolder;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.mobile.util.VendorServerUtils;
 import com.rns.tiffeat.web.bo.domain.Vendor;
@@ -45,7 +46,7 @@ public class ImageDownloaderTask extends AsyncTask<Vendor, Void, Bitmap> {
 		try {
 			bitmap = setimage(arg[0]);
 		} catch (IOException e) {
-			e.printStackTrace();
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return bitmap;
 	}
@@ -53,12 +54,10 @@ public class ImageDownloaderTask extends AsyncTask<Vendor, Void, Bitmap> {
 	@Override
 	protected void onPostExecute(Bitmap result) {
 		super.onPostExecute(result);
-		// Toast.makeText(mcont, "Downloaded Image!!", Toast.LENGTH_LONG);
 		if (result == null)
 			imageView.setImageResource(R.drawable.food5);
 		else {
 			imageView.setImageBitmap(result);
-			// UserUtils.scaleImage(imageView, mcont);
 			UserUtils.scaleImage(imageView, result);
 		}
 		holder.setFoodimage(imageView);

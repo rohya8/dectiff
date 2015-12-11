@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.PaymentGatewayFragment;
@@ -46,6 +47,7 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 			return result;
 
 		} catch (Exception e) {
+			Log.d(MYTAG, "Log occurred in "+getClass().getName()+" Exception : "+e);
 		}
 		return null;
 

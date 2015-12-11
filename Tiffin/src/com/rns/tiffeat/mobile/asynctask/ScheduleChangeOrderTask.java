@@ -60,6 +60,7 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 			return result1;
 
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 

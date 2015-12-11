@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
@@ -39,10 +40,12 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 		try {
 			return CustomerServerUtils.addToWallet(currentCustomer);
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 
 	}
+
 
 	@Override
 	protected void onPostExecute(String result) {

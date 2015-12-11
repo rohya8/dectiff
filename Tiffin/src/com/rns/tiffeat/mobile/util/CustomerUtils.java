@@ -32,6 +32,11 @@ public class CustomerUtils implements AndroidConstants {
 		Log.d(MYTAG, "Saved the Customer!!");
 	}
 
+	public static void exceptionOccurred(String e,String classname) {
+		Log.d(MYTAG, "Exception occurred in "+classname +"  : "+e);
+	}
+
+	
 	public static Customer getCurrentCustomer(Context context) {
 		SharedPreferences prefs = context.getSharedPreferences(CUSTOMER_SHARED_CONTEXT, Context.MODE_PRIVATE);
 		String customerJson = prefs.getString(CUSTOMER_OBJECT, null);

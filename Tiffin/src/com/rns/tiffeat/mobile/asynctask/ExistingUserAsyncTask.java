@@ -58,6 +58,7 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 
 			return availableMealTypeResult;
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 	}
@@ -86,7 +87,6 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
 		else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()))
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
-
 
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), true);
 

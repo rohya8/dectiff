@@ -44,6 +44,7 @@ public class GetNewOrderAreaAsynctask extends AsyncTask<String, String, String> 
 			return "Hello";
 
 		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 	}

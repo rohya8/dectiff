@@ -48,7 +48,7 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 				latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
 				return latestCustomer;
 			} catch (Exception e) {
-				Log.d(MYTAG, "Exception occurred :" + e.getMessage());
+				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 			}
 		}
 		return null;
