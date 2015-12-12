@@ -81,7 +81,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 					customerOrder = new CustomerOrder();
 					customerOrder.setMealFormat(MealFormat.SCHEDULED);
 					if (balanceEditText.getText().toString().equals("") || balanceEditText.getText().toString().length() == 0) {
-						CustomerUtils.alertbox(MYTAG, "Invalid amount!", getActivity());
+						CustomerUtils.alertbox(TIFFEAT, "Invalid amount!", getActivity());
 						return;
 					}
 					customer.setBalance(new BigDecimal(balanceEditText.getText().toString()));

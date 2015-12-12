@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment implements AndroidConstants {
 							customerOrder.setCustomer(customer);
 							new LoginAsyncTask(getActivity(), customerOrder).execute();
 						} else
-							CustomerUtils.alertbox(MYTAG, " Enter Valid Credentials ", getActivity());
+							CustomerUtils.alertbox(TIFFEAT, " Enter Valid Credentials ", getActivity());
 					}
 				}
 			});

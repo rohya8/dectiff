@@ -201,9 +201,9 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 			} else {
 				if (lunchaddr.getText().toString().equals(""))
-					CustomerUtils.alertbox(MYTAG, " Do not Leave Empty Field ", getActivity());
+					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
 				else if (lunchaddr.getText().toString().length() <= 8)
-					CustomerUtils.alertbox(MYTAG, " Enter Valid Address ", getActivity());
+					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
 				else {
 					new ScheduledOrderAsyncTask(prepareCustomerOrders(), getActivity()).execute();
 				}

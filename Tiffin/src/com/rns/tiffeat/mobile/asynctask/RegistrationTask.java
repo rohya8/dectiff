@@ -76,7 +76,7 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			return;
 		}
 		if (customer == null) {
-			CustomerUtils.alertbox(MYTAG, "Registration failed due to : "+ result, mregistration);
+			CustomerUtils.alertbox(TIFFEAT, "Registration failed due to : "+ result, mregistration);
 			return;
 		}
 		if (customerOrder == null) {

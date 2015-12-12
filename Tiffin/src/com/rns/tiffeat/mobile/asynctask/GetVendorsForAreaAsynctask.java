@@ -116,7 +116,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 					}
 				} catch (Exception e) {
 					CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-					CustomerUtils.alertbox(MYTAG, "Please try again later!!" , myactivity);
+					CustomerUtils.alertbox(TIFFEAT, "Please try again later!!" , myactivity);
 					Fragment fragment = new FirstTimeUse();
 					CustomerUtils.nextFragment(fragment, myactivity.getSupportFragmentManager(), true);
 				}

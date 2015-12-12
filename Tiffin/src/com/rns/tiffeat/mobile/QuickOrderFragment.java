@@ -134,13 +134,13 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
 				if (TextUtils.isEmpty(address.getText()))
-					CustomerUtils.alertbox(MYTAG, " Do not Leave Empty Field ", getActivity());
+					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
 				else if (address.getText().toString().length() <= 8)
-					CustomerUtils.alertbox(MYTAG, " Enter Valid Address ", getActivity());
+					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
 				else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false)
-					CustomerUtils.alertbox(MYTAG, " Select A Payment Method ", getActivity());
+					CustomerUtils.alertbox(TIFFEAT, " Select A Payment Method ", getActivity());
 				else if (dinner.isChecked() == false && lunch.isChecked() == false)
-					CustomerUtils.alertbox(MYTAG, " Select Address ", getActivity());
+					CustomerUtils.alertbox(TIFFEAT, " Select Address ", getActivity());
 				else {
 					prepareCustomerOrder();
 					new ValidateQuickOrderAsyncTask(getActivity(), customerOrder).execute();

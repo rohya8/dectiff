@@ -79,7 +79,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 							getVendorsForAreaAsynctask.execute(area);
 
 						} else
-							CustomerUtils.alertbox(MYTAG, "Please Enter Area ", getActivity());
+							CustomerUtils.alertbox(TIFFEAT, "Please Enter Area ", getActivity());
 
 					}
 				}

@@ -56,7 +56,7 @@ public class GetNewOrderAreaAsynctask extends AsyncTask<String, String, String> 
 			Validation.showError(mneworder, ERROR_FETCHING_DATA);
 			return;
 		}
-		CustomerUtils.alertbox(MYTAG, result, mneworder);
+		CustomerUtils.alertbox(TIFFEAT, result, mneworder);
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
 

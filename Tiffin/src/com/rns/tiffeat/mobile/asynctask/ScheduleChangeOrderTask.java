@@ -78,10 +78,10 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 		String result1 = new Gson().fromJson(result, String.class);
 
 		if (!result1.equals("OK")) {
-			CustomerUtils.alertbox(MYTAG, "You can't order this meal!!", mchangeorder);
+			CustomerUtils.alertbox(TIFFEAT, "You can't order this meal!!", mchangeorder);
 			homeActivity();
 		} else if (result1.equals("OK")) {
-			CustomerUtils.alertbox(MYTAG, "Change Order Successful !! ", mchangeorder);
+			CustomerUtils.alertbox(TIFFEAT, "Change Order Successful !! ", mchangeorder);
 			nextActivity();
 		}
 

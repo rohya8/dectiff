@@ -73,12 +73,12 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 
 								if (!confirmpass.getText().toString().equals(password.getText().toString())) {
 									confirmpass.setError("Password Do Not Match");
-									CustomerUtils.alertbox(MYTAG, "Password do not match", getActivity());
+									CustomerUtils.alertbox(TIFFEAT, "Password do not match", getActivity());
 								} else
 									new RegistrationTask(getActivity(), customerOrder).execute();
 							}
 						} catch (Exception e) {
-							CustomerUtils.alertbox(MYTAG, "Enter valid credentials", getActivity());
+							CustomerUtils.alertbox(TIFFEAT, "Enter valid credentials", getActivity());
 							CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 						}
 					}

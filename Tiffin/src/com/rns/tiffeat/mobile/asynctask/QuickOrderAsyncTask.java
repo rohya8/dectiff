@@ -63,12 +63,12 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 			return;
 		}
 		if ("OK".equals(result)) {
-			CustomerUtils.alertbox(MYTAG, "Order Successfull! ", proceedtopay);
+			CustomerUtils.alertbox(TIFFEAT, "Order Successfull! ", proceedtopay);
 			if (currentCustomer != null) {
 				nextActivity();
 			}
 		} else {
-			CustomerUtils.alertbox(MYTAG, "Order Failed due to : "+ result, proceedtopay);
+			CustomerUtils.alertbox(TIFFEAT, "Order Failed due to : "+ result, proceedtopay);
 		}
 	}
 

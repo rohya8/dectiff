@@ -58,10 +58,10 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 		String result1 = new Gson().fromJson(result, String.class);
 
 		if (result1.equals("OK")) {
-			CustomerUtils.alertbox(MYTAG, "Cancel Order Successful !! ", mscheduleorder);
+			CustomerUtils.alertbox(TIFFEAT, "Cancel Order Successful !! ", mscheduleorder);
 			new GetCurrentCustomerAsyncTask(mscheduleorder, scheduledUser).execute("");
 		} else
-			CustomerUtils.alertbox(MYTAG, "Cancel failed due to : " + result, mscheduleorder);
+			CustomerUtils.alertbox(TIFFEAT, "Cancel failed due to : " + result, mscheduleorder);
 		
 	}
 

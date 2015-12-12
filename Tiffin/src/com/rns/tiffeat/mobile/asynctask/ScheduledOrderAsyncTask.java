@@ -72,7 +72,7 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		if ("OK".equals(result)) {
 			nextActivity();
 		}
-		CustomerUtils.alertbox(MYTAG, result, previousActivity);
+		CustomerUtils.alertbox(TIFFEAT, result, previousActivity);
 		
 
 	}

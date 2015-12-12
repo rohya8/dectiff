@@ -72,7 +72,7 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 		if (customerOrder != null) {
 			nextActivity();
 		} else {
-			CustomerUtils.alertbox(MYTAG, "Something Went Wrong !!!", context);
+			CustomerUtils.alertbox(TIFFEAT, "Something Went Wrong !!!", context);
 		}
 
 	}

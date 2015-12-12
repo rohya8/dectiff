@@ -77,7 +77,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			return;
 		}
 		if (customerlogin == null) {
-			CustomerUtils.alertbox(MYTAG, "Login failed due to : " + result, fragmentActivity);
+			CustomerUtils.alertbox(TIFFEAT, "Login failed due to : " + result, fragmentActivity);
 			return;
 		}
 		if (customerOrder == null) {
