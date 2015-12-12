@@ -1,15 +1,12 @@
 package com.rns.tiffeat.mobile.adapter;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,9 +19,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.Validation;
+import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetMenuAndroidAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -40,9 +37,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 	private FragmentActivity activity;
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
-	private Map<MealType, Date> availableMealType;
 	private Meal meal;
-	private int mealposition;
 
 	public class ViewHolder {
 
@@ -60,15 +55,12 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		}
 	}
 
-	public ListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> meallist,
-			CustomerOrder customerOrder) {
+	public ListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
 
-		super(activity, activityFirstTimeUsedAdapter, meallist);
-		customerOrder = new CustomerOrder();
+		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
-		this.meals = new ArrayList<Meal>();
 		this.activity = activity;
-		this.meals.addAll(meallist);
+		this.meals = mealList;
 
 	}
 
@@ -102,7 +94,6 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		holder.name.setText(meal.getTitle().toString());
 		holder.mealtype.setText(meal.getDescription());
 		holder.tiffinused.setText("" + meal.getPrice());
-		mealposition = position;
 
 		holder.order.setOnClickListener(new OnClickListener() {
 
@@ -112,7 +103,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 				} else {
 
-					orderMeal(mealposition);
+					orderMeal();
 				}
 			}
 
@@ -137,19 +128,16 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 	}
 
-	private void orderMeal(int position) {
+	private void orderMeal() {
 		if (!Validation.isNetworkAvailable(activity)) {
 			Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 		} else {
-
+			customerOrder.setMeal(meal);
 			Fragment fragment = null;
 			if (customerOrder != null && customerOrder.getMealFormat() != null) {
 				if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
-
 					if (customerOrder.getId() == 0) {
-						availableMealType.put(customerOrder.getMealType(), customerOrder.getDate());
-						fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
-						CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+						new ExistingUserAsyncTask(activity, customerOrder).execute();
 					} else
 						new ScheduleChangeOrderTask(activity, customerOrder, meal).execute();
 				}
@@ -176,8 +164,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			@Override
 			public void onClick(View arg0) {
 				lunch.setChecked(false);
-				if(customerOrder==null)
-				{
+				if (customerOrder == null) {
 					CustomerOrder custOrder = new CustomerOrder();
 					custOrder.setMeal(meal);
 
@@ -185,12 +172,10 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 					nextActivity(custOrder);
 
-				}
-				else
+				} else
 					nextActivity(customerOrder);
 
 			}
-
 
 		});
 
@@ -199,19 +184,13 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			@Override
 			public void onClick(View v) {
 				dinner.setChecked(false);
-				if(customerOrder==null)
-				{
+				if (customerOrder == null) {
 					CustomerOrder custOrder = new CustomerOrder();
 					custOrder.setMeal(meal);
-
 					custOrder.setMealType(MealType.DINNER);
-
 					nextActivity(custOrder);
-
-				}
-				else
+				} else
 					nextActivity(customerOrder);
-
 
 			}
 		});

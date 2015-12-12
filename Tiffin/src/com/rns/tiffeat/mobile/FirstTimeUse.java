@@ -13,7 +13,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.adapter.AutocompleteTvAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
@@ -57,11 +56,11 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 			initialise();
 
-			if (customerOrder != null && customerOrder.getMealFormat() != null)
+			if (customerOrder != null && customerOrder.getMealFormat() != null) {
 				if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()) && customerOrder.getId() != 0) {
 					changeScheduleOrder();
 				}
-
+			}
 			searchvendor.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -81,7 +80,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 						} else
 							CustomerUtils.alertbox(MYTAG, "Please Enter Area ", getActivity());
-							
+
 					}
 				}
 			});

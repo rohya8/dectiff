@@ -119,8 +119,8 @@ public class SelectType extends Fragment implements AndroidConstants {
 		if (customerOrder.getArea() == null) {
 			customerOrder.setArea(meal.getVendor().getPinCode());
 		}
-		
-			customerOrder.setMealFormat(mealFormat);
+
+		customerOrder.setMealFormat(mealFormat);
 	}
 
 }

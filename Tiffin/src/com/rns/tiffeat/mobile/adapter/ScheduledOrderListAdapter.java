@@ -47,7 +47,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	public class ViewHolder {
 		TextView title, mealType, price, mealStatus, date, orderStatus;
 		ImageView mealImage;
-		Button viewMenuButton, switchButton, cancelOrderButton, editButton;
+		Button viewMenuButton, switchButton, cancelOrderButton, addOtherMealTypeButton;
 
 	}
 
@@ -76,7 +76,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			holder.cancelOrderButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_cancel_button);
 			holder.switchButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_switch_button);
 			holder.viewMenuButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_viewmenu_button);
-			holder.editButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_edit_button);
+			holder.addOtherMealTypeButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_edit_button);
 
 			customerOrder = new CustomerOrder();
 			convertView.setTag(holder);
@@ -91,10 +91,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		customerOrder = scheduledOrders.get(position);
 		prepareCustomerOrder(customerOrder);
 
-		if (MealType.DINNER.equals(customerOrder.getMealType())) {
-			holder.editButton.setText(MealType.LUNCH.toString());
-		} else
-			holder.editButton.setText(MealType.DINNER.toString());
+		prepareAddOtherMealTypeButton();
 
 		holder.cancelOrderButton.setOnClickListener(new OnClickListener() {
 
@@ -134,7 +131,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			}
 		});
 
-		holder.editButton.setOnClickListener(new OnClickListener() {
+		holder.addOtherMealTypeButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -142,22 +139,41 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
 					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					customerOrder.setMealFormat(MealFormat.SCHEDULED);
-					customerOrder.setCustomer(customer);
-					customerOrder.setId(0);
-					customerOrder.setDate(customerOrder.getDate());
-					if (MealType.DINNER.equals(customerOrder.getMealType())) {
-						customerOrder.setMealType(MealType.LUNCH);
-
-					} else
-						customerOrder.setMealType(MealType.DINNER);
-					newOrder(customerOrder);
+					prepareNewOrder();
 				}
+			}
+
+			private void prepareNewOrder() {
+				CustomerOrder order = new CustomerOrder();
+				order.setMealFormat(MealFormat.SCHEDULED);
+				order.setCustomer(customer);
+				if (MealType.DINNER.equals(customerOrder.getMealType())) {
+					order.setMealType(MealType.LUNCH);
+				} else {
+					order.setMealType(MealType.DINNER);
+				}
+				newOrder(order);
 			}
 		});
 
 		return convertView;
 
+	}
+
+	private void prepareAddOtherMealTypeButton() {
+		if (CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+			holder.addOtherMealTypeButton.setText("Order Tiffin");
+			return;
+		}
+		if (customer.getScheduledOrder().size() > 1) {
+			holder.addOtherMealTypeButton.setVisibility(View.GONE);
+			return;
+		}
+
+		if (MealType.DINNER.equals(customerOrder.getMealType())) {
+			holder.addOtherMealTypeButton.setText("Add " + MealType.LUNCH.getDescription());
+		} else
+			holder.addOtherMealTypeButton.setText("Add " + MealType.DINNER.getDescription());
 	}
 
 	private void newOrder(CustomerOrder customerOrder) {
@@ -196,7 +212,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		} else if (OrderStatus.PAYABLE.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setText("Insufficient funds in the wallet!!!");
 		}
-		
+
 	}
 
 	private void setMealStatus(CustomerOrder customerOrder) {

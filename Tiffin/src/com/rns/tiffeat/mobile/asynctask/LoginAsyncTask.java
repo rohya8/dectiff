@@ -24,7 +24,7 @@ import com.rns.tiffeat.web.util.Constants;
 
 public class LoginAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
-	private FragmentActivity mlogin;
+	private FragmentActivity fragmentActivity;
 	private ProgressDialog progressDialog;
 	private Customer customerlogin;
 	private CustomerOrder customerOrder;
@@ -32,32 +32,31 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private Map<MealType, Date> availableMealType;
 
 	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2) {
-		mlogin = activity;
-		customerOrder = customerOrder2;
+		this.fragmentActivity = activity;
+		this.customerOrder = customerOrder2;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(mlogin, "Checking  Details ", "Preparing.....");
+		progressDialog = UserUtils.showLoadingDialog(fragmentActivity, "Checking  Details ", "Preparing.....");
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected String doInBackground(String... params) {
 		String resultLogin = "";
-		if (!Validation.isNetworkAvailable(mlogin)) {
+		if (!Validation.isNetworkAvailable(fragmentActivity)) {
 			return null;
 		}
 		try {
 			resultLogin = CustomerServerUtils.customerLogin(customerOrder.getCustomer());
 			customerlogin = new Gson().fromJson(resultLogin, Customer.class);
 			customerOrder.setCustomer(customerlogin);
-			CustomerUtils.storeCurrentCustomer(mlogin, customerlogin);
+			CustomerUtils.storeCurrentCustomer(fragmentActivity, customerlogin);
+			
 			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
-
 			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
-
 			String customerOrderString = (String) customerOrderVailableMealTypesMap.get(Constants.MODEL_CUSTOMER_ORDER);
 			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));;
 			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
@@ -74,15 +73,15 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			Validation.showError(mlogin, ERROR_FETCHING_DATA);
+			Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		if (customerlogin == null) {
-			CustomerUtils.alertbox(MYTAG, "Login failed due to : " + result, mlogin);
+			CustomerUtils.alertbox(MYTAG, "Login failed due to : " + result, fragmentActivity);
 			return;
 		}
 		if (customerOrder == null) {
-			Validation.showError(mlogin, ERROR_FETCHING_DATA);
+			Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		customerOrder.setCustomer(customerlogin);
@@ -97,7 +96,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		} else {
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
 		}
-		CustomerUtils.nextFragment(fragment, mlogin.getSupportFragmentManager(), false);
+		CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
 
 	}
 

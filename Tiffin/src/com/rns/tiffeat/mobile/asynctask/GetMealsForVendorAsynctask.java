@@ -57,8 +57,15 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 			return;
 		}
 		vendor = new Gson().fromJson(result, Vendor.class);
-		
+		prepareCustomerOrder();
 		Fragment fragment = new ListOfMeals(vendor, customerOrder);
 		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+	}
+
+	private void prepareCustomerOrder() {
+		if(customerOrder == null) {
+			customerOrder = new CustomerOrder();
+		}
+		customerOrder.setArea(vendor.getPinCode());
 	}
 }
