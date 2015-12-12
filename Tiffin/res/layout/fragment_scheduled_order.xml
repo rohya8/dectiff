@@ -102,24 +102,6 @@
                 android:textColor="#9E9E9E" />
 
             <EditText
-                android:id="@+id/scheduled_order_editText_Phoneno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/rounded"
-                android:drawableLeft="@drawable/telephone"
-                android:drawablePadding="10dp"
-                android:ems="8"
-                android:enabled="false"
-                android:gravity="left"
-                android:inputType="phone"
-                android:padding="10dp"
-                android:text="1234567890"
-                android:textColor="#9E9E9E" />
-
-            <EditText
                 android:id="@+id/scheduled_order_editText_Price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,6 +117,26 @@
                 android:padding="10dp"
                 android:text="120"
                 android:textColor="#9E9E9E" />
+
+            <EditText
+                android:id="@+id/scheduled_order_editText_Phoneno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded"
+                android:drawableLeft="@drawable/telephone"
+                android:drawablePadding="10dp"
+                android:ems="8"
+                android:gravity="left"
+                android:hint="Enter Phone Number"
+                android:inputType="phone"
+                android:padding="10dp"
+                android:textColor="#000" >
+
+                <requestFocus />
+            </EditText>
         </LinearLayout>
 
         <LinearLayout
@@ -222,7 +224,7 @@
                 android:padding="10dp"
                 android:visibility="gone" />
 
-                <EditText
+            <EditText
                 android:id="@+id/scheduled_order_editText_DinnerAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

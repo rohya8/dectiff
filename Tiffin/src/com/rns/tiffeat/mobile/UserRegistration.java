@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,11 +25,12 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 	// //////////// Deviceid code remaining
 
 	private Button submit;
-	private EditText emailid, phone, name, password, confirmpass;
-	private	String registerpersonName, registerpassword, registeremailid, registerphone, registerconfirmpass, registerdeviceid = "1234";
+	private EditText emailid, name, password, confirmpass;
+	private String registerpersonName, registerpassword, registeremailid, registerconfirmpass, registerdeviceid;
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private View view;
+	private TelephonyManager tm;
 
 	public UserRegistration(CustomerOrder customerOrder2) {
 		customerOrder = customerOrder2;
@@ -58,6 +60,9 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						try {
+
+							tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+
 							InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 							inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
@@ -68,7 +73,7 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 								customer.setEmail(registeremailid);
 								customer.setName(registerpersonName);
 								customer.setPassword(registerpassword);
-								customer.setPhone(registerphone);
+
 								customerOrder.setCustomer(customer);
 
 								if (!confirmpass.getText().toString().equals(password.getText().toString())) {
@@ -91,7 +96,7 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 	private void initialise() {
 
 		emailid = (EditText) view.findViewById(R.id.registration_emailid_editText);
-		phone = (EditText) view.findViewById(R.id.registration_verification_phno_editText);
+
 		name = (EditText) view.findViewById(R.id.registration_name_editText);
 		confirmpass = (EditText) view.findViewById(R.id.registration_confirmpassword_editText);
 		password = (EditText) view.findViewById(R.id.registration_password_editText);
@@ -104,12 +109,9 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 
 	private boolean checkValidation() {
 
-		//TODO : Validation error message
 		if (!Validation.isName(name, true))
 			return false;
 		if (!Validation.isEmailAddress(emailid, true))
-			return  false;
-		if (!Validation.isPhoneNumber(phone, true))
 			return false;
 		if (!Validation.hasText(emailid))
 			return false;
@@ -119,20 +121,25 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 			return false;
 		if (!Validation.hasText(confirmpass))
 			return false;
-		if (!Validation.hasText(phone))
-			return false;
 
 		return true;
 	}
 
-
 	private void getDetails() {
 		registeremailid = emailid.getText().toString();
-		registerphone = phone.getText().toString();
 		registerpersonName = name.getText().toString();
 		registerconfirmpass = confirmpass.getText().toString();
 		registerpassword = password.getText().toString();
-		registerdeviceid = "1234";
+		registerdeviceid = imeino();
+	}
+
+	private String imeino() {
+
+		String IMEI = tm.getDeviceId();
+		if (IMEI != null)
+			return IMEI;
+		else
+			return "No Device ID Found";
 	}
 
 	@Override

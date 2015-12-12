@@ -99,19 +99,6 @@
                     android:inputType="textPassword"
                     android:textColor="#000" />
 
-                <EditText
-                    android:id="@+id/registration_verification_phno_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:editable="false"
-                    android:ems="10"
-                    android:hint="Phone Number"
-                    android:inputType="phone"
-                    android:textColor="#000" />
-
                 <!-- android:theme="@style/MyEditTextTheme" > -->
 
                 <Button

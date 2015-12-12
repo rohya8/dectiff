@@ -28,14 +28,13 @@ import com.rns.tiffeat.web.bo.domain.PaymentType;
 public class QuickOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
 	private RadioButton lunch, dinner, codpayment, onlinepayment;
-	private EditText address;
+	private EditText address, phone;
 
 	private Button proceed;
 	private CustomerOrder customerOrder;
-	private TextView tiffindesc, name, emailid, phone, amount;
+	private TextView tiffindesc, name, emailid, amount;
 	private View rootView;
 	Context context;
-	// private Map<String,Date> availableMealType;
 	private Map<MealType, Date> availableMealType;
 
 	public QuickOrderFragment(CustomerOrder customerOrder, Map<MealType, Date> availableMealType) {
@@ -104,7 +103,10 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		tiffindesc.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
-		phone.setText(customerOrder.getCustomer().getPhone());
+		if (customerOrder.getCustomer().getPhone() != null)
+			phone.setText(customerOrder.getCustomer().getPhone());
+		else
+			phone.setHint("Enter Phone Number");
 		amount.setText(customerOrder.getMeal().getPrice().toString());
 
 	}
@@ -141,10 +143,13 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 					CustomerUtils.alertbox(TIFFEAT, " Select A Payment Method ", getActivity());
 				else if (dinner.isChecked() == false && lunch.isChecked() == false)
 					CustomerUtils.alertbox(TIFFEAT, " Select Address ", getActivity());
+				else if (!Validation.isPhoneNumber(phone, true))
+					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
 				else {
 					prepareCustomerOrder();
 					new ValidateQuickOrderAsyncTask(getActivity(), customerOrder).execute();
 				}
+
 			}
 			break;
 
@@ -164,13 +169,12 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 	}
 
-	//order mealtype & meal
-	
 	private void prepareCustomerOrder() {
 		customerOrder.setMealType(MealType.LUNCH);
 		if (dinner.isChecked()) {
 			customerOrder.setMealType(MealType.DINNER);
 		}
+		customerOrder.getCustomer().setPhone(phone.getText().toString());
 		customerOrder.setDate(availableMealType.get(customerOrder.getMealType()));
 		customerOrder.setAddress(address.getText().toString());
 	}

@@ -28,9 +28,9 @@ import com.rns.tiffeat.web.bo.domain.MealType;
 public class ScheduledOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
 	private RadioButton lunch, dinner, both;
-	private EditText lunchaddr;
+	private EditText lunchaddr, phone;
 	private CustomerOrder customerOrder;
-	private TextView tiffindesc, name, emailid, phone, wallet;
+	private TextView tiffindesc, name, emailid, wallet;
 	private View rootView;
 	private Button proceed;
 	private Map<MealType, Date> availableMealType;
@@ -144,7 +144,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		tiffindesc = (TextView) rootView.findViewById(R.id.scheduled_order_editText_TiffinName);
 		name = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Name);
 		emailid = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Email);
-		phone = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
+		phone = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
 		proceed = (Button) rootView.findViewById(R.id.scheduled_order_proceed_button);
 		wallet = (TextView) rootView.findViewById(R.id.scheduled_order_textview_Wallet);
 
@@ -160,7 +160,11 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		tiffindesc.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
-		phone.setText(customerOrder.getCustomer().getPhone());
+		// phone.setText(customerOrder.getCustomer().getPhone());
+		if (customerOrder.getCustomer().getPhone() != null)
+			phone.setText(customerOrder.getCustomer().getPhone());
+		else
+			phone.setHint("Enter Phone Number");
 
 		if (customerOrder.getCustomer().getBalance() == null)
 			wallet.setText(" 0 ");
@@ -204,6 +208,8 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
 				else if (lunchaddr.getText().toString().length() <= 8)
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
+				else if (!Validation.isPhoneNumber(phone, true))
+					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
 				else {
 					new ScheduledOrderAsyncTask(prepareCustomerOrders(), getActivity()).execute();
 				}
@@ -219,6 +225,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	private List<CustomerOrder> prepareCustomerOrders() {
 		List<CustomerOrder> scheduledOrders = new ArrayList<CustomerOrder>();
 		customerOrder.setAddress(lunchaddr.getText().toString());
+		customerOrder.getCustomer().setPhone(phone.getText().toString());
 		if (lunch != null && lunch.isChecked()) {
 			customerOrder.setMealType(MealType.LUNCH);
 		} else if (dinner != null && dinner.isChecked()) {
