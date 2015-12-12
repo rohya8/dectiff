@@ -1,6 +1,5 @@
 package com.rns.tiffeat.mobile.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
@@ -23,6 +22,7 @@ import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetMenuAndroidAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -55,7 +55,8 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		}
 	}
 
-	public ListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
+	public ListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
+			CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
@@ -70,6 +71,8 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		ViewHolder holder = null;
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
 
+		meal = meals.get(position);
+
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.activity_list_of_meals_adapter, null);
@@ -81,6 +84,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.list_of_meals_food1_imageView);
 			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.list_of_meals_food1_imageView);
 			holder.foodimage = mealImageView;
+			new MealImageDownloaderTask(holder, mealImageView, getContext()).execute(this.getItem(position));
 			holder.tiffinused = (TextView) convertView.findViewById(R.id.list_of_meals_count_textView1);
 			holder.menu = (Button) convertView.findViewById(R.id.list_of_meals_button_menu);
 			holder.order = (Button) convertView.findViewById(R.id.list_of_meals_button_order);
@@ -90,11 +94,13 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		meal = meals.get(position);
+
 		holder.name.setText(meal.getTitle().toString());
 		holder.mealtype.setText(meal.getDescription());
 		holder.tiffinused.setText("" + meal.getPrice());
-
+		holder.order.setTag(position);
+		holder.menu.setTag(position);
+		
 		holder.order.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -102,8 +108,8 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				if (!Validation.isNetworkAvailable(activity)) {
 					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 				} else {
-
-					orderMeal();
+					int pos=(Integer)v.getTag();
+					orderMeal(pos);
 				}
 			}
 
@@ -112,12 +118,12 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		holder.menu.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
 				if (!Validation.isNetworkAvailable(activity)) {
 					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 				} else {
-
-					showMenu();
+					int pos=(Integer)v.getTag();
+					showMenu(pos);
 
 				}
 			}
@@ -128,28 +134,37 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 	}
 
-	private void orderMeal() {
+	private void orderMeal(int position) {
+
 		if (!Validation.isNetworkAvailable(activity)) {
 			Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 		} else {
-			customerOrder.setMeal(meal);
+			Meal meal2 = returnMeal(position);
+			customerOrder.setMeal(meal2);
+
 			Fragment fragment = null;
 			if (customerOrder != null && customerOrder.getMealFormat() != null) {
 				if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 					if (customerOrder.getId() == 0) {
 						new ExistingUserAsyncTask(activity, customerOrder).execute();
 					} else
-						new ScheduleChangeOrderTask(activity, customerOrder, meal).execute();
+						new ScheduleChangeOrderTask(activity, customerOrder, meal2).execute();
 				}
 			} else {
-				fragment = new SelectType(meal, customerOrder);
+				fragment = new SelectType(meal2, customerOrder);
 				CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
 			}
 
 		}
 	}
 
-	private void showMenu() {
+	private Meal returnMeal(int position) {
+		Meal meal2=new Meal();
+		meal2 = meals.get(position);
+		return meal2;
+	}
+
+	private void showMenu(final int position) {
 		Dialog alertDialog = null;
 		alertDialog = new Dialog(activity);
 		alertDialog.setContentView(R.layout.activity_mealtype);
@@ -159,17 +174,20 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		final RadioButton lunch = (RadioButton) alertDialog.findViewById(R.id.mealtype_lunch_radioButton);
 		final RadioButton dinner = (RadioButton) alertDialog.findViewById(R.id.mealtype_dinner_radioButton);
 
+		lunch.setTag(position);
+		dinner.setTag(position);
+		
 		lunch.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				lunch.setChecked(false);
+				
 				if (customerOrder == null) {
 					CustomerOrder custOrder = new CustomerOrder();
-					custOrder.setMeal(meal);
-
+					Meal meal2 = returnMeal(position);
+					custOrder.setMeal(meal2);
 					custOrder.setMealType(MealType.LUNCH);
-
 					nextActivity(custOrder);
 
 				} else
@@ -186,7 +204,8 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				dinner.setChecked(false);
 				if (customerOrder == null) {
 					CustomerOrder custOrder = new CustomerOrder();
-					custOrder.setMeal(meal);
+					Meal meal2 = returnMeal(position);
+					custOrder.setMeal(meal2);
 					custOrder.setMealType(MealType.DINNER);
 					nextActivity(custOrder);
 				} else

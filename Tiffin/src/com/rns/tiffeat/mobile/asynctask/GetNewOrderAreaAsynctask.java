@@ -53,10 +53,11 @@ public class GetNewOrderAreaAsynctask extends AsyncTask<String, String, String> 
 		progressDialog.dismiss();
 
 		if (result == null) {
+
 			Validation.showError(mneworder, ERROR_FETCHING_DATA);
 			return;
 		}
-		CustomerUtils.alertbox(TIFFEAT, result, mneworder);
+
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
 

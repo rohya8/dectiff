@@ -19,6 +19,8 @@ import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
+import com.rns.tiffeat.mobile.asynctask.QuickOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
@@ -33,7 +35,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
-	String todaydate, orderdate;
+	private String todaydate, orderdate;
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {
 	}
@@ -42,9 +44,8 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		return holder;
 	}
 
-	public class ViewHolder 
-	{
-		TextView title, tiffintype,repeatorder, price, mealStatus, date, orderStatus;
+	public class ViewHolder {
+		TextView title, tiffintype, repeatorder, price, mealStatus, date, orderStatus;
 		ImageView foodimage;
 		TextView viewmenuButton;
 		boolean viewMenuClicked;
@@ -66,6 +67,14 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			return repeatorderclicked;
 		}
 
+		public ImageView getFoodimage() {
+			return foodimage;
+		}
+
+		public void setFoodimage(ImageView foodimage) {
+			this.foodimage = foodimage;
+		}
+
 	}
 
 	public QuickOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter, List<CustomerOrder> quickOrders, Customer customer) {
@@ -79,6 +88,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
+		customerOrder = quickOrders.get(position);
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.activity_quickorder_list_adapter, null);
@@ -88,19 +98,23 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.title = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_name_textView);
 			holder.tiffintype = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_type_textView);
 			holder.date = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_date_textView);
-			holder.foodimage = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
+			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
+			holder.foodimage = mealImageView;
+			new QuickOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_meal_status_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
 			holder.repeatorder = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_repeatorder_button);
-			
+
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		customerOrder = quickOrders.get(position);
+		holder.orderStatus.setTag(position);
+		holder.viewmenuButton.setTag(position);
+		holder.repeatorder.setTag(position);
 
 		if (customerOrder == null) {
 			return convertView;
@@ -112,9 +126,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		}
 
 		if (holder.foodimage != null) {
-
-			// new
-			// ImageDownloaderTask(getActivity(),holder.foodimage).execute(objmeal.getImage());
 		}
 
 		if (OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
@@ -130,23 +141,25 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		holder.viewmenuButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
-				ShowMenu(customerOrder);
+			public void onClick(View v) {
+				int pos = (Integer) v.getTag();
+				ShowMenu(pos);
 			}
 		});
 
 		holder.repeatorder.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
-			public void onClick(View v) 
-			{
-					customerOrder.setCustomer(customer);
-					repeatOrder(customerOrder);
+			public void onClick(View v) {
+				int pos = (Integer) v.getTag();
+				customerOrder = quickOrders.get(pos);
+
+				customerOrder.setCustomer(customer);
+				repeatOrder(customerOrder);
 			}
 
-			
 		});
-		
+
 		return convertView;
 
 	}
@@ -177,11 +190,13 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		}
 	}
 
-	private void ShowMenu(CustomerOrder customerOrder2) {
+	private void ShowMenu(int position) {
+		CustomerOrder customerOrder2 = new CustomerOrder();
+		customerOrder2 = quickOrders.get(position);
 		customerOrder2.setCustomer(customer);
 		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder2).execute();
 	}
-	
+
 	private void repeatOrder(CustomerOrder customerOrder) {
 		customerOrder.setCustomer(customer);
 		Fragment fragment = null;

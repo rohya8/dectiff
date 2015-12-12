@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.SelectType;
+import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
+import com.rns.tiffeat.mobile.asynctask.PreviousOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
@@ -57,6 +59,14 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 			return viewMenuClicked;
 		}
 
+		public ImageView getFoodimage() {
+			return foodimage;
+		}
+
+		public void setFoodimage(ImageView foodimage) {
+			this.foodimage = foodimage;
+		}
+
 	}
 
 	public PreviousOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter, List<CustomerOrder> previousOrders, Customer customer) {
@@ -73,6 +83,8 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
 
+		customerOrder = previousOrders.get(position);
+
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.activity_previousorder_list_adapter, null);
@@ -82,7 +94,9 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 			holder.title = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_name_textView);
 			holder.tiffintype = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_type_textView);
 			holder.date = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_date_textView);
-			holder.foodimage = (ImageView) convertView.findViewById(R.id.previousorder_list_adapter_imageview);
+			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.previousorder_list_adapter_imageview);
+			holder.foodimage = mealImageView;
+			new PreviousOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
 			holder.repeatorderButton = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_repeatorder_button);
 
 			convertView.setTag(holder);
@@ -91,7 +105,7 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		customerOrder = previousOrders.get(position);
+		holder.repeatorderButton.setTag(position);
 
 		holder.title.setText(customerOrder.getMeal().getTitle());
 		holder.tiffintype.setText(customerOrder.getMealType().toString());
@@ -103,8 +117,6 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		holder.date.setText("" + orderdate);
 
 		if (holder.foodimage != null) {
-			// new
-			// ImageDownloaderTask(getActivity(),holder.foodimage).execute(objmeal.getImage());
 		}
 
 		holder.date.setText("" + orderdate);
@@ -112,7 +124,9 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		holder.repeatorderButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View v) {
+				int pos = (Integer) v.getTag();
+				customerOrder = previousOrders.get(pos);
 
 				customerOrder.setCustomer(customer);
 
@@ -124,7 +138,6 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		return convertView;
 
 	}
-
 
 	private void repeatActivity(CustomerOrder customerOrder2) {
 

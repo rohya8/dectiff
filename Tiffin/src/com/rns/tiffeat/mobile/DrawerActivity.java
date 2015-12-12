@@ -93,7 +93,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 					title = "Quick Orders";
 				}
 			} else {
-				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", getApplicationContext());
+				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
 				fragment = new FirstTimeUse();
 			}
 			break;
@@ -119,7 +119,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				CustomerUtils.logout(this);
 				new GetAreaAsynctask(this).execute();
 			} else {
-				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", getApplicationContext());
+				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", DrawerActivity.this);
 				fragment = new FirstTimeUse();
 			}
 			break;

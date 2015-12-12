@@ -32,7 +32,7 @@ public class VendorServerUtils implements AndroidConstants {
 
 	public static String createMealImageUrl(Meal meal) {
 		CustomerServerUtils.removeCircularReferences(meal);
-		String url = ROOT_URL + "downloadImageAndroid?vendor=" + meal.getId();
+		String url = ROOT_URL + DOWNLOAD_MEAL_IMAGE_ANDROID + meal.getId();
 		Log.d(MYTAG, "URL is :" + url);
 		return url;
 	}

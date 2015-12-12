@@ -10,24 +10,24 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.adapter.ListOfMealAdapter.ViewHolder;
+import com.rns.tiffeat.mobile.adapter.QuickOrderListAdapter.ViewHolder;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.mobile.util.VendorServerUtils;
 import com.rns.tiffeat.web.bo.domain.Meal;
 
-public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
+public class QuickOrderMealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 
 	private ImageView imageView;
 	private ViewHolder holder;
 
-	public MealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context) {
+	public QuickOrderMealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context) {
 		this.holder = holder;
 		this.imageView = mealImageView;
 	}
 
-	public MealImageDownloaderTask(ViewHolder holder) {
+	public QuickOrderMealImageDownloaderTask(ViewHolder holder) {
 		this.holder = holder;
 	}
 

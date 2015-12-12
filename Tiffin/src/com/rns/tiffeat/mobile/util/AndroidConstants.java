@@ -6,8 +6,7 @@ public interface AndroidConstants {
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "tiffEAT";
-	String ROOT_URL = "http://192.168.0.3:8080/tiffeat-web/";
-	//String ROOT_URL="http://www.itrmitra.com/";
+	String ROOT_URL = "http://192.168.0.9:8080/tiffeat-web/";
 	//String ROOT_URL="http://www.itrmitra.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
@@ -29,6 +28,7 @@ public interface AndroidConstants {
 	String ADD_TO_WALLET_URL = ROOT_URL + "addToWalletAndroid?customer={customer}";
 	String CANCEL_ORDER_URL = ROOT_URL + "cancelOrderAndroid?customerOrder={customerOrderObject}";
 	String CHANGE_ORDER_URL = ROOT_URL + "changeOrderAndroid?customerOrder={customerOrderObject}";
+	String DOWNLOAD_MEAL_IMAGE_ANDROID = "downloadMealImageAndroid?meal=";
 
 	String CUSTOMER_SHARED_CONTEXT = "customerShared";
 	String PIN_CODE = "pinCode";

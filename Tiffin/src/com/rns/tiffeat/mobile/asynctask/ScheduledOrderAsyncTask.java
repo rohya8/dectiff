@@ -70,9 +70,10 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		}
 
 		if ("OK".equals(result)) {
+			CustomerUtils.alertbox(TIFFEAT, "Order Successfull !!", previousActivity);
 			nextActivity();
 		}
-		CustomerUtils.alertbox(TIFFEAT, result, previousActivity);
+		
 		
 
 	}
