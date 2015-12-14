@@ -1,6 +1,10 @@
 package com.rns.tiffeat.mobile;
 
+import java.util.List;
+
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -9,12 +13,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.adapter.AutocompleteTvAdapter;
+import com.rns.tiffeat.mobile.adapter.PlacesAutoCompleteAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CoreServerUtils;
@@ -72,6 +80,9 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 						InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 						inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
+						// String addr = actvAreas.getText().toString();
+						// getLocationFromAddress(addr);
+
 						String area = actvAreas.getText().toString();
 						if (!TextUtils.isEmpty(area)) {
 							text.setVisibility(View.VISIBLE);
@@ -80,9 +91,9 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 						} else
 							CustomerUtils.alertbox(TIFFEAT, "Please Enter Area ", getActivity());
-
 					}
 				}
+
 			});
 		}
 		return view;
@@ -114,6 +125,26 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 		AutocompleteTvAdapter adapter = new AutocompleteTvAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, CoreServerUtils.areaNames, FONT);
 		actvAreas.setThreshold(1);
 		actvAreas.setAdapter(adapter);
+
+		// getNearbyPlaces();
+	}
+
+	private void getNearbyPlaces() {
+		actvAreas.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
+
+		actvAreas.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+				actvAreas.setSelection(position);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+		});
 	}
 
 	@Override
@@ -123,4 +154,22 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
+
+	public void getLocationFromAddress(String strAddress) {
+
+		Geocoder coder = new Geocoder(getActivity());
+		List<Address> address;
+
+		try {
+			address = coder.getFromLocationName(strAddress, 5);
+			if (address == null) {
+			}
+			Address location = address.get(0);
+			double lati = location.getLatitude();
+			double longi = location.getLongitude();
+			Toast.makeText(getActivity(), " latitude " + lati + " longitude " + longi, Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+		}
+	}
+
 }

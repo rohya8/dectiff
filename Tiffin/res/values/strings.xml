@@ -47,4 +47,5 @@
     <string name="title_activity_add_to_wallet">AddToWallet</string>
     <string name="title_activity_alert_box">AlertBox</string>
 
+    <integer name="google_play_services_version">7571000</integer>
 </resources>

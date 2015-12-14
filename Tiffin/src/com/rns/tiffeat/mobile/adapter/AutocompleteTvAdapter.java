@@ -17,8 +17,6 @@ public class AutocompleteTvAdapter extends ArrayAdapter<String> {
 	private int layout;
 	private final Typeface tf;
 
-
-
 	public AutocompleteTvAdapter(FragmentActivity activity,
 			int simpleDropdownItem1line, List<String> areaNames, String fONT) {
 
