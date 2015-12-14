@@ -131,6 +131,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		}
 
 		if (fragment != null) {
+			title = "TiffEat";
 			getSupportActionBar().setTitle(title);
 			if (isFragmentToBeAddedToBackStack(fragment)) {
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
