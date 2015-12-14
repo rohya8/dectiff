@@ -1,7 +1,5 @@
 package com.rns.tiffeat.mobile.adapter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.content.Context;
@@ -19,7 +17,6 @@ import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.QuickOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -35,7 +32,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
-	private String todaydate, orderdate;
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {
 	}
@@ -135,8 +131,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		}
 
 		setOrderStatus();
-		DateFormat dt = new SimpleDateFormat();
-		holder.date.setText(dt.format(customerOrder.getDate()));
+		holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
 		holder.viewmenuButton.setOnClickListener(new OnClickListener() {
 

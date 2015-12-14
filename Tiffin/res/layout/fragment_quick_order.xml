@@ -155,6 +155,7 @@
                         android:id="@+id/quick_order_screen_radioButton_dinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text=" Dinner "
                         android:visibility="gone" />

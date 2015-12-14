@@ -12,15 +12,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.rns.tiffeat.mobile.util.AndroidConstants;
-
-import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+
+import com.rns.tiffeat.mobile.util.AndroidConstants;
 
 public class PlacesAutoCompleteAdapter extends ArrayAdapter<String> implements Filterable, AndroidConstants {
 

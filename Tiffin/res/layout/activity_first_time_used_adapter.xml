@@ -26,6 +26,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/food5" />
 
             <TextView
@@ -64,7 +66,8 @@
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/first_time_count_textView"
@@ -73,7 +76,8 @@
                     android:layout_marginRight="20dp"
                     android:gravity="right"
                     android:text="1000"
-                    android:textColor="#000" >
+                    android:textColor="#000"
+                    android:visibility="gone" >
                 </TextView>
             </LinearLayout>
         </LinearLayout>

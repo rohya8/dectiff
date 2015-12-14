@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Menu;
 
 import com.rns.tiffeat.mobile.asynctask.GetAreaAsynctask;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
@@ -15,7 +16,7 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SplashScreen extends AppCompatActivity implements AndroidConstants{
+public class SplashScreen extends AppCompatActivity implements AndroidConstants {
 
 	final Context context = this;
 
@@ -25,7 +26,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants{
 		setContentView(R.layout.activity_splash_screen);
 
 		if (!Validation.isNetworkAvailable(context)) {
-			Validation.showError(context,ERROR_NO_INTERNET_CONNECTION );
+			Validation.showError(context, ERROR_NO_INTERNET_CONNECTION);
 		} else {
 
 			runOnUiThread(new Runnable() {
@@ -43,7 +44,6 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants{
 
 			});
 		}
-
 	}
 
 	public void AsyncTaskCall() {
@@ -54,5 +54,4 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants{
 			new GetCurrentCustomerAsyncTask(this).execute();
 		}
 	}
-
 }

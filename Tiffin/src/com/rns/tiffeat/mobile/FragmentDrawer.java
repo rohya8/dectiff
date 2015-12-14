@@ -15,9 +15,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import com.rns.tiffeat.mobile.adapter.NavigationDrawerAdapter;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.web.bo.domain.Customer;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class FragmentDrawer extends Fragment {
@@ -32,8 +36,7 @@ public class FragmentDrawer extends Fragment {
 	private static String[] titles = null;
 	private FragmentDrawerListener drawerListener;
 
-	public FragmentDrawer() 
-	{
+	public FragmentDrawer() {
 
 	}
 
@@ -56,13 +59,15 @@ public class FragmentDrawer extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// drawer labels
-		titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+		Customer currentCustomer = CustomerUtils.getCurrentCustomer(getActivity());
+		if (currentCustomer.getName() == null)
+			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label);
+		else
+			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin);
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflating view layout
 		View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
@@ -85,7 +90,6 @@ public class FragmentDrawer extends Fragment {
 
 		return layout;
 	}
-
 
 	public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
 		containerView = getActivity().findViewById(fragmentId);
@@ -167,7 +171,6 @@ public class FragmentDrawer extends Fragment {
 		public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
 		}
-
 
 	}
 

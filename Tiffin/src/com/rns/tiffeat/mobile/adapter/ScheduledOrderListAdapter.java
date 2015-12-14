@@ -24,7 +24,6 @@ import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetNewOrderAreaAsynctask;
-import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleCancelOrderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -51,7 +50,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		ImageView foodimage;
 		Button viewMenuButton, switchButton, cancelOrderButton, addOtherMealTypeButton;
 
-		
 		public ImageView getFoodimage() {
 			return foodimage;
 		}
@@ -61,7 +59,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		}
 
 	}
-	
 
 	public ScheduledOrderListAdapter(FragmentActivity fragment, int resource, List<CustomerOrder> orders, Customer customer) {
 		super(fragment, resource, orders);
@@ -72,11 +69,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+
 		FontChangeCrawler fontChanger = new FontChangeCrawler(scheduledOrderFragment.getAssets(), FONT);
-		
+
 		customerOrder = scheduledOrders.get(position);
-		
+
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) scheduledOrderFragment.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.activity_scheduled_orders_adapter, null);
@@ -88,7 +85,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			holder.date = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_date_textView);
 			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.scheduled_orders_adapter_imageview);
 			holder.foodimage = mealImageView;
-			new ScheduleOrderMealImageDownloaderTask(holder,mealImageView,getContext()).execute(customerOrder.getMeal());
+			new ScheduleOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_meal_status_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_order_status_textView);
 			holder.cancelOrderButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_cancel_button);
@@ -109,7 +106,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		holder.switchButton.setTag(position);
 		holder.viewMenuButton.setTag(position);
 		holder.addOtherMealTypeButton.setTag(position);
-		
+
 		prepareCustomerOrder(customerOrder);
 
 		prepareAddOtherMealTypeButton();
@@ -121,7 +118,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
 					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					
+
 					int pos = (Integer) v.getTag();
 					customerOrder = scheduledOrders.get(pos);
 
@@ -154,8 +151,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			public void onClick(View v) {
 				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
 					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
-				} else
-				{
+				} else {
 					int pos = (Integer) v.getTag();
 					customerOrder = scheduledOrders.get(pos);
 
@@ -173,7 +169,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
 				} else {
 					int pos = (Integer) v.getTag();
-					
 
 					prepareNewOrder(pos);
 				}
@@ -225,6 +220,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			return;
 		}
 		holder.title.setText(customerOrder.getMeal().getTitle());
+
 		holder.date.setText("Scheduled From :" + CustomerUtils.convertDate(customerOrder.getDate()));
 		holder.mealType.setText(customerOrder.getMealType().toString());
 
@@ -288,7 +284,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	}
 
 	private void switchOrder(CustomerOrder customerOrder1) {
-		
+
 		customerOrder1.setCustomer(customer);
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder1);

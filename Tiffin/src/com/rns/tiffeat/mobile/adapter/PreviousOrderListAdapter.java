@@ -1,7 +1,5 @@
 package com.rns.tiffeat.mobile.adapter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.SelectType;
-import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.PreviousOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -35,7 +32,6 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
 	private QuickOrderHomeScreen quickHome;
-	String todaydate, orderdate;
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {
 		this.quickHome = quickHome;
@@ -110,16 +106,10 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		holder.title.setText(customerOrder.getMeal().getTitle());
 		holder.tiffintype.setText(customerOrder.getMealType().toString());
 
-		DateFormat dt = new SimpleDateFormat("MM-dd-yyyy");
-
-		orderdate = dt.format(customerOrder.getDate());
-
-		holder.date.setText("" + orderdate);
+		holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
 		if (holder.foodimage != null) {
 		}
-
-		holder.date.setText("" + orderdate);
 
 		holder.repeatorderButton.setOnClickListener(new OnClickListener() {
 

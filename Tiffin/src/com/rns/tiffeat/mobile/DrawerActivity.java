@@ -73,15 +73,15 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 			if (customer == null || TextUtils.isEmpty(customer.getEmail())) {
 				fragment = new FirstTimeUse();
-				title = "Make New Order";
+				title = "TiffEat";
 			} else if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new ScheduledUser(customer, false);
-				title = "Home";
+				title = "TiffEat";
 			} else {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new QuickOrderHomeScreen(customer);
-				title = "Home";
+				title = "TiffEat";
 			}
 			break;
 		case 1:
@@ -90,11 +90,12 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
 					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 					fragment = new QuickOrderHomeScreen(customer);
-					title = "Quick Orders";
+					title = "My Orders";
 				}
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
 				fragment = new FirstTimeUse();
+				title = "TiffEat";
 			}
 			break;
 
@@ -121,6 +122,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", DrawerActivity.this);
 				fragment = new FirstTimeUse();
+				title = "TiffEat";
 			}
 			break;
 
@@ -140,8 +142,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	}
 
 	private boolean isFragmentToBeAddedToBackStack(Fragment fragment) {
-		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment || fragment instanceof QuickOrderHomeScreen
-				|| fragment instanceof ScheduledUser;
+		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment
+				|| fragment instanceof QuickOrderHomeScreen || fragment instanceof ScheduledUser;
 	}
 
 	public void setContentView(View view) {

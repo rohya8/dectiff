@@ -22,15 +22,23 @@
     <string name="title_activity_drawer">TiffEat</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="nav_item_notification">Home</string>
-    <string name="nav_item_quickorder">Quick Order</string>
+    <string name="nav_item_notification">Dashboard</string>
+    <string name="nav_item_quickorder">My Orders</string>
     <string name="nav_item_terms">Terms and Conditions</string>
     <string name="nav_item_contactus">Contact Us</string>
     <string name="nav_item_aboutus">About Us</string>
+    <string name="nav_item_login">Login</string>
     <string name="nav_item_logout">Logout</string>
 
     <!-- navigation drawer item labels -->
-    <string-array name="nav_drawer_labels">
+    <string-array name="nav_drawer_label">
+        <item>@string/nav_item_notification</item>
+        <item>@string/nav_item_quickorder</item>
+        <item>@string/nav_item_terms</item>
+        <item>@string/nav_item_aboutus</item>
+        <item>@string/nav_item_contactus</item>
+    </string-array>
+    <string-array name="nav_drawer_label_loggedin">
         <item>@string/nav_item_notification</item>
         <item>@string/nav_item_quickorder</item>
         <item>@string/nav_item_terms</item>
@@ -47,5 +55,6 @@
     <string name="title_activity_add_to_wallet">AddToWallet</string>
     <string name="title_activity_alert_box">AlertBox</string>
 
-    <integer name="google_play_services_version">7571000</integer>
+    <integer name="google_play_services_version">7895000</integer>
+
 </resources>

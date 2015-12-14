@@ -38,7 +38,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
 	private Meal meal;
-
+	private Dialog alertDialog = null;
 	public class ViewHolder {
 
 		TextView name, mealtype, tiffinused;
@@ -100,7 +100,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		holder.tiffinused.setText("" + meal.getPrice());
 		holder.order.setTag(position);
 		holder.menu.setTag(position);
-		
+
 		holder.order.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -108,7 +108,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				if (!Validation.isNetworkAvailable(activity)) {
 					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					int pos=(Integer)v.getTag();
+					int pos = (Integer) v.getTag();
 					orderMeal(pos);
 				}
 			}
@@ -122,9 +122,9 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				if (!Validation.isNetworkAvailable(activity)) {
 					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					int pos=(Integer)v.getTag();
+					int pos = (Integer) v.getTag();
 					showMenu(pos);
-
+					alertDialog.show();
 				}
 			}
 
@@ -159,13 +159,13 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 	}
 
 	private Meal returnMeal(int position) {
-		Meal meal2=new Meal();
+		Meal meal2 = new Meal();
 		meal2 = meals.get(position);
 		return meal2;
 	}
 
 	private void showMenu(final int position) {
-		Dialog alertDialog = null;
+
 		alertDialog = new Dialog(activity);
 		alertDialog.setContentView(R.layout.activity_mealtype);
 		alertDialog.setTitle("Select Meal Type");
@@ -176,13 +176,13 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 		lunch.setTag(position);
 		dinner.setTag(position);
-		
+
 		lunch.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				lunch.setChecked(false);
-				
+
 				if (customerOrder == null) {
 					CustomerOrder custOrder = new CustomerOrder();
 					Meal meal2 = returnMeal(position);
