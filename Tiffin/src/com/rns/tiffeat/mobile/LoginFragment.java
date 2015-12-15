@@ -24,14 +24,14 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.LoginWithGoogleAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
-public class LoginFragment extends Fragment
-implements OnClickListener, AndroidConstants, ConnectionCallbacks, OnConnectionFailedListener {
+public class LoginFragment extends Fragment implements OnClickListener, AndroidConstants, ConnectionCallbacks, OnConnectionFailedListener {
 
 	private Button submit;
 	private TextView newuser;
@@ -50,7 +50,7 @@ implements OnClickListener, AndroidConstants, ConnectionCallbacks, OnConnectionF
 	private SignInButton signinButton;
 
 	public LoginFragment(CustomerOrder customerOrder2) {
-		customerOrder = customerOrder2;
+		this.customerOrder = customerOrder2;
 	}
 
 	@Override
@@ -72,8 +72,7 @@ implements OnClickListener, AndroidConstants, ConnectionCallbacks, OnConnectionF
 
 				@Override
 				public void onClick(View v) {
-					InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
-							.getSystemService(Context.INPUT_METHOD_SERVICE);
+					InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 					inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
 					if (!Validation.isNetworkAvailable(getActivity())) {
@@ -115,9 +114,8 @@ implements OnClickListener, AndroidConstants, ConnectionCallbacks, OnConnectionF
 		email = (EditText) view.findViewById(R.id.login_editText_email);
 		password = (EditText) view.findViewById(R.id.login_editText_Password);
 		signinButton = (SignInButton) view.findViewById(R.id.signin);
-		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks(this)
-				.addOnConnectionFailedListener(this).addApi(Plus.API, Plus.PlusOptions.builder().build())
-				.addScope(Plus.SCOPE_PLUS_LOGIN).build();
+		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks(this).addOnConnectionFailedListener(this)
+				.addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_LOGIN).build();
 	}
 
 	@Override
@@ -209,18 +207,18 @@ implements OnClickListener, AndroidConstants, ConnectionCallbacks, OnConnectionF
 			if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
 				Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
 				String personName = currentPerson.getDisplayName();
-				// String personPhotoUrl = currentPerson.getImage().getUrl();
 				String emailid = Plus.AccountApi.getAccountName(mGoogleApiClient);
+
 				Toast.makeText(getActivity(), personName, Toast.LENGTH_SHORT).show();
 				Toast.makeText(getActivity(), emailid, Toast.LENGTH_SHORT).show();
 
-				email.setText(emailid);
-				password.setText(personName);
+				// email.setText(emailid);
+				// password.setText(personName);
 
 				customer.setEmail(emailid);
 				customer.setName(personName);
 				customerOrder.setCustomer(customer);
-				new LoginAsyncTask(getActivity(), customerOrder).execute();
+				new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
 
 			}
 		} catch (Exception e) {
@@ -251,7 +249,5 @@ implements OnClickListener, AndroidConstants, ConnectionCallbacks, OnConnectionF
 	@Override
 	public void onConnectionSuspended(int arg0) {
 		mGoogleApiClient.connect();
-		// updateProfile(false);
-
 	}
 }

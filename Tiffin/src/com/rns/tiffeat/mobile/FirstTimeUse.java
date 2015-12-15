@@ -122,11 +122,11 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	}
 
 	private void getAreaName() {
-		AutocompleteTvAdapter adapter = new AutocompleteTvAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, CoreServerUtils.areaNames, FONT);
-		actvAreas.setThreshold(1);
-		actvAreas.setAdapter(adapter);
+//		AutocompleteTvAdapter adapter = new AutocompleteTvAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, CoreServerUtils.areaNames, FONT);
+//		actvAreas.setThreshold(1);
+//		actvAreas.setAdapter(adapter);
 
-		// getNearbyPlaces();
+		getNearbyPlaces();
 	}
 
 	private void getNearbyPlaces() {

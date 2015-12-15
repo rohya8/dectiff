@@ -61,6 +61,16 @@ public class CustomerServerUtils implements AndroidConstants {
 		return result;
 	}
 
+	public static String customerLoginWithGoogle(Customer customer) {
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		removeCircularReferences(customer);
+		uriVariables.put(CUSTOMER_OBJECT, new Gson().toJson(customer));
+		Log.d(MYTAG, "Result of customer :" + result);
+		result = CoreServerUtils.serverCall(CUSTOMER_GOOGLE_LOGIN_URL, uriVariables, HttpMethod.POST).getBody();
+		Log.d(MYTAG, "Result of customer :" + result);
+		return result;
+	}
+
 	public static String quickOrder(CustomerOrder customerOrderObject) {
 
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -98,7 +108,7 @@ public class CustomerServerUtils implements AndroidConstants {
 		Log.d(MYTAG, "Result of Get Vailable Meals :" + result);
 		return result;
 	}
-	
+
 	public static String customerGetMealAndroid(CustomerOrder customerOrderObject) {
 
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -110,7 +120,6 @@ public class CustomerServerUtils implements AndroidConstants {
 		result = CoreServerUtils.serverCall(CUSTOMER_GET_MENU_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
 	}
-
 
 	public static Customer getCurrentCustomer(Customer customer) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();

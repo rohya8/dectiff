@@ -22,25 +22,43 @@
     <string name="title_activity_drawer">TiffEat</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="nav_item_notification">Dashboard</string>
-    <string name="nav_item_quickorder">My Orders</string>
+    <string name="nav_item_dashboard">Dashboard</string>
+    <string name="nav_item_make_new_order">Make New Order</string>
+    <string name="nav_item_quickorder">Quick Order</string>
+    <string name="nav_item_scheduleorder">Schedule Order</string>
     <string name="nav_item_terms">Terms and Conditions</string>
     <string name="nav_item_contactus">Contact Us</string>
     <string name="nav_item_aboutus">About Us</string>
     <string name="nav_item_login">Login</string>
     <string name="nav_item_logout">Logout</string>
 
-    <!-- navigation drawer item labels -->
-    <string-array name="nav_drawer_label">
-        <item>@string/nav_item_notification</item>
-        <item>@string/nav_item_quickorder</item>
+    <string-array name="nav_drawer_label_new_user">
+        <item>@string/nav_item_make_new_order</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>
+        <item>@string/nav_item_login</item>
     </string-array>
-    <string-array name="nav_drawer_label_loggedin">
-        <item>@string/nav_item_notification</item>
+    <string-array name="nav_drawer_label_loggedin_quickorder">
         <item>@string/nav_item_quickorder</item>
+        <item>@string/nav_item_make_new_order</item>
+        <item>@string/nav_item_terms</item>
+        <item>@string/nav_item_aboutus</item>
+        <item>@string/nav_item_contactus</item>
+        <item>@string/nav_item_logout</item>
+    </string-array>
+    <string-array name="nav_drawer_label_loggedin_scheduleorder">
+        <item>@string/nav_item_scheduleorder</item>
+        <item>@string/nav_item_make_new_order</item>
+        <item>@string/nav_item_terms</item>
+        <item>@string/nav_item_aboutus</item>
+        <item>@string/nav_item_contactus</item>
+        <item>@string/nav_item_logout</item>
+    </string-array>
+    <string-array name="nav_drawer_label_loggedin_both">
+        <item>@string/nav_item_quickorder</item>
+        <item>@string/nav_item_scheduleorder</item>
+        <item>@string/nav_item_make_new_order</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>

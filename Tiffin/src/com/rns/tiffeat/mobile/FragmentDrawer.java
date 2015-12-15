@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.CollectionUtils;
+
 import com.rns.tiffeat.mobile.adapter.NavigationDrawerAdapter;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -60,10 +62,16 @@ public class FragmentDrawer extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		Customer currentCustomer = CustomerUtils.getCurrentCustomer(getActivity());
-		if (currentCustomer.getName() == null)
-			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label);
-		else
-			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin);
+		if (currentCustomer.getName() == null) {
+			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_new_user);
+		} else if (!CollectionUtils.isEmpty(currentCustomer.getQuickOrders())) {
+			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_quickorder);
+			if ((!CollectionUtils.isEmpty(currentCustomer.getScheduledOrder()))) {
+				titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_both);
+			}
+		} else if ((!CollectionUtils.isEmpty(currentCustomer.getScheduledOrder()))) {
+			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_scheduleorder);
+		}
 	}
 
 	@Override

@@ -54,12 +54,12 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
 		drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 		drawerFragment.setDrawerListener(this);
-
 		displayView(0);
 	}
 
 	public void onDrawerItemSelected(View view, int position) {
 		displayView(position);
+		
 	}
 
 	private void displayView(int position) {
@@ -69,6 +69,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		hideSoftKeyboard();
 
 		switch (position) {
+
 		case 0:
 
 			if (customer == null || TextUtils.isEmpty(customer.getEmail())) {
@@ -84,6 +85,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				title = "TiffEat";
 			}
 			break;
+
 		case 1:
 
 			if (customer != null) {
