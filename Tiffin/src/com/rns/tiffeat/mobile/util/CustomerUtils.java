@@ -22,7 +22,6 @@ import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.web.bo.domain.Customer;
-import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class CustomerUtils implements AndroidConstants {

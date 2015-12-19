@@ -43,7 +43,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 		this.myactivity = activity;
 		this.list = listview;
 		this.customerOrder = customerOrder;
-		this.resultTextView=text;
+		this.resultTextView = text;
 	}
 
 	@Override
@@ -74,7 +74,6 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 		}
 		return null;
 
-
 	};
 
 	@Override
@@ -85,13 +84,16 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 			Validation.showError(myactivity, ERROR_FETCHING_DATA);
 			return;
 		}
-		Type typelist = new TypeToken<ArrayList<Vendor>>() {}.getType();
+		Type typelist = new TypeToken<ArrayList<Vendor>>() {
+		}.getType();
 		vendors = new Gson().fromJson(result, typelist);
 
-		if(CollectionUtils.isEmpty(vendors)){
+		if (CollectionUtils.isEmpty(vendors)) {
 			resultTextView.setText(NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA);
+			list.setVisibility(View.GONE);
 			return;
 		}
+		resultTextView.setText(" Vendors in this Area ");
 		prepareVendorListAdapter();
 
 	}
@@ -99,6 +101,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	public void prepareVendorListAdapter() {
 		FirstTimeUsedAdapter Adapter = new FirstTimeUsedAdapter(myactivity, R.layout.activity_first_time_used_adapter, getVendors());
 		resultTextView.setText(" Vendors in this Area ");
+		list.setVisibility(View.VISIBLE);
 		list.setVerticalFadingEdgeEnabled(true);
 		list.setAdapter(Adapter);
 
@@ -116,7 +119,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 					}
 				} catch (Exception e) {
 					CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-					CustomerUtils.alertbox(TIFFEAT, "Please try again later!!" , myactivity);
+					CustomerUtils.alertbox(TIFFEAT, "Please try again later!!", myactivity);
 					Fragment fragment = new FirstTimeUse();
 					CustomerUtils.nextFragment(fragment, myactivity.getSupportFragmentManager(), true);
 				}

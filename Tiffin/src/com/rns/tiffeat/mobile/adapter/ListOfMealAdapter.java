@@ -124,7 +124,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				} else {
 					int pos = (Integer) v.getTag();
 					showMenu(pos);
-					alertDialog.show();
+					
 				}
 			}
 
@@ -174,9 +174,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		final RadioButton lunch = (RadioButton) alertDialog.findViewById(R.id.mealtype_lunch_radioButton);
 		final RadioButton dinner = (RadioButton) alertDialog.findViewById(R.id.mealtype_dinner_radioButton);
 
-		lunch.setTag(position);
-		dinner.setTag(position);
-
+		
 		lunch.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -213,6 +211,8 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 			}
 		});
+		
+		alertDialog.show();
 	}
 
 	private void nextActivity(CustomerOrder custOrder) {

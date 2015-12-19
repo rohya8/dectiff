@@ -1,6 +1,10 @@
 package com.rns.tiffeat.mobile;
 
-import android.support.v7.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.util.CollectionUtils;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -9,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -16,19 +21,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.util.CollectionUtils;
-
 import com.rns.tiffeat.mobile.adapter.NavigationDrawerAdapter;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class FragmentDrawer extends Fragment {
-
-	private static String TAG = FragmentDrawer.class.getSimpleName();
 
 	private RecyclerView recyclerView;
 	private ActionBarDrawerToggle mDrawerToggle;

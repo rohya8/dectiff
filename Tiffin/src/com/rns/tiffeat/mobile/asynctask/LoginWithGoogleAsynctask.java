@@ -3,13 +3,17 @@ package com.rns.tiffeat.mobile.asynctask;
 import java.util.Date;
 import java.util.Map;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CoreServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -17,14 +21,6 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.util.Constants;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 

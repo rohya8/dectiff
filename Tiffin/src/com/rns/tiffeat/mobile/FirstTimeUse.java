@@ -21,11 +21,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rns.tiffeat.mobile.adapter.AutocompleteTvAdapter;
 import com.rns.tiffeat.mobile.adapter.PlacesAutoCompleteAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CoreServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -114,17 +112,19 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 		actvAreas = (AutoCompleteTextView) view.findViewById(R.id.first_time_use_area_autoCompleteTextView);
 		listview = (ListView) view.findViewById(R.id.first_time_used_listView);
 		searchvendor = (Button) view.findViewById(R.id.first_time_use_search_button);
-
+		actvAreas.setThreshold(3);
 		text = (TextView) view.findViewById(R.id.first_time_area_textView);
-
 		getAreaName();
 
 	}
 
 	private void getAreaName() {
-//		AutocompleteTvAdapter adapter = new AutocompleteTvAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, CoreServerUtils.areaNames, FONT);
-//		actvAreas.setThreshold(1);
-//		actvAreas.setAdapter(adapter);
+		// AutocompleteTvAdapter adapter = new
+		// AutocompleteTvAdapter(getActivity(),
+		// android.R.layout.simple_dropdown_item_1line,
+		// CoreServerUtils.areaNames, FONT);
+		// actvAreas.setThreshold(1);
+		// actvAreas.setAdapter(adapter);
 
 		getNearbyPlaces();
 	}
@@ -173,3 +173,4 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	}
 
 }
+

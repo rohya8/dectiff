@@ -31,10 +31,8 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
-	private QuickOrderHomeScreen quickHome;
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {
-		this.quickHome = quickHome;
 	}
 
 	public ViewHolder getHolder() {

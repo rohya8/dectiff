@@ -1,14 +1,13 @@
 package com.rns.tiffeat.mobile;
 
-import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.FontChangeCrawler;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 
 public class ContactusFragment extends Fragment implements AndroidConstants {
 

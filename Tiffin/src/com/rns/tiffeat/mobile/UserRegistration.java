@@ -22,11 +22,9 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class UserRegistration extends Fragment implements AndroidConstants {
 
-	// //////////// Deviceid code remaining
-
 	private Button submit;
 	private EditText emailid, name, password, confirmpass;
-	private String registerpersonName, registerpassword, registeremailid, registerconfirmpass, registerdeviceid;
+	private String registerpersonName, registerpassword, registeremailid, registerdeviceid;
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private View view;
@@ -128,7 +126,6 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 	private void getDetails() {
 		registeremailid = emailid.getText().toString();
 		registerpersonName = name.getText().toString();
-		registerconfirmpass = confirmpass.getText().toString();
 		registerpassword = password.getText().toString();
 		registerdeviceid = imeino();
 	}

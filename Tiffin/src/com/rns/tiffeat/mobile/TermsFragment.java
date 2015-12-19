@@ -1,6 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -42,16 +41,6 @@ public class TermsFragment extends Fragment implements AndroidConstants {
 			termsweb.loadUrl("file:///android_asset/terrms.html");
 		}
 		return rootView;
-	}
-
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-	}
-
-	@Override
-	public void onDetach() {
-		super.onDetach();
 	}
 
 	@Override

@@ -2,12 +2,12 @@ package com.rns.tiffeat.mobile;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.Menu;
 
 import com.rns.tiffeat.mobile.asynctask.GetAreaAsynctask;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
@@ -49,7 +49,9 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 	public void AsyncTaskCall() {
 		Customer customer = CustomerUtils.getCurrentCustomer(getApplicationContext());
 		if (TextUtils.isEmpty(customer.getEmail())) {
-			new GetAreaAsynctask(this).execute();
+			Intent i = new Intent(SplashScreen.this, DrawerActivity.class);
+			startActivity(i);
+			finish();
 		} else {
 			new GetCurrentCustomerAsyncTask(this).execute();
 		}

@@ -40,7 +40,6 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 		progressdialog = UserUtils.showLoadingDialog(context, "Download Data ", "Preparing.....");
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected String doInBackground(String... args) {
 		if (!Validation.isNetworkAvailable(context)) {

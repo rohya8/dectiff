@@ -42,7 +42,6 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		progressDialog = UserUtils.showLoadingDialog(fragmentActivity, "Checking  Details ", "Preparing.....");
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected String doInBackground(String... params) {
 		String resultLogin = "";
