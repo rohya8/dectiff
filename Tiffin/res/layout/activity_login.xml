@@ -94,7 +94,7 @@
                 android:textColor="#43A047"
                 android:textStyle="bold" />
         </LinearLayout>
-
+        <!--
         <LinearLayout
             android:id="@+id/signinFrame"
             android:layout_width="fill_parent"
@@ -115,6 +115,7 @@
                 google.confirm_logout="false"
                 android:textSize="18dp" />
         </LinearLayout>
+        -->
     </LinearLayout>
 
 </RelativeLayout>

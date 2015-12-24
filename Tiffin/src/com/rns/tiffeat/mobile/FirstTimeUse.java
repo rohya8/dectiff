@@ -112,7 +112,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 		actvAreas = (AutoCompleteTextView) view.findViewById(R.id.first_time_use_area_autoCompleteTextView);
 		listview = (ListView) view.findViewById(R.id.first_time_used_listView);
 		searchvendor = (Button) view.findViewById(R.id.first_time_use_search_button);
-		actvAreas.setThreshold(3);
+		actvAreas.setThreshold(2);
 		text = (TextView) view.findViewById(R.id.first_time_area_textView);
 		getAreaName();
 
@@ -136,7 +136,6 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
 				actvAreas.setSelection(position);
 			}
 
