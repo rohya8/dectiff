@@ -28,6 +28,7 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Vendor;
+import com.rns.tiffeat.web.google.Location;
 
 public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
@@ -68,6 +69,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 		}
 		try {
 			String result = CustomerServerUtils.getVendorForArea(params[0]);
+			prepareCustomerOrder(params[0]);
 			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -75,6 +77,15 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 		return null;
 
 	};
+
+	private void prepareCustomerOrder(String address) {
+		if(customerOrder == null) {
+			customerOrder = new CustomerOrder();
+		}
+		Location location = new Location();
+		location.setAddress(address);
+		customerOrder.setLocation(location);
+	}
 
 	@Override
 	protected void onPostExecute(String result) {
@@ -84,8 +95,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 			Validation.showError(myactivity, ERROR_FETCHING_DATA);
 			return;
 		}
-		Type typelist = new TypeToken<ArrayList<Vendor>>() {
-		}.getType();
+		Type typelist = new TypeToken<ArrayList<Vendor>>() {}.getType();
 		vendors = new Gson().fromJson(result, typelist);
 
 		if (CollectionUtils.isEmpty(vendors)) {

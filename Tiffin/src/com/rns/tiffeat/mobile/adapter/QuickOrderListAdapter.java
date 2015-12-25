@@ -32,6 +32,10 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
+	
+	public List<CustomerOrder> getQuickOrders() {
+		return quickOrders;
+	}
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {
 	}

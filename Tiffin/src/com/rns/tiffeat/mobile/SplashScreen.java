@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
-import com.rns.tiffeat.mobile.asynctask.GetAreaAsynctask;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;

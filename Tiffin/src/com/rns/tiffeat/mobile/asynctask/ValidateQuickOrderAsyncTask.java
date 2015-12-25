@@ -56,7 +56,6 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
-
 		if (result == null) {
 			Validation.showError(previousActivity, ERROR_FETCHING_DATA);
 			return;
@@ -67,6 +66,9 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 		customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 		if ("OK".equals(validationResult)) {
 			nextActivity();
+		}
+		else {
+			//TODO: Show validation error with dialog
 		}
 		progressDialog.dismiss();
 	}

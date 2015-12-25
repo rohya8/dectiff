@@ -31,6 +31,10 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
+	
+	public List<CustomerOrder> getPreviousOrders() {
+		return previousOrders;
+	}
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {
 	}
@@ -65,11 +69,9 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 
 	public PreviousOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter, List<CustomerOrder> previousOrders, Customer customer) {
 		super(activity, activityQuickorderListAdapter, previousOrders);
-		this.previousOrders = new ArrayList<CustomerOrder>();
 		this.activity = activity;
 		this.customer = customer;
-		this.previousOrders.addAll(previousOrders);
-		Collections.reverse(this.previousOrders);
+		this.previousOrders = previousOrders;
 	}
 
 	@Override
