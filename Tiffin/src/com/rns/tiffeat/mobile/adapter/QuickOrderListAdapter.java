@@ -32,7 +32,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
-	
+
 	public List<CustomerOrder> getQuickOrders() {
 		return quickOrders;
 	}
@@ -42,30 +42,18 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 
 	public ViewHolder getHolder() {
 		return holder;
+
+	}
+
+	@Override
+	public int getCount() {
+		return quickOrders.size();
 	}
 
 	public class ViewHolder {
 		TextView title, tiffintype, repeatorder, price, mealStatus, date, orderStatus;
 		ImageView foodimage;
 		TextView viewmenuButton;
-		boolean viewMenuClicked;
-		boolean repeatorderclicked;
-
-		public void setViewMenuClicked(boolean viewMenuClicked) {
-			this.viewMenuClicked = viewMenuClicked;
-		}
-
-		public boolean isViewMenuClicked() {
-			return viewMenuClicked;
-		}
-
-		public void setRepeatOrderClicked(boolean repeatorderclicked) {
-			this.repeatorderclicked = repeatorderclicked;
-		}
-
-		public boolean isRepeatOrderClicked() {
-			return repeatorderclicked;
-		}
 
 		public ImageView getFoodimage() {
 			return foodimage;

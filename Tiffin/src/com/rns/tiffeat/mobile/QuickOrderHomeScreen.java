@@ -118,13 +118,13 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		previousOrderAdapter.setQuickHome(this);
 
 		if(!CollectionUtils.isEmpty(previousOrderAdapter.getPreviousOrders())) {
-			previousOrderAdapter.clear();
-			previousOrderAdapter.addAll(customer.getPreviousOrders());
+			//previousOrderAdapter.clear();
+			//previousOrderAdapter.addAll(customer.getPreviousOrders());
 			previouslistview.setAdapter(previousOrderAdapter);
 		}
-		if(!CollectionUtils.isEmpty(previousOrderAdapter.getPreviousOrders())) {
-			quickOrdersAdapter.clear();
-			quickOrdersAdapter.addAll(customer.getPreviousOrders());
+		if(!CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
+			//quickOrdersAdapter.clear();
+			//quickOrdersAdapter.addAll(customer.getQuickOrders());
 			todaylistview.setAdapter(quickOrdersAdapter);
 		}
 	}
