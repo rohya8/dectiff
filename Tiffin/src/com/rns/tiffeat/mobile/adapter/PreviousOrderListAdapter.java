@@ -1,7 +1,5 @@
 package com.rns.tiffeat.mobile.adapter;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -28,12 +26,17 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implements AndroidConstants {
 	private FragmentActivity activity;
 	private List<CustomerOrder> previousOrders;
+
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
-	
+
 	public List<CustomerOrder> getPreviousOrders() {
 		return previousOrders;
+	}
+
+	public void setPreviousOrders(List<CustomerOrder> previousOrders) {
+		this.previousOrders = previousOrders;
 	}
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {

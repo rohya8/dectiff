@@ -40,6 +40,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private FragmentActivity scheduledOrderFragment;
 	private List<CustomerOrder> scheduledOrders;
+
 	private ViewHolder holder;
 	private Customer customer;
 	private CustomerOrder customerOrder;
@@ -58,6 +59,14 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			this.foodimage = foodimage;
 		}
 
+	}
+
+	public List<CustomerOrder> getScheduledOrders() {
+		return scheduledOrders;
+	}
+
+	public void setScheduledOrders(List<CustomerOrder> scheduledOrders) {
+		this.scheduledOrders = scheduledOrders;
 	}
 
 	public ScheduledOrderListAdapter(FragmentActivity fragment, int resource, List<CustomerOrder> orders, Customer customer) {
@@ -174,19 +183,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				}
 			}
 
-			private void prepareNewOrder(int pos) {
-
-				CustomerOrder order = new CustomerOrder();
-				order = scheduledOrders.get(pos);
-				order.setMealFormat(MealFormat.SCHEDULED);
-				order.setCustomer(customer);
-				if (MealType.DINNER.equals(order.getMealType())) {
-					order.setMealType(MealType.LUNCH);
-				} else {
-					order.setMealType(MealType.DINNER);
-				}
-				newOrder(order);
-			}
 		});
 
 		return convertView;
@@ -324,6 +320,20 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	public void setScheduledUserHome(ScheduledUser scheduledUserHome) {
 		this.scheduledUserHome = scheduledUserHome;
+	}
+
+	private void prepareNewOrder(int pos) {
+
+		CustomerOrder order = new CustomerOrder();
+		order = scheduledOrders.get(pos);
+		order.setMealFormat(MealFormat.SCHEDULED);
+		order.setCustomer(customer);
+		if (MealType.DINNER.equals(order.getMealType())) {
+			order.setMealType(MealType.LUNCH);
+		} else {
+			order.setMealType(MealType.DINNER);
+		}
+		newOrder(order);
 	}
 
 }

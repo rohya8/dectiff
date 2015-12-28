@@ -29,12 +29,17 @@ import com.rns.tiffeat.web.bo.domain.OrderStatus;
 public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implements AndroidConstants {
 	private FragmentActivity activity;
 	private List<CustomerOrder> quickOrders;
+
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
 
 	public List<CustomerOrder> getQuickOrders() {
 		return quickOrders;
+	}
+
+	public void setQuickOrders(List<CustomerOrder> quickOrders) {
+		this.quickOrders = quickOrders;
 	}
 
 	public void setQuickHome(QuickOrderHomeScreen quickHome) {

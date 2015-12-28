@@ -117,16 +117,19 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		quickOrdersAdapter.setQuickHome(this);
 		previousOrderAdapter.setQuickHome(this);
 
-		if(!CollectionUtils.isEmpty(previousOrderAdapter.getPreviousOrders())) {
-			//previousOrderAdapter.clear();
-			//previousOrderAdapter.addAll(customer.getPreviousOrders());
+		if (CollectionUtils.isEmpty(previousOrderAdapter.getPreviousOrders())) {
+			// previousOrderAdapter.clear();
+			previousOrderAdapter.setPreviousOrders(customer.getPreviousOrders());
 			previouslistview.setAdapter(previousOrderAdapter);
-		}
-		if(!CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-			//quickOrdersAdapter.clear();
-			//quickOrdersAdapter.addAll(customer.getQuickOrders());
+		} else
+			previouslistview.setAdapter(previousOrderAdapter);
+
+		if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
+			// quickOrdersAdapter.clear();
+			quickOrdersAdapter.setQuickOrders(customer.getQuickOrders());
 			todaylistview.setAdapter(quickOrdersAdapter);
-		}
+		} else
+			todaylistview.setAdapter(quickOrdersAdapter);
 	}
 
 	private void newActivity(CustomerOrder customerOrder2) {
@@ -154,6 +157,5 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
-
 
 }

@@ -108,7 +108,12 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 	private void initialise() {
 
 		scheduledOrdersListView = (ListView) view.findViewById(R.id.scheduled_user_scheduled_orders_list);
+		
 		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(), customer);
+		
+		if(CollectionUtils.isEmpty(customer.getScheduledOrder()))
+			scheduledOrdersAdapter.setScheduledOrders(customer.getScheduledOrder());
+		
 		scheduledOrdersAdapter.setScheduledUserHome(this);
 		scheduledOrdersListView.setAdapter(scheduledOrdersAdapter);
 		
