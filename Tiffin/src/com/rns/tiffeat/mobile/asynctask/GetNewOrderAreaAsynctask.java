@@ -39,8 +39,8 @@ public class GetNewOrderAreaAsynctask extends AsyncTask<String, String, String> 
 			return null;
 		}
 		try {
-			CoreServerUtils.retrieveVendorAreaNames();
-			return "Hello";
+//			CoreServerUtils.retrieveVendorAreaNames();
+//			return "Hello";
 
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());

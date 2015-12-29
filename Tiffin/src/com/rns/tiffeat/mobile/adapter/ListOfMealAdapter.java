@@ -181,15 +181,17 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			public void onClick(View arg0) {
 				lunch.setChecked(false);
 
-				if (customerOrder == null) {
+				if (customerOrder.getCustomer() == null) {
 					CustomerOrder custOrder = new CustomerOrder();
 					Meal meal2 = returnMeal(position);
 					custOrder.setMeal(meal2);
 					custOrder.setMealType(MealType.LUNCH);
 					nextActivity(custOrder);
 
-				} else
+				} else{
+						
 					nextActivity(customerOrder);
+				}
 
 			}
 

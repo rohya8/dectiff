@@ -33,32 +33,32 @@
     <string name="nav_item_logout">Logout</string>
 
     <string-array name="nav_drawer_label_new_user">
+        <item>@string/nav_item_login</item>
         <item>@string/nav_item_make_new_order</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>
-        <item>@string/nav_item_login</item>
     </string-array>
     <string-array name="nav_drawer_label_loggedin_quickorder">
-        <item>@string/nav_item_quickorder</item>
         <item>@string/nav_item_make_new_order</item>
+        <item>@string/nav_item_quickorder</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
     <string-array name="nav_drawer_label_loggedin_scheduleorder">
-        <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_make_new_order</item>
+        <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
     <string-array name="nav_drawer_label_loggedin_both">
+        <item>@string/nav_item_make_new_order</item>
         <item>@string/nav_item_quickorder</item>
         <item>@string/nav_item_scheduleorder</item>
-        <item>@string/nav_item_make_new_order</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>

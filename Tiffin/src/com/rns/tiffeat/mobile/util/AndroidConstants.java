@@ -6,8 +6,8 @@ public interface AndroidConstants {
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "tiffEAT";
-	String ROOT_URL = "http://6f8fe4c2.ngrok.io/tiffeat-web/";
-	//String ROOT_URL = "http://192.168.43.224:8080/tiffeat-web/";
+	//String ROOT_URL = "http://d5fb94c7.ngrok.io/tiffeat-web/";
+	String ROOT_URL = "http://192.168.0.16:8080/tiffeat-web/";
 	//String ROOT_URL="http://www.itrmitra.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
