@@ -14,30 +14,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-         <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
-            
-                <TextView
+            <TextView
                 android:id="@+id/menu_status_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/date_status_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
         </LinearLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            
             <TextView
                 android:id="@+id/roti_textView"
                 android:layout_width="wrap_content"

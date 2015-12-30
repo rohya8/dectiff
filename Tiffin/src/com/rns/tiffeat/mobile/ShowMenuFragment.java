@@ -1,8 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,7 +17,7 @@ import com.rns.tiffeat.web.bo.domain.MealFormat;
 public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private Button alertbtn;
-	private TextView roti, sabji, rice, salad, extra, price, menu;
+	private TextView roti, sabji, rice, salad, extra, price, menu, date;
 	private View rootView;
 	private CustomerOrder customerOrder;
 
@@ -54,8 +51,8 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 			if (customerOrder.getContent() != null) {
 				try {
-					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle() + " For : "
-							+ CustomerUtils.convertDate(customerOrder.getDate()));
+					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
+					date.setText( " For : "+CustomerUtils.convertDate(customerOrder.getDate()).toString());
 					sabji.setText(customerOrder.getContent().getMainItem());
 					roti.setText(customerOrder.getContent().getSubItem1());
 					rice.setText(customerOrder.getContent().getSubItem2());
@@ -87,10 +84,10 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		return rootView;
 	}
 
-	public static String getToday(String format) {
-		Date date = new Date();
-		return new SimpleDateFormat(format).format(date);
-	}
+//	public static String getToday(String format) {
+//		Date date = new Date();
+//		return new SimpleDateFormat(format).format(date);
+//	}
 
 	private void initialise() {
 		roti = (TextView) rootView.findViewById(R.id.roti_status_tv);
@@ -101,6 +98,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		price = (TextView) rootView.findViewById(R.id.price_status_tv);
 		alertbtn = (Button) rootView.findViewById(R.id.menu_done_button);
 		menu = (TextView) rootView.findViewById(R.id.menu_status_tv);
+		date = (TextView) rootView.findViewById(R.id.date_status_tv);
 	}
 
 	@Override
