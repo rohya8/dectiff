@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
+import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.Validation;
@@ -30,10 +31,13 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private CustomerOrder customerOrder;
 	private String availableMealTypeResult;
 	private Map<MealType, Date> availableMealType;
+	private Long existingUser = (long) 1;
 
 	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2) {
 		this.fragmentActivity = activity;
 		this.customerOrder = customerOrder2;
+		if (customerOrder2.getId() == (long) -10)
+			existingUser = customerOrder2.getId();
 	}
 
 	@Override
@@ -53,11 +57,12 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			customerlogin = new Gson().fromJson(resultLogin, Customer.class);
 			customerOrder.setCustomer(customerlogin);
 			CustomerUtils.storeCurrentCustomer(fragmentActivity, customerlogin);
-			
+
 			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
 			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
 			String customerOrderString = (String) customerOrderVailableMealTypesMap.get(Constants.MODEL_CUSTOMER_ORDER);
-			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));;
+			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));
+			;
 			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 
 		} catch (Exception e) {
@@ -75,6 +80,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
+
 		if (customerlogin == null) {
 			CustomerUtils.alertbox(TIFFEAT, "Login failed due to : " + result, fragmentActivity);
 			return;
@@ -90,7 +96,10 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private void nextActivity() {
 
 		Fragment fragment = null;
-		if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
+		if (existingUser == (long) -10) {
+
+			fragment = new FirstTimeUse(customerOrder);
+		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
 		} else {
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);

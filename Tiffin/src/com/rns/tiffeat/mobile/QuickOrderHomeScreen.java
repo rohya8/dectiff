@@ -18,6 +18,7 @@ import com.rns.tiffeat.mobile.adapter.QuickOrderListAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetNewOrderAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -133,7 +134,9 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	}
 
 	private void newActivity(CustomerOrder customerOrder2) {
-		new GetNewOrderAreaAsynctask(getActivity(), customerOrder2).execute();
+		Fragment fragment = null;
+		fragment = new FirstTimeUse(customerOrder);
+		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import com.rns.tiffeat.web.bo.domain.MealFormat;
 public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private Button alertbtn;
-	private TextView roti, sabji, rice, salad, extra, price;
+	private TextView roti, sabji, rice, salad, extra, price, menu;
 	private View rootView;
 	private CustomerOrder customerOrder;
 
@@ -43,7 +43,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-			
+
 			if (customerOrder == null || customerOrder.getContent() == null) {
 				sabji.setText("Menu not available yet..");
 			}
@@ -53,15 +53,19 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			}
 
 			if (customerOrder.getContent() != null) {
-				//TODO: Show menu date
-				//TODO: Add title e.g Non Veg Special Menu for Date
-				sabji.setText(customerOrder.getContent().getMainItem());
-				roti.setText(customerOrder.getContent().getSubItem1());
-				rice.setText(customerOrder.getContent().getSubItem2());
-				salad.setText(customerOrder.getContent().getSubItem3());
-				extra.setText(customerOrder.getContent().getSubItem4());
-			} 
-			
+				try {
+					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle() + " For : "
+							+ CustomerUtils.convertDate(customerOrder.getDate()));
+					sabji.setText(customerOrder.getContent().getMainItem());
+					roti.setText(customerOrder.getContent().getSubItem1());
+					rice.setText(customerOrder.getContent().getSubItem2());
+					salad.setText(customerOrder.getContent().getSubItem3());
+					extra.setText(customerOrder.getContent().getSubItem4());
+				} catch (Exception e) {
+					CustomerUtils.alertbox(TIFFEAT, "Vendor will update menu Soon ", getActivity());
+				}
+			}
+
 			alertbtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
@@ -96,6 +100,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		extra = (TextView) rootView.findViewById(R.id.extra_status_tv);
 		price = (TextView) rootView.findViewById(R.id.price_status_tv);
 		alertbtn = (Button) rootView.findViewById(R.id.menu_done_button);
+		menu = (TextView) rootView.findViewById(R.id.menu_status_tv);
 	}
 
 	@Override

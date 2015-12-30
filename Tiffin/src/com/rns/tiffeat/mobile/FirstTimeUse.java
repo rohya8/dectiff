@@ -2,6 +2,8 @@ package com.rns.tiffeat.mobile;
 
 import java.util.List;
 
+import org.springframework.util.CollectionUtils;
+
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -26,6 +28,7 @@ import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
+import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 
@@ -39,12 +42,17 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	private CustomerOrder customerOrder;
 	private AutoCompleteTextView actvAreas;
 	private TextView text;
+	private Customer customer;
 
 	public FirstTimeUse(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
 	}
 
 	public FirstTimeUse() {
+	}
+
+	public FirstTimeUse(Customer customer) {
+		this.customer = customer;
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +92,16 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 						String area = actvAreas.getText().toString();
 						if (!TextUtils.isEmpty(area)) {
 							text.setVisibility(View.VISIBLE);
+							if (customer != null) {
+								customerOrder = new CustomerOrder();
+								if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
+									customerOrder = customer.getQuickOrders().get(0);
+								} else if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
+									customerOrder = customer.getScheduledOrder().get(0);
+								}
+
+								customerOrder.setCustomer(customer);
+							}
 							getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, FirstTimeUse.this, customerOrder);
 							getVendorsForAreaAsynctask.execute(area);
 
@@ -100,11 +118,9 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	private void changeScheduleOrder() {
 
-		actvAreas.setText(customerOrder.getArea());
-		actvAreas.setEnabled(false);
+		actvAreas.setText(customerOrder.getLocation().getAddress());
 		getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, FirstTimeUse.this, customerOrder);
 		getVendorsForAreaAsynctask.execute(area);
-
 	}
 
 	private void initialise() {
@@ -172,4 +188,3 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	}
 
 }
-

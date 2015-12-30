@@ -120,9 +120,10 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 	}
 
 	private void checkBalance() {
+		
 		if (isOrderPayable()) {
 			showWalletDialogbox();
-		} else if (customer.getBalance() != null && BigDecimal.TEN.compareTo(customer.getBalance()) > 0) {
+		} else if (customer.getBalance() == null || customer.getBalance().compareTo(BigDecimal.TEN) > 0) {
 			showWalletDialogbox();
 		}
 	}

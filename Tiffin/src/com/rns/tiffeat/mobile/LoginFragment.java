@@ -29,7 +29,7 @@ public class LoginFragment extends Fragment implements AndroidConstants {
 	private Customer customer;
 	private EditText email, password;
 	private CustomerOrder customerOrder;
-
+	
 	// private int RESULT_OK = -1;
 	// private static final int RC_SIGN_IN = 0;
 	//

@@ -139,7 +139,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		both = (RadioButton) rootView.findViewById(R.id.scheduled_order_radioButton_both);
 
 		lunchaddr = (EditText) rootView.findViewById(R.id.scheduled_order_editText_LunchAddress);
-		new SimpleDateFormat("MM-dd-yyyy");
 
 		tiffindesc = (TextView) rootView.findViewById(R.id.scheduled_order_editText_TiffinName);
 		name = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Name);
@@ -161,7 +160,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
 		// phone.setText(customerOrder.getCustomer().getPhone());
-		lunchaddr.setText("Address");
+		lunchaddr.setHint("Address");
 		
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());

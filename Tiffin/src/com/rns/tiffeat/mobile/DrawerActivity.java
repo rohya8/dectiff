@@ -19,6 +19,7 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener, AndroidConstants {
 
@@ -66,18 +67,17 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		hideSoftKeyboard();
 
-		Customer currentCustomer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
-		if (currentCustomer.getName() == null) {
+		customer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
+		if (customer.getName() == null) {
 			newUserDrawer(position);
-		} else if (!CollectionUtils.isEmpty(currentCustomer.getQuickOrders())) {
+		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
 			quickAndScheduleOrderDrawer(position);
-			if ((!CollectionUtils.isEmpty(currentCustomer.getScheduledOrder()))) {
+			if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
 				bothOrderDrawer(position);
 			}
-		} else if ((!CollectionUtils.isEmpty(currentCustomer.getScheduledOrder()))) {
+		} else if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
 			quickAndScheduleOrderDrawer(position);
 		}
-
 	}
 
 	private void quickAndScheduleOrderDrawer(int position) {
@@ -87,7 +87,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		switch (position) {
 
 		case 0:
-			fragment = new FirstTimeUse();
+			
+			fragment = new FirstTimeUse(customer);
 			break;
 
 		case 1:
@@ -156,21 +157,15 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		switch (position) {
 
 		case 0:
-			if (customer != null) {
-				CustomerUtils.logout(this);
-				new GetAreaAsynctask(this).execute();
-			} 
-//			else {
-//				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", DrawerActivity.this);
-//				fragment = new FirstTimeUse();
-//			}
-			break;
-
-		case 1:
-
 			if (customer == null || TextUtils.isEmpty(customer.getEmail())) {
 				fragment = new FirstTimeUse();
 			}
+			break;
+
+		case 1:
+			CustomerOrder customerOrder=new CustomerOrder();
+			customerOrder.setId(-10);
+			fragment=new LoginFragment(customerOrder);
 			break;
 
 		case 2:
@@ -215,7 +210,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		switch (position) {
 
 		case 0:
-			fragment = new FirstTimeUse();
+			fragment = new FirstTimeUse(customer);
 			break;
 
 		case 1:
