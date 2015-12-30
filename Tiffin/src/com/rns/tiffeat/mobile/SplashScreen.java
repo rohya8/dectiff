@@ -53,6 +53,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 			finish();
 		} else {
 			new GetCurrentCustomerAsyncTask(this).execute();
+			finish();
 		}
 	}
 }
