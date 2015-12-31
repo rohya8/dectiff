@@ -26,6 +26,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 
 		if (!Validation.isNetworkAvailable(context)) {
 			Validation.showError(context, ERROR_NO_INTERNET_CONNECTION);
+			finish();
 		} else {
 
 			runOnUiThread(new Runnable() {
@@ -46,14 +47,14 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 	}
 
 	public void AsyncTaskCall() {
-		Customer customer = CustomerUtils.getCurrentCustomer(getApplicationContext());
+		Customer customer = CustomerUtils.getCurrentCustomer(SplashScreen.this);
 		if (TextUtils.isEmpty(customer.getEmail())) {
 			Intent i = new Intent(SplashScreen.this, DrawerActivity.class);
 			startActivity(i);
 			finish();
 		} else {
-			new GetCurrentCustomerAsyncTask(this).execute();
-			finish();
+			new GetCurrentCustomerAsyncTask(SplashScreen.this).execute();
+
 		}
 	}
 }

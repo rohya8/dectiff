@@ -116,7 +116,7 @@ public class CustomerServerUtils implements AndroidConstants {
 		}.getType();
 
 		removeCircularReferences(customerOrderObject);
-		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrderObject, type));
+		uriVariables.put(CUSTOMERORDER_OBJECT, new Gson().toJson(customerOrderObject, type));
 		result = CoreServerUtils.serverCall(CUSTOMER_GET_MENU_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
 	}

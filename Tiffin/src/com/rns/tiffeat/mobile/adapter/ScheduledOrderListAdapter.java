@@ -207,7 +207,8 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void newOrder(CustomerOrder customerOrder) {
 
-		//new GetNewOrderAreaAsynctask(scheduledOrderFragment, customerOrder).execute();
+		// new GetNewOrderAreaAsynctask(scheduledOrderFragment,
+		// customerOrder).execute();
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
 
@@ -221,7 +222,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		}
 		holder.title.setText(customerOrder.getMeal().getTitle());
 
-		holder.date.setText("Scheduled From :" + CustomerUtils.convertDate(customerOrder.getDate()));
+		if (customerOrder.getDate() != null)
+			holder.date.setText("Scheduled From :" + CustomerUtils.convertDate(customerOrder.getDate()));
+		else
+			holder.date.setText("");
+
 		holder.mealType.setText(customerOrder.getMealType().toString());
 
 		setOrderStatus(customerOrder);

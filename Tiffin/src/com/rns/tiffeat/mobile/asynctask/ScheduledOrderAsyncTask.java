@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
+import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -51,6 +52,8 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 				currentCustomer = CustomerServerUtils.getCurrentCustomer(scheduledOrders.get(0).getCustomer());
 				CustomerUtils.storeCurrentCustomer(previousActivity, currentCustomer);
 			}
+			
+				
 			return result;
 
 		} catch (Exception e) {
@@ -73,12 +76,19 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 			CustomerUtils.alertbox(TIFFEAT, "Order Successfull !!", previousActivity);
 			nextActivity();
 		}
-		
+		else
+		{
+			CustomerUtils.alertbox(TIFFEAT, result, previousActivity);
+			Fragment fragment = new FirstTimeUse(currentCustomer);
+			CustomerUtils.nextFragment(fragment, previousActivity.getSupportFragmentManager(), false);
+			
+		}
 		
 
 	}
 
 	private void nextActivity() {
+		CustomerUtils.clearFragmentStack(previousActivity.getSupportFragmentManager());
 		Fragment fragment = new ScheduledUser(currentCustomer, true);
 		CustomerUtils.nextFragment(fragment, previousActivity.getSupportFragmentManager(), false);
 	}

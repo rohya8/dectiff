@@ -143,7 +143,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			customerOrder.setMeal(meal2);
 
 			Fragment fragment = null;
-			if (customerOrder != null && customerOrder.getMealFormat() != null) {
+			if (customerOrder != null && customerOrder.getMealFormat() != null  && MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 				if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 					if (customerOrder.getId() == 0) {
 						new ExistingUserAsyncTask(activity, customerOrder).execute();

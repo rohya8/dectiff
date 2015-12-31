@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textview_address"
                     android:layout_marginTop="5dp"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical" >
 
                     <RadioButton
                         android:id="@+id/scheduled_order_radioButton_lunch"

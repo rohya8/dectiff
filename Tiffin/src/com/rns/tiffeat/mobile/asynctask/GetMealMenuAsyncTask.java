@@ -75,7 +75,8 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 			extractCustomerOrder(customer.getScheduledOrder());
 		}
 		customerOrder.setCustomer(customer);
-		fragment = new ShowMenuFragment(customerOrder);
+		
+				fragment = new ShowMenuFragment(customerOrder);
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), false);
 	}
 

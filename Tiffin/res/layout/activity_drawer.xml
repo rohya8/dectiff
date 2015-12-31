@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
-        android:name="com.rns.tiffeat.mobile.FragmentDrawer"
+        class="com.rns.tiffeat.mobile.FragmentDrawer"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

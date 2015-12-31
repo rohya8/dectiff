@@ -98,6 +98,7 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 	private void nextActivity() {
 
 		Customer customer = CustomerUtils.getCurrentCustomer(mchangeorder);
+		CustomerUtils.clearFragmentStack(mchangeorder.getSupportFragmentManager());
 		Fragment fragment = null;
 		fragment = new ScheduledUser(customer, true);
 

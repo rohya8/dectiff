@@ -5,10 +5,10 @@ public interface AndroidConstants {
 	String RESPONSE_INVALID = "INVALID";
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
-	String TAG = "tiffEAT";
-	//String ROOT_URL = "http://d5fb94c7.ngrok.io/tiffeat-web/";
-	String ROOT_URL = "http://192.168.0.16:8080/tiffeat-web/";
-	//String ROOT_URL="http://www.itrmitra.com/";
+	String TAG = "TiffEAT";
+	// String ROOT_URL = "http://d5fb94c7.ngrok.io/tiffeat-web/";
+	 String ROOT_URL = "http://192.168.0.10:8080/tiffeat-web/";
+	//String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
 	String CUSTOMERORDER_OBJECT = "customerOrder";
@@ -21,7 +21,7 @@ public interface AndroidConstants {
 	String CUSTOMER_SCHEDULED_ORDER_URL = ROOT_URL + "scheduledOrderAndroid?customerOrder={customerOrderObject}";
 	String GET_AREAS = ROOT_URL + "getAreasAndroid.htm";
 	String CUSTOMER_GET_MEAL_URL = ROOT_URL + "getAvailableMealTypeDatesAndroid?customerOrder={customerOrderObject}";
-	String	CUSTOMER_GET_MENU_URL=ROOT_URL+"getMenuAndroid?customerOrder={customerOrderObject}";
+	String CUSTOMER_GET_MENU_URL = ROOT_URL + "getMenuAndroid?customerOrder={customerOrder}";
 	String GET_CURRENT_CUSTOMER_URL = ROOT_URL + "getCurrentCustomerAndroid?customer={customer}";
 	String CUSTOMER_LOGIN_URL = ROOT_URL + "loginCustomerAndroid?customer={customer}";
 	String CUSTOMER_GOOGLE_LOGIN_URL = ROOT_URL + "loginWithGoogleCustomerAndroid?customer={customer}";

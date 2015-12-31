@@ -71,6 +71,8 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						Fragment fragment = null;
+						CustomerUtils.clearFragmentStack(getFragmentManager());
+						
 						if (customerOrder.getMealFormat().equals(MealFormat.QUICK))
 							fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
 						else

@@ -1,6 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,16 +62,16 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		if (customerOrder.getMealType() != null && availableMealTypes.contains(customerOrder.getMealType())) {
 			if (MealType.LUNCH.equals(customerOrder.getMealType())) {
 				lunchaddr.setVisibility(View.VISIBLE);
-				lunch.setText("Lunch ");
+				lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
 				lunch.setVisibility(View.VISIBLE);
 			} else if (MealType.DINNER.equals(customerOrder.getMealType())) {
 				lunchaddr.setVisibility(View.VISIBLE);
-				dinner.setText("Dinner ");
+				dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
 				dinner.setVisibility(View.VISIBLE);
 			}
 			if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 				lunchaddr.setVisibility(View.VISIBLE);
-				both.setText("Both ");
+				both.setText("Both for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.BOTH)) + " )");
 				both.setVisibility(View.VISIBLE);
 			}
 			customerOrder.setDate(availableMealTypeDatesMap.get(availableMealTypes.get(0)));
@@ -81,17 +80,17 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 		if (availableMealTypeDatesMap.get(MealType.LUNCH) != null && availableMealTypes.contains(MealType.LUNCH)) {
 			lunchaddr.setVisibility(View.VISIBLE);
-			lunch.setText("Lunch ");
+			lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
 			lunch.setVisibility(View.VISIBLE);
 		}
 		if (availableMealTypeDatesMap.get(MealType.DINNER) != null && availableMealTypes.contains(MealType.DINNER)) {
 			lunchaddr.setVisibility(View.VISIBLE);
-			dinner.setText("Dinner ");
+			dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
 			dinner.setVisibility(View.VISIBLE);
 		}
 		if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 			lunchaddr.setVisibility(View.VISIBLE);
-			both.setText("Both ");
+			both.setText("Both for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.BOTH)) + " )");
 			both.setVisibility(View.VISIBLE);
 		}
 		customerOrder.setDate(availableMealTypeDatesMap.get(availableMealTypes.get(0)));

@@ -1,5 +1,6 @@
 package com.rns.tiffeat.mobile.asynctask;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -29,7 +30,6 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 		this.scheduledHome = scheduledUser;
 		this.context = activity;
 	}
-
 
 	public GetCurrentCustomerAsyncTask(Context activity) {
 		this.context = activity;
@@ -77,6 +77,7 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 		Intent i = new Intent(context, DrawerActivity.class);
 		i.putExtra(AndroidConstants.CUSTOMER_OBJECT, new Gson().toJson(customer));
 		context.startActivity(i);
+		((Activity) context).finish();
 
 	}
 
