@@ -7,7 +7,7 @@ public interface AndroidConstants {
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "TiffEAT";
 	// String ROOT_URL = "http://d5fb94c7.ngrok.io/tiffeat-web/";
-	 String ROOT_URL = "http://192.168.0.10:8080/tiffeat-web/";
+	 String ROOT_URL = "http://192.168.0.7:8080/tiffeat-web/";
 	//String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
@@ -26,7 +26,8 @@ public interface AndroidConstants {
 	String CUSTOMER_LOGIN_URL = ROOT_URL + "loginCustomerAndroid?customer={customer}";
 	String CUSTOMER_GOOGLE_LOGIN_URL = ROOT_URL + "loginWithGoogleCustomerAndroid?customer={customer}";
 	String PAYMENT_URL = ROOT_URL + "paymentAndroid?customerOrder={customerOrderObject}";
-	String VALIDATE_CUSTOMER_URL = ROOT_URL + "validateQuickOrderAndroid?customerOrder={customerOrderObject}";
+	String VALIDATE_CUSTOMER_QUICKORDER_URL = ROOT_URL + "validateQuickOrderAndroid?customerOrder={customerOrderObject}";
+	String VALIDATE_CUSTOMER_SCHEDULEORDER_URL = ROOT_URL + "validateScheduledOrderAndroid?customerOrder={customerOrderObject}";
 	String ADD_TO_WALLET_URL = ROOT_URL + "addToWalletAndroid?customer={customer}";
 	String CANCEL_ORDER_URL = ROOT_URL + "cancelOrderAndroid?customerOrder={customerOrderObject}";
 	String CHANGE_ORDER_URL = ROOT_URL + "changeOrderAndroid?customerOrder={customerOrderObject}";

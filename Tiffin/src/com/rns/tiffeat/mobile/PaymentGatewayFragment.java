@@ -54,7 +54,7 @@ public class PaymentGatewayFragment extends Fragment implements AndroidConstants
 							if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 								new QuickOrderAsyncTask(getActivity(), customerOrder).execute("");
 							} else {
-								new AddToWalletAsyncTask(getActivity(), customerOrder.getCustomer()).execute("");
+								new AddToWalletAsyncTask(getActivity(), customerOrder).execute("");
 							}
 							return true;
 						} else {

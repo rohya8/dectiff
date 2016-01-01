@@ -12,16 +12,18 @@ import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class AddToWalletAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
-	FragmentActivity activity;
-	Customer currentCustomer;
+	private FragmentActivity activity;
+	
 	private ProgressDialog progressDialog;
+	private CustomerOrder customerOrder;
 
-	public AddToWalletAsyncTask(FragmentActivity activity, Customer customer) {
+	public AddToWalletAsyncTask(FragmentActivity activity, CustomerOrder customerOrder) {
 		this.activity = activity;
-		this.currentCustomer = customer;
+		this.customerOrder = customerOrder;
 	}
 
 	@Override
@@ -37,14 +39,13 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 			return null;
 		}
 		try {
-			return CustomerServerUtils.addToWallet(currentCustomer);
+			return CustomerServerUtils.addToWallet(customerOrder.getCustomer());
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 
 	}
-
 
 	@Override
 	protected void onPostExecute(String result) {
@@ -54,16 +55,18 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 		if (result == null) {
 			Validation.showError(activity, ERROR_FETCHING_DATA);
 			return;
-		}
-		else
+		} else
 			nextActivity();
 	}
 
 	private void nextActivity() {
 
 		CustomerUtils.clearFragmentStack(activity.getSupportFragmentManager());
-		Fragment scheduledHomeFragment = new ScheduledUser(currentCustomer, false);
-		CustomerUtils.nextFragment(scheduledHomeFragment, activity.getSupportFragmentManager(), false);
+		if (customerOrder != null) {
+			new ScheduledOrderAsyncTask(activity, customerOrder).execute();
+		} else {
+			Fragment scheduledHomeFragment = new ScheduledUser(customerOrder.getCustomer(), false);
+			CustomerUtils.nextFragment(scheduledHomeFragment, activity.getSupportFragmentManager(), false);
+		}
 	}
-
 }

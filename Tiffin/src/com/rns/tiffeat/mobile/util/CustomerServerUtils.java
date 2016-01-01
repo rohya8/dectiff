@@ -83,14 +83,10 @@ public class CustomerServerUtils implements AndroidConstants {
 
 	}
 
-	public static String scheduledOrder(List<CustomerOrder> customerOrderObjects) {
+	public static String scheduledOrder(CustomerOrder customerOrderObject) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
-		Type type = new TypeToken<List<CustomerOrder>>() {
-		}.getType();
-		for (CustomerOrder customerOrderObject : customerOrderObjects) {
 			removeCircularReferences(customerOrderObject);
-		}
-		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrderObjects, type));
+		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrderObject, CustomerOrder.class));
 		result = CoreServerUtils.serverCall(CUSTOMER_SCHEDULED_ORDER_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
 
@@ -172,7 +168,14 @@ public class CustomerServerUtils implements AndroidConstants {
 	public static String validateQuickOrder(CustomerOrder customerOrder) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
-		result = CoreServerUtils.serverCall(VALIDATE_CUSTOMER_URL, uriVariables, HttpMethod.POST).getBody();
+		result = CoreServerUtils.serverCall(VALIDATE_CUSTOMER_QUICKORDER_URL, uriVariables, HttpMethod.POST).getBody();
+		return result;
+	}
+	
+	public static String validateScheduledOrder(CustomerOrder customerOrder) {
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
+		result = CoreServerUtils.serverCall(VALIDATE_CUSTOMER_SCHEDULEORDER_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
 	}
 

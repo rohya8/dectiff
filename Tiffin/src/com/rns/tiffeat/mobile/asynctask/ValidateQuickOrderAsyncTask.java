@@ -47,7 +47,7 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 			return result;
 
 		} catch (Exception e) {
-			Log.d(MYTAG, "Log occurred in "+getClass().getName()+" Exception : "+e);
+			Log.d(MYTAG, "Log occurred in " + getClass().getName() + " Exception : " + e);
 		}
 		return null;
 
@@ -66,9 +66,9 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 		customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 		if ("OK".equals(validationResult)) {
 			nextActivity();
-		}
-		else {
-			//TODO: Show validation error with dialog
+		} else {
+			CustomerUtils.alertbox(TIFFEAT, result, previousActivity);
+			return;
 		}
 		progressDialog.dismiss();
 	}

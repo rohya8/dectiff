@@ -19,6 +19,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.ValidateScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -64,17 +66,20 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				lunchaddr.setVisibility(View.VISIBLE);
 				lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
 				lunch.setVisibility(View.VISIBLE);
+				customerOrder.setDate(availableMealType.get(MealType.LUNCH));
 			} else if (MealType.DINNER.equals(customerOrder.getMealType())) {
 				lunchaddr.setVisibility(View.VISIBLE);
 				dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
 				dinner.setVisibility(View.VISIBLE);
+				customerOrder.setDate(availableMealType.get(MealType.DINNER));
 			}
 			if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 				lunchaddr.setVisibility(View.VISIBLE);
 				both.setText("Both for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.BOTH)) + " )");
 				both.setVisibility(View.VISIBLE);
+				customerOrder.setDate(availableMealType.get(MealType.BOTH));
 			}
-			customerOrder.setDate(availableMealTypeDatesMap.get(availableMealTypes.get(0)));
+
 			return;
 		}
 
@@ -160,7 +165,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		emailid.setText(customerOrder.getCustomer().getEmail());
 		// phone.setText(customerOrder.getCustomer().getPhone());
 		lunchaddr.setHint("Address");
-		
+
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
@@ -211,7 +216,23 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				else if (!Validation.isPhoneNumber(phone, true))
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
 				else {
-					new ScheduledOrderAsyncTask(prepareCustomerOrders(), getActivity()).execute();
+					// new ScheduledOrderAsyncTask(prepareCustomerOrders(),
+					// getActivity()).execute();
+					if (lunch != null && lunch.isChecked()) {
+						customerOrder.setMealType(MealType.LUNCH);
+					} else if (dinner != null && dinner.isChecked()) {
+						customerOrder.setMealType(MealType.DINNER);
+					} else if (both != null && both.isChecked()) {
+						customerOrder.setMealType(MealType.BOTH);
+					}
+					
+					customerOrder.setAddress(lunchaddr.getText().toString());
+					customerOrder.getCustomer().setPhone(phone.getText().toString());
+
+					if(customerOrder.getCustomer().getBalance() == null || customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice())<0)
+						new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
+					else
+						new ScheduledOrderAsyncTask( getActivity(),customerOrder).execute();
 				}
 			}
 			break;
@@ -222,27 +243,24 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 	}
 
-	private List<CustomerOrder> prepareCustomerOrders() {
-		List<CustomerOrder> scheduledOrders = new ArrayList<CustomerOrder>();
-		customerOrder.setAddress(lunchaddr.getText().toString());
-		customerOrder.getCustomer().setPhone(phone.getText().toString());
-		if (lunch != null && lunch.isChecked()) {
-			customerOrder.setMealType(MealType.LUNCH);
-		} else if (dinner != null && dinner.isChecked()) {
-			customerOrder.setMealType(MealType.DINNER);
-		} else if (both != null && both.isChecked()) {
-			CustomerOrder scheduledOrder = new CustomerOrder();
-			scheduledOrder.setAddress(customerOrder.getAddress());
-			scheduledOrder.setArea(customerOrder.getArea());
-			customerOrder.setMealType(MealType.LUNCH);
-			scheduledOrder.setMealType(MealType.DINNER);
-			scheduledOrder.setMeal(customerOrder.getMeal());
-			scheduledOrder.setCustomer(customerOrder.getCustomer());
-			scheduledOrder.setDate(customerOrder.getDate());
-			scheduledOrders.add(scheduledOrder);
-		}
-		scheduledOrders.add(customerOrder);
-		return scheduledOrders;
-	}
-
+	/*
+	 * private List<CustomerOrder> prepareCustomerOrders() { List<CustomerOrder>
+	 * scheduledOrders = new ArrayList<CustomerOrder>();
+	 * customerOrder.setAddress(lunchaddr.getText().toString());
+	 * customerOrder.getCustomer().setPhone(phone.getText().toString()); if
+	 * (lunch != null && lunch.isChecked()) {
+	 * customerOrder.setMealType(MealType.LUNCH); } else if (dinner != null &&
+	 * dinner.isChecked()) { customerOrder.setMealType(MealType.DINNER); } else
+	 * if (both != null && both.isChecked()) { CustomerOrder scheduledOrder =
+	 * new CustomerOrder();
+	 * scheduledOrder.setAddress(customerOrder.getAddress());
+	 * scheduledOrder.setArea(customerOrder.getArea());
+	 * customerOrder.setMealType(MealType.LUNCH);
+	 * scheduledOrder.setMealType(MealType.DINNER);
+	 * scheduledOrder.setMeal(customerOrder.getMeal());
+	 * scheduledOrder.setCustomer(customerOrder.getCustomer());
+	 * scheduledOrder.setDate(customerOrder.getDate());
+	 * scheduledOrders.add(scheduledOrder); }
+	 * scheduledOrders.add(customerOrder); return scheduledOrders; }
+	 */
 }

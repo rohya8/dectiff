@@ -1,14 +1,11 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -20,20 +17,27 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
-	private List<CustomerOrder> scheduledOrders;
+	private CustomerOrder scheduledOrder;
 	private ProgressDialog progressDialog;
 	private FragmentActivity previousActivity;
 	private Customer currentCustomer;
 
-	public ScheduledOrderAsyncTask(List<CustomerOrder> customerOrders, FragmentActivity context) {
-		this.scheduledOrders = customerOrders;
-		this.previousActivity = context;
+	// public ScheduledOrderAsyncTask(List<CustomerOrder> customerOrders,
+	// FragmentActivity context) {
+	// this.scheduledOrders = customerOrders;
+	// this.previousActivity = context;
+	// }
+
+	public ScheduledOrderAsyncTask(FragmentActivity scheduleOrderFragmentActivity, CustomerOrder customerOrder) {
+		this.previousActivity = scheduleOrderFragmentActivity;
+		this.currentCustomer = customerOrder.getCustomer();
+		this.scheduledOrder = customerOrder;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		
+
 		progressDialog = UserUtils.showLoadingDialog(previousActivity, "Scheduled order", "Preparing.....");
 	}
 
@@ -43,23 +47,23 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		if (!Validation.isNetworkAvailable(previousActivity)) {
 			return null;
 		}
+		// if (scheduledOrders == null || scheduledOrders.size() == 0) {
+		// return null;
+		// }
 		try {
-			if (scheduledOrders == null || scheduledOrders.size() == 0) {
-				return null;
-			}
-			String result = new Gson().fromJson(CustomerServerUtils.scheduledOrder(scheduledOrders), String.class);
+
+			String result = new Gson().fromJson(CustomerServerUtils.scheduledOrder(scheduledOrder), String.class);
 			if ("OK".equals(result)) {
-				currentCustomer = CustomerServerUtils.getCurrentCustomer(scheduledOrders.get(0).getCustomer());
+				currentCustomer = CustomerServerUtils.getCurrentCustomer(scheduledOrder.getCustomer());
 				CustomerUtils.storeCurrentCustomer(previousActivity, currentCustomer);
+				return result;
 			}
-			
-				
 			return result;
 
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
+			return null;
 		}
-		return null;
 
 	}
 
@@ -75,15 +79,10 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		if ("OK".equals(result)) {
 			CustomerUtils.alertbox(TIFFEAT, "Order Successfull !!", previousActivity);
 			nextActivity();
-		}
-		else
-		{
+		} else {
 			CustomerUtils.alertbox(TIFFEAT, result, previousActivity);
-			Fragment fragment = new FirstTimeUse(currentCustomer);
-			CustomerUtils.nextFragment(fragment, previousActivity.getSupportFragmentManager(), false);
-			
+			return;
 		}
-		
 
 	}
 
