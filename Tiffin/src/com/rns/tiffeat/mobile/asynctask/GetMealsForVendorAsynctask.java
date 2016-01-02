@@ -41,6 +41,7 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 		}
 		try {
 			String result = CustomerServerUtils.getMealsForVendor(vendor);
+			
 			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());

@@ -2,6 +2,7 @@ package com.rns.tiffeat.mobile;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.rns.tiffeat.mobile.asynctask.GetMealsForVendorAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -41,7 +43,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		} else {
 			initialise();
 
-			if (customerOrder == null || customerOrder.getContent() == null) {
+			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())) {
 				sabji.setText("Menu not available yet..");
 			}
 
@@ -51,13 +53,20 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 			if (customerOrder.getContent() != null) {
 				try {
-					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
-					date.setText( " For : "+CustomerUtils.convertDate(customerOrder.getDate()).toString());
-					sabji.setText(customerOrder.getContent().getMainItem());
-					roti.setText(customerOrder.getContent().getSubItem1());
-					rice.setText(customerOrder.getContent().getSubItem2());
-					salad.setText(customerOrder.getContent().getSubItem3());
-					extra.setText(customerOrder.getContent().getSubItem4());
+					if (customerOrder.getMealType() != null)
+						menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
+					if (customerOrder.getContent().getDate() != null)
+						date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()).toString());
+					if (customerOrder.getContent().getMainItem() != null)
+						sabji.setText(customerOrder.getContent().getMainItem());
+					if (customerOrder.getContent().getSubItem1() != null)
+						roti.setText(customerOrder.getContent().getSubItem1());
+					if (customerOrder.getContent().getSubItem2() != null)
+						rice.setText(customerOrder.getContent().getSubItem2());
+					if (customerOrder.getContent().getSubItem3() != null)
+						salad.setText(customerOrder.getContent().getSubItem3());
+					if (customerOrder.getContent().getSubItem4() != null)
+						extra.setText(customerOrder.getContent().getSubItem4());
 				} catch (Exception e) {
 					CustomerUtils.alertbox(TIFFEAT, "Vendor will update menu Soon ", getActivity());
 				}
@@ -72,24 +81,22 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 					} else {
 						Fragment fragment = null;
 						CustomerUtils.clearFragmentStack(getFragmentManager());
-						
-						if (customerOrder.getMealFormat().equals(MealFormat.QUICK))
-							fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
-						else
-							fragment = new ScheduledUser(customerOrder.getCustomer());
-
-						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+						if (customerOrder.getCustomer() != null) {
+							if (customerOrder.getMealFormat().equals(MealFormat.QUICK)) {
+								fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
+								CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+							} else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED)) {
+								fragment = new ScheduledUser(customerOrder.getCustomer());
+								CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+							}
+						} else
+							new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
 					}
 				}
 			});
 		}
 		return rootView;
 	}
-
-//	public static String getToday(String format) {
-//		Date date = new Date();
-//		return new SimpleDateFormat(format).format(date);
-//	}
 
 	private void initialise() {
 		roti = (TextView) rootView.findViewById(R.id.roti_status_tv);

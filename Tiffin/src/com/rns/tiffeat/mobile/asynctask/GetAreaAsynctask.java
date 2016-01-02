@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CoreServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 
 public class GetAreaAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
@@ -27,7 +26,8 @@ public class GetAreaAsynctask extends AsyncTask<String, String, String> implemen
 			return null;
 		} else {
 			try {
-				CoreServerUtils.retrieveVendorAreaNames();
+				//CoreServerUtils.retrieveVendorAreaNames();
+				//result
 			} catch (Exception e) {
 				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 			}

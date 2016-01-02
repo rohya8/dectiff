@@ -41,7 +41,7 @@ public class ListOfMeals extends Fragment implements AndroidConstants {
 			initialise();
 
 			vendorName.setText(vendor.getName() + "  offers : ");
-
+			
 			ListOfMealAdapter Adapter = new ListOfMealAdapter(getActivity(), R.layout.activity_list_of_meals_adapter, vendor.getMeals(), customerOrder);
 			listview.setAdapter(Adapter);
 

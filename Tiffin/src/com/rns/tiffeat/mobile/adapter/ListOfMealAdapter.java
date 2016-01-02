@@ -145,7 +145,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			Meal meal2 = returnMeal(position);
 			customerOrder.setMeal(meal2);
 
-			
+
 			if (customerOrder != null && customerOrder.getMealFormat() != null && MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 				if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 					if (customerOrder.getId() == 0) {
@@ -195,7 +195,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			@Override
 			public void onClick(View arg0) {
 				lunch.setChecked(false);
-
+				alertDialog.dismiss();
 				if (customerOrder.getCustomer() == null) {
 					CustomerOrder custOrder = new CustomerOrder();
 					Meal meal2 = returnMeal(position);
@@ -217,6 +217,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			@Override
 			public void onClick(View v) {
 				dinner.setChecked(false);
+				alertDialog.dismiss();
 				if (customerOrder == null) {
 					CustomerOrder custOrder = new CustomerOrder();
 					Meal meal2 = returnMeal(position);

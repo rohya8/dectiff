@@ -1,7 +1,10 @@
 package com.rns.tiffeat.mobile;
 
+import java.util.Random;
+
 import org.springframework.util.CollectionUtils;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -193,6 +196,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		if (fragment != null) {
 			title = "TiffEat";
 			getSupportActionBar().setTitle(title);
+			//Random rnd = new Random(); 
+			///getSupportActionBar().setTitleTextColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
 			if (isFragmentToBeAddedToBackStack(fragment)) {
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 			} else {
@@ -258,7 +263,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		case 6:
 			if (customer != null) {
 				CustomerUtils.logout(this);
-				new GetAreaAsynctask(this).execute();
+				fragment = new FirstTimeUse();
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", DrawerActivity.this);
 				fragment = new FirstTimeUse();

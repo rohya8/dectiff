@@ -41,8 +41,13 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 
 		try {
 
-			return new Gson().fromJson(CustomerServerUtils.customerGetMealAndroid(customerOrder), DailyContent.class);
+			DailyContent result = new Gson().fromJson(CustomerServerUtils.getMealMenuAndroid(customerOrder), DailyContent.class);
 
+			if (result == null) {
+				result = new DailyContent();
+				result.setMainItem("No Meal available");
+			}
+			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
@@ -63,6 +68,7 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 		Fragment fragment = null;
 		customerOrder.setContent(dailyContent);
 		fragment = new ShowMenuFragment(customerOrder);
+		
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), false);
 	}
 

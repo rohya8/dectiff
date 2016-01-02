@@ -19,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ValidateScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -61,17 +60,30 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			return;
 		}
 
+		filterMealTypes(availableMealTypeDatesMap, availableMealTypes);
+
+		if (CollectionUtils.isEmpty(availableMealTypes)) {
+
+			Validation.showError(getActivity(), "No meal timing available that can be scheduled");
+
+			return;
+		}
+
 		if (customerOrder.getMealType() != null && availableMealTypes.contains(customerOrder.getMealType())) {
 			if (MealType.LUNCH.equals(customerOrder.getMealType())) {
-				lunchaddr.setVisibility(View.VISIBLE);
-				lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
-				lunch.setVisibility(View.VISIBLE);
-				customerOrder.setDate(availableMealType.get(MealType.LUNCH));
+				if (CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) != null) {
+					lunchaddr.setVisibility(View.VISIBLE);
+					lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
+					lunch.setVisibility(View.VISIBLE);
+					customerOrder.setDate(availableMealType.get(MealType.LUNCH));
+				}
 			} else if (MealType.DINNER.equals(customerOrder.getMealType())) {
-				lunchaddr.setVisibility(View.VISIBLE);
-				dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
-				dinner.setVisibility(View.VISIBLE);
-				customerOrder.setDate(availableMealType.get(MealType.DINNER));
+				if (CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) != null) {
+					lunchaddr.setVisibility(View.VISIBLE);
+					dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
+					dinner.setVisibility(View.VISIBLE);
+					customerOrder.setDate(availableMealType.get(MealType.DINNER));
+				}
 			}
 			if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 				lunchaddr.setVisibility(View.VISIBLE);
@@ -84,14 +96,19 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		}
 
 		if (availableMealTypeDatesMap.get(MealType.LUNCH) != null && availableMealTypes.contains(MealType.LUNCH)) {
-			lunchaddr.setVisibility(View.VISIBLE);
-			lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
-			lunch.setVisibility(View.VISIBLE);
+
+			if (CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) != null) {
+				lunchaddr.setVisibility(View.VISIBLE);
+				lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
+				lunch.setVisibility(View.VISIBLE);
+			}
 		}
 		if (availableMealTypeDatesMap.get(MealType.DINNER) != null && availableMealTypes.contains(MealType.DINNER)) {
-			lunchaddr.setVisibility(View.VISIBLE);
-			dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
-			dinner.setVisibility(View.VISIBLE);
+			if (CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) != null) {
+				lunchaddr.setVisibility(View.VISIBLE);
+				dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
+				dinner.setVisibility(View.VISIBLE);
+			}
 		}
 		if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 			lunchaddr.setVisibility(View.VISIBLE);
@@ -99,6 +116,18 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			both.setVisibility(View.VISIBLE);
 		}
 		customerOrder.setDate(availableMealTypeDatesMap.get(availableMealTypes.get(0)));
+	}
+
+	private void filterMealTypes(Map<MealType, Date> availableMealTypeDatesMap, List<MealType> availableMealTypes) {
+
+		List<MealType> filteredMealTypes = new ArrayList<MealType>();
+
+		for (MealType mealType : availableMealTypes) {
+			if (availableMealTypeDatesMap.get(mealType) != null) {
+				filteredMealTypes.add(mealType);
+			}
+		}
+		availableMealTypes = filteredMealTypes;
 	}
 
 	private List<MealType> filterAvailableMealTypes() {
@@ -225,14 +254,15 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 					} else if (both != null && both.isChecked()) {
 						customerOrder.setMealType(MealType.BOTH);
 					}
-					
+
 					customerOrder.setAddress(lunchaddr.getText().toString());
 					customerOrder.getCustomer().setPhone(phone.getText().toString());
 
-					if(customerOrder.getCustomer().getBalance() == null || customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice())<0)
+					if (customerOrder.getCustomer().getBalance() == null
+							|| customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
 						new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
 					else
-						new ScheduledOrderAsyncTask( getActivity(),customerOrder).execute();
+						new ScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
 				}
 			}
 			break;

@@ -105,14 +105,12 @@ public class CustomerServerUtils implements AndroidConstants {
 		return result;
 	}
 
-	public static String customerGetMealAndroid(CustomerOrder customerOrderObject) {
+	public static String getMealMenuAndroid(CustomerOrder customerOrderObject) {
 
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
-		Type type = new TypeToken<CustomerOrder>() {
-		}.getType();
 
 		removeCircularReferences(customerOrderObject);
-		uriVariables.put(CUSTOMERORDER_OBJECT, new Gson().toJson(customerOrderObject, type));
+		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrderObject));
 		result = CoreServerUtils.serverCall(CUSTOMER_GET_MENU_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
 	}

@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:gravity="right"
+                android:layout_marginRight="5dp"
                 android:orientation="horizontal" >
 
                 <ImageView

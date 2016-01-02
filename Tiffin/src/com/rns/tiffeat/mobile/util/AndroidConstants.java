@@ -11,7 +11,6 @@ public interface AndroidConstants {
 	//String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
-	String CUSTOMERORDER_OBJECT = "customerOrder";
 	String MEAL_OBJECT = "meal";
 
 	String GET_VENDORS_FOR_AREA = ROOT_URL + "getVendorsForAreaAndroid?pinCode={pinCode}";
@@ -21,7 +20,7 @@ public interface AndroidConstants {
 	String CUSTOMER_SCHEDULED_ORDER_URL = ROOT_URL + "scheduledOrderAndroid?customerOrder={customerOrderObject}";
 	String GET_AREAS = ROOT_URL + "getAreasAndroid.htm";
 	String CUSTOMER_GET_MEAL_URL = ROOT_URL + "getAvailableMealTypeDatesAndroid?customerOrder={customerOrderObject}";
-	String CUSTOMER_GET_MENU_URL = ROOT_URL + "getMenuAndroid?customerOrder={customerOrder}";
+	String CUSTOMER_GET_MENU_URL = ROOT_URL + "getMenuAndroid?customerOrder={customerOrderObject}";
 	String GET_CURRENT_CUSTOMER_URL = ROOT_URL + "getCurrentCustomerAndroid?customer={customer}";
 	String CUSTOMER_LOGIN_URL = ROOT_URL + "loginCustomerAndroid?customer={customer}";
 	String CUSTOMER_GOOGLE_LOGIN_URL = ROOT_URL + "loginWithGoogleCustomerAndroid?customer={customer}";
