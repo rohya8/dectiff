@@ -28,7 +28,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		this.customer = customer;
 	}
 
-	public ScheduledUser(Customer currentCustomer, boolean showAddToWallet) {
+	public ScheduledUser(Customer currentCustomer) {
 		this.customer = currentCustomer;
 	}
 
@@ -44,7 +44,6 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-			// checkBalance();
 		}
 		return view;
 	}

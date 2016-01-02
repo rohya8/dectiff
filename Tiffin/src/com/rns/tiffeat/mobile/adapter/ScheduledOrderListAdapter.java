@@ -169,6 +169,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			}
 		});
 
+		
 		holder.addOtherMealTypeButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -291,6 +292,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private void switchOrder(CustomerOrder customerOrder1) {
 
 		customerOrder1.setCustomer(customer);
+		customerOrder1.setTransactionId("-13");;
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder1);
 		CustomerUtils.nextFragment(fragment, scheduledOrderFragment.getSupportFragmentManager(), true);

@@ -99,7 +99,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 					fragment = new QuickOrderHomeScreen(customer);
 				} else if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-					fragment = new ScheduledUser(customer, false);
+					fragment = new ScheduledUser(customer);
 				}
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
@@ -231,7 +231,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			if (customer != null) {
 				if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-					fragment = new ScheduledUser(customer, false);
+					fragment = new ScheduledUser(customer);
 				}
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);

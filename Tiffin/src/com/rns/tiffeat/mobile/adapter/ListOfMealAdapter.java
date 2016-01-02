@@ -39,9 +39,10 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 	private CustomerOrder customerOrder;
 	private Meal meal;
 	private Dialog alertDialog = null;
+
 	public class ViewHolder {
 
-		TextView name, mealtype, tiffinused;
+		TextView name, mealtype, tiffinprice,tiffinavailability;
 		ImageView foodimage;
 		RatingBar ratingbar;
 		Button menu, order;
@@ -85,9 +86,10 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.list_of_meals_food1_imageView);
 			holder.foodimage = mealImageView;
 			new MealImageDownloaderTask(holder, mealImageView, getContext()).execute(this.getItem(position));
-			holder.tiffinused = (TextView) convertView.findViewById(R.id.list_of_meals_count_textView1);
+			holder.tiffinprice = (TextView) convertView.findViewById(R.id.list_of_meals_count_textView1);
 			holder.menu = (Button) convertView.findViewById(R.id.list_of_meals_button_menu);
 			holder.order = (Button) convertView.findViewById(R.id.list_of_meals_button_order);
+			holder.tiffinavailability=(TextView) convertView.findViewById(R.id.list_of_meals_availability_textView);
 
 			convertView.setTag(holder);
 
@@ -97,7 +99,8 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 		holder.name.setText(meal.getTitle().toString());
 		holder.mealtype.setText(meal.getDescription());
-		holder.tiffinused.setText("" + meal.getPrice());
+		holder.tiffinprice.setText("Rs. " + meal.getPrice());
+		holder.tiffinavailability.setText("Available for : "+meal.getMealTime().getDescription());
 		holder.order.setTag(position);
 		holder.menu.setTag(position);
 
@@ -124,7 +127,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				} else {
 					int pos = (Integer) v.getTag();
 					showMenu(pos);
-					
+
 				}
 			}
 
@@ -142,20 +145,33 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			Meal meal2 = returnMeal(position);
 			customerOrder.setMeal(meal2);
 
-			Fragment fragment = null;
-			if (customerOrder != null && customerOrder.getMealFormat() != null  && MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			
+			if (customerOrder != null && customerOrder.getMealFormat() != null && MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 				if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 					if (customerOrder.getId() == 0) {
 						new ExistingUserAsyncTask(activity, customerOrder).execute();
-					} else
-						new ScheduleChangeOrderTask(activity, customerOrder, meal2).execute();
+					} else if (customerOrder.getTransactionId() != null) {
+						if (customerOrder.getTransactionId().equals("-13")) {
+							customerOrder.setTransactionId(null);
+							new ScheduleChangeOrderTask(activity, customerOrder, meal2).execute();
+						} else
+							selectTypeOfMeal(meal2);
+					} else {
+						selectTypeOfMeal(meal2);
+					}
+
 				}
 			} else {
-				fragment = new SelectType(meal2, customerOrder);
-				CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+				selectTypeOfMeal(meal2);
 			}
 
 		}
+	}
+
+	private void selectTypeOfMeal(Meal meal2) {
+		Fragment fragment;
+		fragment = new SelectType(meal2, customerOrder);
+		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
 	}
 
 	private Meal returnMeal(int position) {
@@ -174,7 +190,6 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 		final RadioButton lunch = (RadioButton) alertDialog.findViewById(R.id.mealtype_lunch_radioButton);
 		final RadioButton dinner = (RadioButton) alertDialog.findViewById(R.id.mealtype_dinner_radioButton);
 
-		
 		lunch.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -188,8 +203,8 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 					custOrder.setMealType(MealType.LUNCH);
 					nextActivity(custOrder);
 
-				} else{
-						
+				} else {
+
 					nextActivity(customerOrder);
 				}
 
@@ -213,7 +228,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 
 			}
 		});
-		
+
 		alertDialog.show();
 	}
 

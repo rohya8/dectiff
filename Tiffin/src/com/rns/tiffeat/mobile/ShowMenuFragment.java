@@ -76,7 +76,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 						if (customerOrder.getMealFormat().equals(MealFormat.QUICK))
 							fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
 						else
-							fragment = new ScheduledUser(customerOrder.getCustomer(), true);
+							fragment = new ScheduledUser(customerOrder.getCustomer());
 
 						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 					}

@@ -75,7 +75,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			}
 			if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 				lunchaddr.setVisibility(View.VISIBLE);
-				both.setText("Both for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.BOTH)) + " )");
+				both.setText("Both ");
 				both.setVisibility(View.VISIBLE);
 				customerOrder.setDate(availableMealType.get(MealType.BOTH));
 			}
@@ -95,7 +95,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		}
 		if (View.VISIBLE == dinner.getVisibility() && View.VISIBLE == lunch.getVisibility()) {
 			lunchaddr.setVisibility(View.VISIBLE);
-			both.setText("Both for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.BOTH)) + " )");
+			both.setText("Both ");
 			both.setVisibility(View.VISIBLE);
 		}
 		customerOrder.setDate(availableMealTypeDatesMap.get(availableMealTypes.get(0)));

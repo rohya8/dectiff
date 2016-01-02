@@ -65,7 +65,7 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 		if (customerOrder != null) {
 			new ScheduledOrderAsyncTask(activity, customerOrder).execute();
 		} else {
-			Fragment scheduledHomeFragment = new ScheduledUser(customerOrder.getCustomer(), false);
+			Fragment scheduledHomeFragment = new ScheduledUser(customerOrder.getCustomer());
 			CustomerUtils.nextFragment(scheduledHomeFragment, activity.getSupportFragmentManager(), false);
 		}
 	}
