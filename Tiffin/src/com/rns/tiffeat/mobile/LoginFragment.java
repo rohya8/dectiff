@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile;
 
 import android.content.Context;
@@ -75,7 +76,7 @@ public class LoginFragment extends Fragment implements AndroidConstants {
 							customerOrder.setCustomer(customer);
 							new LoginAsyncTask(getActivity(), customerOrder).execute();
 						} else
-							Toast.makeText(getActivity(), " Enter Valid Credentials ", Toast.LENGTH_SHORT).show();
+							CustomerUtils.alertbox(TIFFEAT, " Enter Valid Credentials ", getActivity());
 					}
 				}
 			});

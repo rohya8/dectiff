@@ -13,13 +13,11 @@ import com.rns.tiffeat.mobile.adapter.ScheduledOrderListAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.web.bo.domain.Customer;
-import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class ScheduledUser extends Fragment implements AndroidConstants {
 
 	private Customer customer;
 	private View view;
-	private CustomerOrder customerOrder;
 
 	private ScheduledOrderListAdapter scheduledOrdersAdapter;
 	private ListView scheduledOrdersListView;

@@ -50,7 +50,8 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
 
 			String customerOrderString = (String) customerOrderVailableMealTypesMap.get(Constants.MODEL_CUSTOMER_ORDER);
-			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));;
+			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));
+
 			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 
 			return availableMealTypeResult;
@@ -80,6 +81,7 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 
 		Fragment fragment = null;
 
+			
 		if (MealFormat.QUICK.equals(customerOrder.getMealFormat()))
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
 		else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()))

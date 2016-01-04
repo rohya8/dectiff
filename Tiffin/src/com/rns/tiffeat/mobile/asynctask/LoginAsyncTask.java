@@ -62,7 +62,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
 			String customerOrderString = (String) customerOrderVailableMealTypesMap.get(Constants.MODEL_CUSTOMER_ORDER);
 			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));
-			;
+
 			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 
 		} catch (Exception e) {
@@ -97,14 +97,15 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 
 		Fragment fragment = null;
 		if (existingUser == (long) -10) {
-
-			fragment = new FirstTimeUse(customerOrder);
+			new DrawerUpdateAsynctask(fragmentActivity, customerlogin).execute("");
+			// fragment = new FirstTimeUse(customerOrder);
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
+			CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
 		} else {
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
+			CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
 		}
-		CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
 
 	}
 

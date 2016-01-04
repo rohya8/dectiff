@@ -11,7 +11,6 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
-import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class AddToWalletAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {

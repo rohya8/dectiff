@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CoreServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;

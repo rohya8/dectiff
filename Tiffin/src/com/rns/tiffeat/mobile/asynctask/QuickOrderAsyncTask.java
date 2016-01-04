@@ -73,8 +73,10 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 	}
 
 	private void nextActivity() {
-		Fragment fragment = new QuickOrderHomeScreen(currentCustomer);
-		CustomerUtils.nextFragment(fragment, proceedtopay.getSupportFragmentManager(), false);
+		new DrawerUpdateAsynctask(proceedtopay, currentCustomer).execute("");
+//		Fragment fragment = new QuickOrderHomeScreen(currentCustomer);
+//		CustomerUtils.nextFragment(fragment, proceedtopay.getSupportFragmentManager(), false);
+		
 	}
 
 }

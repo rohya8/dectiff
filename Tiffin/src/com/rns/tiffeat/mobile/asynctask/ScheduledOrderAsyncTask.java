@@ -88,8 +88,10 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 
 	private void nextActivity() {
 		CustomerUtils.clearFragmentStack(previousActivity.getSupportFragmentManager());
-		Fragment fragment = new ScheduledUser(currentCustomer);
-		CustomerUtils.nextFragment(fragment, previousActivity.getSupportFragmentManager(), false);
+//		Fragment fragment = new ScheduledUser(currentCustomer);
+//		CustomerUtils.nextFragment(fragment, previousActivity.getSupportFragmentManager(), false);
+		
+		new DrawerUpdateAsynctask(previousActivity, currentCustomer).execute("");
 	}
 
 }

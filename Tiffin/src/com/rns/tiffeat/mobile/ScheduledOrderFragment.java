@@ -273,24 +273,4 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 	}
 
-	/*
-	 * private List<CustomerOrder> prepareCustomerOrders() { List<CustomerOrder>
-	 * scheduledOrders = new ArrayList<CustomerOrder>();
-	 * customerOrder.setAddress(lunchaddr.getText().toString());
-	 * customerOrder.getCustomer().setPhone(phone.getText().toString()); if
-	 * (lunch != null && lunch.isChecked()) {
-	 * customerOrder.setMealType(MealType.LUNCH); } else if (dinner != null &&
-	 * dinner.isChecked()) { customerOrder.setMealType(MealType.DINNER); } else
-	 * if (both != null && both.isChecked()) { CustomerOrder scheduledOrder =
-	 * new CustomerOrder();
-	 * scheduledOrder.setAddress(customerOrder.getAddress());
-	 * scheduledOrder.setArea(customerOrder.getArea());
-	 * customerOrder.setMealType(MealType.LUNCH);
-	 * scheduledOrder.setMealType(MealType.DINNER);
-	 * scheduledOrder.setMeal(customerOrder.getMeal());
-	 * scheduledOrder.setCustomer(customerOrder.getCustomer());
-	 * scheduledOrder.setDate(customerOrder.getDate());
-	 * scheduledOrders.add(scheduledOrder); }
-	 * scheduledOrders.add(customerOrder); return scheduledOrders; }
-	 */
 }

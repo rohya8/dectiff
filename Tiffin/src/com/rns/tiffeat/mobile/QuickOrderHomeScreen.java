@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.rns.tiffeat.mobile.adapter.PreviousOrderListAdapter;
 import com.rns.tiffeat.mobile.adapter.QuickOrderListAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.GetNewOrderAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;

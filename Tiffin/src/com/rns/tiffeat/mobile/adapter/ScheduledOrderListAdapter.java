@@ -23,7 +23,6 @@ import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.GetNewOrderAreaAsynctask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleCancelOrderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;

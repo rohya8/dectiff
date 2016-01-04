@@ -1,10 +1,7 @@
 package com.rns.tiffeat.mobile;
 
-import java.util.Random;
-
 import org.springframework.util.CollectionUtils;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +26,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	private Toolbar mToolbar;
 	private FragmentDrawer drawerFragment;
 	private Customer customer;
+	private CustomerOrder customerOrder;
 
 	@Override
 	public void onBackPressed() {
@@ -49,8 +47,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		mToolbar = (Toolbar) findViewById(R.id.tool_bar);
 		if (getIntent().getExtras() != null) {
-			String customerJson = (String) getIntent().getExtras().get(AndroidConstants.CUSTOMER_OBJECT);
-			customer = new Gson().fromJson(customerJson, Customer.class);
+				String customerJson = (String) getIntent().getExtras().get(AndroidConstants.CUSTOMER_OBJECT);
+				customer = new Gson().fromJson(customerJson, Customer.class);
 		}
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -90,7 +88,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		switch (position) {
 
 		case 0:
-			
+
 			fragment = new FirstTimeUse(customer);
 			break;
 
@@ -166,9 +164,9 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			break;
 
 		case 1:
-			CustomerOrder customerOrder=new CustomerOrder();
+			CustomerOrder customerOrder = new CustomerOrder();
 			customerOrder.setId(-10);
-			fragment=new LoginFragment(customerOrder);
+			fragment = new LoginFragment(customerOrder);
 			break;
 
 		case 2:
@@ -196,8 +194,9 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		if (fragment != null) {
 			title = "TiffEat";
 			getSupportActionBar().setTitle(title);
-			//Random rnd = new Random(); 
-			///getSupportActionBar().setTitleTextColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
+			// Random rnd = new Random();
+			// /getSupportActionBar().setTitleTextColor(Color.argb(255,
+			// rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
 			if (isFragmentToBeAddedToBackStack(fragment)) {
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 			} else {

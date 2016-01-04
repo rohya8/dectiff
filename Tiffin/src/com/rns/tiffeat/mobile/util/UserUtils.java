@@ -37,6 +37,7 @@ public class UserUtils implements AndroidConstants {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static InputStream openHttpConnection(String urlString) throws IOException {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpGet request = new HttpGet(urlString);
@@ -44,6 +45,7 @@ public class UserUtils implements AndroidConstants {
 		return response.getEntity().getContent();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void scaleImage(ImageView view, Context context) {
 		Drawable drawing = view.getDrawable();
 		if (drawing == null) {
@@ -65,6 +67,7 @@ public class UserUtils implements AndroidConstants {
 		Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
 		width = scaledBitmap.getWidth(); // re-use
 		height = scaledBitmap.getHeight(); // re-use
+
 		BitmapDrawable result = new BitmapDrawable(scaledBitmap);
 
 		view.setImageDrawable(result);
@@ -98,6 +101,7 @@ public class UserUtils implements AndroidConstants {
 		mImageView.getLayoutParams().height = newHeight;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ProgressDialog showLoadingDialog(Context myactivity, CharSequence title, CharSequence text) {
 		ProgressDialog progressDialog = new ProgressDialog(myactivity);
 		progressDialog.setIndeterminate(true);

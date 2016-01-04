@@ -26,8 +26,7 @@ public class GetAreaAsynctask extends AsyncTask<String, String, String> implemen
 			return null;
 		} else {
 			try {
-				//CoreServerUtils.retrieveVendorAreaNames();
-				//result
+				
 			} catch (Exception e) {
 				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 			}
