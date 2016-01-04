@@ -47,9 +47,6 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		if (!Validation.isNetworkAvailable(previousActivity)) {
 			return null;
 		}
-		// if (scheduledOrders == null || scheduledOrders.size() == 0) {
-		// return null;
-		// }
 		try {
 
 			String result = new Gson().fromJson(CustomerServerUtils.scheduledOrder(scheduledOrder), String.class);
@@ -87,7 +84,7 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 	}
 
 	private void nextActivity() {
-		CustomerUtils.clearFragmentStack(previousActivity.getSupportFragmentManager());
+		//CustomerUtils.clearFragmentStack(previousActivity.getSupportFragmentManager());
 //		Fragment fragment = new ScheduledUser(currentCustomer);
 //		CustomerUtils.nextFragment(fragment, previousActivity.getSupportFragmentManager(), false);
 		

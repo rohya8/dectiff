@@ -26,7 +26,21 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 
 		if (!Validation.isNetworkAvailable(context)) {
 			Validation.showError(context, ERROR_NO_INTERNET_CONNECTION);
-			finish();
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					final Handler handler = new Handler();
+					handler.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							finish();
+						}
+					}, 5000);
+				}
+
+			});
+			
 		} else {
 
 			runOnUiThread(new Runnable() {
@@ -44,6 +58,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 
 			});
 		}
+		
 	}
 
 	public void AsyncTaskCall() {

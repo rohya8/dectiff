@@ -26,7 +26,6 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	private Toolbar mToolbar;
 	private FragmentDrawer drawerFragment;
 	private Customer customer;
-	private CustomerOrder customerOrder;
 
 	@Override
 	public void onBackPressed() {
@@ -71,7 +70,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		customer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
 		if (customer.getName() == null) {
 			newUserDrawer(position);
-		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
+		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders()) ) {
 			quickAndScheduleOrderDrawer(position);
 			if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
 				bothOrderDrawer(position);
@@ -262,7 +261,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		case 6:
 			if (customer != null) {
 				CustomerUtils.logout(this);
-				fragment = new FirstTimeUse();
+				new GetAreaAsynctask(this).execute();
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", DrawerActivity.this);
 				fragment = new FirstTimeUse();
