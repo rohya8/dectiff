@@ -70,7 +70,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		customer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
 		if (customer.getName() == null) {
 			newUserDrawer(position);
-		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders()) ) {
+		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders()) ) {
 			quickAndScheduleOrderDrawer(position);
 			if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
 				bothOrderDrawer(position);
@@ -94,8 +94,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		case 1:
 
 			if (customer != null) {
-				if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
-					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+				if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders()) ) {
+					CustomerUtils.clearFragmentStack(getSupportFragmentManager() );
 					fragment = new QuickOrderHomeScreen(customer);
 				} else if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
