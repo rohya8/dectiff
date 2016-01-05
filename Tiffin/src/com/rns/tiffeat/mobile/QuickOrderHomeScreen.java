@@ -23,6 +23,7 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	private ListView todaylistview, previouslistview;
@@ -68,6 +69,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						customerOrder.setCustomer(customer);
+						customerOrder.setMealFormat(MealFormat.QUICK);
 						newActivity(customerOrder);
 					}
 				}

@@ -185,6 +185,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	private void ShowMenu(int position) {
 		CustomerOrder customerOrder2 = new CustomerOrder();
 		customerOrder2 = quickOrders.get(position);
+		
 		customerOrder2.setCustomer(customer);
 		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder2).execute();
 	}

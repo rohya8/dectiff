@@ -94,8 +94,11 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 							text.setVisibility(View.VISIBLE);
 							if (customer != null) {
 								customerOrder = new CustomerOrder();
-								if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
-									customerOrder = customer.getQuickOrders().get(0);
+								if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
+									if (!CollectionUtils.isEmpty(customer.getQuickOrders()))
+										customerOrder = customer.getQuickOrders().get(0);
+									else
+										customerOrder = customer.getPreviousOrders().get(0);
 								} else if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
 									customerOrder = customer.getScheduledOrder().get(0);
 								}

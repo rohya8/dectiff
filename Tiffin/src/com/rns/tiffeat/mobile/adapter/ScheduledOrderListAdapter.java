@@ -162,7 +162,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				} else {
 					int pos = (Integer) v.getTag();
 					customerOrder = scheduledOrders.get(pos);
-
+					customerOrder.setTransactionId("-20");
 					viewMenu(customerOrder);
 				}
 			}

@@ -202,9 +202,9 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 					custOrder.setMeal(meal2);
 					custOrder.setMealType(MealType.LUNCH);
 					nextActivity(custOrder);
-
 				} else {
-
+					customerOrder.setMeal(returnMeal(position));
+					customerOrder.setMealType(MealType.LUNCH);
 					nextActivity(customerOrder);
 				}
 
@@ -225,8 +225,11 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 					custOrder.setMealType(MealType.DINNER);
 					nextActivity(custOrder);
 				} else
+				{
+					customerOrder.setMeal(returnMeal(position));
+					customerOrder.setMealType(MealType.LUNCH);
 					nextActivity(customerOrder);
-
+				}
 			}
 		});
 

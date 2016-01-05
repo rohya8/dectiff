@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.rns.tiffeat.mobile.asynctask.DrawerUpdateAsynctask;
 import com.rns.tiffeat.mobile.asynctask.GetMealsForVendorAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -81,13 +82,31 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 					} else {
 						Fragment fragment = null;
 						CustomerUtils.clearFragmentStack(getFragmentManager());
-						if (customerOrder.getCustomer() != null) {
+						if (customerOrder.getCustomer() != null && customerOrder.getMealFormat() != null) {
+
 							if (customerOrder.getMealFormat().equals(MealFormat.QUICK)) {
-								fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
-								CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+								if (customerOrder.getTransactionId() != null) {
+									if (customerOrder.getTransactionId().equals("-20")) {
+										fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
+										CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+									}
+
+								} else {
+									new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
+								}
+
 							} else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED)) {
-								fragment = new ScheduledUser(customerOrder.getCustomer());
-								CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+								if (customerOrder.getTransactionId() != null) {
+									if (customerOrder.getTransactionId().equals("-20")) {
+										fragment = new ScheduledUser(customerOrder.getCustomer());
+										CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+									}
+								} else {
+									new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
+									// CustomerUtils.nextFragment(fragment,
+									// getFragmentManager(), false);
+
+								}
 							}
 						} else
 							new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();

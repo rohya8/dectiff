@@ -17,6 +17,7 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
+import com.rns.tiffeat.web.google.Location;
 import com.rns.tiffeat.web.util.Constants;
 
 public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
@@ -43,6 +44,11 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 			return null;
 		}
 		try {
+			if (customerOrder.getLocation() == null) {
+				Location location = new Location();
+				location.setAddress(customerOrder.getAddress());
+				customerOrder.setLocation(location);
+			}
 			String result = CustomerServerUtils.validateQuickOrder(customerOrder);
 			return result;
 
