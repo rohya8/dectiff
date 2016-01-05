@@ -67,6 +67,8 @@ public class Validation {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
+				
+				
 			}
 		});
 

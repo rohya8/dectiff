@@ -39,7 +39,8 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 
 	protected void onPostExecute(String result) {
 		if (result == null) {
-			Validation.showError(activity, ERROR_FETCHING_DATA);
+			//Validation.showError(activity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		}
 		Intent i = new Intent(activity, DrawerActivity.class);

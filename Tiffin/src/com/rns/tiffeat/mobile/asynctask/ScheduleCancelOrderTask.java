@@ -29,7 +29,7 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(mscheduleorder, "Download Data", "Please Wait....");
+		progressDialog = UserUtils.showLoadingDialog(mscheduleorder, "Cancel Order ", "Canceling Order....");
 	}
 
 	@Override
@@ -52,7 +52,8 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			Validation.showError(mscheduleorder, ERROR_FETCHING_DATA);
+			//Validation.showError(mscheduleorder, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mscheduleorder);
 			return;
 		}
 		String result1 = new Gson().fromJson(result, String.class);

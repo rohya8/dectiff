@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(context, "Contacting your vendor", "Getting today's menu....");
+		progressDialog = UserUtils.showLoadingDialog(context, "Contacting your vendor", "Getting menu....");
 	}
 
 	@Override
@@ -63,7 +64,8 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 		progressDialog.dismiss();
 
 		if (customer == null) {
-			Validation.showError(context, ERROR_FETCHING_DATA);
+			//Validation.showError(context, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, context);
 			return;
 		}
 		Fragment fragment = null;

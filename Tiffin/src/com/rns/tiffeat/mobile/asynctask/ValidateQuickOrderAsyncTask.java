@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.Map;
@@ -64,8 +65,8 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-
-			Validation.showError(previousActivity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, previousActivity);
+			//Validation.showError(previousActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		Map<String, Object> validateOrderMap = CustomerUtils.convertToStringObjectMap(result);

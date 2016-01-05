@@ -1,3 +1,5 @@
+
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -30,7 +32,7 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressdialog = UserUtils.showLoadingDialog(proceedtopay, "Download Data ", "Please Wait...");
+		progressdialog = UserUtils.showLoadingDialog(proceedtopay, "Quick Order ", "Please Wait...");
 	}
 
 	@Override
@@ -59,7 +61,8 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 		super.onPostExecute(result);
 		progressdialog.dismiss();
 		if (result == null) {
-			Validation.showError(proceedtopay, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, proceedtopay);
+			//Validation.showError(proceedtopay, ERROR_FETCHING_DATA);
 			return;
 		}
 		if ("OK".equals(result)) {

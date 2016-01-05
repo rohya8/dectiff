@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -41,7 +42,7 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(mchangeorder, "Download Data", "Please Wait.....");
+		progressDialog = UserUtils.showLoadingDialog(mchangeorder, "Switch Order", "Switching Your Order.....");
 	}
 
 	@Override
@@ -70,7 +71,8 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 		progressDialog.dismiss();
 
 		if (result == null) {
-			Validation.showError(mchangeorder, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mchangeorder);
+			//Validation.showError(mchangeorder, ERROR_FETCHING_DATA);
 			return;
 		}
 

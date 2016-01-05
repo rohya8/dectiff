@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.Date;
@@ -37,7 +38,7 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressdialog = UserUtils.showLoadingDialog(context, "Download Data ", "Preparing.....");
+		progressdialog = UserUtils.showLoadingDialog(context, "Checking Details ", "Loading .....");
 	}
 
 	@Override
@@ -66,7 +67,8 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 		super.onPostExecute(result);
 		progressdialog.dismiss();
 		if (result == null) {
-			Validation.showError(context, ERROR_FETCHING_DATA);
+			//Validation.showError(context, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA,context);
 			return;
 		}
 		if (customerOrder != null) {

@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.Date;
@@ -43,7 +44,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(fragmentActivity, "Checking  Details ", "Preparing.....");
+		progressDialog = UserUtils.showLoadingDialog(fragmentActivity, "Checking  Details ", "Please Wait.....");
 	}
 
 	@Override
@@ -77,7 +78,8 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, fragmentActivity);
+			//Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 
@@ -86,7 +88,8 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			return;
 		}
 		if (customerOrder == null) {
-			Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, fragmentActivity);
+			//Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		customerOrder.setCustomer(customerlogin);

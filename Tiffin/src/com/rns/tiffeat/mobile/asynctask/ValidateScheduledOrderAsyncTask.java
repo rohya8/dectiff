@@ -54,7 +54,8 @@ public class ValidateScheduledOrderAsyncTask extends AsyncTask<String, String, S
 		progressDialog.dismiss();
 
 		if (result == null) {
-			Validation.showError(scheduleOrderFragmentActivity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, scheduleOrderFragmentActivity);
+			//Validation.showError(scheduleOrderFragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 

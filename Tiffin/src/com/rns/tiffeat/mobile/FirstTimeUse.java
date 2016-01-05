@@ -66,6 +66,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
+
 		} else {
 
 			initialise();
@@ -138,13 +139,6 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	}
 
 	private void getAreaName() {
-		// AutocompleteTvAdapter adapter = new
-		// AutocompleteTvAdapter(getActivity(),
-		// android.R.layout.simple_dropdown_item_1line,
-		// CoreServerUtils.areaNames, FONT);
-		// actvAreas.setThreshold(1);
-		// actvAreas.setAdapter(adapter);
-
 		getNearbyPlaces();
 	}
 

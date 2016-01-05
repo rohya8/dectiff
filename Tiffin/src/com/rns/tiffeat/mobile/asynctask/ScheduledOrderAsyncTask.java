@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -69,7 +70,8 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			Validation.showError(previousActivity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, previousActivity);
+			//Validation.showError(previousActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 

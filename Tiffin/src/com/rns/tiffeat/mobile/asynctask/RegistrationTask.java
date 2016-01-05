@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.Date;
@@ -39,7 +40,7 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(mregistration, "Download Data", "Please Wait....");
+		progressDialog = UserUtils.showLoadingDialog(mregistration, "Registering User", "Please Wait....");
 	}
 
 	@Override
@@ -72,7 +73,8 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		progressDialog.dismiss();
 
 		if (result == null) {
-			Validation.showError(mregistration, ERROR_FETCHING_DATA);
+			//Validation.showError(mregistration, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mregistration);
 			return;
 		}
 		if (customer == null) {
@@ -80,7 +82,8 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			return;
 		}
 		if (customerOrder == null) {
-			Validation.showError(mregistration, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mregistration);
+			//Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			return;
 		}
 

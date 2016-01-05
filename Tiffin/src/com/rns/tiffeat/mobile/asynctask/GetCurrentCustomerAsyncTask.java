@@ -58,7 +58,8 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	protected void onPostExecute(Customer result) {
 		super.onPostExecute(result);
 		if (result == null) {
-			Validation.showError(context, ERROR_FETCHING_DATA);
+			//Validation.showError(context, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, context);
 			return;
 		}
 		CustomerUtils.storeCurrentCustomer(context, result);

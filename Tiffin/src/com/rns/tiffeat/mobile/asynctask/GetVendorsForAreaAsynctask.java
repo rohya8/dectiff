@@ -50,7 +50,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(myactivity, "Downloading data", "Getting nearby vendors..");
+		progressDialog = UserUtils.showLoadingDialog(myactivity, "Getting Vendors", "Getting nearby vendors..");
 	}
 
 	public List<Vendor> getVendors() {
@@ -92,7 +92,8 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			Validation.showError(myactivity, ERROR_FETCHING_DATA);
+			//Validation.showError(myactivity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, myactivity);
 			return;
 		}
 		Type typelist = new TypeToken<ArrayList<Vendor>>() {}.getType();

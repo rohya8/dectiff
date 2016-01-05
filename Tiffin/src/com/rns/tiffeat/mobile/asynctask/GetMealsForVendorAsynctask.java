@@ -31,7 +31,7 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(activity, "Download meals", "Getting available Tiffins..");
+		progressDialog = UserUtils.showLoadingDialog(activity, "Downloading meals", "Getting available Tiffins..");
 	}
 
 	@Override
@@ -54,7 +54,8 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			Validation.showError(activity, ERROR_FETCHING_DATA);
+			//Validation.showError(activity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		}
 		vendor = new Gson().fromJson(result, Vendor.class);

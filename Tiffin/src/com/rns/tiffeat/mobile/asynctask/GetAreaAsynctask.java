@@ -36,7 +36,8 @@ public class GetAreaAsynctask extends AsyncTask<String, String, String> implemen
 
 	protected void onPostExecute(String result) {
 		if (result == null) {
-			Validation.showError(mSplashScreen, ERROR_FETCHING_DATA);
+			//Validation.showError(mSplashScreen, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mSplashScreen);
 			return;
 		}
 		Intent i = new Intent(mSplashScreen, DrawerActivity.class);

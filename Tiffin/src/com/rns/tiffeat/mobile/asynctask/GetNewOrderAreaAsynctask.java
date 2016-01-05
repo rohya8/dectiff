@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -52,8 +53,8 @@ public class GetNewOrderAreaAsynctask extends AsyncTask<String, String, String> 
 		progressDialog.dismiss();
 
 		if (result == null) {
-
-			Validation.showError(mneworder, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mneworder);
+			//Validation.showError(mneworder, ERROR_FETCHING_DATA);
 			return;
 		}
 

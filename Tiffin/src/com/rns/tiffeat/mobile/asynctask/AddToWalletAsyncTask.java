@@ -1,3 +1,4 @@
+
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -52,7 +53,8 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 		progressDialog.dismiss();
 
 		if (result == null) {
-			Validation.showError(activity, ERROR_FETCHING_DATA);
+			//Validation.showError(activity, ERROR_FETCHING_DATA);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		} else
 			nextActivity();
