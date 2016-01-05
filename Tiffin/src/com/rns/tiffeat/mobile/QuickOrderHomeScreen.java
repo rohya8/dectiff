@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.adapter.PreviousOrderListAdapter;
@@ -32,6 +34,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	private PreviousOrderListAdapter previousOrderAdapter;
 	private View view;
 	private LinearLayout linearLayout;
+	private RelativeLayout relativeLayout;
 	private int flag = 0;
 
 	public QuickOrderHomeScreen(Customer currentCustomer) {
@@ -56,6 +59,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
+
 			initialise();
 			neworder.setOnClickListener(new OnClickListener() {
 				@Override
@@ -107,13 +111,28 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 
 		previousorder = (Button) view.findViewById(R.id.quick_order_homescreen_previousorder_button);
 		linearLayout = (LinearLayout) view.findViewById(R.id.quick_order_homescreen_linearlayout);
+		relativeLayout = (RelativeLayout) view.findViewById(R.id.quick_order_homescreen_todays_order_layout);
 		previouslistview = (ListView) view.findViewById(R.id.quick_order_homescreen_previous_order_listView);
+
+		relativeLayout.setVisibility(View.VISIBLE);
+		todaylistview.setVisibility(View.VISIBLE);
+		RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
+		rel.setMargins(0, 0, 0, 220);
 
 	}
 
 	public void prepareScreen() {
 
 		welcomeText.setText("Welcome " + customer.getName());
+		if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
+			welcomeText.setText("Sorry " + customer.getName() + " you don't have today's order");
+
+			relativeLayout.setVisibility(View.GONE);
+			todaylistview.setVisibility(View.GONE);
+
+			RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
+			rel.setMargins(0, 0, 0, 10);
+		}
 		quickOrdersAdapter.setQuickHome(this);
 		previousOrderAdapter.setQuickHome(this);
 

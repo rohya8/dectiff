@@ -22,8 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:gravity="right"
                 android:layout_marginRight="5dp"
+                android:gravity="right"
                 android:orientation="horizontal" >
 
                 <ImageView
@@ -186,6 +186,7 @@
                         android:id="@+id/scheduled_order_radioButton_dinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:text=" Dinner"
                         android:visibility="gone" />
@@ -194,6 +195,7 @@
                         android:id="@+id/scheduled_order_radioButton_both"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:text="Both(Lunch-Dinner)"

@@ -7,7 +7,7 @@ public interface AndroidConstants {
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "TiffEAT";
 	// String ROOT_URL = "http://d5fb94c7.ngrok.io/tiffeat-web/";
-	 String ROOT_URL = "http://192.168.0.4:8080/tiffeat-web/";
+	 String ROOT_URL = "http://192.168.0.7:8080/tiffeat-web/";
 	//String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
@@ -45,5 +45,6 @@ public interface AndroidConstants {
 	String ERROR_FETCHING_DATA = "Error Fetching Data..... Please check internet connection";
 	String NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA = "No Vendors Currently available in this area ";
 
+	String MODEL_RESULT = "result";
 	String DATE_FORMAT = "EEE, MMM d";
 }

@@ -72,11 +72,16 @@ public class SelectType extends Fragment implements AndroidConstants {
 					if (!Validation.isNetworkAvailable(getActivity())) {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
-						if (customerOrder.getCustomer().getScheduledOrder().size() == 2) {
-							CustomerUtils.alertbox(TIFFEAT, "You have already scheduled meal for luch and dinner", getActivity());
-							Fragment fragment = null;
-							fragment = new ScheduledUser(customerOrder.getCustomer());
-							CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+						if (customerOrder.getCustomer() != null) {
+							if (customerOrder.getCustomer().getScheduledOrder().size() == 2) {
+								CustomerUtils.alertbox(TIFFEAT, "You have already scheduled meal for luch and dinner", getActivity());
+								Fragment fragment = null;
+								fragment = new ScheduledUser(customerOrder.getCustomer());
+								CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+							} else {
+								prepareCustomerOrder(MealFormat.SCHEDULED);
+								nextActivity();
+							}
 						} else {
 							prepareCustomerOrder(MealFormat.SCHEDULED);
 							nextActivity();

@@ -62,12 +62,12 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 		filterMealTypes(availableMealTypeDatesMap, availableMealTypes);
 
-		if (CollectionUtils.isEmpty(availableMealTypes)) {
-
-			Validation.showError(getActivity(), "No meal timing available that can be scheduled");
-
-			return;
-		}
+//		if (CollectionUtils.isEmpty(availableMealTypes)) {
+//
+//			Validation.showError(getActivity(), "No meal timing available that can be scheduled");
+//
+//			return;
+//		}
 
 		if (customerOrder.getMealType() != null && availableMealTypes.contains(customerOrder.getMealType())) {
 			if (MealType.LUNCH.equals(customerOrder.getMealType())) {
