@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -148,7 +150,8 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
 				else {
 					prepareCustomerOrder();
-					new ValidateQuickOrderAsyncTask(getActivity(), customerOrder).execute();
+					alertbox();
+					
 				}
 			}
 			break;
@@ -186,4 +189,28 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
+	
+	
+	private void alertbox() {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
+		builder.setTitle("TiffEat");
+		builder.setMessage("Do you want to proceed ?");
+
+		builder.setNegativeButton("No", null);
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (!Validation.isNetworkAvailable(getActivity())) {
+					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
+				} else {
+					new ValidateQuickOrderAsyncTask(getActivity(), customerOrder).execute();
+				}
+			}
+		});
+
+		builder.show();
+	}
+
 }

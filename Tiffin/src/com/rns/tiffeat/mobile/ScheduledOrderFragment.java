@@ -7,8 +7,10 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ValidateScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -61,13 +64,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		}
 
 		filterMealTypes(availableMealTypeDatesMap, availableMealTypes);
-
-//		if (CollectionUtils.isEmpty(availableMealTypes)) {
-//
-//			Validation.showError(getActivity(), "No meal timing available that can be scheduled");
-//
-//			return;
-//		}
 
 		if (customerOrder.getMealType() != null && availableMealTypes.contains(customerOrder.getMealType())) {
 			if (MealType.LUNCH.equals(customerOrder.getMealType())) {
@@ -258,11 +254,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 					customerOrder.setAddress(lunchaddr.getText().toString());
 					customerOrder.getCustomer().setPhone(phone.getText().toString());
 
-					if (customerOrder.getCustomer().getBalance() == null
-							|| customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
-						new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
-					else
-						new ScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
+					alertbox();
 				}
 			}
 			break;
@@ -271,6 +263,33 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			break;
 		}
 
+	}
+
+	private void alertbox() {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
+		builder.setTitle("TiffEat");
+		builder.setMessage("Do you want to proceed ?");
+
+		builder.setNegativeButton("No", null);
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (!Validation.isNetworkAvailable(getActivity())) {
+					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
+				} else {
+					if (customerOrder.getCustomer().getBalance() == null
+							|| customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
+						new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
+					else
+						new ScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
+
+				}
+			}
+		});
+
+		builder.show();
 	}
 
 }
