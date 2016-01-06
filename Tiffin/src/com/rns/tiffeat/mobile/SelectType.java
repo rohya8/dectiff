@@ -108,7 +108,9 @@ public class SelectType extends Fragment implements AndroidConstants {
 			fragment = new LoginFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 		} else {
-			new ExistingUserAsyncTask(getActivity(), customerOrder).execute();
+			if (customerOrder.getCustomer() != null) {
+				new ExistingUserAsyncTask(getActivity(), customerOrder).execute();
+			}
 		}
 
 	}

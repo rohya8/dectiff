@@ -1,5 +1,6 @@
 package com.rns.tiffeat.mobile.adapter;
 
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -75,6 +76,7 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		this.activity = activity;
 		this.customer = customer;
 		this.previousOrders = previousOrders;
+		Collections.reverse(this.previousOrders);
 	}
 
 	@Override

@@ -86,11 +86,6 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		switch (position) {
 
-		case 1:
-
-			fragment = new FirstTimeUse(customer);
-			break;
-
 		case 0:
 
 			if (customer != null) {
@@ -105,6 +100,11 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
 				fragment = new FirstTimeUse();
 			}
+			break;
+
+		case 1:
+
+			fragment = new FirstTimeUse(customer);
 			break;
 
 		case 2:
@@ -211,9 +211,17 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		String title = getString(R.string.app_name);
 
 		switch (position) {
+		case 0:
 
-		case 2:
-			fragment = new FirstTimeUse(customer);
+			if (customer != null) {
+				if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+					fragment = new ScheduledUser(customer);
+				}
+			} else {
+				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
+				fragment = new FirstTimeUse();
+			}
 			break;
 
 		case 1:
@@ -229,17 +237,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			}
 			break;
 
-		case 0:
-
-			if (customer != null) {
-				if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
-					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-					fragment = new ScheduledUser(customer);
-				}
-			} else {
-				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
-				fragment = new FirstTimeUse();
-			}
+		case 2:
+			fragment = new FirstTimeUse(customer);
 			break;
 
 		case 3:

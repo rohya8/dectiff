@@ -41,7 +41,7 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 		}
 		try {
 			String result = CustomerServerUtils.getMealsForVendor(vendor);
-			
+
 			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -54,7 +54,6 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			//Validation.showError(activity, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		}
@@ -65,7 +64,7 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 	}
 
 	private void prepareCustomerOrder() {
-		if(customerOrder == null) {
+		if (customerOrder == null) {
 			customerOrder = new CustomerOrder();
 		}
 		customerOrder.setArea(vendor.getPinCode());

@@ -227,7 +227,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 				} else
 				{
 					customerOrder.setMeal(returnMeal(position));
-					customerOrder.setMealType(MealType.LUNCH);
+					customerOrder.setMealType(MealType.DINNER);
 					nextActivity(customerOrder);
 				}
 			}
