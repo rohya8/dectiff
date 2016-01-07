@@ -189,7 +189,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
 		// phone.setText(customerOrder.getCustomer().getPhone());
-		lunchaddr.setHint("Address");
+		lunchaddr.setHint("Enter Address");
 
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());
@@ -210,6 +210,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		case R.id.scheduled_order_radioButton_lunch:
 			dinner.setChecked(false);
 			both.setChecked(false);
+			lunchaddr.setHint("Lunch Address");
 			lunchaddr.setVisibility(View.VISIBLE);
 			break;
 

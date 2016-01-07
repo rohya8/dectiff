@@ -126,14 +126,16 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	public void prepareScreen() {
 
 		welcomeText.setText("Welcome " + customer.getName());
-		if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-			welcomeText.setText("Sorry " + customer.getName() + " you don't have today's order");
+		if (quickOrdersAdapter.getQuickOrders() != null) {
+			if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
+				welcomeText.setText("Sorry " + customer.getName() + " you don't have today's order");
 
-			relativeLayout.setVisibility(View.GONE);
-			todaylistview.setVisibility(View.GONE);
+				relativeLayout.setVisibility(View.GONE);
+				todaylistview.setVisibility(View.GONE);
 
-			RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
-			rel.setMargins(0, 0, 0, 10);
+				RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
+				rel.setMargins(0, 0, 0, 10);
+			}
 		}
 		quickOrdersAdapter.setQuickHome(this);
 		previousOrderAdapter.setQuickHome(this);
