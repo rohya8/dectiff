@@ -105,6 +105,12 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		tiffindesc.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
+		
+		if (customerOrder.getAddress() != null)
+			address.setText(customerOrder.getAddress());
+		else
+			address.setHint("Enter Address");
+		
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else

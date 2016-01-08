@@ -16,6 +16,7 @@ import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
@@ -25,16 +26,25 @@ import com.rns.tiffeat.web.util.Constants;
 public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
 	private FragmentActivity mGoogleLogin;
-	String action;
+	private String action;
 	private Customer customerlogin;
 	private CustomerOrder customerOrder;
 	private String availableMealTypeResult;
 	private ProgressDialog progressDialog;
 	private Map<MealType, Date> availableMealType;
+	private Long existingUser = (long) 1;
 
 	public LoginWithGoogleAsynctask(FragmentActivity loginfragment, CustomerOrder customerOrder2) {
 		mGoogleLogin = loginfragment;
 		customerOrder = customerOrder2;
+		if (customerOrder2.getId() == (long) -10)
+			existingUser = customerOrder2.getId();
+	}
+
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		progressDialog = UserUtils.showLoadingDialog(mGoogleLogin, "Checking Details ", "Loading .....");
 	}
 
 	@Override
@@ -76,7 +86,7 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 		// mGoogleLogin.finish();
 
 		if (customerlogin == null) {
-			Toast.makeText(mGoogleLogin, "Login failed due to :" + result, Toast.LENGTH_LONG).show();
+			Validation.showError(mGoogleLogin, "Please Try Again Later");
 			return;
 		}
 		if (customerOrder == null) {
@@ -91,12 +101,17 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 	private void nextActivity() {
 
 		Fragment fragment = null;
-		if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
+
+		if (existingUser == (long) -10) {
+			new DrawerUpdateAsynctask(mGoogleLogin, customerlogin).execute("");
+			// fragment = new FirstTimeUse(customerOrder);
+		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
+			CustomerUtils.nextFragment(fragment, mGoogleLogin.getSupportFragmentManager(), false);
 		} else {
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
+			CustomerUtils.nextFragment(fragment, mGoogleLogin.getSupportFragmentManager(), false);
 		}
-		CustomerUtils.nextFragment(fragment, mGoogleLogin.getSupportFragmentManager(), false);
 
 	}
 

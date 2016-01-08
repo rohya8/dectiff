@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
 
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
         </LinearLayout>
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="Rs."
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000" />
@@ -212,7 +212,6 @@
             android:id="@+id/menu_done_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout1"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -222,4 +221,4 @@
             android:textColor="#FFF" />
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

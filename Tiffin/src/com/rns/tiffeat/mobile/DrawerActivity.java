@@ -68,7 +68,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		hideSoftKeyboard();
 
 		customer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
-		if (customer.getName() == null) {
+		if (customer.getName() == null ) {
 			newUserDrawer(position);
 		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
 			quickAndScheduleOrderDrawer(position);

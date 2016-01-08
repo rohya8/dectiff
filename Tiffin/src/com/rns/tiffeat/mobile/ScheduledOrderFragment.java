@@ -191,6 +191,11 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		// phone.setText(customerOrder.getCustomer().getPhone());
 		lunchaddr.setHint("Enter Address");
 
+		if (customerOrder.getAddress() != null)
+			lunchaddr.setText(customerOrder.getAddress());
+		else
+			lunchaddr.setHint("Enter Address");
+		
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
