@@ -90,6 +90,9 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 						if (validateInfo()) {
 							customer.setEmail(email.getText().toString());
 							customer.setPassword(password.getText().toString());
+							if(customerOrder == null) {
+								customerOrder = new CustomerOrder();
+							}
 							customerOrder.setCustomer(customer);
 							new LoginAsyncTask(getActivity(), customerOrder).execute();
 						} else
@@ -106,6 +109,9 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						Fragment fragment = null;
+						if(customerOrder == null) {
+							customerOrder = new CustomerOrder();
+						}
 						fragment = new UserRegistration(customerOrder);
 						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 					}
@@ -156,8 +162,8 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	}
 
 	private void resolveSignInError() {
-		
-		
+
+
 		if (mConnectionResult.hasResolution()) {
 			try {
 				mIntentInProgress = true;
@@ -169,7 +175,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 				mGoogleApiClient.connect();
 			}
 		}
-			
+
 	}
 
 	@Override

@@ -207,11 +207,8 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void newOrder(CustomerOrder customerOrder) {
 
-		// new GetNewOrderAreaAsynctask(scheduledOrderFragment,
-		// customerOrder).execute();
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
-
 		CustomerUtils.nextFragment(fragment, scheduledOrderFragment.getSupportFragmentManager(), true);
 
 	}
@@ -291,7 +288,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private void switchOrder(CustomerOrder customerOrder1) {
 
 		customerOrder1.setCustomer(customer);
-		customerOrder1.setTransactionId("-13");;
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder1);
 		CustomerUtils.nextFragment(fragment, scheduledOrderFragment.getSupportFragmentManager(), true);
@@ -335,10 +331,8 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private void prepareNewOrder(int pos) {
 
 		CustomerOrder order = new CustomerOrder();
-		order = scheduledOrders.get(pos);
 		order.setMealFormat(MealFormat.SCHEDULED);
 		order.setCustomer(customer);
-		order.setId(0);
 		if (MealType.DINNER.equals(order.getMealType())) {
 			order.setMealType(MealType.LUNCH);
 		} else {

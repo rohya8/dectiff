@@ -104,7 +104,9 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		case 1:
 
-			fragment = new FirstTimeUse(customer);
+			CustomerOrder customerOrder = new CustomerOrder();
+			customerOrder.setCustomer(customer);
+			fragment = new FirstTimeUse(customerOrder );
 			break;
 
 		case 2:
@@ -163,9 +165,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			break;
 
 		case 1:
-			CustomerOrder customerOrder = new CustomerOrder();
-			customerOrder.setId(-10);
-			fragment = new LoginFragment(customerOrder);
+
+			fragment = new LoginFragment(null);
 			break;
 
 		case 2:
@@ -238,7 +239,9 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			break;
 
 		case 2:
-			fragment = new FirstTimeUse(customer);
+			CustomerOrder customerOrder = new CustomerOrder();
+			customerOrder.setCustomer(customer);
+			fragment = new FirstTimeUse(customerOrder);
 			break;
 
 		case 3:

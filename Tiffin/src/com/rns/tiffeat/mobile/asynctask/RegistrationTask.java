@@ -1,4 +1,3 @@
-
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.Date;
@@ -52,8 +51,12 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		try {
 			resultRegistration = CustomerServerUtils.customerRegistration(customerOrder.getCustomer());
 			customer = new Gson().fromJson(resultRegistration, Customer.class);
+
 			CustomerUtils.storeCurrentCustomer(mregistration, customer);
 
+			if (customerOrder.getMealFormat() == null) {
+				return resultRegistration;
+			}
 			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
 			Map<String, Object> customerorderavail = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
 
@@ -73,17 +76,17 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		progressDialog.dismiss();
 
 		if (result == null) {
-			//Validation.showError(mregistration, ERROR_FETCHING_DATA);
+			// Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mregistration);
 			return;
 		}
 		if (customer == null) {
-			CustomerUtils.alertbox(TIFFEAT, "Registration failed due to : "+ result, mregistration);
+			CustomerUtils.alertbox(TIFFEAT, "Registration failed due to : " + result, mregistration);
 			return;
 		}
 		if (customerOrder == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mregistration);
-			//Validation.showError(mregistration, ERROR_FETCHING_DATA);
+			// Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			return;
 		}
 
@@ -92,15 +95,21 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 	}
 
 	private void nextActivity() {
+		postLoginUtil();
 
+	}
+
+	private void postLoginUtil() {
 		Fragment fragment = null;
-		if (customerOrder.getMealFormat().equals(MealFormat.QUICK))
+		if (customerOrder.getMealFormat() == null) {
+			new DrawerUpdateAsynctask(mregistration, customer).execute("");
+		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
-		else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED))
+			CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), false);
+		} else {
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
-
-		CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), true);
-
+			CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), false);
+		}
 	}
 
 }

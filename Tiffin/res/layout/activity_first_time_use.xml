@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#E0E0E0"
     android:fillViewport="true"
     tools:context=".FirstTimeUse" >
 
@@ -70,7 +70,7 @@
                     android:background="@drawable/orderbutton"
                     android:text="Search"
                     android:textColor="#FFFFFF"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
@@ -79,7 +79,7 @@
             android:id="@+id/first_time_area_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:text=""
             android:textColor="#000"
@@ -98,8 +98,10 @@
                 android:id="@+id/first_time_used_listView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="4dp"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="5sp" >
+                android:dividerHeight="8sp"
+                android:transcriptMode="alwaysScroll" >
             </ListView>
         </LinearLayout>
     </LinearLayout>

@@ -2,9 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#fff"
+    android:background="#E0E0E0"
     android:orientation="vertical"
-    tools:context="com.rns.tiffeat.mobile.QuickOrderMainScreen$PlaceholderFragment" >
+    tools:context=".QuickOrderMainScreen" >
 
     <Button
         android:id="@+id/quick_order_homescreen_neworder_button"
@@ -42,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            android:divider="@null"
-            android:dividerHeight="0dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5sp"
             android:transcriptMode="alwaysScroll" >
         </ListView>
     </RelativeLayout>
@@ -89,8 +89,9 @@
                 android:id="@+id/quick_order_homescreen_previous_order_listView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@null"
-                android:dividerHeight="0dp"
+                android:layout_margin="4dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="8sp"
                 android:transcriptMode="alwaysScroll" >
             </ListView>
         </RelativeLayout>

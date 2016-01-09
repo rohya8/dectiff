@@ -1,12 +1,6 @@
 package com.rns.tiffeat.mobile;
 
-import java.util.List;
-
-import org.springframework.util.CollectionUtils;
-
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -21,14 +15,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.adapter.PlacesAutoCompleteAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
-import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 
@@ -38,11 +30,10 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	private View view;
 	private Button searchvendor;
 	private GetVendorsForAreaAsynctask getVendorsForAreaAsynctask;
-	private String area;
 	private CustomerOrder customerOrder;
 	private AutoCompleteTextView actvAreas;
 	private TextView text;
-	private Customer customer;
+	//private Customer customer;
 
 	public FirstTimeUse(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
@@ -51,9 +42,9 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	public FirstTimeUse() {
 	}
 
-	public FirstTimeUse(Customer customer) {
+	/*public FirstTimeUse(Customer customer) {
 		this.customer = customer;
-	}
+	}*/
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,7 +84,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 						String area = actvAreas.getText().toString();
 						if (!TextUtils.isEmpty(area)) {
 							text.setVisibility(View.VISIBLE);
-							if (customer != null) {
+							/*if (customer != null) {
 								customerOrder = new CustomerOrder();
 								if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
 									if (!CollectionUtils.isEmpty(customer.getQuickOrders()))
@@ -105,7 +96,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 								}
 
 								customerOrder.setCustomer(customer);
-							}
+							}*/
 							getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, FirstTimeUse.this, customerOrder);
 							getVendorsForAreaAsynctask.execute(area);
 
@@ -122,9 +113,12 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	private void changeScheduleOrder() {
 
+		if(customerOrder.getLocation() == null) {
+			return;
+		}
 		actvAreas.setText(customerOrder.getLocation().getAddress());
 		getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, FirstTimeUse.this, customerOrder);
-		getVendorsForAreaAsynctask.execute(area);
+		getVendorsForAreaAsynctask.execute(customerOrder.getLocation().getAddress());
 	}
 
 	private void initialise() {
@@ -165,23 +159,6 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
-	}
-
-	public void getLocationFromAddress(String strAddress) {
-
-		Geocoder coder = new Geocoder(getActivity());
-		List<Address> address;
-
-		try {
-			address = coder.getFromLocationName(strAddress, 5);
-			if (address == null) {
-			}
-			Address location = address.get(0);
-			double lati = location.getLatitude();
-			double longi = location.getLongitude();
-			Toast.makeText(getActivity(), " latitude " + lati + " longitude " + longi, Toast.LENGTH_LONG).show();
-		} catch (Exception e) {
-		}
 	}
 
 }

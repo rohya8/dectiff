@@ -48,6 +48,8 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 		} else {
 
 			initialise();
+			
+			
 
 			submit.setOnClickListener(new OnClickListener() {
 

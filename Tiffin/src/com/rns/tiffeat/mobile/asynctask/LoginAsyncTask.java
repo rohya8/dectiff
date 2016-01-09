@@ -32,13 +32,11 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private CustomerOrder customerOrder;
 	private String availableMealTypeResult;
 	private Map<MealType, Date> availableMealType;
-	private Long existingUser = (long) 1;
 
 	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2) {
 		this.fragmentActivity = activity;
 		this.customerOrder = customerOrder2;
-		if (customerOrder2.getId() == (long) -10)
-			existingUser = customerOrder2.getId();
+		
 	}
 
 	@Override
@@ -56,8 +54,13 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		try {
 			resultLogin = CustomerServerUtils.customerLogin(customerOrder.getCustomer());
 			customerlogin = new Gson().fromJson(resultLogin, Customer.class);
-			customerOrder.setCustomer(customerlogin);
+			
 			CustomerUtils.storeCurrentCustomer(fragmentActivity, customerlogin);
+			if(customerOrder.getMealFormat() == null) {
+				return resultLogin;
+			}
+			customerOrder.setCustomer(customerlogin);
+			
 
 			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
 			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
@@ -99,10 +102,13 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 
 	private void nextActivity() {
 
+		postLoginUtil();
+	}
+
+	private void postLoginUtil() {
 		Fragment fragment = null;
-		if (existingUser == (long) -10) {
+		if (customerOrder.getMealFormat() == null) {
 			new DrawerUpdateAsynctask(fragmentActivity, customerlogin).execute("");
-			// fragment = new FirstTimeUse(customerOrder);
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
 			CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
@@ -110,7 +116,6 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
 			CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
 		}
-
 	}
 
 }

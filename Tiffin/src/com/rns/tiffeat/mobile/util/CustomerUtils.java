@@ -75,7 +75,7 @@ public class CustomerUtils implements AndroidConstants {
 			fragmentTransaction.addToBackStack(null);
 			fragmentTransaction.replace(R.id.container_body, fragment);
 		}
-		fragmentTransaction.commit();
+		fragmentTransaction.commitAllowingStateLoss();
 	}
 
 	public static void changeFont(AssetManager assets, Fragment fragment) {

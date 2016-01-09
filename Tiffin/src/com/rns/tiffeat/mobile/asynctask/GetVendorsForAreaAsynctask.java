@@ -92,7 +92,6 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			//Validation.showError(myactivity, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, myactivity);
 			return;
 		}

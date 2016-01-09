@@ -15,7 +15,6 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.Meal;
 
 public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
@@ -23,20 +22,10 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 	private ProgressDialog progressDialog;
 	private CustomerOrder customerOrder;
 	private String result1;
-	private Meal objmMeal, scheduleMeal;
-
-	public Meal getScheduleMeal() {
-		return scheduleMeal;
-	}
-
-	public void setScheduleMeal(Meal scheduleMeal) {
-		this.scheduleMeal = scheduleMeal;
-	}
-
-	public ScheduleChangeOrderTask(FragmentActivity contxt, CustomerOrder customerOrder, Meal objmeal) {
+	public ScheduleChangeOrderTask(FragmentActivity contxt, CustomerOrder customerOrder) {
 		mchangeorder = contxt;
 		this.customerOrder = customerOrder;
-		this.objmMeal = objmeal;
+
 	}
 
 	@Override
@@ -52,8 +41,6 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 			return null;
 		}
 		try {
-			this.setScheduleMeal(customerOrder.getMeal());
-			customerOrder.setMeal(objmMeal);
 			result1 = CustomerServerUtils.changeOrder(customerOrder);
 
 			return result1;

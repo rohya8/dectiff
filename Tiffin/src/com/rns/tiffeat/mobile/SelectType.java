@@ -1,5 +1,7 @@
 package com.rns.tiffeat.mobile;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,18 +20,8 @@ import com.rns.tiffeat.web.bo.domain.MealFormat;
 public class SelectType extends Fragment implements AndroidConstants {
 
 	private ImageView scheduled, quick;
-	private Meal meal;
 	private View view;
 	private CustomerOrder customerOrder;
-
-	public SelectType(Meal meal) {
-		this.meal = meal;
-	}
-
-	public SelectType(Meal meal, CustomerOrder customerOrder2) {
-		this.meal = meal;
-		this.customerOrder = customerOrder2;
-	}
 
 	public SelectType(CustomerOrder customerOrder3) {
 		this.customerOrder = customerOrder3;
@@ -73,19 +65,17 @@ public class SelectType extends Fragment implements AndroidConstants {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						if (customerOrder.getCustomer() != null) {
-							if (customerOrder.getCustomer().getScheduledOrder().size() == 2) {
+
+							if (CollectionUtils.isNotEmpty(customerOrder.getCustomer().getScheduledOrder()) && customerOrder.getCustomer().getScheduledOrder().size() == 2) {
 								CustomerUtils.alertbox(TIFFEAT, "You have already scheduled meal for luch and dinner", getActivity());
 								Fragment fragment = null;
 								fragment = new ScheduledUser(customerOrder.getCustomer());
 								CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
-							} else {
-								prepareCustomerOrder(MealFormat.SCHEDULED);
-								nextActivity();
+
 							}
-						} else {
-							prepareCustomerOrder(MealFormat.SCHEDULED);
-							nextActivity();
 						}
+						prepareCustomerOrder(MealFormat.SCHEDULED);
+						nextActivity();
 					}
 				}
 
@@ -126,14 +116,6 @@ public class SelectType extends Fragment implements AndroidConstants {
 		if (customerOrder == null) {
 			customerOrder = new CustomerOrder();
 		}
-		if (customerOrder.getMeal() == null) {
-			customerOrder.setMeal(meal);
-		}
-		
-		if (customerOrder.getArea() == null) {
-			customerOrder.setArea(meal.getVendor().getPinCode());
-		}
-
 		customerOrder.setMealFormat(mealFormat);
 	}
 

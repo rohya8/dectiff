@@ -137,7 +137,9 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			return mealTypes;
 		}
 		for (CustomerOrder order : customerOrder.getCustomer().getScheduledOrder()) {
+			CustomerUtils.alertbox(TIFFEAT, "You have already scheduled meal for "+order.getMealType(), getActivity());
 			mealTypes.remove(order.getMealType());
+			
 		}
 
 		return mealTypes;

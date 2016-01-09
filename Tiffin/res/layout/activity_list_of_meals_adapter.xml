@@ -9,7 +9,7 @@
         android:id="@+id/list_of_meals_cardView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp" >
+        android:layout_margin="3dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,11 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/food5" />
 
@@ -37,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
                 android:text="VEG Tiffin"
                 android:textColor="#000" />
 
@@ -58,14 +55,14 @@
                 android:text="1000+"
                 android:textColor="#000" />
 
-             <TextView
+            <TextView
                 android:id="@+id/list_of_meals_availability_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="#000" />
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,37 +70,39 @@
                 android:orientation="horizontal" >
 
                 <Button
-                    android:id="@+id/list_of_meals_button_order"
+                    android:id="@+id/list_of_meals_button_menu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/orderbutton"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="Order"
+                    android:padding="10dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="Menu"
                     android:textColor="#fff"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:typeface="serif" />
 
                 <Button
-                    android:id="@+id/list_of_meals_button_menu"
+                    android:id="@+id/list_of_meals_button_order"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/orderbutton"
                     android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Menu"
+                    android:paddingLeft="10dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:paddingRight="10dp"
+                    android:text="Order"
                     android:textColor="#fff"
                     android:textSize="18sp"
                     android:textStyle="bold"

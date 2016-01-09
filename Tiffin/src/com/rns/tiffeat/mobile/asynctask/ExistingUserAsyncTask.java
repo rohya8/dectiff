@@ -1,7 +1,8 @@
-
 package com.rns.tiffeat.mobile.asynctask;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import android.app.ProgressDialog;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
+import com.rns.tiffeat.mobile.ChangeOrderFragment;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.Validation;
@@ -47,6 +49,10 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 			return null;
 		}
 		try {
+			
+			List<CustomerOrder> custList = new ArrayList<CustomerOrder>();
+			custList = customerOrder.getCustomer().getScheduledOrder();
+			
 			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
 			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
 
@@ -54,6 +60,7 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));
 
 			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
+			customerOrder.getCustomer().setScheduledOrder(custList);
 
 			return availableMealTypeResult;
 		} catch (Exception e) {
@@ -67,8 +74,7 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 		super.onPostExecute(result);
 		progressdialog.dismiss();
 		if (result == null) {
-			//Validation.showError(context, ERROR_FETCHING_DATA);
-			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA,context);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, context);
 			return;
 		}
 		if (customerOrder != null) {
@@ -83,14 +89,17 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 
 		Fragment fragment = null;
 
-			
-		if (MealFormat.QUICK.equals(customerOrder.getMealFormat()))
+		if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
-		else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()))
+		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()) && customerOrder.getId() == 0) {
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
+		} else {
+			fragment = new ChangeOrderFragment(customerOrder);
+		}
 
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), true);
 
 	}
+	
 
 }
