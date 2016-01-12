@@ -108,13 +108,15 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 
 		holder.repeatorderButton.setTag(position);
 
-		holder.title.setText(customerOrder.getMeal().getTitle());
-		holder.tiffintype.setText(customerOrder.getMealType().toString());
+		if(customerOrder.getMeal().getTitle()!=null)
+			holder.title.setText(customerOrder.getMeal().getTitle());
 
-		holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
+		if(customerOrder.getMealType().toString()!=null)
+			holder.tiffintype.setText(customerOrder.getMealType().toString());
 
-		if (holder.foodimage != null) {
-		}
+		if(customerOrder.getDate()!=null)
+			holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
+
 
 		holder.repeatorderButton.setOnClickListener(new OnClickListener() {
 

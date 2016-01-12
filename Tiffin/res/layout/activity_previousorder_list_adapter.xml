@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.rns.tiffeat.mobile"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -9,38 +11,41 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_margin="3dp"
+            android:background="#FAFAFA"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp" >
 
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="#FAFAFA" >
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/previousorder_list_adapter_imageview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/food5" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical" >
-
-                        <ImageView
-                            android:id="@+id/previousorder_list_adapter_imageview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginTop="5dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/food5" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -50,59 +55,57 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical" >
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:orientation="horizontal" >
-
-                                    <TextView
-                                        android:id="@+id/previousorder_list_adapter_name_textView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_weight="1"
-                                        android:text="ABC Tiffin"
-                                        android:textColor="#000" />
-
-                                    <TextView
-                                        android:id="@+id/previousorder_list_adapter_date_textView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_weight="1"
-                                        android:text="4-11-2015"
-                                        android:textColor="#000" />
-                                </LinearLayout>
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal" >
 
                                 <TextView
-                                    android:id="@+id/previousorder_list_adapter_type_textView"
-                                    android:layout_width="match_parent"
+                                    android:id="@+id/previousorder_list_adapter_name_textView"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
-                                    android:text="Veg-Special"
-                                    android:textColor="#000" />
+                                    android:layout_weight="1"
+                                    android:text="ABC Tiffin"
+                                    android:textColor="#000"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/previousorder_list_adapter_date_textView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_weight="1"
+                                    android:text="4-11-2015"
+                                    android:textColor="#000"
+                                    android:textSize="14sp" />
                             </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/previousorder_list_adapter_type_textView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="Veg-Special"
+                                android:textColor="#000"
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/previousorder_list_adapter_repeatorder_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="6dp"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="REPEAT ORDER"
-                        android:textColor="#4CAF50" />
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
+
+                <TextView
+                    android:id="@+id/previousorder_list_adapter_repeatorder_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="REPEAT ORDER"
+                    android:textColor="#4CAF50"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 </LinearLayout>

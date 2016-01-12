@@ -118,8 +118,9 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 
 		relativeLayout.setVisibility(View.VISIBLE);
 		todaylistview.setVisibility(View.VISIBLE);
+
 		RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
-		rel.setMargins(0, 0, 0, 240);
+		rel.setMargins(0, 0, 0, 285);
 
 	}
 
@@ -135,6 +136,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 
 				RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
 				rel.setMargins(0, 0, 0, 10);
+
 			}
 		}
 		quickOrdersAdapter.setQuickHome(this);

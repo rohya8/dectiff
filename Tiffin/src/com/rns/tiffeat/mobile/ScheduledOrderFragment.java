@@ -9,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -57,10 +58,9 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		dinner.setVisibility(View.GONE);
 
 		if (CollectionUtils.isEmpty(availableMealTypes)) {
+			CustomerUtils.alertbox(TIFFEAT, "already scheduled both lunch and dinner", getActivity());
+			homeActivity();
 
-			Validation.showError(getActivity(), "already scheduled both lunch and dinner");
-
-			return;
 		}
 
 		filterMealTypes(availableMealTypeDatesMap, availableMealTypes);
@@ -137,9 +137,9 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			return mealTypes;
 		}
 		for (CustomerOrder order : customerOrder.getCustomer().getScheduledOrder()) {
-			CustomerUtils.alertbox(TIFFEAT, "You have already scheduled meal for "+order.getMealType(), getActivity());
+
 			mealTypes.remove(order.getMealType());
-			
+
 		}
 
 		return mealTypes;
@@ -155,10 +155,15 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 			initialise();
 
+			if (View.GONE == dinner.getVisibility() && View.GONE == lunch.getVisibility()) {
+				CustomerUtils.alertbox(TIFFEAT, " Meal you have selected is not available", getActivity());
+				homeActivity();
+			}
 			lunch.setOnClickListener(this);
 			dinner.setOnClickListener(this);
 			both.setOnClickListener(this);
 			proceed.setOnClickListener(this);
+
 		}
 		return rootView;
 	}
@@ -197,7 +202,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			lunchaddr.setText(customerOrder.getAddress());
 		else
 			lunchaddr.setHint("Enter Address");
-		
+
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
@@ -298,6 +303,28 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		});
 
 		builder.show();
+	}
+
+	private void homeActivity() {
+
+		getActivity().runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						Fragment fragment = null;
+						fragment = new ScheduledUser(customerOrder.getCustomer());
+						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+
+					}
+				}, 2000);
+			}
+
+		});
+
 	}
 
 }

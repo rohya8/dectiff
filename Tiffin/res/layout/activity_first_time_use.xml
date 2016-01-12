@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:gravity="start"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp" >
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:orientation="vertical" >
 
@@ -53,8 +53,8 @@
                     android:background="@drawable/rounded"
                     android:ems="10"
                     android:hint="Where do you want your Tiffin?"
-                    android:padding="10dp"
-                    android:textSize="15sp"
+                    android:padding="8dp"
+                    android:textSize="14sp"
                     android:windowSoftInputMode="stateHidden" >
                 </AutoCompleteTextView>
 
@@ -63,14 +63,14 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/orderbutton"
                     android:text="Search"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
@@ -80,10 +80,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text=""
             android:textColor="#000"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:visibility="gone" />
 
         <LinearLayout
@@ -105,5 +105,4 @@
             </ListView>
         </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>

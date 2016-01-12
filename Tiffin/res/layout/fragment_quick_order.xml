@@ -33,7 +33,7 @@
                 android:maxLines="2"
                 android:padding="10dp"
                 android:text="MY Tiffin"
-                android:textColor="#9E9E9E" >
+                android:textColor="#FF5722" >
             </EditText>
 
             <EditText
@@ -52,7 +52,7 @@
                 android:inputType="text"
                 android:padding="10dp"
                 android:text="ABC ABC"
-                android:textColor="#9E9E9E" >
+                android:textColor="#FF5722" >
             </EditText>
 
             <EditText
@@ -71,7 +71,7 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:text="abc@gmail.com"
-                android:textColor="#9E9E9E" />
+                android:textColor="#FF5722" />
 
             <EditText
                 android:id="@+id/quick_order_screen_editText_Price"
@@ -88,7 +88,7 @@
                 android:gravity="left"
                 android:padding="10dp"
                 android:text="120"
-                android:textColor="#9E9E9E" />
+                android:textColor="#FF5722" />
 
             <EditText
                 android:id="@+id/quick_order_screen_editText_Phoneno"
@@ -97,15 +97,15 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/rounded"
                 android:drawableLeft="@drawable/telephone"
                 android:drawablePadding="10dp"
                 android:ems="8"
                 android:gravity="left"
-                android:background="@drawable/rounded"
                 android:hint="Enter Phone Number"
                 android:inputType="phone"
                 android:padding="10dp"
-                android:textColor="#000" >
+                android:textColor="#FF5722" >
 
                 <requestFocus />
             </EditText>
@@ -185,6 +185,7 @@
                 android:gravity="center"
                 android:hint="Lunch Address"
                 android:padding="10dp"
+                android:textColor="#FF5722"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -244,7 +245,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/orderbutton"
-                android:text="Proceed to Pay"
+                android:text="Proceed"
                 android:textColor="#fff" />
         </LinearLayout>
     </RelativeLayout>

@@ -5,6 +5,13 @@ import java.net.MalformedURLException;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
@@ -57,7 +64,8 @@ public class ImageDownloaderTask extends AsyncTask<Vendor, Void, Bitmap> {
 		if (result == null)
 			imageView.setImageResource(R.drawable.food5);
 		else {
-			imageView.setImageBitmap(result);
+			imageView.setImageBitmap(CustomerUtils.getRoundedCornerBitmap(result));
+			//imageView.setImageBitmap(result);
 			UserUtils.scaleImage(imageView, result);
 		}
 		holder.setFoodimage(imageView);
@@ -73,4 +81,4 @@ public class ImageDownloaderTask extends AsyncTask<Vendor, Void, Bitmap> {
 		return bitmap;
 	}
 
-}
+	}

@@ -25,13 +25,11 @@ import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.GetMenuAndroidAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
-import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
-import com.rns.tiffeat.web.bo.domain.MealFormat;
 import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidConstants {
@@ -99,10 +97,15 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.name.setText(meal.getTitle().toString());
-		holder.mealtype.setText(meal.getDescription());
-		holder.tiffinprice.setText("Rs. " + meal.getPrice());
-		holder.tiffinavailability.setText("Available for : " + meal.getMealTime().getDescription());
+		if(meal.getTitle().toString()!=null)
+			holder.name.setText(meal.getTitle().toString());
+		if(meal.getDescription()!=null)
+			holder.mealtype.setText(meal.getDescription());
+		if(meal.getPrice()!=null)
+			holder.tiffinprice.setText("Rs. " + meal.getPrice());
+		if(meal.getMealTime().getDescription()!=null)
+			holder.tiffinavailability.setText("Available for : " + meal.getMealTime().getDescription());
+		
 		holder.order.setTag(position);
 		holder.menu.setTag(position);
 

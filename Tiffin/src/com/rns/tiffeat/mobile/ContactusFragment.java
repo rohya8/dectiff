@@ -50,7 +50,7 @@ public class ContactusFragment extends Fragment implements AndroidConstants {
 				alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						Intent callIntent = new Intent(Intent.ACTION_CALL);
-						callIntent.setData(Uri.parse("+tel" + "91 XXXXXXXXXX"));
+						callIntent.setData(Uri.parse("tel:" + "91"+"7350182285"));
 						callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						startActivity(callIntent);
 

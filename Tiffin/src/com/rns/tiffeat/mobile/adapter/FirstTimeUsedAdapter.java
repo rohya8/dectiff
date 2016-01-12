@@ -63,13 +63,13 @@ public class FirstTimeUsedAdapter extends ArrayAdapter<Vendor> implements Androi
 			holder = new ViewHolder();
 			fontChanger.replaceFonts((ViewGroup) convertView);
 			holder.name = (TextView) convertView.findViewById(R.id.first_time_tiffinname_textView);
-			holder.mealtype = (TextView) convertView.findViewById(R.id.first_time_tiffin_type_textView);
+			//holder.mealtype = (TextView) convertView.findViewById(R.id.first_time_tiffin_type_textView);
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.first_time_food1_imageView);
 			ImageView vendorImageView = (ImageView) convertView.findViewById(R.id.first_time_food1_imageView);
 			holder.foodimage = vendorImageView;
 			new ImageDownloaderTask(holder, vendorImageView, getContext()).execute(this.getItem(position));
-			holder.tiffinused = (TextView) convertView.findViewById(R.id.first_time_count_textView);
-			holder.ratingbar = (RatingBar) convertView.findViewById(R.id.first_time_ratingBar1);
+			//holder.tiffinused = (TextView) convertView.findViewById(R.id.first_time_count_textView);
+			//holder.ratingbar = (RatingBar) convertView.findViewById(R.id.first_time_ratingBar1);
 			convertView.setTag(holder);
 
 		} else {
@@ -78,15 +78,15 @@ public class FirstTimeUsedAdapter extends ArrayAdapter<Vendor> implements Androi
 
 		Vendor objmeal = vendors.get(position);
 
-		holder.name.setText(objmeal.getName());
+		if(objmeal.getName()!=null)
+			holder.name.setText(objmeal.getName());
+		//holder.mealtype.setText("VEG");
 
-		holder.mealtype.setText("VEG");
-
-		holder.tiffinused.setText("100");
-		if (objmeal.getRating() == null) {
-			objmeal.setRating(new BigDecimal(0));
-		}
-		holder.ratingbar.setRating(objmeal.getRating().floatValue());
+		//holder.tiffinused.setText("100");
+		//		if (objmeal.getRating() == null) {
+		//			objmeal.setRating(new BigDecimal(0));
+		//		}
+		//		holder.ratingbar.setRating(objmeal.getRating().floatValue());
 		return convertView;
 
 	}

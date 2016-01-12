@@ -3,6 +3,7 @@ package com.rns.tiffeat.mobile;
 import org.apache.commons.collections.CollectionUtils;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,18 +67,26 @@ public class SelectType extends Fragment implements AndroidConstants {
 					} else {
 						if (customerOrder.getCustomer() != null) {
 
-							if (CollectionUtils.isNotEmpty(customerOrder.getCustomer().getScheduledOrder()) && customerOrder.getCustomer().getScheduledOrder().size() == 2) {
-								CustomerUtils.alertbox(TIFFEAT, "You have already scheduled meal for luch and dinner", getActivity());
-								Fragment fragment = null;
-								fragment = new ScheduledUser(customerOrder.getCustomer());
-								CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+							if (CollectionUtils.isNotEmpty(customerOrder.getCustomer().getScheduledOrder())
+									&& customerOrder.getCustomer().getScheduledOrder().size() == 2) {
+								CustomerUtils.alertbox(TIFFEAT,"You have already scheduled meal for luch and dinner" , getActivity());
+								homeActivity();
+
 
 							}
+							else{
+								prepareCustomerOrder(MealFormat.SCHEDULED);
+								nextActivity();
+
+							}
+						} else {
+
+							prepareCustomerOrder(MealFormat.SCHEDULED);
+							nextActivity();
 						}
-						prepareCustomerOrder(MealFormat.SCHEDULED);
-						nextActivity();
 					}
 				}
+
 
 			});
 		}
@@ -88,6 +97,28 @@ public class SelectType extends Fragment implements AndroidConstants {
 
 		scheduled = (ImageView) view.findViewById(R.id.select_type_scheduled_imageView);
 		quick = (ImageView) view.findViewById(R.id.select_type_quick_imageView);
+
+	}
+
+	private void homeActivity() {
+
+		getActivity().runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						Fragment fragment = null;
+						fragment = new ScheduledUser(customerOrder.getCustomer());
+						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+
+					}
+				}, 2000);
+			}
+
+		});
 
 	}
 

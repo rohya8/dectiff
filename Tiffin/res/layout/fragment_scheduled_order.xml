@@ -21,9 +21,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="5dp"
-                android:gravity="right"
+                android:layout_gravity="end"
+                android:layout_marginRight="10dp"
+                android:gravity="end"
                 android:orientation="horizontal" >
 
                 <ImageView
@@ -62,8 +62,7 @@
                 android:inputType="text"
                 android:padding="10dp"
                 android:text="MY Tiffin"
-                android:textColor="#9E9E9E" >
-            </EditText>
+                android:textColor="#FF5722" />
 
             <EditText
                 android:id="@+id/scheduled_order_editText_Name"
@@ -81,7 +80,7 @@
                 android:inputType="text"
                 android:padding="10dp"
                 android:text="ABC ABC"
-                android:textColor="#9E9E9E" >
+                android:textColor="#FF5722" >
             </EditText>
 
             <EditText
@@ -100,7 +99,7 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:text="abc@gmail.com"
-                android:textColor="#9E9E9E" />
+                android:textColor="#FF5722" />
 
             <EditText
                 android:id="@+id/scheduled_order_editText_Price"
@@ -117,7 +116,7 @@
                 android:gravity="left"
                 android:padding="10dp"
                 android:text="120"
-                android:textColor="#9E9E9E" />
+                android:textColor="#FF5722" />
 
             <EditText
                 android:id="@+id/scheduled_order_editText_Phoneno"
@@ -134,7 +133,7 @@
                 android:hint="Enter Phone Number"
                 android:inputType="phone"
                 android:padding="10dp"
-                android:textColor="#000" >
+                android:textColor="#FF5722" >
 
                 <requestFocus />
             </EditText>
@@ -225,6 +224,7 @@
                 android:gravity="center"
                 android:hint="Lunch Address"
                 android:padding="10dp"
+                android:textColor="#FF5722"
                 android:visibility="gone" />
 
             <EditText
@@ -241,6 +241,7 @@
                 android:gravity="center"
                 android:hint="Dinner Address"
                 android:padding="10dp"
+                android:textColor="#FF5722"
                 android:visibility="gone" >
             </EditText>
 
@@ -253,7 +254,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/orderbutton"
-                android:text="Proceed to Pay"
+                android:text="Proceed"
                 android:textColor="#FFF" />
         </LinearLayout>
     </RelativeLayout>
