@@ -119,9 +119,6 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		relativeLayout.setVisibility(View.VISIBLE);
 		todaylistview.setVisibility(View.VISIBLE);
 
-		RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
-		rel.setMargins(0, 0, 0, 285);
-
 	}
 
 	public void prepareScreen() {
@@ -170,6 +167,9 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	}
 
 	private void repeatorderActivity(Customer customer2) {
+
+		RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
+		rel.setMargins(0, 0, 0, 285);
 
 		previousorder.setText("View Today's Order");
 		linearLayout.setVisibility(View.VISIBLE);
