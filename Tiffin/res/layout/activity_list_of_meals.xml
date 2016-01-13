@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_margin="4dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="8sp"
+            android:dividerHeight="6sp"
             android:transcriptMode="alwaysScroll" >
         </ListView>
     </LinearLayout>
