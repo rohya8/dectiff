@@ -126,7 +126,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 		actvAreas = (AutoCompleteTextView) view.findViewById(R.id.first_time_use_area_autoCompleteTextView);
 		listview = (ListView) view.findViewById(R.id.first_time_used_listView);
 		searchvendor = (Button) view.findViewById(R.id.first_time_use_search_button);
-		actvAreas.setThreshold(2);
+		actvAreas.setThreshold(1);
 		text = (TextView) view.findViewById(R.id.first_time_area_textView);
 		getAreaName();
 
