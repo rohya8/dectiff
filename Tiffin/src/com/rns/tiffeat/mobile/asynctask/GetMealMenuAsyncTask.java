@@ -88,7 +88,7 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 		}
 
 		for (CustomerOrder order : orders) {
-			if (order.getId() == customerOrder.getId()) {
+			if (order.getMeal().getId() == customerOrder.getMeal().getId()) {
 				customerOrder = order;
 				break;
 			}

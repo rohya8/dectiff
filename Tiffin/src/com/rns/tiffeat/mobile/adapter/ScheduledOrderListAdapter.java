@@ -129,7 +129,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 					int pos = (Integer) v.getTag();
 					customerOrder = scheduledOrders.get(pos);
-
 					alertbox(customerOrder);
 				}
 
@@ -168,7 +167,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			}
 		});
 
-		
 		holder.addOtherMealTypeButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -279,6 +277,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	}
 
 	private void cancelOrder() {
+		customer.setId(customerOrder.getCustomerOrderId());
 		customerOrder.setCustomer(customer);
 		ScheduleCancelOrderTask cancelOrderTask = new ScheduleCancelOrderTask(scheduledOrderFragment, customerOrder);
 		cancelOrderTask.setScheduledUser(scheduledUserHome);
@@ -287,8 +286,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void switchOrder(CustomerOrder customerOrder1) {
 
+		customer.setId(customerOrder1.getCustomerOrderId());
 		customerOrder1.setCustomer(customer);
+		customerOrder1.setId(10);
 		Fragment fragment = null;
+
 		fragment = new FirstTimeUse(customerOrder1);
 		CustomerUtils.nextFragment(fragment, scheduledOrderFragment.getSupportFragmentManager(), true);
 	}

@@ -15,7 +15,6 @@ import com.rns.tiffeat.mobile.asynctask.ExistingUserAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class SelectType extends Fragment implements AndroidConstants {

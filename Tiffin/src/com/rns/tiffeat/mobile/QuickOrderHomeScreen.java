@@ -69,7 +69,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						customerOrder.setCustomer(customer);
-						customerOrder.setMealFormat(MealFormat.QUICK);
+						//customerOrder.setMealFormat(MealFormat.QUICK);
 						newActivity(customerOrder);
 					}
 				}

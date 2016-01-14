@@ -1,4 +1,3 @@
-
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.Map;
@@ -15,11 +14,10 @@ import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.web.google.Location;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
-import com.rns.tiffeat.web.google.Location;
-import com.rns.tiffeat.web.util.Constants;
 
 public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
