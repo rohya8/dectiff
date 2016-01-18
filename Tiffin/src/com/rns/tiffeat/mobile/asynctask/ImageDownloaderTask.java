@@ -64,8 +64,12 @@ public class ImageDownloaderTask extends AsyncTask<Vendor, Void, Bitmap> {
 		if (result == null)
 			imageView.setImageResource(R.drawable.food5);
 		else {
-			imageView.setImageBitmap(CustomerUtils.getRoundedCornerBitmap(result));
-			//imageView.setImageBitmap(result);
+			try {
+				//TODO : Why?
+				imageView.setImageBitmap(CustomerUtils.getRoundedCornerBitmap(result));
+			} catch (Exception e) {
+				imageView.setImageBitmap(result);
+			}
 			UserUtils.scaleImage(imageView, result);
 		}
 		holder.setFoodimage(imageView);

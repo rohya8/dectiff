@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 						if (validateInfo()) {
 							customer.setEmail(email.getText().toString());
 							customer.setPassword(password.getText().toString());
-							if(customerOrder == null) {
+							if (customerOrder == null) {
 								customerOrder = new CustomerOrder();
 							}
 							customerOrder.setCustomer(customer);
@@ -109,7 +109,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						Fragment fragment = null;
-						if(customerOrder == null) {
+						if (customerOrder == null) {
 							customerOrder = new CustomerOrder();
 						}
 						fragment = new UserRegistration(customerOrder);
@@ -130,8 +130,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		password = (EditText) view.findViewById(R.id.login_editText_Password);
 		signinButton = (SignInButton) view.findViewById(R.id.signin);
 		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) this)
-				.addOnConnectionFailedListener((OnConnectionFailedListener) this).addApi(Plus.API, Plus.PlusOptions.builder().build())
-				.addScope(Plus.SCOPE_PLUS_PROFILE).build();
+				.addOnConnectionFailedListener((OnConnectionFailedListener) this).addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_PROFILE).build();
 	}
 
 	@Override
@@ -163,15 +162,14 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 	private void resolveSignInError() {
 
-
-		if (mConnectionResult.hasResolution()) {
+		if (mConnectionResult != null && mConnectionResult.hasResolution()) {
 			try {
 				mIntentInProgress = true;
 				mConnectionResult.startResolutionForResult(getActivity(), RC_SIGN_IN);
 			} catch (SendIntentException e) {
 				CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", getActivity());
 				mIntentInProgress = false;
-				Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);				
+				Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 				mGoogleApiClient.connect();
 			}
 		}
@@ -209,12 +207,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			mIntentInProgress = false;
 			if (!mGoogleApiClient.isConnecting()) {
 				connectgoogle();
-
-				// FragmentManager fragmentManager =
-				// getSupportFragmentManager();
-				// fragmentManager.findFragmentById(R.id.login_fragment_leftPanel).onActivityResult(requestCode,
-				// resultCode, data);
-
 			}
 
 			break;
@@ -238,43 +230,23 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	}
 
 	private void getProfileInformation() {
-		try {
-			if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
-				Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-				String personName = currentPerson.getDisplayName();
-				String emailid = Plus.AccountApi.getAccountName(mGoogleApiClient);
-
-				// Toast.makeText(getActivity(), personName,
-				// Toast.LENGTH_SHORT).show();
-				// Toast.makeText(getActivity(), emailid,
-				// Toast.LENGTH_SHORT).show();
-
-				// email.setText(emailid);
-				// password.setText(personName);
-
-				customer.setEmail(emailid);
-				customer.setName(personName);
-				customerOrder.setCustomer(customer);
-
-				if (mGoogleApiClient.isConnected()) {
-					mGoogleApiClient.unregisterConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this);
-					mGoogleApiClient.unregisterConnectionFailedListener((OnConnectionFailedListener) this);
-					Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-					mGoogleApiClient.disconnect();
-
-				}
-
-				new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+		if(person == null) {
+			return;
 		}
+		customer.setEmail(Plus.AccountApi.getAccountName(mGoogleApiClient));
+		customer.setName(person.getDisplayName());
+		customerOrder.setCustomer(customer);
+
+		if (mGoogleApiClient.isConnected()) {
+			mGoogleApiClient.unregisterConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this);
+			mGoogleApiClient.unregisterConnectionFailedListener((OnConnectionFailedListener) this);
+			Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+			mGoogleApiClient.disconnect();
+		}
+		new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
 	}
 
-	// public void signIn(View v) {
-	// googlePlusLogin();
-	// }
 
 	private void googlePlusLogin() {
 		progressDialog = UserUtils.showLoadingDialog(getActivity(), "Signing In ", "Please Wait .....");
