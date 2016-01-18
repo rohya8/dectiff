@@ -34,7 +34,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:orientation="vertical" >
 
@@ -43,8 +43,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
                             android:adjustViewBounds="true"
                             android:src="@drawable/food5" />
 
@@ -79,9 +77,8 @@
                                         android:id="@+id/quickorder_list_adapter_date_textView"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="20dp"
                                         android:layout_marginRight="20dp"
-                                        android:layout_weight="1"
+                                        android:layout_weight="2"
                                         android:gravity="left"
                                         android:text="4-11-2015"
                                         android:textColor="#000"

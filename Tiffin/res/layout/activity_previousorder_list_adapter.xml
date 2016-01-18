@@ -22,7 +22,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -37,8 +37,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
                         android:adjustViewBounds="true"
                         android:src="@drawable/food5" />
 
@@ -60,7 +58,7 @@
 
                                 <TextView
                                     android:id="@+id/previousorder_list_adapter_name_textView"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
                                     android:layout_weight="1"
@@ -70,10 +68,10 @@
 
                                 <TextView
                                     android:id="@+id/previousorder_list_adapter_date_textView"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_weight="1"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_weight="2"
                                     android:text="4-11-2015"
                                     android:textColor="#000"
                                     android:textSize="14sp" />
@@ -84,6 +82,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
+                                android:layout_marginRight="10dp"
                                 android:text="Veg-Special"
                                 android:textColor="#000"
                                 android:textSize="14sp" />

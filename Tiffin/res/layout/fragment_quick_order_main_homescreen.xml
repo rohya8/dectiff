@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/orderbutton"
         android:text="Make New Order"
         android:textColor="#fff" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="Your Today&apos;s Order"
         android:textColor="#000"
         android:textSize="14sp"
@@ -40,10 +40,10 @@
         <ListView
             android:id="@+id/quick_order_homescreen_today_order_listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="4dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="6sp"
+            android:dividerHeight="4sp"
             android:transcriptMode="alwaysScroll" >
         </ListView>
     </RelativeLayout>
@@ -55,7 +55,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/orderbutton"
         android:text="Previous Orders"
         android:textColor="#fff" />
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="Your Previous&apos;s Order"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -81,14 +81,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1" >
 
             <ListView
                 android:id="@+id/quick_order_homescreen_previous_order_listView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:layout_margin="4dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="4sp"

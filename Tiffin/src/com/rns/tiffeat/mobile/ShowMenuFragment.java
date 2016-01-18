@@ -45,7 +45,14 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		} else {
 			initialise();
 
-			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())) {
+			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem()) || customerOrder.getContent().getMainItem().equals("No Meal available")==true ) {
+			
+				if (customerOrder.getMealType() != null)
+					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
+//				if (customerOrder.getContent().getDate() != null)
+//					date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()).toString());
+
+				
 				availability.setVisibility(View.VISIBLE);
 				availability.setText("Menu not available yet..");
 				menulayout.setVisibility(View.GONE);
@@ -134,7 +141,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		menu = (TextView) rootView.findViewById(R.id.menu_status_tv);
 		date = (TextView) rootView.findViewById(R.id.date_status_tv);
 		availability = (TextView) rootView.findViewById(R.id.meal_availability_textView);
-		menulayout=(LinearLayout) rootView.findViewById(R.id.menu_layout);
+		menulayout = (LinearLayout) rootView.findViewById(R.id.menu_layout);
 
 		menulayout.setVisibility(View.VISIBLE);
 		availability.setVisibility(View.GONE);
