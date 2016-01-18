@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.rns.tiffeat.mobile.asynctask.DrawerUpdateAsynctask;
 import com.rns.tiffeat.mobile.asynctask.GetMealsForVendorAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -20,8 +20,9 @@ import com.rns.tiffeat.web.bo.domain.MealFormat;
 public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private Button alertbtn;
-	private TextView roti, sabji, rice, salad, extra, price, menu, date;
+	private TextView roti, sabji, rice, salad, extra, price, menu, date, availability;
 	private View rootView;
+	private LinearLayout menulayout;
 	private CustomerOrder customerOrder;
 
 	public ShowMenuFragment(CustomerOrder customerOrder) {
@@ -45,7 +46,9 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			initialise();
 
 			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())) {
-				sabji.setText("Menu not available yet..");
+				availability.setVisibility(View.VISIBLE);
+				availability.setText("Menu not available yet..");
+				menulayout.setVisibility(View.GONE);
 			}
 
 			if (customerOrder.getMeal() != null && customerOrder.getMeal().getPrice() != null) {
@@ -70,6 +73,9 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 						extra.setText(customerOrder.getContent().getSubItem4());
 				} catch (Exception e) {
 					CustomerUtils.alertbox(TIFFEAT, "Vendor will update menu Soon ", getActivity());
+					availability.setVisibility(View.VISIBLE);
+					availability.setText("Menu not available yet..");
+					menulayout.setVisibility(View.GONE);
 				}
 			}
 
@@ -127,6 +133,12 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		alertbtn = (Button) rootView.findViewById(R.id.menu_done_button);
 		menu = (TextView) rootView.findViewById(R.id.menu_status_tv);
 		date = (TextView) rootView.findViewById(R.id.date_status_tv);
+		availability = (TextView) rootView.findViewById(R.id.meal_availability_textView);
+		menulayout=(LinearLayout) rootView.findViewById(R.id.menu_layout);
+
+		menulayout.setVisibility(View.VISIBLE);
+		availability.setVisibility(View.GONE);
+
 	}
 
 	@Override

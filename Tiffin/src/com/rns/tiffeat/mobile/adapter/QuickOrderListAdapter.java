@@ -129,6 +129,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.viewmenuButton.setVisibility(View.GONE);
 		}
 
+		
 		setOrderStatus();
 		holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 

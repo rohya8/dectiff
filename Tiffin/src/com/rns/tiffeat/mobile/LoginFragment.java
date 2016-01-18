@@ -129,8 +129,8 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		email = (EditText) view.findViewById(R.id.login_editText_email);
 		password = (EditText) view.findViewById(R.id.login_editText_Password);
 		signinButton = (SignInButton) view.findViewById(R.id.signin);
-		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) this)
-				.addOnConnectionFailedListener((OnConnectionFailedListener) this).addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_PROFILE).build();
+		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) LoginFragment.this)
+				.addOnConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this).addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_PROFILE).build();
 	}
 
 	@Override
@@ -239,8 +239,8 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		customerOrder.setCustomer(customer);
 
 		if (mGoogleApiClient.isConnected()) {
-			mGoogleApiClient.unregisterConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this);
-			mGoogleApiClient.unregisterConnectionFailedListener((OnConnectionFailedListener) this);
+			mGoogleApiClient.unregisterConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) LoginFragment.this);
+			mGoogleApiClient.unregisterConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this);
 			Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 			mGoogleApiClient.disconnect();
 		}

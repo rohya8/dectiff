@@ -278,7 +278,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void cancelOrder() {
 		customerOrder.setCustomer(customer);
-		customerOrder.setId(customer.getId());
+		customerOrder.setId(customerOrder.getCustomerOrderId());
 		ScheduleCancelOrderTask cancelOrderTask = new ScheduleCancelOrderTask(scheduledOrderFragment, customerOrder);
 		cancelOrderTask.setScheduledUser(scheduledUserHome);
 		cancelOrderTask.execute("");
@@ -286,9 +286,9 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void switchOrder(CustomerOrder customerOrder1) {
 
-		customerOrder1.setId(customer.getId());
+		customerOrder1.setId(customerOrder1.getCustomerOrderId());
 		customerOrder1.setCustomer(customer);
-		//customerOrder1.setId(10);
+		// customerOrder1.setId(10);
 		Fragment fragment = null;
 
 		fragment = new FirstTimeUse(customerOrder1);
