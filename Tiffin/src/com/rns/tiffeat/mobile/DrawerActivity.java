@@ -67,17 +67,17 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		hideSoftKeyboard();
 
-		int flag=0;
+		int flag = 0;
 
 		customer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
-		if (customer.getName() == null ) {
+		if (customer.getName() == null) {
 			newUserDrawer(position);
 		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
 			if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
-				flag=1;
+				flag = 1;
 				bothOrderDrawer(position);
 			}
-			if(flag==0)
+			if (flag == 0)
 				quickAndScheduleOrderDrawer(position);
 		} else if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
 			quickAndScheduleOrderDrawer(position);
@@ -110,7 +110,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 			CustomerOrder customerOrder = new CustomerOrder();
 			customerOrder.setCustomer(customer);
-			fragment = new FirstTimeUse(customerOrder );
+			fragment = new FirstTimeUse(customerOrder);
 			break;
 
 		case 2:
@@ -119,7 +119,9 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			break;
 
 		case 3:
-			fragment = new AboutUsFragment();
+			CustomerOrder custOrder = new CustomerOrder();
+			custOrder.setCustomer(customer);
+			fragment = new AboutUsFragment(custOrder);
 			title = getString(R.string.nav_item_terms);
 			break;
 
@@ -254,7 +256,10 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			break;
 
 		case 4:
-			fragment = new AboutUsFragment();
+			CustomerOrder custOrder = new CustomerOrder();
+			custOrder.setCustomer(customer);
+			fragment = new AboutUsFragment(custOrder);
+
 			title = getString(R.string.nav_item_terms);
 			break;
 

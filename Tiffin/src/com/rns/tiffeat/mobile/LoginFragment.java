@@ -130,7 +130,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		password = (EditText) view.findViewById(R.id.login_editText_Password);
 		signinButton = (SignInButton) view.findViewById(R.id.signin);
 		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) LoginFragment.this)
-				.addOnConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this).addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_PROFILE).build();
+				.addOnConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_PROFILE).build();
 	}
 
 	@Override
@@ -145,6 +145,9 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(password.getText())) {
 			return false;
 		}
+		if (!Validation.isEmailAddress(email, true))
+			return false;
+		
 		return true;
 	}
 
@@ -170,7 +173,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 				CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", getActivity());
 				mIntentInProgress = false;
 				Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-				mGoogleApiClient.connect();
+				mGoogleApiClient.disconnect();
 			}
 		}
 
@@ -231,7 +234,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 	private void getProfileInformation() {
 		Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-		if(person == null) {
+		if (person == null) {
 			return;
 		}
 		customer.setEmail(Plus.AccountApi.getAccountName(mGoogleApiClient));
@@ -239,14 +242,15 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		customerOrder.setCustomer(customer);
 
 		if (mGoogleApiClient.isConnected()) {
-			mGoogleApiClient.unregisterConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) LoginFragment.this);
-			mGoogleApiClient.unregisterConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this);
+			// mGoogleApiClient.unregisterConnectionCallbacks((GoogleApiClient.ConnectionCallbacks)
+			// LoginFragment.this);
+			// mGoogleApiClient.unregisterConnectionFailedListener((OnConnectionFailedListener)
+			// LoginFragment.this);
 			Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 			mGoogleApiClient.disconnect();
 		}
 		new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
 	}
-
 
 	private void googlePlusLogin() {
 		progressDialog = UserUtils.showLoadingDialog(getActivity(), "Signing In ", "Please Wait .....");
@@ -259,6 +263,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 	@Override
 	public void onConnectionSuspended(int arg0) {
-		mGoogleApiClient.connect();
+		// mGoogleApiClient.connect();
 	}
 }

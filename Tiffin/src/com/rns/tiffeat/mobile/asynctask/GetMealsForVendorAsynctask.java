@@ -63,10 +63,4 @@ public class GetMealsForVendorAsynctask extends AsyncTask<String, String, String
 		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
 	}
 
-	/*private void prepareCustomerOrder() {
-		if (customerOrder == null) {
-			customerOrder = new CustomerOrder();
-		}
-		customerOrder.setArea(vendor.getPinCode());
-	}*/
 }

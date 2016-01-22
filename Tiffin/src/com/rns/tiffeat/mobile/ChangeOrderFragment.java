@@ -92,7 +92,7 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 		timing = (TextView) rootView.findViewById(R.id.changeorder_timing);
 		address = (EditText) rootView.findViewById(R.id.changeorder_address);
 		submit = (Button) rootView.findViewById(R.id.changeorder_button);
-		
+
 	}
 
 	@Override
@@ -102,5 +102,4 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
-
 }

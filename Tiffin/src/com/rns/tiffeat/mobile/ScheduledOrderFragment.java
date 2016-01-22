@@ -22,7 +22,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ValidateScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -34,7 +33,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	private RadioButton lunch, dinner, both;
 	private EditText lunchaddr, phone;
 	private CustomerOrder customerOrder;
-	private TextView tiffindesc, name, emailid, wallet;
+	private TextView tiffindesc, name, emailid;
 	private View rootView;
 	private Button proceed;
 	private Map<MealType, Date> availableMealType;
@@ -181,7 +180,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		emailid = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Email);
 		phone = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
 		proceed = (Button) rootView.findViewById(R.id.scheduled_order_proceed_button);
-		wallet = (TextView) rootView.findViewById(R.id.scheduled_order_textview_Wallet);
+		
 
 		customerData();
 		getMealDate(availableMealType);
@@ -208,10 +207,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		else
 			phone.setHint("Enter Phone Number");
 
-		if (customerOrder.getCustomer().getBalance() == null)
-			wallet.setText(" 0 ");
-		else
-			wallet.setText(customerOrder.getCustomer().getBalance().toString());
+		
 
 	}
 

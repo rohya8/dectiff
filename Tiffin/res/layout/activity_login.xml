@@ -42,7 +42,9 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Email Id"
-                android:padding="8dp" />
+                android:imeOptions="actionNext"
+                android:padding="8dp"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/login_editText_Password"
@@ -55,8 +57,10 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Password"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/login_submit_button"

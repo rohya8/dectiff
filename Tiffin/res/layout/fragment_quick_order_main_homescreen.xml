@@ -71,9 +71,9 @@
             android:id="@+id/quick_order_homescreen_previousorder_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Your Previous&apos;s Order"
             android:textSize="14sp"
             android:textStyle="bold" />

@@ -12,10 +12,16 @@ import android.webkit.WebViewClient;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class AboutUsFragment extends Fragment implements AndroidConstants {
 
 	private WebView aboutweb;
+	private CustomerOrder customerOrder;
+
+	public AboutUsFragment(CustomerOrder custOrder) {
+		customerOrder=custOrder;
+	}
 
 	public AboutUsFragment() {
 	}
@@ -65,8 +71,11 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 	private void nextActivity() {
 
 		Fragment fragment = null;
-		fragment = new FirstTimeUse();
-
+		if(customerOrder!=null)
+			fragment = new FirstTimeUse(customerOrder);
+		else
+			fragment = new FirstTimeUse();
+		
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 

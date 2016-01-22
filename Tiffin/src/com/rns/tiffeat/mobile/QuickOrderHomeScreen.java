@@ -69,7 +69,6 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
 						customerOrder.setCustomer(customer);
-						//customerOrder.setMealFormat(MealFormat.QUICK);
 						newActivity(customerOrder);
 					}
 				}
@@ -131,7 +130,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		welcomeText.setText("Welcome " + customer.getName());
 		if (quickOrdersAdapter.getQuickOrders() != null) {
 			if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-				welcomeText.setText("Sorry " + customer.getName() + " you don't have today's order");
+				welcomeText.setText("Sorry " + customer.getName() + " you have not order today");
 
 				relativeLayout.setVisibility(View.GONE);
 				todaylistview.setVisibility(View.GONE);
@@ -174,7 +173,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	private void repeatorderActivity(Customer customer2) {
 
 		RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
-		rel.setMargins(0, 0, 0, 200 );
+		rel.setMargins(0, 0, 0, 80 );
 		previouslistview.setFooterDividersEnabled(true);
 		previousorder.setText("View Today's Order");
 		linearLayout.setVisibility(View.VISIBLE);

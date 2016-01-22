@@ -24,6 +24,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 
+		//overridePendingTransition(0, 0);
 		if (!Validation.isNetworkAvailable(context)) {
 			Validation.showError(context, ERROR_NO_INTERNET_CONNECTION);
 			runOnUiThread(new Runnable() {
@@ -40,7 +41,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 				}
 
 			});
-			
+
 		} else {
 
 			runOnUiThread(new Runnable() {
@@ -58,7 +59,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 
 			});
 		}
-		
+
 	}
 
 	public void AsyncTaskCall() {

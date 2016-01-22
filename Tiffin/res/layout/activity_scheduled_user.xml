@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,15 +12,44 @@
         android:gravity="center"
         android:orientation="vertical" >
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="5dp"
+            android:gravity="end"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/money" />
+
+            <TextView
+                android:id="@+id/scheduled_homescreen_textview_Wallet"
+                android:layout_width="61dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:inputType="number"
+                android:text="1000.00"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <ListView
-            android:id="@+id/scheduled_user_scheduled_orders_list"
+            android:id="@+id/scheduled_homescreen_scheduledorderlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="4dp"
+            android:layout_margin="3dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="8sp"
+            android:dividerHeight="7sp"
             android:transcriptMode="alwaysScroll" >
         </ListView>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
