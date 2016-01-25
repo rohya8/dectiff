@@ -66,20 +66,22 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	private void displayView(int position) {
 
 		hideSoftKeyboard();
-
-		int flag = 0;
+		// TODO: Confirm logic
 
 		customer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
 		if (customer.getName() == null) {
 			newUserDrawer(position);
-		} else if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
+			return;
+		}
+		if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
 			if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
-				flag = 1;
 				bothOrderDrawer(position);
+				return;
 			}
-			if (flag == 0)
-				quickAndScheduleOrderDrawer(position);
-		} else if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
+			quickAndScheduleOrderDrawer(position);
+			return;
+		}
+		if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
 			quickAndScheduleOrderDrawer(position);
 		}
 	}
@@ -200,9 +202,6 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		if (fragment != null) {
 			title = "TiffEat";
 			getSupportActionBar().setTitle(title);
-			// Random rnd = new Random();
-			// /getSupportActionBar().setTitleTextColor(Color.argb(255,
-			// rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
 			if (isFragmentToBeAddedToBackStack(fragment)) {
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 			} else {
@@ -297,8 +296,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	}
 
 	private boolean isFragmentToBeAddedToBackStack(Fragment fragment) {
-		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment
-				|| fragment instanceof QuickOrderHomeScreen || fragment instanceof ScheduledUser;
+		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment || fragment instanceof QuickOrderHomeScreen
+				|| fragment instanceof ScheduledUser;
 	}
 
 	public void setContentView(View view) {
@@ -313,89 +312,5 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 		}
 	}
-
-	// private void newUserDrawer(int position) {
-	//
-	// Fragment fragment = null;
-	// String title = getString(R.string.app_name);
-	//
-	// switch (position) {
-	//
-	// case 0:
-	//
-	// if (customer == null || TextUtils.isEmpty(customer.getEmail())) {
-	// fragment = new FirstTimeUse();
-	// title = "TiffEat";
-	// } else if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
-	// CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-	// fragment = new ScheduledUser(customer, false);
-	// title = "TiffEat";
-	// } else {
-	// CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-	// fragment = new QuickOrderHomeScreen(customer);
-	// title = "TiffEat";
-	// }
-	// break;
-	//
-	// case 1:
-	//
-	// if (customer != null) {
-	// if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
-	// CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-	// fragment = new QuickOrderHomeScreen(customer);
-	// title = "My Orders";
-	// }
-	// } else {
-	// CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ",
-	// DrawerActivity.this);
-	// fragment = new FirstTimeUse();
-	// title = "TiffEat";
-	// }
-	// break;
-	//
-	// case 2:
-	// fragment = new TermsFragment();
-	// title = getString(R.string.nav_item_terms);
-	// break;
-	//
-	// case 3:
-	// fragment = new AboutUsFragment();
-	// title = getString(R.string.nav_item_terms);
-	// break;
-	//
-	// case 4:
-	//
-	// fragment = new ContactusFragment();
-	// title = getString(R.string.nav_item_contactus);
-	// break;
-	//
-	// case 5:
-	// if (customer != null) {
-	// CustomerUtils.logout(this);
-	// new GetAreaAsynctask(this).execute();
-	// } else {
-	// CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ",
-	// DrawerActivity.this);
-	// fragment = new FirstTimeUse();
-	// title = "TiffEat";
-	// }
-	// break;
-	//
-	// default:
-	// break;
-	// }
-	//
-	// if (fragment != null) {
-	// title = "TiffEat";
-	// getSupportActionBar().setTitle(title);
-	// if (isFragmentToBeAddedToBackStack(fragment)) {
-	// CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
-	// } else {
-	// CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), true);
-	// }
-	// }
-	//
-	//
-	// }
 
 }

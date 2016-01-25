@@ -87,7 +87,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.activity_quickorder_list_adapter, null);
-
 			holder = new ViewHolder();
 			fontChanger.replaceFonts((ViewGroup) convertView);
 			holder.title = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_name_textView);
@@ -100,7 +99,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
 			holder.repeatorder = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_repeatorder_button);
-
 			convertView.setTag(holder);
 
 		} else {
@@ -129,7 +127,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.viewmenuButton.setVisibility(View.GONE);
 		}
 
-		
 		setOrderStatus();
 		holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
@@ -138,7 +135,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			@Override
 			public void onClick(View v) {
 				int pos = (Integer) v.getTag();
-				ShowMenu(pos);
+				showMenu(pos);
 			}
 		});
 
@@ -185,21 +182,18 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		}
 	}
 
-	private void ShowMenu(int position) {
-		CustomerOrder customerOrder2 = new CustomerOrder();
-		customerOrder2 = quickOrders.get(position);
-		
-		customerOrder2.setCustomer(customer);
-		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder2).execute();
+	private void showMenu(int position) {
+		CustomerOrder customerOrder = new CustomerOrder();
+		customerOrder = quickOrders.get(position);
+		customerOrder.setCustomer(customer);
+		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder).execute();
 	}
 
 	private void repeatOrder(CustomerOrder customerOrder) {
 		customerOrder.setCustomer(customer);
 		Fragment fragment = null;
 		fragment = new SelectType(customerOrder);
-
 		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
-
 	}
 
 }

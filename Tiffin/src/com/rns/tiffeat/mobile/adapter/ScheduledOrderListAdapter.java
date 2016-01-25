@@ -129,7 +129,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 					int pos = (Integer) v.getTag();
 					customerOrder = scheduledOrders.get(pos);
-					alertbox(customerOrder);
+					cancelConfirmationAlert(customerOrder);
 				}
 
 			}
@@ -145,7 +145,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				} else {
 					int pos = (Integer) v.getTag();
 					customerOrder = scheduledOrders.get(pos);
-
 					switchOrder(customerOrder);
 				}
 			}
@@ -161,7 +160,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 				} else {
 					int pos = (Integer) v.getTag();
 					customerOrder = scheduledOrders.get(pos);
-					customerOrder.setTransactionId("-20");
 					viewMenu(customerOrder);
 				}
 			}
@@ -176,7 +174,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
 				} else {
 					int pos = (Integer) v.getTag();
-
 					prepareNewOrder(pos);
 				}
 			}
@@ -222,7 +219,9 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		else
 			holder.date.setText("");
 
-		holder.mealType.setText(customerOrder.getMealType().toString());
+		if (customerOrder.getMealType() != null) {
+			holder.mealType.setText(customerOrder.getMealType().toString());
+		}
 
 		setOrderStatus(customerOrder);
 		if (customerOrder.getStatus() == null || OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
@@ -288,7 +287,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 		customerOrder1.setId(customerOrder1.getCustomerOrderId());
 		customerOrder1.setCustomer(customer);
-		// customerOrder1.setId(10);
 		Fragment fragment = null;
 
 		fragment = new FirstTimeUse(customerOrder1);
@@ -300,7 +298,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		new GetMealMenuAsyncTask(scheduledOrderFragment, null, "Scheduled", customerOrder1).execute();
 	}
 
-	private void alertbox(CustomerOrder customerOrder2) {
+	private void cancelConfirmationAlert(CustomerOrder customerOrder2) {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(scheduledOrderFragment, R.style.AppCompatAlertDialogStyle);
 		builder.setTitle("Order Status");

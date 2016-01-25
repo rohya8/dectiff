@@ -44,9 +44,10 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-
+			
+			//TODO : No Meal available?? Entire logic unclear
 			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())
-					|| customerOrder.getContent().getMainItem().equals("No Meal available") == true) {
+					|| customerOrder.getContent().getMainItem().equals("No Meal available")) {
 
 				if (customerOrder.getMealType() != null)
 					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
@@ -56,7 +57,6 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 				menulayout.setVisibility(View.GONE);
 
 				CustomerUtils.alertbox(TIFFEAT, "Menu not available for "+customerOrder.getMealType(), getActivity());
-
 				nextActivity();
 
 			}
@@ -66,7 +66,6 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			}
 
 			if (customerOrder.getContent() != null) {
-				try {
 					if (customerOrder.getMealType() != null)
 						menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
 					if (customerOrder.getContent().getDate() != null)
@@ -81,12 +80,12 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 						salad.setText(customerOrder.getContent().getSubItem3());
 					if (customerOrder.getContent().getSubItem4() != null)
 						extra.setText(customerOrder.getContent().getSubItem4());
-				} catch (Exception e) {
+				/*} catch (Exception e) {
 					CustomerUtils.alertbox(TIFFEAT, "Vendor will update menu Soon ", getActivity());
 					availability.setVisibility(View.VISIBLE);
 					availability.setText("Menu not available yet..");
 					menulayout.setVisibility(View.GONE);
-				}
+				}*/
 			}
 
 			alertbtn.setOnClickListener(new OnClickListener() {

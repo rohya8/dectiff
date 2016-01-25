@@ -105,12 +105,12 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		tiffindesc.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
-		
+
 		if (customerOrder.getAddress() != null)
 			address.setText(customerOrder.getAddress());
 		else
 			address.setHint("Enter Address");
-		
+
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
@@ -140,24 +140,23 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			if (!Validation.isNetworkAvailable(getActivity())) {
 				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 			} else {
-				 
+
 				InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-				if (TextUtils.isEmpty(address.getText()))
+				if (TextUtils.isEmpty(address.getText())) {
 					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
-				else if (dinner.isChecked() == false && lunch.isChecked() == false)
+				} else if (!dinner.isChecked() && !lunch.isChecked()) {
 					CustomerUtils.alertbox(TIFFEAT, " Select Lunch Or Dinner ", getActivity());
-				else if (address.getText().toString().length() <= 8)
+				} else if (TextUtils.isEmpty(address.getText()) || address.getText().toString().length() <= 8) {
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
-				else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false)
+				} else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false) {
 					CustomerUtils.alertbox(TIFFEAT, " Select A Payment Method ", getActivity());
-				else if (!Validation.isPhoneNumber(phone, true))
+				} else if (!Validation.isPhoneNumber(phone, true)) {
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
-				else {
+				} else {
 					prepareCustomerOrder();
 					alertbox();
-					
 				}
 			}
 			break;
@@ -195,8 +194,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
-	
-	
+
 	private void alertbox() {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);

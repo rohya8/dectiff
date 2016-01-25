@@ -34,7 +34,6 @@ import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class LoginFragment extends Fragment implements AndroidConstants, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-	// public class LoginFragment extends Fragment implements AndroidConstants {
 	private Button submit;
 	private TextView newuser;
 	private View view;
@@ -147,7 +146,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		}
 		if (!Validation.isEmailAddress(email, true))
 			return false;
-		
+
 		return true;
 	}
 
@@ -182,8 +181,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
 		if (!result.hasResolution()) {
-			// GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(),
-			// getActivity(), 0).show();
 			progressDialog.dismiss();
 			CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", getActivity());
 			return;
@@ -242,10 +239,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		customerOrder.setCustomer(customer);
 
 		if (mGoogleApiClient.isConnected()) {
-			// mGoogleApiClient.unregisterConnectionCallbacks((GoogleApiClient.ConnectionCallbacks)
-			// LoginFragment.this);
-			// mGoogleApiClient.unregisterConnectionFailedListener((OnConnectionFailedListener)
-			// LoginFragment.this);
 			Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 			mGoogleApiClient.disconnect();
 		}
@@ -256,7 +249,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		progressDialog = UserUtils.showLoadingDialog(getActivity(), "Signing In ", "Please Wait .....");
 		if (!mGoogleApiClient.isConnecting()) {
 			signedInUser = true;
-
 			resolveSignInError();
 		}
 	}

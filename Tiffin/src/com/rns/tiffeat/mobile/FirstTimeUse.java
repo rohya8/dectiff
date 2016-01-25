@@ -33,7 +33,6 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	private CustomerOrder customerOrder;
 	private AutoCompleteTextView actvAreas;
 	private TextView text;
-	//private Customer customer;
 
 	public FirstTimeUse(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
@@ -41,10 +40,6 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	public FirstTimeUse() {
 	}
-
-	/*public FirstTimeUse(Customer customer) {
-		this.customer = customer;
-	}*/
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,25 +73,9 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 						InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 						inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-						// String addr = actvAreas.getText().toString();
-						// getLocationFromAddress(addr);
-
 						String area = actvAreas.getText().toString();
 						if (!TextUtils.isEmpty(area)) {
 							text.setVisibility(View.VISIBLE);
-							/*if (customer != null) {
-								customerOrder = new CustomerOrder();
-								if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
-									if (!CollectionUtils.isEmpty(customer.getQuickOrders()))
-										customerOrder = customer.getQuickOrders().get(0);
-									else
-										customerOrder = customer.getPreviousOrders().get(0);
-								} else if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
-									customerOrder = customer.getScheduledOrder().get(0);
-								}
-
-								customerOrder.setCustomer(customer);
-							}*/
 							getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, FirstTimeUse.this, customerOrder);
 							getVendorsForAreaAsynctask.execute(area);
 
@@ -113,7 +92,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	private void changeScheduleOrder() {
 
-		if(customerOrder.getLocation() == null) {
+		if (customerOrder.getLocation() == null) {
 			return;
 		}
 		actvAreas.setText(customerOrder.getLocation().getAddress());
@@ -138,9 +117,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	private void getNearbyPlaces() {
 		actvAreas.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
-
 		actvAreas.setOnItemSelectedListener(new OnItemSelectedListener() {
-
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				actvAreas.setSelection(position);

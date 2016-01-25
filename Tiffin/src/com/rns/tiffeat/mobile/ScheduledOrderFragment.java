@@ -180,7 +180,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		emailid = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Email);
 		phone = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
 		proceed = (Button) rootView.findViewById(R.id.scheduled_order_proceed_button);
-		
 
 		customerData();
 		getMealDate(availableMealType);
@@ -194,7 +193,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		tiffindesc.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
-		// phone.setText(customerOrder.getCustomer().getPhone());
 		lunchaddr.setHint("Enter Address");
 
 		if (customerOrder.getAddress() != null)
@@ -206,8 +204,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
 			phone.setHint("Enter Phone Number");
-
-		
 
 	}
 
@@ -250,8 +246,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				else if (!Validation.isPhoneNumber(phone, true))
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
 				else {
-					// new ScheduledOrderAsyncTask(prepareCustomerOrders(),
-					// getActivity()).execute();
 					if (lunch != null && lunch.isChecked()) {
 						customerOrder.setMealType(MealType.LUNCH);
 					} else if (dinner != null && dinner.isChecked()) {
@@ -288,8 +282,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				if (!Validation.isNetworkAvailable(getActivity())) {
 					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					if (customerOrder.getCustomer().getBalance() == null
-							|| customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
+					if (customerOrder.getCustomer().getBalance() == null || customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
 						new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
 					else
 						new ScheduledOrderAsyncTask(getActivity(), customerOrder).execute();

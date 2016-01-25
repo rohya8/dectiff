@@ -23,7 +23,6 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	private ListView todaylistview, previouslistview;
@@ -107,10 +106,10 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		welcomeText = (TextView) view.findViewById(R.id.quick_order_homescreen_textView);
 		previousText = (TextView) view.findViewById(R.id.quick_order_homescreen_previousorder_textView);
 
-		if(customer.getQuickOrders()!=null)
+		if (customer.getQuickOrders() != null)
 			quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
 
-		if(customer.getPreviousOrders()!=null)
+		if (customer.getPreviousOrders() != null)
 			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders(), customer);
 
 		previousorder = (Button) view.findViewById(R.id.quick_order_homescreen_previousorder_button);
@@ -128,17 +127,13 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	public void prepareScreen() {
 
 		welcomeText.setText("Welcome " + customer.getName());
-		if (quickOrdersAdapter.getQuickOrders() != null) {
-			if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-				welcomeText.setText("Sorry " + customer.getName() + " you have not order today");
+		if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
+			welcomeText.setText("Sorry " + customer.getName() + " you have not order today");
+			relativeLayout.setVisibility(View.GONE);
+			todaylistview.setVisibility(View.GONE);
+			RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
+			rel.setMargins(0, 0, 0, 10);
 
-				relativeLayout.setVisibility(View.GONE);
-				todaylistview.setVisibility(View.GONE);
-
-				RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
-				rel.setMargins(0, 0, 0, 10);
-
-			}
 		}
 		quickOrdersAdapter.setQuickHome(this);
 		previousOrderAdapter.setQuickHome(this);
@@ -173,7 +168,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	private void repeatorderActivity(Customer customer2) {
 
 		RelativeLayout.LayoutParams rel = (LayoutParams) previouslistview.getLayoutParams();
-		rel.setMargins(0, 0, 0, 80 );
+		rel.setMargins(0, 0, 0, 80);
 		previouslistview.setFooterDividersEnabled(true);
 		previousorder.setText("View Today's Order");
 		linearLayout.setVisibility(View.VISIBLE);
