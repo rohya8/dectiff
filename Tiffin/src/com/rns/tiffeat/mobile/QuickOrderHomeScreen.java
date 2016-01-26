@@ -90,7 +90,6 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 						flag = 0;
 						linearLayout.setVisibility(View.GONE);
 						previousorder.setText("Show Previous Orders");
-						welcomeText.setVisibility(View.VISIBLE);
 					}
 				}
 			});
@@ -127,8 +126,8 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 
 	public void prepareScreen() {
 
-		welcomeText.setText("Welcome " + customer.getName());
 		if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
+			welcomeText.setVisibility(View.VISIBLE);
 			welcomeText.setText("Sorry " + customer.getName() + " you have not order today");
 			relativeLayout.setVisibility(View.GONE);
 			todaylistview.setVisibility(View.GONE);
@@ -174,7 +173,6 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		previousorder.setText("View Today's Order");
 		linearLayout.setVisibility(View.VISIBLE);
 		flag = 1;
-		welcomeText.setVisibility(View.GONE);
 	}
 
 	@Override

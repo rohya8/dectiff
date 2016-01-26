@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.adapter.NavigationDrawerAdapter;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -35,6 +36,7 @@ public class FragmentDrawer extends Fragment {
 	private View containerView;
 	private static String[] titles = null;
 	private FragmentDrawerListener drawerListener;
+	private TextView name;
 
 	public FragmentDrawer() {
 
@@ -46,7 +48,6 @@ public class FragmentDrawer extends Fragment {
 
 	public static List<NavDrawerItem> getData() {
 		List<NavDrawerItem> data = new ArrayList<NavDrawerItem>();
-		// preparing navigation drawer items
 		for (int i = 0; i < titles.length; i++) {
 			NavDrawerItem navItem = new NavDrawerItem();
 			navItem.setTitle(titles[i]);
@@ -74,13 +75,20 @@ public class FragmentDrawer extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflating view layout
 		View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+		name=(TextView) layout.findViewById(R.id.fragment_drawer_textView);
+		
+		Customer currentCustomer = CustomerUtils.getCurrentCustomer(getActivity());
+		if (currentCustomer.getName() != null) {
+			name.setVisibility(View.VISIBLE);
+			name.setText(currentCustomer.getName());
+		}
 
 		adapter = new NavigationDrawerAdapter(getActivity(), getData());
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 		recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
 			@Override
 			public void onClick(View view, int position) {

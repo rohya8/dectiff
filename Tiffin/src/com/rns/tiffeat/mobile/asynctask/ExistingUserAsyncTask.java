@@ -82,7 +82,6 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 		} else {
 			CustomerUtils.alertbox(TIFFEAT, "Something Went Wrong !!!", context);
 		}
-
 	}
 
 	private void nextActivity() {
@@ -94,13 +93,8 @@ public class ExistingUserAsyncTask extends AsyncTask<String, String, String> imp
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()) && customerOrder.getId() == 0) {
 			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
 		} else {
-			//customerOrder.setId(0);
 			fragment = new ChangeOrderFragment(customerOrder);
 		}
-
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), true);
-
 	}
-	
-
 }

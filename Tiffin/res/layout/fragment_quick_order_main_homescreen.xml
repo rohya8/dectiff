@@ -28,7 +28,8 @@
         android:text="Your Today&apos;s Order"
         android:textColor="#000"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/quick_order_homescreen_todays_order_layout"
@@ -53,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/orderbutton"
         android:text="Previous Orders"

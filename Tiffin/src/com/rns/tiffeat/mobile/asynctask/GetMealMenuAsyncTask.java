@@ -1,4 +1,3 @@
-
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.List;
@@ -55,7 +54,6 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 		}
 
 		return null;
-
 	}
 
 	@Override
@@ -64,7 +62,6 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, Customer> im
 		progressDialog.dismiss();
 
 		if (customer == null) {
-			//Validation.showError(context, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, context);
 			return;
 		}

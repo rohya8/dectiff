@@ -32,7 +32,6 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override
@@ -79,13 +78,6 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 					salad.setText(customerOrder.getContent().getSubItem3());
 				if (customerOrder.getContent().getSubItem4() != null)
 					extra.setText(customerOrder.getContent().getSubItem4());
-				/*
-				 * } catch (Exception e) { CustomerUtils.alertbox(TIFFEAT,
-				 * "Vendor will update menu Soon ", getActivity());
-				 * availability.setVisibility(View.VISIBLE);
-				 * availability.setText("Menu not available yet..");
-				 * menulayout.setVisibility(View.GONE); }
-				 */
 			}
 
 			alertbtn.setOnClickListener(new OnClickListener() {
@@ -139,11 +131,9 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 						fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
 						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 					}
-
 				} else {
 					new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
 				}
-
 			} else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED)) {
 				if (customerOrder.getTransactionId() != null) {
 					if (customerOrder.getTransactionId().equals("-20")) {

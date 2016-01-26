@@ -1,4 +1,3 @@
-
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -54,7 +53,6 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 		}
 
 		return null;
-
 	}
 
 	@Override
@@ -63,15 +61,13 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 		progressDialog.dismiss();
 
 		if (dailyContent == null) {
-			//Validation.showError(context, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, context);
 			return;
 		}
 		Fragment fragment = null;
 		customerOrder.setContent(dailyContent);
 		fragment = new ShowMenuFragment(customerOrder);
-		
+
 		CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), false);
 	}
-
 }
