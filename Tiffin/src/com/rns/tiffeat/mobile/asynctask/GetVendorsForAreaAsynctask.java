@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	private List<Vendor> vendors;
 	private GetMealsForVendorAsynctask getMealsForVendorAsynctask;
 	private CustomerOrder customerOrder;
+
 
 	public GetVendorsForAreaAsynctask(FragmentActivity activity, ListView listview, TextView text, FirstTimeUse firstTimeUse, CustomerOrder customerOrder) {
 		this.myactivity = activity;
@@ -79,7 +81,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	};
 
 	private void prepareCustomerOrder(String address) {
-		if(customerOrder == null) {
+		if (customerOrder == null) {
 			customerOrder = new CustomerOrder();
 		}
 		Location location = new Location();
@@ -95,7 +97,8 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, myactivity);
 			return;
 		}
-		Type typelist = new TypeToken<ArrayList<Vendor>>() {}.getType();
+		Type typelist = new TypeToken<ArrayList<Vendor>>() {
+		}.getType();
 		vendors = new Gson().fromJson(result, typelist);
 
 		if (CollectionUtils.isEmpty(vendors)) {

@@ -56,11 +56,11 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		if (customer.getBalance() != null)
 			wallet.setText(customer.getBalance().toString());
 
-		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(),
-				customer);
-
 		if (CollectionUtils.isEmpty(customer.getScheduledOrder()))
 			scheduledOrdersAdapter.setScheduledOrders(customer.getScheduledOrder());
+
+		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(),
+				customer);
 
 		scheduledOrdersAdapter.setScheduledUserHome(this);
 		scheduledOrdersListView.setAdapter(scheduledOrdersAdapter);

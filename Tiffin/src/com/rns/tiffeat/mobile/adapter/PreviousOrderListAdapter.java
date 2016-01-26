@@ -83,7 +83,6 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
-
 		customerOrder = previousOrders.get(position);
 
 		if (convertView == null) {
@@ -99,7 +98,6 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 			holder.foodimage = mealImageView;
 			new PreviousOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
 			holder.repeatorderButton = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_repeatorder_button);
-
 			convertView.setTag(holder);
 
 		} else {
@@ -108,39 +106,31 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 
 		holder.repeatorderButton.setTag(position);
 
-		if(customerOrder.getMeal().getTitle()!=null)
+		if (customerOrder.getMeal().getTitle() != null)
 			holder.title.setText(customerOrder.getMeal().getTitle());
 
-		if(customerOrder.getMealType().toString()!=null)
+		if (customerOrder.getMealType().toString() != null)
 			holder.tiffintype.setText(customerOrder.getMealType().toString());
 
-		if(customerOrder.getDate()!=null)
+		if (customerOrder.getDate() != null)
 			holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
-
 		holder.repeatorderButton.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				int pos = (Integer) v.getTag();
 				customerOrder = previousOrders.get(pos);
-
 				customerOrder.setCustomer(customer);
-
 				repeatActivity(customerOrder);
-
 			}
 		});
-
 		return convertView;
-
 	}
 
 	private void repeatActivity(CustomerOrder customerOrder2) {
-
+		customerOrder2.setId(0);
 		Fragment fragment = null;
 		fragment = new SelectType(customerOrder2);
-
 		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
 	}
 }

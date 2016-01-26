@@ -48,7 +48,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 
 	public ViewHolder getHolder() {
 		return holder;
-
 	}
 
 	@Override
@@ -118,9 +117,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.tiffintype.setText(customerOrder.getMealType().getDescription());
 		}
 
-		if (holder.foodimage != null) {
-		}
-
 		if (OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
 			setMealStatus();
 		} else {
@@ -131,7 +127,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
 		holder.viewmenuButton.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				int pos = (Integer) v.getTag();
@@ -145,7 +140,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			public void onClick(View v) {
 				int pos = (Integer) v.getTag();
 				customerOrder = quickOrders.get(pos);
-
 				customerOrder.setCustomer(customer);
 				repeatOrder(customerOrder);
 			}
@@ -190,6 +184,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	private void repeatOrder(CustomerOrder customerOrder) {
+		customerOrder.setId(0);
 		customerOrder.setCustomer(customer);
 		Fragment fragment = null;
 		fragment = new SelectType(customerOrder);

@@ -44,8 +44,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-			
-			//TODO : No Meal available?? Entire logic unclear
+
 			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())
 					|| customerOrder.getContent().getMainItem().equals("No Meal available")) {
 
@@ -56,7 +55,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 				availability.setText("Menu not available yet..");
 				menulayout.setVisibility(View.GONE);
 
-				CustomerUtils.alertbox(TIFFEAT, "Menu not available for "+customerOrder.getMealType(), getActivity());
+				CustomerUtils.alertbox(TIFFEAT, "Menu not available for " + customerOrder.getMealType(), getActivity());
 				nextActivity();
 
 			}
@@ -66,26 +65,27 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 			}
 
 			if (customerOrder.getContent() != null) {
-					if (customerOrder.getMealType() != null)
-						menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
-					if (customerOrder.getContent().getDate() != null)
-						date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()).toString());
-					if (customerOrder.getContent().getMainItem() != null)
-						sabji.setText(customerOrder.getContent().getMainItem());
-					if (customerOrder.getContent().getSubItem1() != null)
-						roti.setText(customerOrder.getContent().getSubItem1());
-					if (customerOrder.getContent().getSubItem2() != null)
-						rice.setText(customerOrder.getContent().getSubItem2());
-					if (customerOrder.getContent().getSubItem3() != null)
-						salad.setText(customerOrder.getContent().getSubItem3());
-					if (customerOrder.getContent().getSubItem4() != null)
-						extra.setText(customerOrder.getContent().getSubItem4());
-				/*} catch (Exception e) {
-					CustomerUtils.alertbox(TIFFEAT, "Vendor will update menu Soon ", getActivity());
-					availability.setVisibility(View.VISIBLE);
-					availability.setText("Menu not available yet..");
-					menulayout.setVisibility(View.GONE);
-				}*/
+				if (customerOrder.getMealType() != null)
+					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
+				if (customerOrder.getContent().getDate() != null)
+					date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()).toString());
+				if (customerOrder.getContent().getMainItem() != null)
+					sabji.setText(customerOrder.getContent().getMainItem());
+				if (customerOrder.getContent().getSubItem1() != null)
+					roti.setText(customerOrder.getContent().getSubItem1());
+				if (customerOrder.getContent().getSubItem2() != null)
+					rice.setText(customerOrder.getContent().getSubItem2());
+				if (customerOrder.getContent().getSubItem3() != null)
+					salad.setText(customerOrder.getContent().getSubItem3());
+				if (customerOrder.getContent().getSubItem4() != null)
+					extra.setText(customerOrder.getContent().getSubItem4());
+				/*
+				 * } catch (Exception e) { CustomerUtils.alertbox(TIFFEAT,
+				 * "Vendor will update menu Soon ", getActivity());
+				 * availability.setVisibility(View.VISIBLE);
+				 * availability.setText("Menu not available yet..");
+				 * menulayout.setVisibility(View.GONE); }
+				 */
 			}
 
 			alertbtn.setOnClickListener(new OnClickListener() {

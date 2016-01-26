@@ -1,5 +1,3 @@
-
-
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -62,7 +60,6 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 		progressdialog.dismiss();
 		if (result == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, proceedtopay);
-			//Validation.showError(proceedtopay, ERROR_FETCHING_DATA);
 			return;
 		}
 		if ("OK".equals(result)) {
@@ -71,15 +68,13 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 				nextActivity();
 			}
 		} else {
-			CustomerUtils.alertbox(TIFFEAT, "Order Failed due to : "+ result, proceedtopay);
+			CustomerUtils.alertbox(TIFFEAT, "Order Failed due to : " + result, proceedtopay);
 		}
 	}
 
 	private void nextActivity() {
 		new DrawerUpdateAsynctask(proceedtopay, currentCustomer).execute("");
-//		Fragment fragment = new QuickOrderHomeScreen(currentCustomer);
-//		CustomerUtils.nextFragment(fragment, proceedtopay.getSupportFragmentManager(), false);
-		
+
 	}
 
 }

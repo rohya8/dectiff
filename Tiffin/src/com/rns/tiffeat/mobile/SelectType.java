@@ -53,14 +53,12 @@ public class SelectType extends Fragment implements AndroidConstants {
 						nextActivity();
 					}
 				}
-
 			});
 
 			scheduled.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-
 					if (!Validation.isNetworkAvailable(getActivity())) {
 						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 					} else {
@@ -68,24 +66,18 @@ public class SelectType extends Fragment implements AndroidConstants {
 
 							if (CollectionUtils.isNotEmpty(customerOrder.getCustomer().getScheduledOrder())
 									&& customerOrder.getCustomer().getScheduledOrder().size() == 2) {
-								CustomerUtils.alertbox(TIFFEAT,"You have already scheduled meal for luch and dinner" , getActivity());
+								CustomerUtils.alertbox(TIFFEAT, "You have already scheduled meal for luch and dinner", getActivity());
 								homeActivity();
-
-
-							}
-							else{
+							} else {
 								prepareCustomerOrder(MealFormat.SCHEDULED);
 								nextActivity();
-
 							}
 						} else {
-
 							prepareCustomerOrder(MealFormat.SCHEDULED);
 							nextActivity();
 						}
 					}
 				}
-
 
 			});
 		}

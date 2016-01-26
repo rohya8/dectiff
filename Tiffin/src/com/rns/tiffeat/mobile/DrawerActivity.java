@@ -66,7 +66,6 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	private void displayView(int position) {
 
 		hideSoftKeyboard();
-		// TODO: Confirm logic
 
 		customer = CustomerUtils.getCurrentCustomer(DrawerActivity.this);
 		if (customer.getName() == null) {
@@ -296,8 +295,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	}
 
 	private boolean isFragmentToBeAddedToBackStack(Fragment fragment) {
-		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment || fragment instanceof QuickOrderHomeScreen
-				|| fragment instanceof ScheduledUser;
+		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment
+				|| fragment instanceof QuickOrderHomeScreen || fragment instanceof ScheduledUser;
 	}
 
 	public void setContentView(View view) {

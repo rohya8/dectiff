@@ -110,7 +110,8 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 			quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
 
 		if (customer.getPreviousOrders() != null)
-			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders(), customer);
+			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders(),
+					customer);
 
 		previousorder = (Button) view.findViewById(R.id.quick_order_homescreen_previousorder_button);
 		linearLayout = (LinearLayout) view.findViewById(R.id.quick_order_homescreen_linearlayout);
