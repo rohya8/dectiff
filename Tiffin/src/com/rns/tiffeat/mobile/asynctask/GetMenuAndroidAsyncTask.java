@@ -42,10 +42,8 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 		try {
 
 			DailyContent result = new Gson().fromJson(CustomerServerUtils.getMealMenuAndroid(customerOrder), DailyContent.class);
-
 			if (result == null) {
 				result = new DailyContent();
-				result.setMainItem("No Meal available");
 			}
 			return result;
 		} catch (Exception e) {

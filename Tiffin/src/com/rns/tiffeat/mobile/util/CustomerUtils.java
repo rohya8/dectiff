@@ -73,6 +73,13 @@ public class CustomerUtils implements AndroidConstants {
 		// }
 
 	}
+	
+	public static void removeFragment(FragmentManager fragmentManager, Fragment fragment) {
+		FragmentTransaction trans = fragmentManager.beginTransaction();
+		trans.remove(fragment);
+		trans.commit();
+		fragmentManager.popBackStack();
+	}
 
 	public static void nextFragment(Fragment fragment, FragmentManager fragmentManager, boolean addToStack) {
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
