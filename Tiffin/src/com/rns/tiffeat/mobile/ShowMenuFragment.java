@@ -143,7 +143,6 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 					}
 				} else {
 					new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
-
 				}
 			}
 		} else

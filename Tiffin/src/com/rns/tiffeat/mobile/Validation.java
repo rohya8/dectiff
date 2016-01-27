@@ -15,7 +15,7 @@ public class Validation {
 
 	private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String PHONE_REGEX = "\\d{10}";
-	private static final String Name_REGEX = "[A-Z][a-z]+( [A-Z][a-z]+)";
+	private static final String Name_REGEX = "^[a-zA-Z\\s]*$";
 
 	private static final String REQUIRED_MSG = "Field can not be blank";
 	private static final String EMAIL_MSG = "Invalid email";
