@@ -44,11 +44,11 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		} else {
 			initialise();
 
-			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())
-					|| customerOrder.getContent().getMainItem().equals("No Meal available")) {
+			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())) {
 
-				if (customerOrder.getMealType() != null)
+				if (customerOrder.getMealType() != null) {
 					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
+				}
 
 				availability.setVisibility(View.VISIBLE);
 				availability.setText("Menu not available yet..");
@@ -65,9 +65,9 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 			if (customerOrder.getContent() != null) {
 				if (customerOrder.getMealType() != null)
-					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
+					menu.setText(customerOrder.getMealType().getDescription() + " Menu of " + customerOrder.getMeal().getTitle());
 				if (customerOrder.getContent().getDate() != null)
-					date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()).toString());
+					date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()));
 				if (customerOrder.getContent().getMainItem() != null)
 					sabji.setText(customerOrder.getContent().getMainItem());
 				if (customerOrder.getContent().getSubItem1() != null)
@@ -121,9 +121,10 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 	}
 
 	private void nextActivity() {
+		CustomerUtils.removeFragment(getFragmentManager(), this);
 		Fragment fragment = null;
-		CustomerUtils.clearFragmentStack(getFragmentManager());
-		if (customerOrder.getCustomer() != null && customerOrder.getMealFormat() != null) {
+		//CustomerUtils.clearFragmentStack(getFragmentManager());
+		/*if (customerOrder.getCustomer() != null && customerOrder.getMealFormat() != null) {
 
 			if (customerOrder.getMealFormat().equals(MealFormat.QUICK)) {
 				if (customerOrder.getTransactionId() != null) {
@@ -146,6 +147,6 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 				}
 			}
 		} else
-			new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
+			new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();*/
 	}
 }
