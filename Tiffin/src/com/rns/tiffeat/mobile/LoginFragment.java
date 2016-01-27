@@ -43,7 +43,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	private ProgressDialog progressDialog;
 	private int RESULT_OK = -1;
 	private static final int RC_SIGN_IN = 0;
-
 	private GoogleApiClient mGoogleApiClient;
 
 	private boolean mIntentInProgress;
@@ -128,8 +127,10 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		email = (EditText) view.findViewById(R.id.login_editText_email);
 		password = (EditText) view.findViewById(R.id.login_editText_Password);
 		signinButton = (SignInButton) view.findViewById(R.id.signin);
+
 		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) LoginFragment.this)
 				.addOnConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_PROFILE).build();
+		
 	}
 
 	@Override
@@ -152,12 +153,13 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 	public void onStart() {
 		super.onStart();
-		mGoogleApiClient.connect();
+		if (mGoogleApiClient != null)
+			mGoogleApiClient.connect();
 	}
 
 	public void onStop() {
 		super.onStop();
-		if (mGoogleApiClient.isConnected()) {
+		if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
 			mGoogleApiClient.disconnect();
 		}
 	}
@@ -230,19 +232,21 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	}
 
 	private void getProfileInformation() {
-		Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-		if (person == null) {
+
+		if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+			Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+			customer.setEmail(Plus.AccountApi.getAccountName(mGoogleApiClient));
+			customer.setName(person.getDisplayName());
+			customerOrder.setCustomer(customer);
+			new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
+		} else
 			return;
-		}
-		customer.setEmail(Plus.AccountApi.getAccountName(mGoogleApiClient));
-		customer.setName(person.getDisplayName());
-		customerOrder.setCustomer(customer);
 
 		if (mGoogleApiClient.isConnected()) {
 			Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 			mGoogleApiClient.disconnect();
 		}
-		new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
+
 	}
 
 	private void googlePlusLogin() {
@@ -255,6 +259,5 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 	@Override
 	public void onConnectionSuspended(int arg0) {
-		// mGoogleApiClient.connect();
 	}
 }
