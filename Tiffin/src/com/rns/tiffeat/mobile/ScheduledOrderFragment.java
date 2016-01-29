@@ -114,9 +114,10 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	}
 
 	private void filterMealTypes(Map<MealType, Date> availableMealTypeDatesMap, List<MealType> availableMealTypes) {
-
+		if(availableMealTypeDatesMap == null) {
+			return;
+		}
 		List<MealType> filteredMealTypes = new ArrayList<MealType>();
-
 		for (MealType mealType : availableMealTypes) {
 			if (availableMealTypeDatesMap.get(mealType) != null) {
 				filteredMealTypes.add(mealType);

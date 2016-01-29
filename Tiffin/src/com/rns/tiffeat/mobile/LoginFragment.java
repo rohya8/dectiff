@@ -237,6 +237,9 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
 			customer.setEmail(Plus.AccountApi.getAccountName(mGoogleApiClient));
 			customer.setName(person.getDisplayName());
+			if(customerOrder == null) {
+				customerOrder = new CustomerOrder();
+			}
 			customerOrder.setCustomer(customer);
 			new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
 		} else
