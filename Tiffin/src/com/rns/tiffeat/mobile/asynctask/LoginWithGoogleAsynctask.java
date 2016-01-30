@@ -32,13 +32,10 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 	private String availableMealTypeResult;
 	private ProgressDialog progressDialog;
 	private Map<MealType, Date> availableMealType;
-	private Long existingUser = (long) 1;
 
 	public LoginWithGoogleAsynctask(FragmentActivity loginfragment, CustomerOrder customerOrder2) {
 		mGoogleLogin = loginfragment;
 		customerOrder = customerOrder2;
-		if (customerOrder2.getId() == (long) -10)
-			existingUser = customerOrder2.getId();
 	}
 
 	@Override
@@ -81,10 +78,6 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 			return;
 		}
 
-		// Intent i = new Intent(mGoogleLogin, QuickOrderFragment.class);
-		// mGoogleLogin.startActivity(i);
-		// mGoogleLogin.finish();
-
 		if (customerlogin == null) {
 			Validation.showError(mGoogleLogin, "Please Try Again Later");
 			return;
@@ -102,9 +95,8 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 
 		Fragment fragment = null;
 
-		if (existingUser == (long) -10) {
+		if (customerOrder.getMealFormat() == null) {
 			new DrawerUpdateAsynctask(mGoogleLogin, customerlogin).execute("");
-			// fragment = new FirstTimeUse(customerOrder);
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder, availableMealType);
 			CustomerUtils.nextFragment(fragment, mGoogleLogin.getSupportFragmentManager(), false);

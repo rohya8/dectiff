@@ -80,7 +80,6 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		progressDialog.dismiss();
 		if (result == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, fragmentActivity);
-			// Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 
@@ -91,7 +90,6 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		}
 		if (customerOrder == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, fragmentActivity);
-			// Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		customerOrder.setCustomer(customerlogin);

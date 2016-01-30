@@ -49,9 +49,8 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 			public void onClick(View v) {
 				if (!Validation.isNetworkAvailable(getActivity())) {
 					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-				}
-				else{
-					if(!TextUtils.isEmpty(address.getText()) || address.getText().length()>8)
+				} else {
+					if (!TextUtils.isEmpty(address.getText()) || address.getText().length() > 8)
 						new ScheduleChangeOrderTask(getActivity(), customerOrder).execute();
 					else
 						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
@@ -81,7 +80,6 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 				address.setText(customerOrder.getAddress());
 			else
 				address.setHint("Enter Address");
-
 		}
 	}
 
@@ -92,7 +90,6 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 		timing = (TextView) rootView.findViewById(R.id.changeorder_timing);
 		address = (EditText) rootView.findViewById(R.id.changeorder_address);
 		submit = (Button) rootView.findViewById(R.id.changeorder_button);
-
 	}
 
 	@Override
