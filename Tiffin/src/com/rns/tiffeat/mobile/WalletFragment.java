@@ -25,14 +25,12 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 	private EditText balanceEditText;
 
 	public WalletFragment(CustomerOrder customerOrder) {
-
 		this.customerOrder = customerOrder;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override
@@ -41,7 +39,6 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 
 		addAmt = (Button) rootView.findViewById(R.id.add_amount_button);
 		addLater = (Button) rootView.findViewById(R.id.add_later_button);
-
 		balanceEditText = (EditText) rootView.findViewById(R.id.add_amount_edittext);
 
 		addAmt.setOnClickListener(new OnClickListener() {
@@ -58,7 +55,7 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 						CustomerUtils.alertbox(TIFFEAT, "Invalid amount!", getActivity());
 						return;
 					}
-					
+
 					customerOrder.getCustomer().setBalance(new BigDecimal(balanceEditText.getText().toString()));
 
 					Fragment fragment = new PaymentGatewayFragment(customerOrder);

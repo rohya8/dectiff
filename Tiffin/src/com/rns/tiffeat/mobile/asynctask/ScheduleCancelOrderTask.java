@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.ScheduledUser;
+import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -19,7 +19,7 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 	private ProgressDialog progressDialog;
 	private CustomerOrder customerOrder;
 	private String result1;
-	private ScheduledUser scheduledUser;
+	private ScheduledOrderHomeScreen scheduledUser;
 
 	public ScheduleCancelOrderTask(FragmentActivity scheduledOrderFragment, CustomerOrder order) {
 		this.customerOrder = order;
@@ -66,11 +66,11 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 		
 	}
 
-	public ScheduledUser getScheduledUser() {
+	public ScheduledOrderHomeScreen getScheduledUser() {
 		return scheduledUser;
 	}
 
-	public void setScheduledUser(ScheduledUser scheduledUser) {
+	public void setScheduledUser(ScheduledOrderHomeScreen scheduledUser) {
 		this.scheduledUser = scheduledUser;
 	}
 

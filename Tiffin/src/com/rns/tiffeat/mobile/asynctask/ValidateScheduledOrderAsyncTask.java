@@ -55,7 +55,6 @@ public class ValidateScheduledOrderAsyncTask extends AsyncTask<String, String, S
 
 		if (result == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, scheduleOrderFragmentActivity);
-			//Validation.showError(scheduleOrderFragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 

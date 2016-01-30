@@ -97,6 +97,13 @@
                 android:text="Create Account"
                 android:textColor="#43A047"
                 android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/googleCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Google Login" />
         </LinearLayout>
 
         <LinearLayout

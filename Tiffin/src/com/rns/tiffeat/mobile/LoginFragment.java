@@ -130,7 +130,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) LoginFragment.this)
 				.addOnConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_PROFILE).build();
-		
+
 	}
 
 	@Override
@@ -237,7 +237,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
 			customer.setEmail(Plus.AccountApi.getAccountName(mGoogleApiClient));
 			customer.setName(person.getDisplayName());
-			if(customerOrder == null) {
+			if (customerOrder == null) {
 				customerOrder = new CustomerOrder();
 			}
 			customerOrder.setCustomer(customer);

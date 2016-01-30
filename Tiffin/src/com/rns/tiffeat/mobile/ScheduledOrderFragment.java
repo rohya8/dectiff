@@ -306,7 +306,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 					@Override
 					public void run() {
 						Fragment fragment = null;
-						fragment = new ScheduledUser(customerOrder.getCustomer());
+						fragment = new ScheduledOrderHomeScreen(customerOrder.getCustomer());
 						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 
 					}

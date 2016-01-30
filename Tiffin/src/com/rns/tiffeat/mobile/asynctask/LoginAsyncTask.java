@@ -1,4 +1,3 @@
-
 package com.rns.tiffeat.mobile.asynctask;
 
 import java.util.Date;
@@ -36,7 +35,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2) {
 		this.fragmentActivity = activity;
 		this.customerOrder = customerOrder2;
-		
+
 	}
 
 	@Override
@@ -54,13 +53,12 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		try {
 			resultLogin = CustomerServerUtils.customerLogin(customerOrder.getCustomer());
 			customerlogin = new Gson().fromJson(resultLogin, Customer.class);
-			
+
 			CustomerUtils.storeCurrentCustomer(fragmentActivity, customerlogin);
-			if(customerOrder.getMealFormat() == null) {
+			if (customerOrder.getMealFormat() == null) {
 				return resultLogin;
 			}
 			customerOrder.setCustomer(customerlogin);
-			
 
 			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
 			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
@@ -82,7 +80,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		progressDialog.dismiss();
 		if (result == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, fragmentActivity);
-			//Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
+			// Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 
@@ -93,7 +91,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 		}
 		if (customerOrder == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, fragmentActivity);
-			//Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
+			// Validation.showError(fragmentActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		customerOrder.setCustomer(customerlogin);

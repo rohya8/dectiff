@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.ScheduledUser;
+import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleCancelOrderTask;
@@ -43,7 +43,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private ViewHolder holder;
 	private Customer customer;
 	private CustomerOrder customerOrder;
-	private ScheduledUser scheduledUserHome;
+	private ScheduledOrderHomeScreen scheduledUserHome;
 
 	public class ViewHolder {
 		TextView title, mealType, price, mealStatus, date, orderStatus;
@@ -320,11 +320,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		builder.show();
 	}
 
-	public ScheduledUser getScheduledUserHome() {
+	public ScheduledOrderHomeScreen getScheduledUserHome() {
 		return scheduledUserHome;
 	}
 
-	public void setScheduledUserHome(ScheduledUser scheduledUserHome) {
+	public void setScheduledUserHome(ScheduledOrderHomeScreen scheduledUserHome) {
 		this.scheduledUserHome = scheduledUserHome;
 	}
 

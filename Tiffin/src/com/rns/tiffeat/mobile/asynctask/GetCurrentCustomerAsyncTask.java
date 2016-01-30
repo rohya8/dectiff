@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
-import com.rns.tiffeat.mobile.ScheduledUser;
+import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -19,14 +19,14 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 
 	private QuickOrderHomeScreen quickOrderHome;
 	private Context context;
-	private ScheduledUser scheduledHome;
+	private ScheduledOrderHomeScreen scheduledHome;
 
 	public GetCurrentCustomerAsyncTask(Context context, QuickOrderHomeScreen quickHome) {
 		this.quickOrderHome = quickHome;
 		this.context = context;
 	}
 
-	public GetCurrentCustomerAsyncTask(Context activity, ScheduledUser scheduledUser) {
+	public GetCurrentCustomerAsyncTask(Context activity, ScheduledOrderHomeScreen scheduledUser) {
 		this.scheduledHome = scheduledUser;
 		this.context = activity;
 	}

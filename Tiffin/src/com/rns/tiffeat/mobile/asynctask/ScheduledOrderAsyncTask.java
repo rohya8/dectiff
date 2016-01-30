@@ -3,11 +3,9 @@ package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.ScheduledUser;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -22,12 +20,6 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 	private ProgressDialog progressDialog;
 	private FragmentActivity previousActivity;
 	private Customer currentCustomer;
-
-	// public ScheduledOrderAsyncTask(List<CustomerOrder> customerOrders,
-	// FragmentActivity context) {
-	// this.scheduledOrders = customerOrders;
-	// this.previousActivity = context;
-	// }
 
 	public ScheduledOrderAsyncTask(FragmentActivity scheduleOrderFragmentActivity, CustomerOrder customerOrder) {
 		this.previousActivity = scheduleOrderFragmentActivity;

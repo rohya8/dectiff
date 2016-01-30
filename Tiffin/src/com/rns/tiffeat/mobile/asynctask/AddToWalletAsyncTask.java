@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-import com.rns.tiffeat.mobile.ScheduledUser;
+import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -66,7 +66,7 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 		if (customerOrder != null) {
 			new ScheduledOrderAsyncTask(activity, customerOrder).execute();
 		} else {
-			Fragment scheduledHomeFragment = new ScheduledUser(customerOrder.getCustomer());
+			Fragment scheduledHomeFragment = new ScheduledOrderHomeScreen(customerOrder.getCustomer());
 			CustomerUtils.nextFragment(scheduledHomeFragment, activity.getSupportFragmentManager(), false);
 		}
 	}

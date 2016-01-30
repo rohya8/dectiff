@@ -76,7 +76,6 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		progressDialog.dismiss();
 
 		if (result == null) {
-			// Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mregistration);
 			return;
 		}
@@ -86,7 +85,6 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 		}
 		if (customerOrder == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mregistration);
-			// Validation.showError(mregistration, ERROR_FETCHING_DATA);
 			return;
 		}
 
@@ -96,7 +94,6 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 
 	private void nextActivity() {
 		postLoginUtil();
-
 	}
 
 	private void postLoginUtil() {
@@ -111,5 +108,4 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), false);
 		}
 	}
-
 }

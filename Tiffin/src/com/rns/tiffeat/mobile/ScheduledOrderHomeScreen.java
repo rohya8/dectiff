@@ -15,7 +15,7 @@ import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.web.bo.domain.Customer;
 
-public class ScheduledUser extends Fragment implements AndroidConstants {
+public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstants {
 
 	private Customer customer;
 	private View view;
@@ -28,7 +28,7 @@ public class ScheduledUser extends Fragment implements AndroidConstants {
 		this.customer = customer;
 	}
 
-	public ScheduledUser(Customer currentCustomer) {
+	public ScheduledOrderHomeScreen(Customer currentCustomer) {
 		this.customer = currentCustomer;
 	}
 

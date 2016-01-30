@@ -2,16 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#fff"
     android:clickable="true" >
 
     <TextView
         android:id="@+id/nav_drawer_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="6dp"
+        android:background="#fff"
         android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
+        android:paddingLeft="25dp"
         android:paddingTop="10dp"
-        android:textSize="18sp" />
+        android:text="Hello"
+        android:textColor="#7f8c8d"
+        android:textSize="16sp" />
 
 </RelativeLayout>

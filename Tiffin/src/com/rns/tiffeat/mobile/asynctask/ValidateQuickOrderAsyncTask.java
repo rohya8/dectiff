@@ -64,7 +64,6 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 		progressDialog.dismiss();
 		if (result == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, previousActivity);
-			//Validation.showError(previousActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 		Map<String, Object> validateOrderMap = CustomerUtils.convertToStringObjectMap(result);

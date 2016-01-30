@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.ScheduledUser;
+import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -78,7 +78,7 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 	private void homeActivity() {
 
 		Fragment fragment = null;
-		fragment = new ScheduledUser(customerOrder.getCustomer());
+		fragment = new ScheduledOrderHomeScreen(customerOrder.getCustomer());
 
 		CustomerUtils.nextFragment(fragment, mchangeorder.getSupportFragmentManager(), false);
 	}
@@ -88,7 +88,7 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 		Customer customer = CustomerUtils.getCurrentCustomer(mchangeorder);
 		CustomerUtils.clearFragmentStack(mchangeorder.getSupportFragmentManager());
 		Fragment fragment = null;
-		fragment = new ScheduledUser(customer);
+		fragment = new ScheduledOrderHomeScreen(customer);
 
 		CustomerUtils.nextFragment(fragment, mchangeorder.getSupportFragmentManager(), false);
 
