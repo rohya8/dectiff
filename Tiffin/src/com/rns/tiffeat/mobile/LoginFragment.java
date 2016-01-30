@@ -56,7 +56,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 	}
 
@@ -117,7 +116,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			});
 		}
 		return view;
-
 	}
 
 	private void initialise() {
@@ -177,7 +175,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 				mGoogleApiClient.disconnect();
 			}
 		}
-
 	}
 
 	@Override
@@ -192,7 +189,8 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			mConnectionResult = result;
 
 			if (signedInUser) {
-				resolveSignInError();
+				CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", getActivity());
+				return;
 			}
 		}
 	}
@@ -210,7 +208,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			if (!mGoogleApiClient.isConnecting()) {
 				connectgoogle();
 			}
-
 			break;
 		}
 	}
@@ -226,9 +223,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			progressDialog.dismiss();
 
 		Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
-
 		getProfileInformation();
-
 	}
 
 	private void getProfileInformation() {
@@ -249,7 +244,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 			mGoogleApiClient.disconnect();
 		}
-
 	}
 
 	private void googlePlusLogin() {
