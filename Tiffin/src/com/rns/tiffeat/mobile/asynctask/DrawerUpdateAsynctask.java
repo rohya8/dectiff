@@ -1,6 +1,5 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
@@ -15,7 +14,6 @@ import com.rns.tiffeat.web.bo.domain.Customer;
 public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
 	private FragmentActivity activity;
-	private ProgressDialog pd;
 	private Customer customer;
 
 	public DrawerUpdateAsynctask(FragmentActivity fragmentActivity, Customer customerlogin) {
@@ -29,7 +27,7 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 			return null;
 		} else {
 			try {
-
+				//TODO: Try what?
 			} catch (Exception e) {
 				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 			}
