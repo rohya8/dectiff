@@ -36,7 +36,6 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			super.onBackPressed();
 		} else
 			finish();
-
 	}
 
 	@Override
@@ -72,72 +71,90 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			newUserDrawer(position);
 			return;
 		}
-		if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
-			if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
-				bothOrderDrawer(position);
-				return;
-			}
-			quickAndScheduleOrderDrawer(position);
+		if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())
+				|| !CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+			loggedInUserDrawer(position);
 			return;
-		}
-		if ((!CollectionUtils.isEmpty(customer.getScheduledOrder()))) {
-			quickAndScheduleOrderDrawer(position);
 		}
 	}
 
-	private void quickAndScheduleOrderDrawer(int position) {
+	private void loggedInUserDrawer(int position) {
 		Fragment fragment = null;
 		String title = getString(R.string.app_name);
 
 		switch (position) {
 
 		case 0:
-
-			if (customer != null) {
-				if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
-					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-					fragment = new QuickOrderHomeScreen(customer);
-				} else if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
-					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-					fragment = new ScheduledOrderHomeScreen(customer);
-				}
-			} else {
-				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
-				fragment = new FirstTimeUse();
-			}
-			break;
-
-		case 1:
-
 			CustomerOrder customerOrder = new CustomerOrder();
 			customerOrder.setCustomer(customer);
 			fragment = new FirstTimeUse(customerOrder);
 			break;
+		case 1:
+
+			if (customer != null) {
+				if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+					fragment = new ScheduledOrderHomeScreen(customer);
+				}
+				else {
+					CustomerUtils.alertbox(TIFFEAT, "No orders yet... ", DrawerActivity.this);
+					fragment = new FirstTimeUse();
+				}
+			}
+			break;
 
 		case 2:
+
+			if (customer != null) {
+				if (!CollectionUtils.isEmpty(customer.getQuickOrders())) {
+					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+					fragment = new QuickOrderHomeScreen(customer);
+				}
+				else {
+					CustomerUtils.alertbox(TIFFEAT, "No orders yet... ", DrawerActivity.this);
+					fragment = new FirstTimeUse();
+				}
+			}
+
+			break;
+
+		case 3:
+
+			if (customer != null) {
+				if (!CollectionUtils.isEmpty(customer.getPreviousOrders())) {
+					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+					fragment = new PreviousOrderHomeScreen(customer);
+				}
+				else {
+					CustomerUtils.alertbox(TIFFEAT, " No orders yet... ", DrawerActivity.this);
+					fragment = new FirstTimeUse();
+				}
+			}
+			break;
+
+		case 4:
 			fragment = new TermsFragment();
 			title = getString(R.string.nav_item_terms);
 			break;
 
-		case 3:
+		case 5:
 			CustomerOrder custOrder = new CustomerOrder();
 			custOrder.setCustomer(customer);
 			fragment = new AboutUsFragment(custOrder);
 			title = getString(R.string.nav_item_terms);
 			break;
 
-		case 4:
-
+		case 6:
 			fragment = new ContactusFragment();
 			title = getString(R.string.nav_item_contactus);
 			break;
 
-		case 5:
+		case 7:
 			if (customer != null) {
 				CustomerUtils.logout(this);
 				new GetAreaAsynctask(this).execute();
 			} else {
-				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", DrawerActivity.this);
+				CustomerUtils.alertbox(TIFFEAT, " You are not logged in  ", DrawerActivity.this);
 				fragment = new FirstTimeUse();
 			}
 			break;
@@ -171,111 +188,26 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			}
 			break;
 
-		case 1:
+		case 4:
 
 			fragment = new LoginFragment(null);
 			break;
 
-		case 2:
+		case 1:
 			fragment = new TermsFragment();
 			title = getString(R.string.nav_item_terms);
 
 			break;
 
-		case 3:
+		case 2:
 			fragment = new AboutUsFragment();
 			title = getString(R.string.nav_item_terms);
-
-			break;
-
-		case 4:
-
-			fragment = new ContactusFragment();
-			title = getString(R.string.nav_item_contactus);
-			break;
-
-		default:
-			break;
-		}
-
-		if (fragment != null) {
-			title = "TiffEat";
-			getSupportActionBar().setTitle(title);
-			if (isFragmentToBeAddedToBackStack(fragment)) {
-				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
-			} else {
-				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), true);
-			}
-		}
-
-	}
-
-	private void bothOrderDrawer(int position) {
-
-		Fragment fragment = null;
-		String title = getString(R.string.app_name);
-
-		switch (position) {
-		case 0:
-
-			if (customer != null) {
-				if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
-					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-					fragment = new ScheduledOrderHomeScreen(customer);
-				}
-			} else {
-				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
-				fragment = new FirstTimeUse();
-			}
-			break;
-
-		case 1:
-
-			if (customer != null) {
-				if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())) {
-					CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-					fragment = new QuickOrderHomeScreen(customer);
-				}
-			} else {
-				CustomerUtils.alertbox(TIFFEAT, "Sorry You dont have order ", DrawerActivity.this);
-				fragment = new FirstTimeUse();
-			}
-			break;
-
-		case 2:
-			CustomerOrder customerOrder = new CustomerOrder();
-			customerOrder.setCustomer(customer);
-			fragment = new FirstTimeUse(customerOrder);
 			break;
 
 		case 3:
-			fragment = new TermsFragment();
-			title = getString(R.string.nav_item_terms);
-			break;
-
-		case 4:
-			CustomerOrder custOrder = new CustomerOrder();
-			custOrder.setCustomer(customer);
-			fragment = new AboutUsFragment(custOrder);
-
-			title = getString(R.string.nav_item_terms);
-			break;
-
-		case 5:
 
 			fragment = new ContactusFragment();
 			title = getString(R.string.nav_item_contactus);
-			break;
-
-		case 6:
-			if (customer != null) {
-				CustomerUtils.logout(this);
-				new GetAreaAsynctask(this).execute();
-			} else {
-				CustomerUtils.alertbox(TIFFEAT, " You Are not Logged In  ", DrawerActivity.this);
-				fragment = new FirstTimeUse();
-				title = "TiffEat";
-			}
 			break;
 
 		default:

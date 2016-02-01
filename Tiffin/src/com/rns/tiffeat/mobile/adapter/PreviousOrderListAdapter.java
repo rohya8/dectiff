@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rns.tiffeat.mobile.PreviousOrderHomeScreen;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.SelectType;
@@ -40,7 +41,7 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		this.previousOrders = previousOrders;
 	}
 
-	public void setQuickHome(QuickOrderHomeScreen quickHome) {
+	public void setQuickHome(PreviousOrderHomeScreen previusHome) {
 	}
 
 	public ViewHolder getHolder() {

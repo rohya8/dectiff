@@ -19,7 +19,7 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 
-	private View rootView;
+	private View rootview;
 	private TextView meal, price, location, timing;
 	private EditText address;
 	private CustomerOrder customerOrder;
@@ -37,7 +37,7 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.activity_changeaddress, container, false);
+		rootview = inflater.inflate(R.layout.fragment_changeaddress, container, false);
 
 		initialise();
 
@@ -58,7 +58,7 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 			}
 		});
 
-		return rootView;
+		return rootview;
 
 	}
 
@@ -84,12 +84,12 @@ public class ChangeOrderFragment extends Fragment implements AndroidConstants {
 	}
 
 	private void initialise() {
-		meal = (TextView) rootView.findViewById(R.id.changeorder_meal);
-		price = (TextView) rootView.findViewById(R.id.changeorder_price);
-		location = (TextView) rootView.findViewById(R.id.changeorder_location);
-		timing = (TextView) rootView.findViewById(R.id.changeorder_timing);
-		address = (EditText) rootView.findViewById(R.id.changeorder_address);
-		submit = (Button) rootView.findViewById(R.id.changeorder_button);
+		meal = (TextView) rootview.findViewById(R.id.changeorder_meal);
+		price = (TextView) rootview.findViewById(R.id.changeorder_price);
+		location = (TextView) rootview.findViewById(R.id.changeorder_location);
+		timing = (TextView) rootview.findViewById(R.id.changeorder_timing);
+		address = (EditText) rootview.findViewById(R.id.changeorder_address);
+		submit = (Button) rootview.findViewById(R.id.changeorder_button);
 	}
 
 	@Override

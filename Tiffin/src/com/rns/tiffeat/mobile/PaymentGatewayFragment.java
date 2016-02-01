@@ -35,7 +35,7 @@ public class PaymentGatewayFragment extends Fragment implements AndroidConstants
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_payuscreen, container, false);
+		rootView = inflater.inflate(R.layout.fragment_paymentscreen, container, false);
 
 		paymentscreen = (WebView) rootView.findViewById(R.id.payment_screen_webview);
 

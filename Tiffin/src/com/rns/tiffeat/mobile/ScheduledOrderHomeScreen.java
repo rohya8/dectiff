@@ -18,7 +18,7 @@ import com.rns.tiffeat.web.bo.domain.Customer;
 public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstants {
 
 	private Customer customer;
-	private View view;
+	private View rootview;
 	private TextView wallet;
 
 	private ScheduledOrderListAdapter scheduledOrdersAdapter;
@@ -38,20 +38,20 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.activity_scheduled_user, container, false);
+		rootview = inflater.inflate(R.layout.fragment_scheduledorder_homescreen, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
 		}
-		return view;
+		return rootview;
 	}
 
 	private void initialise() {
 
-		scheduledOrdersListView = (ListView) view.findViewById(R.id.scheduled_homescreen_scheduledorderlist);
-		wallet = (TextView) view.findViewById(R.id.scheduled_homescreen_textview_Wallet);
+		scheduledOrdersListView = (ListView) rootview.findViewById(R.id.scheduled_homescreen_scheduledorderlist);
+		wallet = (TextView) rootview.findViewById(R.id.scheduled_homescreen_textview_Wallet);
 
 		if (customer.getBalance() != null)
 			wallet.setText(customer.getBalance().toString());

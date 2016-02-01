@@ -27,7 +27,7 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 	private String registerpersonName, registerpassword, registeremailid, registerdeviceid;
 	private Customer customer;
 	private CustomerOrder customerOrder;
-	private View view;
+	private View rootview;
 	private TelephonyManager tm;
 
 	public UserRegistration(CustomerOrder customerOrder2) {
@@ -41,7 +41,7 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.activity_registration, container, false);
+		rootview = inflater.inflate(R.layout.fragment_userregistration, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
@@ -88,18 +88,18 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 				}
 			});
 		}
-		return view;
+		return rootview;
 	}
 
 	private void initialise() {
 
-		emailid = (EditText) view.findViewById(R.id.registration_emailid_editText);
+		emailid = (EditText) rootview.findViewById(R.id.registration_emailid_editText);
 
-		name = (EditText) view.findViewById(R.id.registration_name_editText);
-		confirmpass = (EditText) view.findViewById(R.id.registration_confirmpassword_editText);
-		password = (EditText) view.findViewById(R.id.registration_password_editText);
+		name = (EditText) rootview.findViewById(R.id.registration_name_editText);
+		confirmpass = (EditText) rootview.findViewById(R.id.registration_confirmpassword_editText);
+		password = (EditText) rootview.findViewById(R.id.registration_password_editText);
 
-		submit = (Button) view.findViewById(R.id.registration_Loginbutton);
+		submit = (Button) rootview.findViewById(R.id.registration_Loginbutton);
 		submit.setBackgroundColor(Color.parseColor("#8bc3fa"));
 
 		customer = new Customer();

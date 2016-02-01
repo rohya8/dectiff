@@ -13,7 +13,6 @@ import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 
 public class TermsFragment extends Fragment implements AndroidConstants {
 
-//	private Toolbar mToolbar;
 	private WebView termsweb;
 
 	public TermsFragment() {
@@ -33,7 +32,6 @@ public class TermsFragment extends Fragment implements AndroidConstants {
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
-	//		mToolbar = (Toolbar) rootView.findViewById(R.id.tool_bar);
 			termsweb = (WebView) rootView.findViewById(R.id.termsandcondition_webview);
 			WebSettings webSettings = termsweb.getSettings();
 			webSettings.setJavaScriptEnabled(true);
@@ -48,5 +46,4 @@ public class TermsFragment extends Fragment implements AndroidConstants {
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}
-
 }

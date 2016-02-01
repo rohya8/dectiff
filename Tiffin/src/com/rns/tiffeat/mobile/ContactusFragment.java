@@ -18,7 +18,7 @@ import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 public class ContactusFragment extends Fragment implements AndroidConstants {
 
 	private TextView mail, phone;
-	private View rootView;
+	private View rootview;
 
 	public ContactusFragment() {
 	}
@@ -31,9 +31,9 @@ public class ContactusFragment extends Fragment implements AndroidConstants {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_contactus, container, false);
-		mail = (TextView) rootView.findViewById(R.id.contactus_mail);
-		phone = (TextView) rootView.findViewById(R.id.contactus_phone);
+		rootview = inflater.inflate(R.layout.fragment_contactus, container, false);
+		mail = (TextView) rootview.findViewById(R.id.contactus_mail);
+		phone = (TextView) rootview.findViewById(R.id.contactus_phone);
 
 		phone.setOnClickListener(new OnClickListener() {
 
@@ -50,7 +50,7 @@ public class ContactusFragment extends Fragment implements AndroidConstants {
 				alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						Intent callIntent = new Intent(Intent.ACTION_CALL);
-						callIntent.setData(Uri.parse("tel:" + "91"+"7350182285"));
+						callIntent.setData(Uri.parse("tel:" + "91" + "7350182285"));
 						callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						startActivity(callIntent);
 
@@ -62,7 +62,7 @@ public class ContactusFragment extends Fragment implements AndroidConstants {
 
 		});
 
-		return rootView;
+		return rootview;
 	}
 
 	@Override

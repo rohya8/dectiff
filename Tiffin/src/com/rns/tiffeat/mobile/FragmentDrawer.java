@@ -63,13 +63,9 @@ public class FragmentDrawer extends Fragment {
 		Customer currentCustomer = CustomerUtils.getCurrentCustomer(getActivity());
 		if (currentCustomer.getName() == null) {
 			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_new_user);
-		} else if (!CollectionUtils.isEmpty(currentCustomer.getQuickOrders()) || !CollectionUtils.isEmpty(currentCustomer.getPreviousOrders())) {
-			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_quickorder);
-			if ((!CollectionUtils.isEmpty(currentCustomer.getScheduledOrder()))) {
-				titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_both);
-			}
-		} else if ((!CollectionUtils.isEmpty(currentCustomer.getScheduledOrder()))) {
-			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_scheduleorder);
+		} else if (!CollectionUtils.isEmpty(currentCustomer.getQuickOrders()) || !CollectionUtils.isEmpty(currentCustomer.getPreviousOrders())
+				|| !CollectionUtils.isEmpty(currentCustomer.getScheduledOrder())) {
+			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_user);
 		}
 	}
 
@@ -77,8 +73,8 @@ public class FragmentDrawer extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-		name=(TextView) layout.findViewById(R.id.fragment_drawer_textView);
-		
+		name = (TextView) layout.findViewById(R.id.fragment_drawer_textView);
+
 		Customer currentCustomer = CustomerUtils.getCurrentCustomer(getActivity());
 		if (currentCustomer.getName() != null) {
 			name.setVisibility(View.VISIBLE);

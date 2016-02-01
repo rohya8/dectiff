@@ -20,7 +20,7 @@ import com.rns.tiffeat.web.bo.domain.MealFormat;
 public class SelectType extends Fragment implements AndroidConstants {
 
 	private ImageView scheduled, quick;
-	private View view;
+	private View rootview;
 	private CustomerOrder customerOrder;
 
 	public SelectType(CustomerOrder customerOrder3) {
@@ -34,7 +34,7 @@ public class SelectType extends Fragment implements AndroidConstants {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.activity_select_type, container, false);
+		rootview = inflater.inflate(R.layout.fragment_selecttype, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
@@ -81,13 +81,13 @@ public class SelectType extends Fragment implements AndroidConstants {
 
 			});
 		}
-		return view;
+		return rootview;
 	}
 
 	private void initialise() {
 
-		scheduled = (ImageView) view.findViewById(R.id.select_type_scheduled_imageView);
-		quick = (ImageView) view.findViewById(R.id.select_type_quick_imageView);
+		scheduled = (ImageView) rootview.findViewById(R.id.select_type_scheduled_imageView);
+		quick = (ImageView) rootview.findViewById(R.id.select_type_quick_imageView);
 
 	}
 

@@ -37,7 +37,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		rootView = inflater.inflate(R.layout.show_menu_fragment, container, false);
+		rootView = inflater.inflate(R.layout.fragment_showmenu, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);

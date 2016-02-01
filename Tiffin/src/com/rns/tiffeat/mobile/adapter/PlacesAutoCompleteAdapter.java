@@ -28,10 +28,6 @@ public class PlacesAutoCompleteAdapter extends ArrayAdapter<String> implements F
 	private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
 	private static final String OUT_JSON = "/json";
 
-	// private static final String API_KEY =
-	// "AIzaSyBO-Kkn9DWOsKdvVr3y6eMynBQrItzIrV4";
-	// private static final String API_KEY =
-	// "AIzaSyCY4rn1aEOrzzE7SOWSDMmx_o9WsxFjn1I";
 	private static final String API_KEY = "AIzaSyDMVpl1CNX5g3kVbEUJTcgrtcs8hReRCPQ";
 	private ArrayList<String> resultList;
 

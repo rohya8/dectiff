@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.rns.tiffeat.mobile.adapter.QuickOrderListAdapter;
+import com.rns.tiffeat.mobile.adapter.PreviousOrderListAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -21,33 +21,30 @@ import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
-public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
-	private ListView todaylistview;
+public class PreviousOrderHomeScreen extends Fragment implements AndroidConstants {
+
+	private View rootView;
 	private Customer customer;
+	private ListView previouslistview;
 	private Button neworder;
+	private TextView previousText;
 	private CustomerOrder customerOrder;
-	private TextView welcomeText;
-	private QuickOrderListAdapter quickOrdersAdapter;
-	private View view;
+	private PreviousOrderListAdapter previousOrderAdapter;
 	private RelativeLayout relativeLayout;
 
-	public QuickOrderHomeScreen(Customer currentCustomer) {
-		this.customer = currentCustomer;
-	}
-
-	public void setCustomer(Customer customer) {
+	public PreviousOrderHomeScreen(Customer customer) {
 		this.customer = customer;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 	}
 
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-		view = inflater.inflate(R.layout.fragment_quickorder_homescreen, container, false);
-
+		rootView = inflater.inflate(R.layout.fragment_previous_homescreen, container, false);
 		customerOrder = new CustomerOrder();
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
@@ -55,6 +52,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		} else {
 
 			initialise();
+
 			neworder.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
@@ -66,45 +64,48 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 					}
 				}
 			});
-
 			prepareScreen();
 		}
-		return view;
+		return rootView;
 	}
 
 	private void initialise() {
-		todaylistview = (ListView) view.findViewById(R.id.quickorder_homescreen_listView);
-		neworder = (Button) view.findViewById(R.id.quickorder_homescreen_button);
-		relativeLayout=(RelativeLayout) view.findViewById(R.id.quickorder_homescreen_layout);
-		welcomeText=(TextView) view.findViewById(R.id.quickorder_homescreen_textView);
+
+		previouslistview = (ListView) rootView.findViewById(R.id.previousorder_homescreen_listView);
+		neworder = (Button) rootView.findViewById(R.id.previousorder_homescreen_neworder_button);
+		previousText = (TextView) rootView.findViewById(R.id.previousorder_homescreen_textView);
+		relativeLayout = (RelativeLayout) rootView.findViewById(R.id.previousorder_homescreen_layout);
 		relativeLayout.setVisibility(View.VISIBLE);
 
-		if (customer.getQuickOrders() != null)
-			quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
-		else if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-			welcomeText.setText("Sorry " + customer.getName() + " you have not order today");
+		if (CollectionUtils.isEmpty(customer.getPreviousOrders())) {
 			relativeLayout.setVisibility(View.GONE);
+			previousText.setText("Sorry " + customer.getName() + " you have not order today");
+			relativeLayout.setVisibility(View.GONE);
+
+		} else if (customer.getPreviousOrders() != null) {
+			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders(),
+					customer);
 		}
 
-		todaylistview.setFooterDividersEnabled(true);
-
-	}
-
-	public void prepareScreen() {
-
-		quickOrdersAdapter.setQuickHome(this);
-
-		if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-			quickOrdersAdapter.setQuickOrders(customer.getQuickOrders());
-			todaylistview.setAdapter(quickOrdersAdapter);
-		} else
-			todaylistview.setAdapter(quickOrdersAdapter);
+		previouslistview.setFooterDividersEnabled(true);
 	}
 
 	private void newActivity(CustomerOrder customerOrder2) {
 		Fragment fragment = null;
 		fragment = new FirstTimeUse(customerOrder);
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+	}
+
+	public void prepareScreen() {
+
+		previousOrderAdapter.setQuickHome(this);
+
+		if (CollectionUtils.isEmpty(previousOrderAdapter.getPreviousOrders())) {
+			previousOrderAdapter.setPreviousOrders(customer.getPreviousOrders());
+			previouslistview.setAdapter(previousOrderAdapter);
+		} else
+			previouslistview.setAdapter(previousOrderAdapter);
+
 	}
 
 	@Override
@@ -119,6 +120,10 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
+	}
+
+	public void setCustomer(Customer result) {
+		this.customer = result;
 	}
 
 }

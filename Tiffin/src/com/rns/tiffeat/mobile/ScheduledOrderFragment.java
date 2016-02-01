@@ -147,7 +147,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_scheduled_order, container, false);
+		rootView = inflater.inflate(R.layout.fragment_scheduledorder, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);

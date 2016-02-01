@@ -27,7 +27,7 @@ import com.rns.tiffeat.web.bo.domain.MealFormat;
 public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	private ListView listview;
-	private View view;
+	private View rootview;
 	private Button searchvendor;
 	private GetVendorsForAreaAsynctask getVendorsForAreaAsynctask;
 	private CustomerOrder customerOrder;
@@ -48,7 +48,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.activity_first_time_use, container, false);
+		rootview = inflater.inflate(R.layout.fragment_firsttimeuse, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
@@ -86,7 +86,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 			});
 		}
-		return view;
+		return rootview;
 
 	}
 
@@ -102,16 +102,11 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 
 	private void initialise() {
 
-		actvAreas = (AutoCompleteTextView) view.findViewById(R.id.first_time_use_area_autoCompleteTextView);
-		listview = (ListView) view.findViewById(R.id.first_time_used_listView);
-		searchvendor = (Button) view.findViewById(R.id.first_time_use_search_button);
+		actvAreas = (AutoCompleteTextView) rootview.findViewById(R.id.first_time_use_area_autoCompleteTextView);
+		listview = (ListView) rootview.findViewById(R.id.first_time_used_listView);
+		searchvendor = (Button) rootview.findViewById(R.id.first_time_use_search_button);
 		actvAreas.setThreshold(1);
-		text = (TextView) view.findViewById(R.id.first_time_area_textView);
-		getAreaName();
-
-	}
-
-	private void getAreaName() {
+		text = (TextView) rootview.findViewById(R.id.first_time_area_textView);
 		getNearbyPlaces();
 	}
 

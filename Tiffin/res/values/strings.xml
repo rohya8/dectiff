@@ -24,8 +24,9 @@
     <string name="drawer_close">Close</string>
     <string name="nav_item_dashboard">Dashboard</string>
     <string name="nav_item_make_new_order">Make New Order</string>
-    <string name="nav_item_quickorder">Quick Order</string>
-    <string name="nav_item_scheduleorder">Schedule Order</string>
+    <string name="nav_item_quickorder">My Quick Order</string>
+    <string name="nav_item_scheduleorder">My Schedule Order</string>
+    <string name="nav_item_previousorder">My Previous Order</string>
     <string name="nav_item_terms">Terms and Conditions</string>
     <string name="nav_item_contactus">Contact Us</string>
     <string name="nav_item_aboutus">About Us</string>
@@ -34,11 +35,12 @@
 
     <string-array name="nav_drawer_label_new_user">
         <item>@string/nav_item_make_new_order</item>
-        <item>@string/nav_item_login</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>
+            <item>@string/nav_item_login</item>
     </string-array>
+    
     <string-array name="nav_drawer_label_loggedin_quickorder">
         <item>@string/nav_item_quickorder</item>
         <item>@string/nav_item_make_new_order</item>
@@ -47,6 +49,7 @@
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
+    
     <string-array name="nav_drawer_label_loggedin_scheduleorder">
         <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_make_new_order</item>
@@ -55,6 +58,7 @@
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
+    
     <string-array name="nav_drawer_label_loggedin_both">
         <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_quickorder</item>
@@ -65,6 +69,17 @@
         <item>@string/nav_item_logout</item>
     </string-array>
 
+    <string-array name="nav_drawer_label_loggedin_user">
+        <item>@string/nav_item_make_new_order</item>
+        <item>@string/nav_item_scheduleorder</item>
+        <item>@string/nav_item_quickorder</item>
+        <item >@string/nav_item_previousorder</item>
+        <item>@string/nav_item_terms</item>
+        <item>@string/nav_item_aboutus</item>
+        <item>@string/nav_item_contactus</item>
+        <item>@string/nav_item_logout</item>
+    </string-array>
+    
     <string name="title_activity_first_time_used_adapter">FirstTimeUsedAdapter</string>
     <string name="title_activity_list_of_meals_adapter">ListOfMealsAdapter</string>
     <string name="title_activity_scheduled_order">ScheduledOrder</string>

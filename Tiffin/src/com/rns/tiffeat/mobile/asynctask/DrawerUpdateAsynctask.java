@@ -25,19 +25,12 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 	protected String doInBackground(String... arg) {
 		if (!Validation.isNetworkAvailable(activity)) {
 			return null;
-		} else {
-			try {
-				//TODO: Try what?
-			} catch (Exception e) {
-				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-			}
-			return "Hello";
-		}
+		} 
+		return "Hello";
 	}
 
 	protected void onPostExecute(String result) {
 		if (result == null) {
-			//Validation.showError(activity, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		}

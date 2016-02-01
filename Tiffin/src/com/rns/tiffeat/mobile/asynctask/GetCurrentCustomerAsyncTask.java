@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.DrawerActivity;
+import com.rns.tiffeat.mobile.PreviousOrderHomeScreen;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
@@ -20,6 +22,7 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	private QuickOrderHomeScreen quickOrderHome;
 	private Context context;
 	private ScheduledOrderHomeScreen scheduledHome;
+	private PreviousOrderHomeScreen previousOrderHomeScreen;
 
 	public GetCurrentCustomerAsyncTask(Context context, QuickOrderHomeScreen quickHome) {
 		this.quickOrderHome = quickHome;
@@ -32,6 +35,11 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	}
 
 	public GetCurrentCustomerAsyncTask(Context activity) {
+		this.context = activity;
+	}
+
+	public GetCurrentCustomerAsyncTask(Context activity, PreviousOrderHomeScreen previousOrderHomeScreen) {
+		this.previousOrderHomeScreen=previousOrderHomeScreen;
 		this.context = activity;
 	}
 
@@ -58,7 +66,6 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	protected void onPostExecute(Customer result) {
 		super.onPostExecute(result);
 		if (result == null) {
-			//Validation.showError(context, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, context);
 			return;
 		}
@@ -66,12 +73,17 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 		if (scheduledHome != null) {
 			scheduledHome.setCustomer(result);
 			scheduledHome.prepareScreen();
-		} else if (quickOrderHome == null) {
+		} else if (quickOrderHome == null && scheduledHome == null && previousOrderHomeScreen == null) {
 			nextActivity(result);
-		} else {
+		} else if (quickOrderHome != null){
 			quickOrderHome.setCustomer(result);
 			quickOrderHome.prepareScreen();
 		}
+		else if(previousOrderHomeScreen == null){
+			previousOrderHomeScreen.setCustomer(result);
+			previousOrderHomeScreen.prepareScreen();
+		}
+
 	}
 
 	private void nextActivity(Customer customer) {

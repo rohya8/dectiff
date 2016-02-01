@@ -2,18 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#62d2c2"
     tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/spl" />
 
     <TextView
         android:id="@+id/splashscreen_name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="168dp"
         android:text="@string/name1"
         android:textColor="#fee782"
-        android:textSize="28sp"
+        android:textSize="36sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

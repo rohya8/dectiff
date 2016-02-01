@@ -18,9 +18,10 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 
 	private WebView aboutweb;
 	private CustomerOrder customerOrder;
+	private View rootview;
 
 	public AboutUsFragment(CustomerOrder custOrder) {
-		customerOrder=custOrder;
+		customerOrder = custOrder;
 	}
 
 	public AboutUsFragment() {
@@ -34,9 +35,9 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_aboutus, container, false);
+		rootview = inflater.inflate(R.layout.fragment_aboutus, container, false);
 
-		aboutweb = (WebView) rootView.findViewById(R.id.aboutus_webview);
+		aboutweb = (WebView) rootview.findViewById(R.id.aboutus_webview);
 
 		WebSettings webSettings = aboutweb.getSettings();
 		webSettings.setJavaScriptEnabled(true);
@@ -49,15 +50,13 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 				if (url != null && url.contains("tiffeat.com")) {
 					nextActivity();
 					return true;
-
 				}
 				return false;
 			}
-
 		};
 		aboutweb.setWebViewClient(webViewClient);
 
-		return rootView;
+		return rootview;
 	}
 
 	@Override
@@ -71,11 +70,11 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 	private void nextActivity() {
 
 		Fragment fragment = null;
-		if(customerOrder!=null)
+		if (customerOrder != null)
 			fragment = new FirstTimeUse(customerOrder);
 		else
 			fragment = new FirstTimeUse();
-		
+
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 

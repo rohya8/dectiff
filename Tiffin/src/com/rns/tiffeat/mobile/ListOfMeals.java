@@ -20,7 +20,7 @@ public class ListOfMeals extends Fragment implements AndroidConstants {
 	private Vendor vendor;
 	private TextView vendorName;
 	private CustomerOrder customerOrder;
-	private View view;
+	private View rootview;
 
 	public ListOfMeals(Vendor vendorobj, CustomerOrder customerOrder) {
 		this.vendor = vendorobj;
@@ -33,7 +33,7 @@ public class ListOfMeals extends Fragment implements AndroidConstants {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.activity_list_of_meals, container, false);
+		rootview = inflater.inflate(R.layout.fragment_listofmeals, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
@@ -42,15 +42,13 @@ public class ListOfMeals extends Fragment implements AndroidConstants {
 			vendorName.setText(vendor.getName() + "  offers : ");
 			ListOfMealAdapter Adapter = new ListOfMealAdapter(getActivity(), R.layout.activity_list_of_meals_adapter, vendor.getMeals(), customerOrder);
 			listview.setAdapter(Adapter);
-
 		}
-		return view;
-
+		return rootview;
 	}
 
 	private void initialise() {
-		vendorName = (TextView) view.findViewById(R.id.list_of_meals_vendor_name_textView);
-		listview = (ListView) view.findViewById(R.id.list_of_meals_listView);
+		vendorName = (TextView) rootview.findViewById(R.id.list_of_meals_vendor_name_textView);
+		listview = (ListView) rootview.findViewById(R.id.list_of_meals_listView);
 	}
 
 	@Override

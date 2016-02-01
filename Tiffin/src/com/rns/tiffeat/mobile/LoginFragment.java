@@ -36,7 +36,7 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 public class LoginFragment extends Fragment implements AndroidConstants, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 	private Button submit;
 	private TextView newuser;
-	private View view;
+	private View rootview;
 	private Customer customer;
 	private EditText email, password;
 	private CustomerOrder customerOrder;
@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.activity_login, container, false);
+		rootview = inflater.inflate(R.layout.fragment_login, container, false);
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
@@ -115,16 +115,16 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 				}
 			});
 		}
-		return view;
+		return rootview;
 	}
 
 	private void initialise() {
 		customer = new Customer();
-		submit = (Button) view.findViewById(R.id.login_submit_button);
-		newuser = (TextView) view.findViewById(R.id.login_newuser_button);
-		email = (EditText) view.findViewById(R.id.login_editText_email);
-		password = (EditText) view.findViewById(R.id.login_editText_Password);
-		signinButton = (SignInButton) view.findViewById(R.id.signin);
+		submit = (Button) rootview.findViewById(R.id.login_submit_button);
+		newuser = (TextView) rootview.findViewById(R.id.login_newuser_button);
+		email = (EditText) rootview.findViewById(R.id.login_editText_email);
+		password = (EditText) rootview.findViewById(R.id.login_editText_Password);
+		signinButton = (SignInButton) rootview.findViewById(R.id.signin);
 
 		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) LoginFragment.this)
 				.addOnConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_PROFILE).build();
