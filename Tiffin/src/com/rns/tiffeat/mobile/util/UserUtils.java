@@ -104,8 +104,8 @@ public class UserUtils implements AndroidConstants {
 	@SuppressWarnings("deprecation")
 	public static ProgressDialog showLoadingDialog(Context myactivity, CharSequence title, CharSequence text) {
 		ProgressDialog progressDialog = new ProgressDialog(myactivity);
-		progressDialog.setIndeterminate(true);
-		progressDialog.setIndeterminateDrawable(myactivity.getResources().getDrawable(R.anim.progress_dialog_anim));
+		//progressDialog.setIndeterminate(true);
+		//progressDialog.setIndeterminateDrawable(myactivity.getResources().getDrawable(R.anim.progress_dialog_anim));
 		progressDialog.setTitle(title);
 		progressDialog.setMessage(text);
 		progressDialog.setCancelable(false);

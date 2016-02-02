@@ -28,10 +28,9 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 
-		text=(TextView) findViewById(R.id.splashscreen_name_textView);
+		text = (TextView) findViewById(R.id.splashscreen_name_textView);
 
-		String multiColorText = "<font color=0x00aa44>T    i    f   f</font><font color=0xff5555>   E   a   t</font>";
-
+		String multiColorText = "<font color=0x4CAF50>T    i    f   f</font><font color=0xf44336>   E   a   t</font>";
 		text.setText(Html.fromHtml(multiColorText));
 
 		if (!Validation.isNetworkAvailable(context)) {
@@ -62,14 +61,12 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 					handler.postDelayed(new Runnable() {
 						@Override
 						public void run() {
-							AsyncTaskCall();
+								AsyncTaskCall();
 						}
-					}, 10000);
+					}, 5000);
 				}
-
 			});
 		}
-
 	}
 
 	public void AsyncTaskCall() {

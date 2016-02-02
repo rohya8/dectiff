@@ -81,6 +81,7 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 
 	private void nextActivity() {
 
+		
 		if (customerOrder.getPaymentType().equals(PaymentType.NETBANKING)) {
 			Fragment fragment = new PaymentGatewayFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, previousActivity.getSupportFragmentManager(), false);

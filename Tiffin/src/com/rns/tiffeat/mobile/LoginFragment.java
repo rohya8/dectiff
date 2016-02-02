@@ -1,12 +1,16 @@
 package com.rns.tiffeat.mobile;
 
-import android.app.ProgressDialog;
+import org.json.JSONObject;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
+import android.content.IntentSender;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,11 +21,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
@@ -29,7 +34,6 @@ import com.rns.tiffeat.mobile.asynctask.LoginWithGoogleAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
-import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
@@ -40,14 +44,13 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	private Customer customer;
 	private EditText email, password;
 	private CustomerOrder customerOrder;
-	private ProgressDialog progressDialog;
-	private int RESULT_OK = -1;
-	private static final int RC_SIGN_IN = 0;
-	private GoogleApiClient mGoogleApiClient;
 
-	private boolean mIntentInProgress;
-	private boolean signedInUser;
-	private ConnectionResult mConnectionResult;
+	private GoogleApiClient mGoogleApiClient;
+	private int RESULT_OK = 1;
+	private static final int RC_SIGN_IN = 0;
+	private boolean mIsResolving = false;
+	private boolean msignedIn = false;
+	private boolean msignedInClicked = false;
 	private SignInButton signinButton;
 
 	public LoginFragment(CustomerOrder customerOrder2) {
@@ -70,8 +73,11 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 			signinButton.setOnClickListener(new OnClickListener() {
 
 				@Override
-				public void onClick(View v) {
-					googlePlusLogin();
+				public void onClick(View v) 
+				{
+					msignedIn = true;
+					googlePlusSignIn();
+				//	signinButton.performClick();
 				}
 			});
 			submit.setOnClickListener(new OnClickListener() {
@@ -126,8 +132,9 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		password = (EditText) rootview.findViewById(R.id.login_editText_Password);
 		signinButton = (SignInButton) rootview.findViewById(R.id.signin);
 
-		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((ConnectionCallbacks) LoginFragment.this)
-				.addOnConnectionFailedListener((OnConnectionFailedListener) LoginFragment.this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_PROFILE).build();
+		mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) LoginFragment.this)
+				.addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) LoginFragment.this)
+				.addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_PROFILE).build();
 
 	}
 
@@ -151,79 +158,72 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 	public void onStart() {
 		super.onStart();
-		if (mGoogleApiClient != null)
-			mGoogleApiClient.connect();
+		mGoogleApiClient.connect();
 	}
 
 	public void onStop() {
 		super.onStop();
-		if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+		if (mGoogleApiClient.isConnected()) {
+			Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 			mGoogleApiClient.disconnect();
-		}
-	}
-
-	private void resolveSignInError() {
-
-		if (mConnectionResult != null && mConnectionResult.hasResolution()) {
-			try {
-				mIntentInProgress = true;
-				mConnectionResult.startResolutionForResult(getActivity(), RC_SIGN_IN);
-			} catch (SendIntentException e) {
-				CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", getActivity());
-				mIntentInProgress = false;
-				Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-				mGoogleApiClient.disconnect();
-			}
 		}
 	}
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
-		if (!result.hasResolution()) {
-			progressDialog.dismiss();
-			CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", getActivity());
-			return;
-		}
-
-		if (!mIntentInProgress) {
-			mConnectionResult = result;
-
-			if (signedInUser) {
+		if (!mIsResolving && msignedInClicked) {
+			if (result.hasResolution()) {
+				try {
+					result.startResolutionForResult(getActivity(), RC_SIGN_IN);
+					mIsResolving = true;
+				} catch (IntentSender.SendIntentException e) {
+					mIsResolving = false;
+					mGoogleApiClient.connect();
+				}
+			} else {
 				CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", getActivity());
-				return;
 			}
-		}
+		} 
+		
 	}
 
 	@Override
-	public void onActivityResult(int requestCode, int responseCode, Intent intent) {
-		switch (requestCode) {
-		case RC_SIGN_IN:
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
-			if (responseCode == RESULT_OK) {
-				signedInUser = false;
-
+		// switch (requestCode) {
+		// case RC_SIGN_IN:
+		//
+		// if (responseCode == RESULT_OK) {
+		// signedInUser = false;
+		//
+		// }
+		// mIntentInProgress = false;
+		// if (!mGoogleApiClient.isConnecting()) {
+		// connectgoogle();
+		// }
+		// break;
+		if (requestCode == RC_SIGN_IN) {
+			if (resultCode != RESULT_OK) {
+				msignedInClicked = false;
 			}
-			mIntentInProgress = false;
-			if (!mGoogleApiClient.isConnecting()) {
-				connectgoogle();
+			mIsResolving = false;
+					mGoogleApiClient.connect();
+			
 			}
-			break;
-		}
-	}
-
-	private void connectgoogle() {
-		mGoogleApiClient.connect();
+		else
+			Toast.makeText(getActivity(), "Login failed", Toast.LENGTH_SHORT).show();
+		
 	}
 
 	@Override
-	public void onConnected(Bundle arg0) {
-		signedInUser = false;
-		if (progressDialog != null)
-			progressDialog.dismiss();
+	public void onConnected(Bundle bundle) {
+		msignedInClicked = false;
+		// if (progressDialog != null)
+		// progressDialog.dismiss();
 
 		Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
-		getProfileInformation();
+		new GoogleAccessToken().execute();
 	}
 
 	private void getProfileInformation() {
@@ -246,15 +246,83 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		}
 	}
 
-	private void googlePlusLogin() {
-		progressDialog = UserUtils.showLoadingDialog(getActivity(), "Signing In ", "Please Wait .....");
-		if (!mGoogleApiClient.isConnecting()) {
-			signedInUser = true;
-			resolveSignInError();
-		}
+//	private void googlePlusLogin() {
+//
+//		if (!mGoogleApiClient.isConnecting()) {
+//			msignedIn = true;
+//			googlePlusSignIn();
+//		}
+//	}
+
+	private void googlePlusSignIn() {
+		// progressDialog = UserUtils.showLoadingDialog(getActivity(),
+		// "Signing In ", "Please Wait .....");
+		msignedInClicked = true;
+		mGoogleApiClient.connect();
+
 	}
 
 	@Override
 	public void onConnectionSuspended(int arg0) {
+	}
+
+	public class GoogleAccessToken extends AsyncTask<String, String, String> {
+		@Override
+		protected String doInBackground(String... params) {
+			String response = "";
+			try {
+				String scope = "oauth2:" + Scopes.PLUS_LOGIN + " https://www.googleapis.com/auth/plus.profile.emails.read";
+				response = GoogleAuthUtil.getToken(getActivity(), Plus.AccountApi.getAccountName(mGoogleApiClient), scope);
+			} catch (UserRecoverableAuthException e) {
+				startActivityForResult(e.getIntent(), RC_SIGN_IN);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return response;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			getProfileInformation(result);
+		}
+
+	}
+
+	/**
+	 * Fetching user's information name, email, profile pic
+	 * */
+	private void getProfileInformation(String strAccessToken) {
+		// if (progressDialog != null && progressDialog.isShowing())
+		// progressDialog.dismiss();
+
+		try {
+			if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+				Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+				String mPersonName = currentPerson.getDisplayName();
+				String mPersonGooglePlusProfile = currentPerson.getUrl();
+				String mEmail = Plus.AccountApi.getAccountName(mGoogleApiClient);
+				String mPersonID = currentPerson.getId();
+				Toast.makeText(getActivity(), "done " + mPersonName, Toast.LENGTH_LONG).show();
+				if (msignedIn) {
+					JSONObject googleJSONObject = new JSONObject();
+
+					googleJSONObject.put("email", mEmail);
+					googleJSONObject.put("accessToken", strAccessToken);
+					googleJSONObject.put("type", "google");
+
+					Log.d(TAG, "G+ info : personName: " + mPersonName + " email : " + mEmail);
+				}
+			} else {
+				Toast.makeText(getActivity(), "done", Toast.LENGTH_LONG).show();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (mGoogleApiClient.isConnected()) {
+				Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+				mGoogleApiClient.disconnect();
+			}
+		}
 	}
 }

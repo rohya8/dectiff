@@ -18,8 +18,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="168dp"
         android:text="@string/name1"
-        android:textColor="#fee782"
-        android:textSize="36sp"
+        android:textColor="#fff"
+        android:textSize="38sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

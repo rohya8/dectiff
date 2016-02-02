@@ -26,6 +26,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	private Toolbar mToolbar;
 	private FragmentDrawer drawerFragment;
 	private Customer customer;
+	private String action;
 
 	@Override
 	public void onBackPressed() {
@@ -47,6 +48,9 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		if (getIntent().getExtras() != null) {
 			String customerJson = (String) getIntent().getExtras().get(AndroidConstants.CUSTOMER_OBJECT);
 			customer = new Gson().fromJson(customerJson, Customer.class);
+	
+			action=(String) getIntent().getExtras().get("action");
+				
 		}
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -54,6 +58,22 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
 		drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 		drawerFragment.setDrawerListener(this);
+		
+		if(action!=null){
+			if(action.equals("QUICK")==true  ){
+				Fragment fragment = null;
+				fragment = new QuickOrderHomeScreen(customer);
+				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				return;
+			}
+			else if( action.equals("SCHEDULE")==true){
+				Fragment fragment = null;
+				fragment = new ScheduledOrderHomeScreen(customer);
+				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				return;
+			}
+				
+		}
 		displayView(0);
 	}
 

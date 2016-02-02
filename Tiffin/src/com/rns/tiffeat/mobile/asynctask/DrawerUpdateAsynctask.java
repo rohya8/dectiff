@@ -15,6 +15,7 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 
 	private FragmentActivity activity;
 	private Customer customer;
+	private String action=null;
 
 	public DrawerUpdateAsynctask(FragmentActivity fragmentActivity, Customer customerlogin) {
 		this.activity = fragmentActivity;
@@ -34,8 +35,17 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		}
+		
+		if(customer.getRegId()!=null){
+			if(customer.getRegId().equals("QUICK")==true  || customer.getRegId().equals("SCHEDULE")==true){
+				action=customer.getRegId();
+				customer.setRegId("");
+			}
+		}
+
 		Intent i = new Intent(activity, DrawerActivity.class);
 		i.putExtra(AndroidConstants.CUSTOMER_OBJECT, new Gson().toJson(customer));
+		i.putExtra("action",action);
 		activity.startActivity(i);
 		activity.finish();
 	};

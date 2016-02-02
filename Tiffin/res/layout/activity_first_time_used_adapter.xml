@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:adjustViewBounds="true"
             android:src="@drawable/food5" />
 
@@ -31,10 +31,10 @@
             android:id="@+id/first_time_tiffinname_textView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:gravity="start"
             android:text="ABC Tiffin"

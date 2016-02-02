@@ -71,6 +71,7 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 	}
 
 	private void nextActivity() {
+		currentCustomer.setRegId("QUICK");
 		new DrawerUpdateAsynctask(proceedtopay, currentCustomer).execute("");
 
 	}

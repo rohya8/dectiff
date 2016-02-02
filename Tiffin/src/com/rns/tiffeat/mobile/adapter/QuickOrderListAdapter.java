@@ -56,9 +56,9 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	public class ViewHolder {
-		TextView title, tiffintype, repeatorder, price, mealStatus, date, orderStatus;
+		TextView title, tiffintype, repeatorder, mealStatus, date, orderStatus;
 		ImageView foodimage;
-		TextView viewmenuButton;
+		TextView viewmenuButton, vendorname;
 
 		public ImageView getFoodimage() {
 			return foodimage;
@@ -98,6 +98,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
 			holder.repeatorder = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_repeatorder_button);
+			holder.vendorname = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_vendorname_textView);
 			convertView.setTag(holder);
 
 		} else {
@@ -112,9 +113,11 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			return convertView;
 		}
 
-		holder.title.setText(customerOrder.getMeal().getTitle());
+		if (customerOrder.getMeal().getTitle() != null)
+			holder.title.setText(customerOrder.getMeal().getTitle());
+
 		if (customerOrder.getMealType() != null) {
-			holder.tiffintype.setText(customerOrder.getMealType().getDescription());
+			holder.tiffintype.setText("Meal timing : "+customerOrder.getMealType().getDescription());
 		}
 
 		if (OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
@@ -123,8 +126,12 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.viewmenuButton.setVisibility(View.GONE);
 		}
 
+		if (customerOrder.getMeal().getVendor() != null)
+			holder.vendorname.setText("Vendor name : "+ customerOrder.getMeal().getVendor().getName());
+
 		setOrderStatus();
-		holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
+		if (customerOrder.getDate() != null)
+			holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
 		holder.viewmenuButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -155,8 +162,10 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			return;
 		}
 		if (OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
+			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your Order has been cancelled..");
 		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) {
+			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your order has been delivered!! Please rate us!!");
 		}
 	}

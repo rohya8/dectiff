@@ -38,9 +38,8 @@
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>
-            <item>@string/nav_item_login</item>
+        <item>@string/nav_item_login</item>
     </string-array>
-    
     <string-array name="nav_drawer_label_loggedin_quickorder">
         <item>@string/nav_item_quickorder</item>
         <item>@string/nav_item_make_new_order</item>
@@ -49,7 +48,6 @@
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
-    
     <string-array name="nav_drawer_label_loggedin_scheduleorder">
         <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_make_new_order</item>
@@ -58,7 +56,6 @@
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
-    
     <string-array name="nav_drawer_label_loggedin_both">
         <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_quickorder</item>
@@ -68,18 +65,17 @@
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
-
     <string-array name="nav_drawer_label_loggedin_user">
         <item>@string/nav_item_make_new_order</item>
         <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_quickorder</item>
-        <item >@string/nav_item_previousorder</item>
+        <item>@string/nav_item_previousorder</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>
         <item>@string/nav_item_logout</item>
     </string-array>
-    
+
     <string name="title_activity_first_time_used_adapter">FirstTimeUsedAdapter</string>
     <string name="title_activity_list_of_meals_adapter">ListOfMealsAdapter</string>
     <string name="title_activity_scheduled_order">ScheduledOrder</string>
@@ -91,5 +87,6 @@
     <integer name="google_play_services_version">6171000</integer>
 
     <string name="title_activity_try_login">Login Activity</string>
+    <string name="title_activity_login_wgoogle">TiffEat</string>
 
 </resources>

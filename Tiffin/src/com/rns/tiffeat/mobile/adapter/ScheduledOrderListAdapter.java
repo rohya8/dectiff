@@ -88,18 +88,18 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 			holder = new ViewHolder();
 			fontChanger.replaceFonts((ViewGroup) convertView);
-			holder.title = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_meal_title_textView);
-			holder.mealType = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_meal_type_textView);
-			holder.date = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_date_textView);
-			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.scheduled_orders_adapter_imageview);
+			holder.title = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealtitle_textView);
+			holder.mealType = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealtype_textView);
+			holder.date = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_date_textView);
+			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.scheduledorder_adapter_imageview);
 			holder.foodimage = mealImageView;
 			new ScheduleOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
-			holder.mealStatus = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_meal_status_textView);
-			holder.orderStatus = (TextView) convertView.findViewById(R.id.scheduled_orders_adapter_order_status_textView);
-			holder.cancelOrderButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_cancel_button);
-			holder.switchButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_switch_button);
-			holder.viewMenuButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_viewmenu_button);
-			holder.addOtherMealTypeButton = (Button) convertView.findViewById(R.id.scheduled_orders_adapter_edit_button);
+			holder.mealStatus = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealstatus_textView);
+			holder.orderStatus = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_orderstatus_textView);
+			holder.cancelOrderButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_cancel_button);
+			holder.switchButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_switch_button);
+			holder.viewMenuButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_viewmenu_button);
+			holder.addOtherMealTypeButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_edit_button);
 
 			convertView.setTag(holder);
 
