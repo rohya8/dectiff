@@ -16,7 +16,8 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/orderbutton"
         android:text="Make New Order"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/quickorder_homescreen_textView"
@@ -26,8 +27,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="6dp"
         android:text="Your quick orders"
-        android:textSize="14sp"
-        android:textColor="#95a5a6"
+        android:textColor="#90A4AE"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <RelativeLayout

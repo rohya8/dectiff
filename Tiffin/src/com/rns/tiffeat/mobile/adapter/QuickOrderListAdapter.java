@@ -58,7 +58,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	public class ViewHolder {
 		TextView title, tiffintype, repeatorder, mealStatus, date, orderStatus;
 		ImageView foodimage;
-		TextView viewmenuButton, vendorname;
+		TextView viewmenuButton;
 
 		public ImageView getFoodimage() {
 			return foodimage;
@@ -98,7 +98,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
 			holder.repeatorder = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_repeatorder_button);
-			holder.vendorname = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_vendorname_textView);
+			
 			convertView.setTag(holder);
 
 		} else {
@@ -125,9 +125,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		} else {
 			holder.viewmenuButton.setVisibility(View.GONE);
 		}
-
-		if (customerOrder.getMeal().getVendor() != null)
-			holder.vendorname.setText("Vendor name : "+ customerOrder.getMeal().getVendor().getName());
 
 		setOrderStatus();
 		if (customerOrder.getDate() != null)

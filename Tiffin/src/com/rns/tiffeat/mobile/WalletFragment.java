@@ -41,6 +41,12 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 		addLater = (Button) rootView.findViewById(R.id.add_later_button);
 		balanceEditText = (EditText) rootView.findViewById(R.id.add_amount_edittext);
 
+		if (customerOrder.getCustomer().getBalance() != null) {
+			if (BigDecimal.TEN.compareTo(customerOrder.getCustomer().getBalance()) < 0) {
+				addLater.setVisibility(View.VISIBLE);
+			}
+		}
+
 		addAmt.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -51,28 +57,34 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 					InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 					inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-					if (balanceEditText.getText().toString().equals("") || balanceEditText.getText().toString().length() == 0) {
+					String balance = balanceEditText.getText().toString();
+
+					if (balance.equals("") || balance.length() == 0 || !balance.matches("[0-9]+")) {
 						CustomerUtils.alertbox(TIFFEAT, "Invalid amount!", getActivity());
-						return;
 					}
 
-					customerOrder.getCustomer().setBalance(new BigDecimal(balanceEditText.getText().toString()));
+					customerOrder.getCustomer().setBalance(new BigDecimal(balance));
 
-					Fragment fragment = new PaymentGatewayFragment(customerOrder);
-					CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
+					nextActivity();
 
 				}
 			}
+
 		});
 
-		// TODO: addlater
-		// if (customerOrder.getCustomer().getBalance() != null
-		// ||
-		// customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice())
-		// < 0))
-		//
-
+		/*
+		 * addLater.setOnClickListener(new OnClickListener() {
+		 * 
+		 * @Override public void onClick(View v) {
+		 * 
+		 * } });
+		 */
 		return rootView;
+	}
+
+	private void nextActivity() {
+		Fragment fragment = new PaymentGatewayFragment(customerOrder);
+		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 
 }

@@ -114,7 +114,9 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		holder.switchButton.setTag(position);
 		holder.viewMenuButton.setTag(position);
 		holder.addOtherMealTypeButton.setTag(position);
-
+		holder.orderStatus.setVisibility(View.VISIBLE);
+		holder.mealStatus.setVisibility(View.VISIBLE);
+		
 		prepareCustomerOrder(customerOrder);
 
 		prepareAddOtherMealTypeButton();
@@ -234,6 +236,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void setOrderStatus(CustomerOrder customerOrder) {
 		if (customerOrder.getStatus() == null) {
+			holder.orderStatus.setVisibility(View.GONE);
 			return;
 		}
 		if (OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
@@ -244,6 +247,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			hideControls();
 		} else if (OrderStatus.PAYABLE.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setText("Insufficient funds in the wallet!!!");
+			holder.mealStatus.setVisibility(View.GONE);
 		}
 
 	}

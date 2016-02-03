@@ -100,12 +100,13 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 	private void loggedInUserDrawer(int position) {
 		Fragment fragment = null;
+		CustomerOrder customerOrder = new CustomerOrder();
 		String title = getString(R.string.app_name);
-
+		
 		switch (position) {
 
 		case 0:
-			CustomerOrder customerOrder = new CustomerOrder();
+			
 			customerOrder.setCustomer(customer);
 			fragment = new FirstTimeUse(customerOrder);
 			break;
@@ -118,7 +119,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				}
 				else {
 					CustomerUtils.alertbox(TIFFEAT, "No orders yet... ", DrawerActivity.this);
-					fragment = new FirstTimeUse();
+					customerOrder.setCustomer(customer);
+					fragment = new FirstTimeUse(customerOrder);
 				}
 			}
 			break;
@@ -132,7 +134,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				}
 				else {
 					CustomerUtils.alertbox(TIFFEAT, "No orders yet... ", DrawerActivity.this);
-					fragment = new FirstTimeUse();
+					customerOrder.setCustomer(customer);
+					fragment = new FirstTimeUse(customerOrder);
 				}
 			}
 
@@ -147,7 +150,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				}
 				else {
 					CustomerUtils.alertbox(TIFFEAT, " No orders yet... ", DrawerActivity.this);
-					fragment = new FirstTimeUse();
+					customerOrder.setCustomer(customer);
+					fragment = new FirstTimeUse(customerOrder);
 				}
 			}
 			break;

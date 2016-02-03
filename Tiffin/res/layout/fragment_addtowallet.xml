@@ -41,9 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="30dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/orderbutton"
             android:text="Add Amount"
             android:textColor="#FFF" />
@@ -58,7 +59,8 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/orderbutton"
             android:text="Add Later"
-            android:textColor="#FFF" />
+            android:textColor="#FFF"
+            android:visibility="gone" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

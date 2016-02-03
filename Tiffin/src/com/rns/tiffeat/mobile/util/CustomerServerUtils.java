@@ -210,7 +210,6 @@ public class CustomerServerUtils implements AndroidConstants {
 			return;
 		}
 
-		// meal.getVendor().setMeals(null);
 		if (meal.getDinnerMenu() == null) {
 			return;
 		}

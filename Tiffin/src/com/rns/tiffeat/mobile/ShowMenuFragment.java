@@ -20,7 +20,7 @@ import com.rns.tiffeat.web.bo.domain.MealFormat;
 public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private Button alertbtn;
-	private TextView roti, sabji, rice, salad, extra, price, menu, date, availability;
+	private TextView roti, sabji, rice, salad, extra, price, menu, date, availability,vendorname;
 	private View rootView;
 	private LinearLayout menulayout;
 	private CustomerOrder customerOrder;
@@ -78,6 +78,9 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 					salad.setText(customerOrder.getContent().getSubItem3());
 				if (customerOrder.getContent().getSubItem4() != null)
 					extra.setText(customerOrder.getContent().getSubItem4());
+				if (customerOrder.getMeal().getVendor() != null)
+					vendorname.setText("Vendor name : "+ customerOrder.getMeal().getVendor().getName());
+
 			}
 
 			alertbtn.setOnClickListener(new OnClickListener() {
@@ -104,10 +107,11 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		extra = (TextView) rootView.findViewById(R.id.extra_status_tv);
 		price = (TextView) rootView.findViewById(R.id.price_status_tv);
 		alertbtn = (Button) rootView.findViewById(R.id.menu_done_button);
-		menu = (TextView) rootView.findViewById(R.id.menu_status_tv);
+		menu = (TextView) rootView.findViewById(R.id.showmenu_menu_status_tv);
 		date = (TextView) rootView.findViewById(R.id.date_status_tv);
 		availability = (TextView) rootView.findViewById(R.id.meal_availability_textView);
 		menulayout = (LinearLayout) rootView.findViewById(R.id.menu_layout);
+		vendorname = (TextView) rootView.findViewById(R.id.showmenu_vendorname_textView);
 
 		menulayout.setVisibility(View.VISIBLE);
 		availability.setVisibility(View.GONE);

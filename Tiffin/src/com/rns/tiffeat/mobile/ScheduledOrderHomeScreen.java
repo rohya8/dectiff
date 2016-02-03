@@ -1,5 +1,7 @@
 package com.rns.tiffeat.mobile;
 
+import java.math.BigDecimal;
+
 import org.apache.commons.collections.CollectionUtils;
 
 import android.os.Bundle;
@@ -13,7 +15,10 @@ import android.widget.TextView;
 import com.rns.tiffeat.mobile.adapter.ScheduledOrderListAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.Meal;
 
 public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstants {
 
@@ -39,6 +44,19 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		rootview = inflater.inflate(R.layout.fragment_scheduledorder_homescreen, container, false);
+
+		if (customer.getBalance() == null || customer.getBalance().compareTo(BigDecimal.TEN) < 0) {
+			CustomerUtils.alertbox(TIFFEAT, "Your balance is low", getActivity());
+			// if (!CollectionUtils.isEmpty(customer.getScheduledOrder()))
+			// {
+			// CustomerOrder customerOrder=new CustomerOrder();
+			// customerOrder= customer.getScheduledOrder().get(0);
+			// customerOrder.setMeal(new Meal());
+			// customerOrder.setCustomer(customer);
+			// Fragment fobj = new WalletFragment(customerOrder);
+			// CustomerUtils.nextFragment(fobj,getFragmentManager() , false);
+			// }
+		}
 
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
