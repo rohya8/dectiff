@@ -45,7 +45,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/orderbutton"
+            android:background="@drawable/orangebutton"
             android:text="Add Amount"
             android:textColor="#FFF" />
 
@@ -57,7 +57,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/orderbutton"
+            android:background="@drawable/orangebutton"
             android:text="Add Later"
             android:textColor="#FFF"
             android:visibility="gone" />

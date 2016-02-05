@@ -42,7 +42,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	private CustomerOrder customerOrder;
 
 
-	public GetVendorsForAreaAsynctask(FragmentActivity activity, ListView listview, TextView text, FirstTimeUse firstTimeUse, CustomerOrder customerOrder) {
+	public GetVendorsForAreaAsynctask(FragmentActivity activity, ListView listview, TextView text, CustomerOrder customerOrder) {
 		this.myactivity = activity;
 		this.list = listview;
 		this.customerOrder = customerOrder;

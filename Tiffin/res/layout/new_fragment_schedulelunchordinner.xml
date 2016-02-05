@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    android:background="#FFF"
+    android:background="#fff"
     android:gravity="center"
     android:padding="@dimen/activity_vertical_margin" >
 
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Change Order"
+            android:text="Schedule Lunch/Dinner"
             android:textColor="#000"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -26,27 +26,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:padding="5dp" >
 
             <TextView
-                android:id="@+id/changeorder_meal_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="left"
-                android:text="Meal"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/changeorder_meal"
+                android:id="@+id/new_schedulelunchordinner_from"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="iaskhdjaskjdasjd"
+                android:text="Schedule From:"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/new_schedulelunchordinner_from_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Date"
                 android:textColor="#000"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -59,35 +59,7 @@
             android:padding="5dp" >
 
             <TextView
-                android:id="@+id/changeorder_vendorname_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="left"
-                android:text="Price"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/changeorder_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:padding="5dp" >
-
-            <TextView
-                android:id="@+id/changeorder_location_textview"
+                android:id="@+id/new_schedulelunchordinner_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -96,47 +68,25 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/changeorder_location"
+            <AutoCompleteTextView
+                android:id="@+id/new_schedulelunchordinner_location_autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:text=""
+                android:dropDownWidth="wrap_content"
+                android:ems="10"
+                android:hint="Enter your loation"
+                android:padding="8dp"
                 android:textColor="#000"
-                android:textSize="15sp" />
-        </LinearLayout>
+                android:textSize="16sp"
+                android:windowSoftInputMode="stateHidden" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:padding="5dp" >
-
-            <TextView
-                android:id="@+id/changeorder_timing_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="left"
-                android:text="Timing"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/changeorder_timing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="15sp" />
+                <requestFocus />
+            </AutoCompleteTextView>
         </LinearLayout>
 
         <EditText
-            android:id="@+id/changeorder_address"
+            android:id="@+id/new_schedulelunchordinner_address_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -147,12 +97,10 @@
             android:padding="10dp"
             android:textColor="#000"
             android:textSize="16sp" >
-
-            <requestFocus />
         </EditText>
 
         <Button
-            android:id="@+id/changeorder_button"
+            android:id="@+id/new_schedulelunchordinner_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -160,7 +108,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/orangebutton"
             android:gravity="center"
-            android:text="Change Order"
+            android:text="Find Meals"
             android:textColor="#FFF"
             android:textSize="15sp" />
     </LinearLayout>

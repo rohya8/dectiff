@@ -40,7 +40,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/orderbutton"
+            android:background="@drawable/orangebutton"
             android:gravity="center"
             android:text="OK"
             android:textColor="#FFF"

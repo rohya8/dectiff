@@ -76,7 +76,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 						String area = actvAreas.getText().toString();
 						if (!TextUtils.isEmpty(area)) {
 							text.setVisibility(View.VISIBLE);
-							getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, FirstTimeUse.this, customerOrder);
+							getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, customerOrder);
 							getVendorsForAreaAsynctask.execute(area);
 
 						} else
@@ -96,7 +96,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 			return;
 		}
 		actvAreas.setText(customerOrder.getLocation().getAddress());
-		getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, FirstTimeUse.this, customerOrder);
+		getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, customerOrder);
 		getVendorsForAreaAsynctask.execute(customerOrder.getLocation().getAddress());
 	}
 
@@ -111,7 +111,7 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 	}
 
 	private void getNearbyPlaces() {
-		actvAreas.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
+		actvAreas.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.whitetext_list_item));
 		actvAreas.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {

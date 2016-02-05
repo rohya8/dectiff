@@ -226,7 +226,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/orderbutton"
+                android:background="@drawable/orangebutton"
                 android:text="Proceed"
                 android:textColor="#FFF" />
         </LinearLayout>

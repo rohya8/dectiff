@@ -13,7 +13,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/orderbutton"
+        android:background="@drawable/orangebutton"
         android:text="Make New Order"
         android:textColor="#fff" />
 

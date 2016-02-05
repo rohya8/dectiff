@@ -208,7 +208,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		case 0:
 			if (customer == null || TextUtils.isEmpty(customer.getEmail())) {
-				fragment = new FirstTimeUse();
+				fragment = new NewFirstTimeScreen();
 			}
 			break;
 
