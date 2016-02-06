@@ -1,6 +1,7 @@
 package com.rns.tiffeat.mobile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -17,25 +18,23 @@ import android.widget.TextView;
 import com.rns.tiffeat.mobile.adapter.NewListOfMealAdapter;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.Meal;
 
 public class NewListOfMeals extends Fragment implements AndroidConstants {
 
 	private ListView listview;
-	// private Vendor vendor;
-	// private TextView vendorName;
-	// private CustomerOrder customerOrder;
+	private CustomerOrder customerOrder;
 	private int lastTopValue = 1;
 	private View rootview;
 	private LinearLayout layout;
-	private ArrayList<String> object;
+	private List<Meal> mealobj;
 	private TextView meal, area;
+	private NewListOfMealAdapter adapter;
 
-	// public NewListOfMeals(Vendor vendorobj, CustomerOrder customerOrder) {
-	// this.vendor = vendorobj;
-	// this.customerOrder = customerOrder;
-	// }
-
-	public NewListOfMeals() {
+	public NewListOfMeals(CustomerOrder customerOrder, List<Meal> meals) {
+		this.customerOrder = customerOrder;
+		this.mealobj = meals;
 	}
 
 	@Override
@@ -46,27 +45,18 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		rootview = inflater.inflate(R.layout.new_fragment_listofmeal, container, false);
 
-		object = new ArrayList<String>();
-		object.add("abc");
-		object.add("qbc");
-		object.add("ebc");
-		object.add("tbc");
-		object.add("gbc");
-		object.add("acl");
-
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-			// NewListOfMealAdapter(getActivity(),
-			// R.layout.new_activity_list_of_meals_adapter, vendor.getMeals(),
-			// customerOrder);
-			NewListOfMealAdapter Adapter = new NewListOfMealAdapter(getActivity(), R.layout.new_activity_list_of_meals_adapter, object);
-			listview.setAdapter(Adapter);
+			adapter=new NewListOfMealAdapter(getActivity(), R.layout.new_activity_list_of_meals_adapter, mealobj, customerOrder);
+			// = new NewListOfMealAdapter(getActivity(),
+			// R.layout.new_activity_list_of_meals_adapter, );
 
 			LayoutInflater inflate = getActivity().getLayoutInflater();
 			ViewGroup header = (ViewGroup) inflate.inflate(R.layout.custom_header, listview, false);
 			listview.addHeaderView(header, null, false);
+			listview.setAdapter(adapter);
 			meal = (TextView) header.findViewById(R.id.new_list_of_meals_mealtype);
 			area = (TextView) header.findViewById(R.id.new_list_of_meals_area);
 			listview.setOnScrollListener(new OnScrollListener() {

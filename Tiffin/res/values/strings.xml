@@ -58,7 +58,18 @@
         <item>Lunch</item>
         <item>Dinner</item>
     </string-array>
-
+    <string-array name="spinner_timing2">
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Both (Lunch And Dinner)</item>
+    </string-array>
+    
+	<string-array name="spinner_format">
+        <item>try a meal</item>
+        <item>start daily tiffin service</item>
+    </string-array>
+    
+    
     <string name="title_activity_first_time_used_adapter">FirstTimeUsedAdapter</string>
     <string name="title_activity_list_of_meals_adapter">ListOfMealsAdapter</string>
     <string name="title_activity_scheduled_order">ScheduledOrder</string>

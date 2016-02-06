@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.mobile.FirstTimeUse;
+import com.rns.tiffeat.mobile.NewListOfMeals;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.adapter.FirstTimeUsedAdapter;
@@ -28,50 +29,47 @@ import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.Vendor;
 import com.rns.tiffeat.web.google.Location;
 
 public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
-	private FragmentActivity myactivity;
+	private FragmentActivity activity;
 	private ProgressDialog progressDialog;
-	private ListView list;
-	private TextView resultTextView;
-	private List<Vendor> vendors;
-	private GetMealsForVendorAsynctask getMealsForVendorAsynctask;
+	private List<Meal> meals;
 	private CustomerOrder customerOrder;
 
 
-	public GetVendorsForAreaAsynctask(FragmentActivity activity, ListView listview, TextView text, CustomerOrder customerOrder) {
-		this.myactivity = activity;
-		this.list = listview;
+	public GetVendorsForAreaAsynctask(FragmentActivity activity, CustomerOrder customerOrder) {
+		this.activity = activity;
 		this.customerOrder = customerOrder;
-		this.resultTextView = text;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(myactivity, "Getting Vendors", "Getting nearby vendors..");
+		progressDialog = UserUtils.showLoadingDialog(activity, "Getting your meal", "Getting nearby vendors..");
 	}
 
-	public List<Vendor> getVendors() {
-		return vendors;
+	public List<Meal> getMeals() {
+		return meals;
 	}
 
-	public void setVendors(List<Vendor> vendors) {
-		this.vendors = vendors;
+	public void setMeals(List<Meal> meals) {
+		this.meals = meals;
 	}
 
 	@Override
 	protected String doInBackground(String... params) {
 
-		if (!Validation.isNetworkAvailable(myactivity)) {
+		if (!Validation.isNetworkAvailable(activity)) {
 			return null;
 		}
 		try {
+			
 			String result = CustomerServerUtils.getVendorForArea(params[0]);
-			prepareCustomerOrder(params[0]);
+			
 			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -80,65 +78,27 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 
 	};
 
-	private void prepareCustomerOrder(String address) {
-		if (customerOrder == null) {
-			customerOrder = new CustomerOrder();
-		}
-		Location location = new Location();
-		location.setAddress(address);
-		customerOrder.setLocation(location);
-	}
-
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
 		progressDialog.dismiss();
 		if (result == null) {
-			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, myactivity);
+			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		}
 		Type typelist = new TypeToken<ArrayList<Vendor>>() {
 		}.getType();
-		vendors = new Gson().fromJson(result, typelist);
+		meals = new Gson().fromJson(result, typelist);
 
-		if (CollectionUtils.isEmpty(vendors)) {
-			resultTextView.setText(NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA);
-			list.setVisibility(View.GONE);
+		if (CollectionUtils.isEmpty(meals)) {
+			CustomerUtils.alertbox(TIFFEAT, NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA, activity);
 			return;
 		}
-		resultTextView.setText(" Vendors in this Area ");
-		prepareVendorListAdapter();
+		else{
+			Fragment fragment = new NewListOfMeals(customerOrder,meals);
+			CustomerUtils.nextFragment(fragment,activity.getSupportFragmentManager(), false);
+		}
 
-	}
-
-	public void prepareVendorListAdapter() {
-		FirstTimeUsedAdapter Adapter = new FirstTimeUsedAdapter(myactivity, R.layout.activity_first_time_used_adapter, getVendors());
-		resultTextView.setText(" Vendors in this Area ");
-		list.setVisibility(View.VISIBLE);
-		list.setVerticalFadingEdgeEnabled(true);
-		list.setAdapter(Adapter);
-
-		list.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-				try {
-					if (!Validation.isNetworkAvailable(myactivity)) {
-						Validation.showError(myactivity, ERROR_NO_INTERNET_CONNECTION);
-					} else {
-						Vendor vendor = (Vendor) parent.getAdapter().getItem(position);
-						getMealsForVendorAsynctask = new GetMealsForVendorAsynctask(myactivity, vendor, customerOrder);
-						getMealsForVendorAsynctask.execute();
-					}
-				} catch (Exception e) {
-					CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-					CustomerUtils.alertbox(TIFFEAT, "Please try again later!!", myactivity);
-					Fragment fragment = new FirstTimeUse();
-					CustomerUtils.nextFragment(fragment, myactivity.getSupportFragmentManager(), true);
-				}
-			}
-
-		});
 	}
 
 }

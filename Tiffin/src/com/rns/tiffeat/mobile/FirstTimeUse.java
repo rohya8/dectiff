@@ -76,8 +76,8 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 						String area = actvAreas.getText().toString();
 						if (!TextUtils.isEmpty(area)) {
 							text.setVisibility(View.VISIBLE);
-							getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, customerOrder);
-							getVendorsForAreaAsynctask.execute(area);
+//							getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, customerOrder);
+//							getVendorsForAreaAsynctask.execute(area);
 
 						} else
 							CustomerUtils.alertbox(TIFFEAT, "Please Enter Area ", getActivity());
@@ -96,8 +96,8 @@ public class FirstTimeUse extends Fragment implements AndroidConstants {
 			return;
 		}
 		actvAreas.setText(customerOrder.getLocation().getAddress());
-		getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, customerOrder);
-		getVendorsForAreaAsynctask.execute(customerOrder.getLocation().getAddress());
+//		getVendorsForAreaAsynctask = new GetVendorsForAreaAsynctask(getActivity(), listview, text, customerOrder);
+//		getVendorsForAreaAsynctask.execute(customerOrder.getLocation().getAddress());
 	}
 
 	private void initialise() {
