@@ -44,7 +44,7 @@ public interface AndroidConstants {
 
 	String ERROR_NO_INTERNET_CONNECTION = "No Internet connection";
 	String ERROR_FETCHING_DATA = "Error Fetching Data..... Please check internet connection and Try Again ";
-	String NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA = "No Vendors Currently available in this area ";
+	String NO_MEALS_CURRENTLY_AVAILABLE_IN_THIS_AREA = "No meals currently available in this area ";
 
 	String MODEL_RESULT = "result";
 	String DATE_FORMAT = "EEE, MMM d";

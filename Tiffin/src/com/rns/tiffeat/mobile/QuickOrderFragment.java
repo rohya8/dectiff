@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -29,12 +28,12 @@ import com.rns.tiffeat.web.bo.domain.PaymentType;
 
 public class QuickOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
-	private RadioButton lunch, dinner, codpayment, onlinepayment;
+	private RadioButton codpayment, onlinepayment;
 	private EditText address, phone;
-
-	private Button proceed;
+	private static int count=1;
+	private Button proceed, plus, minus;
 	private CustomerOrder customerOrder;
-	private TextView tiffindesc, name, emailid, amount;
+	private EditText tiffintitle, name, emailid, amount, quantity;
 	private View rootView;
 	Context context;
 	private Map<MealType, Date> availableMealType;
@@ -54,13 +53,17 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 		if (availableMealType.get(MealType.LUNCH) != null) {
 			address.setVisibility(View.VISIBLE);
-			lunch.setText("Lunch for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH)) + " )");
-			lunch.setVisibility(View.VISIBLE);
+			// lunch.setText("Lunch for ( " +
+			// CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH))
+			// + " )");
+			// lunch.setVisibility(View.VISIBLE);
 		}
 		if (availableMealType.get(MealType.DINNER) != null) {
 			address.setVisibility(View.VISIBLE);
-			dinner.setText("Dinner for ( " + CustomerUtils.convertDate(availableMealType.get(MealType.DINNER)) + " )");
-			dinner.setVisibility(View.VISIBLE);
+			// dinner.setText("Dinner for ( " +
+			// CustomerUtils.convertDate(availableMealType.get(MealType.DINNER))
+			// + " )");
+			// dinner.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -73,38 +76,40 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-			lunch.setOnClickListener(this);
-			dinner.setOnClickListener(this);
 			proceed.setOnClickListener(this);
 			codpayment.setOnClickListener(this);
 			onlinepayment.setOnClickListener(this);
+			plus.setOnClickListener(this);
+			minus.setOnClickListener(this);
 		}
 		return rootView;
 
 	}
 
 	private void initialise() {
-		lunch = (RadioButton) rootView.findViewById(R.id.quick_order_screen_radioButton_lunch);
-		dinner = (RadioButton) rootView.findViewById(R.id.quick_order_screen_radioButton_dinner);
-		codpayment = (RadioButton) rootView.findViewById(R.id.quick_order_screen_radioButton_cashondelivery);
-		onlinepayment = (RadioButton) rootView.findViewById(R.id.quick_order_screen_radioButton_onlinepayment);
+		codpayment = (RadioButton) rootView.findViewById(R.id.quickorder_screen_cashondelivery_radiobutton);
+		onlinepayment = (RadioButton) rootView.findViewById(R.id.quickorder_screen_onlinepayment_radiobutton);
+		quantity = (EditText) rootView.findViewById(R.id.quickorder_screen_textview_quantity);
+		address = (EditText) rootView.findViewById(R.id.quickorder_screen_lunchaddress_edittext);
+		tiffintitle = (EditText) rootView.findViewById(R.id.quickorder_screen_tiffintitle_edittext);
+		name = (EditText) rootView.findViewById(R.id.quickorder_screen_name_edittext);
+		emailid = (EditText) rootView.findViewById(R.id.quickorder_screen_email_edittext);
+		phone = (EditText) rootView.findViewById(R.id.quickorder_screen_phoneno_edittext);
+		amount = (EditText) rootView.findViewById(R.id.quickorder_screen_price_edittext);
+		proceed = (Button) rootView.findViewById(R.id.quickorder_screen_proceed_button);
+		plus = (Button) rootView.findViewById(R.id.quickorder_screen_quantity_plus_button);
+		minus = (Button) rootView.findViewById(R.id.quickorder_screen_quantity_minus_button);
 
-		address = (EditText) rootView.findViewById(R.id.quick_order_screen_editText_LunchAddress);
-		tiffindesc = (EditText) rootView.findViewById(R.id.quick_order_screen_editText_TiffinName);
-		name = (EditText) rootView.findViewById(R.id.quick_order_screen_editText_Name);
-		emailid = (EditText) rootView.findViewById(R.id.quick_order_screen_editText_Email);
-		phone = (EditText) rootView.findViewById(R.id.quick_order_screen_editText_Phoneno);
-		amount = (EditText) rootView.findViewById(R.id.quick_order_screen_editText_Price);
-		proceed = (Button) rootView.findViewById(R.id.quick_order_screen_proceed_button);
 		customerData();
-		getMealDate(availableMealType);
+		//getMealDate(availableMealType);
 	}
 
 	private void customerData() {
 
-		tiffindesc.setText(customerOrder.getMeal().getTitle());
+		tiffintitle.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
+		quantity.setText(count);
 
 		if (customerOrder.getAddress() != null)
 			address.setText(customerOrder.getAddress());
@@ -115,6 +120,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
 			phone.setHint("Enter Phone Number");
+
 		amount.setText(customerOrder.getMeal().getPrice().toString());
 
 	}
@@ -123,19 +129,8 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 	public void onClick(View view) {
 
 		switch (view.getId()) {
-		case R.id.quick_order_screen_radioButton_lunch:
-			dinner.setChecked(false);
-			address.setVisibility(View.VISIBLE);
-			address.setHint("Lunch Address");
-			break;
 
-		case R.id.quick_order_screen_radioButton_dinner:
-			lunch.setChecked(false);
-			address.setVisibility(View.VISIBLE);
-			address.setHint("Dinner Address");
-			break;
-
-		case R.id.quick_order_screen_proceed_button:
+		case R.id.quickorder_screen_proceed_button:
 
 			if (!Validation.isNetworkAvailable(getActivity())) {
 				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
@@ -146,8 +141,6 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 				if (TextUtils.isEmpty(address.getText())) {
 					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
-				} else if (!dinner.isChecked() && !lunch.isChecked()) {
-					CustomerUtils.alertbox(TIFFEAT, " Select Lunch Or Dinner ", getActivity());
 				} else if (TextUtils.isEmpty(address.getText()) || address.getText().toString().length() <= 8) {
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
 				} else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false) {
@@ -161,27 +154,44 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			}
 			break;
 
-		case R.id.quick_order_screen_radioButton_cashondelivery:
+		case R.id.quickorder_screen_cashondelivery_radiobutton:
 			onlinepayment.setChecked(false);
 			customerOrder.setPaymentType(PaymentType.CASH);
 			break;
 
-		case R.id.quick_order_screen_radioButton_onlinepayment:
+		case R.id.quickorder_screen_onlinepayment_radiobutton:
 			codpayment.setChecked(false);
 			customerOrder.setPaymentType(PaymentType.NETBANKING);
 			break;
 
+		case R.id.quickorder_screen_quantity_plus_button:
+			if(count<10){
+				count++;
+				quantity.setText(count);
+				amount.setText(""+cost());
+			}
+			break;
+
+		case R.id.quickorder_screen_quantity_minus_button:
+			if(count>1){
+				count--;
+				quantity.setText(count);
+				amount.setText(""+cost());
+			}
+			break;
 		default:
 			break;
 		}
 
 	}
 
+	private int cost() {
+		int cnt= Integer.parseInt(customerOrder.getMeal().getPrice().toString());
+		int quant=Integer.parseInt(quantity.getText().toString());
+		return cnt*quant;
+	}
+
 	private void prepareCustomerOrder() {
-		customerOrder.setMealType(MealType.LUNCH);
-		if (dinner.isChecked()) {
-			customerOrder.setMealType(MealType.DINNER);
-		}
 		customerOrder.getCustomer().setPhone(phone.getText().toString());
 		customerOrder.setDate(availableMealType.get(customerOrder.getMealType()));
 		customerOrder.setAddress(address.getText().toString());
