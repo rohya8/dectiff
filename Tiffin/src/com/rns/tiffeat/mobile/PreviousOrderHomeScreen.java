@@ -71,6 +71,10 @@ public class PreviousOrderHomeScreen extends Fragment implements AndroidConstant
 
 	private void initialise() {
 
+		if(customer == null) {
+			return;
+		}
+		
 		previouslistview = (ListView) rootView.findViewById(R.id.previousorder_homescreen_listView);
 		neworder = (Button) rootView.findViewById(R.id.previousorder_homescreen_neworder_button);
 		previousText = (TextView) rootView.findViewById(R.id.previousorder_homescreen_textView);

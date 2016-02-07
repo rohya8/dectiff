@@ -8,31 +8,34 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.rns.tiffeat.mobile.adapter.PlacesAutoCompleteAdapter;
-import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
+import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.google.Location;
 
 public class NewChangeOrderFragment extends Fragment implements AndroidConstants {
 
 	private View rootview;
-	private TextView meal, vendorname, timing;
 	private EditText address;
-	//private CustomerOrder customerOrder;
+	private CustomerOrder customerOrder;
 	private Button submit;
-	private AutoCompleteTextView location;
+	private AutoCompleteTextView googleLocation;
+	private TextView meal;
+	private TextView vendorname;
+	private TextView timing;
 
-//	public NewChangeOrderFragment(CustomerOrder customerOrder) {
-//		this.customerOrder = customerOrder;
-//	}
+	public NewChangeOrderFragment(CustomerOrder customerOrder) {
+		this.customerOrder = customerOrder;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class NewChangeOrderFragment extends Fragment implements AndroidConstants
 
 		initialise();
 
-		//		prepareScreen();
+		// prepareScreen();
 
 		submit.setOnClickListener(new OnClickListener() {
 
@@ -55,60 +58,61 @@ public class NewChangeOrderFragment extends Fragment implements AndroidConstants
 				if (!Validation.isNetworkAvailable(getActivity())) {
 					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					if (TextUtils.isEmpty(address.getText()) || address.getText().length() > 8)
+					if (TextUtils.isEmpty(address.getText())) {
 						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
-					else if(TextUtils.isEmpty(location.getText().toString()) || location.getText().toString().length()<8)
+						return;
+					} else if (TextUtils.isEmpty(googleLocation.getText().toString())) {
 						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Location", getActivity());
-						//						new ScheduleChangeOrderTask(getActivity(), customerOrder).execute();
-						//else
-
+						return;
+					}
+					prepareCustomerOrder();
+					new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
 				}
 			}
+
 		});
 
 		return rootview;
 
 	}
 
-	/*private void prepareScreen() {
-		if (customerOrder != null) {
-			if (customerOrder.getMeal().getTitle() != null)
-				meal.setText(customerOrder.getMeal().getTitle());
-
-			if (customerOrder.getMeal().getPrice() != null)
-				// price.setText(customerOrder.getMeal().getPrice().toString());
-
-				if (customerOrder.getLocation().getAddress() != null)
-					location.setText(customerOrder.getLocation().getAddress());
-
-			if (customerOrder.getMealType() != null)
-				timing.setText(customerOrder.getMealType().toString());
-
-			if (customerOrder.getAddress() != null)
-				address.setText(customerOrder.getAddress());
-			else
-				address.setHint("Enter Address");
-		}
+	private void prepareCustomerOrder() {
+		customerOrder.setAddress(address.getText().toString());
+		Location location = new Location();
+		location.setAddress(this.googleLocation.getText().toString());
+		customerOrder.setLocation(location);
 	}
-*/
+
 	private void initialise() {
 		meal = (TextView) rootview.findViewById(R.id.new_changeorder_meal_textview);
 		vendorname = (TextView) rootview.findViewById(R.id.new_changeorder_vendorname_textview);
-		location = (AutoCompleteTextView) rootview.findViewById(R.id.new_changeorder_location_autoCompleteTextView);
+		googleLocation = (AutoCompleteTextView) rootview.findViewById(R.id.new_changeorder_location_autoCompleteTextView);
 		timing = (TextView) rootview.findViewById(R.id.new_changeorder_mealtype_textview);
 		address = (EditText) rootview.findViewById(R.id.new_changeorder_address_edittext);
 		submit = (Button) rootview.findViewById(R.id.new_changeorder_button);
-		location.setThreshold(1);
-		location.setDropDownWidth(getResources().getDisplayMetrics().widthPixels);
+		googleLocation.setThreshold(1);
+		googleLocation.setDropDownWidth(getResources().getDisplayMetrics().widthPixels);
+		prepareScreen();
 		getNearbyPlaces();
 	}
 
+	private void prepareScreen() {
+		if(customerOrder == null || customerOrder.getMeal() == null || customerOrder.getMeal().getVendor() == null || customerOrder.getMealType() == null || customerOrder.getLocation() == null) {
+			return;
+		}
+		meal.setText(customerOrder.getMeal().getTitle());
+		vendorname.setText(customerOrder.getMeal().getVendor().getName());
+		timing.setText(customerOrder.getMealType().getDescription());
+		address.setText(customerOrder.getAddress());
+		googleLocation.setText(customerOrder.getLocation().getAddress());
+	}
+
 	private void getNearbyPlaces() {
-		location.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.blacktext_list_item));
-		location.setOnItemSelectedListener(new OnItemSelectedListener() {
+		googleLocation.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.blacktext_list_item));
+		googleLocation.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				location.setSelection(position);
+				googleLocation.setSelection(position);
 			}
 
 			@Override

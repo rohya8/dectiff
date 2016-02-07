@@ -1,6 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Rect;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,9 +25,8 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 	private CustomerOrder customerOrder;
 	private int lastTopValue = 1;
 	private View rootview;
-	private LinearLayout layout;
 	private List<Meal> mealobj;
-	private TextView meal, area;
+	private TextView meal;
 	private NewListOfMealAdapter adapter;
 
 	public NewListOfMeals(CustomerOrder customerOrder, List<Meal> meals) {
@@ -58,7 +55,7 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 			listview.addHeaderView(header, null, false);
 			listview.setAdapter(adapter);
 			meal = (TextView) header.findViewById(R.id.new_list_of_meals_mealtype);
-			area = (TextView) header.findViewById(R.id.new_list_of_meals_area);
+			//area = (TextView) header.findViewById(R.id.new_list_of_meals_area);
 			listview.setOnScrollListener(new OnScrollListener() {
 
 				@Override

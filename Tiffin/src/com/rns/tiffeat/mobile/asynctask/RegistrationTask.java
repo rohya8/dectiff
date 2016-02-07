@@ -52,18 +52,6 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			resultRegistration = CustomerServerUtils.customerRegistration(customerOrder.getCustomer());
 			customer = new Gson().fromJson(resultRegistration, Customer.class);
 
-			CustomerUtils.storeCurrentCustomer(mregistration, customer);
-
-			if (customerOrder.getMealFormat() == null) {
-				return resultRegistration;
-			}
-			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
-			Map<String, Object> customerorderavail = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
-
-			String customerOrderString = (String) customerorderavail.get(Constants.MODEL_CUSTOMER_ORDER);
-			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
-			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerorderavail.get(Constants.MODEL_MEAL_TYPE));
-
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
@@ -83,28 +71,20 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 			CustomerUtils.alertbox(TIFFEAT, "Registration failed due to : " + result, mregistration);
 			return;
 		}
-		if (customerOrder == null) {
-			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mregistration);
-			return;
-		}
-
+		CustomerUtils.storeCurrentCustomer(mregistration, customer);
 		customerOrder.setCustomer(customer);
-		nextActivity();
+		postLogin();
 	}
 
-	private void nextActivity() {
-		postLoginUtil();
-	}
-
-	private void postLoginUtil() {
+	private void postLogin() {
 		Fragment fragment = null;
 		if (customerOrder.getMealFormat() == null) {
 			new DrawerUpdateAsynctask(mregistration, customer).execute("");
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
-			fragment = new QuickOrderFragment(customerOrder, availableMealType);
+			fragment = new QuickOrderFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), false);
 		} else {
-			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
+			fragment = new ScheduledOrderFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), false);
 		}
 	}

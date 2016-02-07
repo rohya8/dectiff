@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -44,6 +43,10 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 	private ArrayAdapter<CharSequence> adapter, adapter1, adapter2;
 
 	public NewFirstTimeScreen() {
+	}
+
+	public NewFirstTimeScreen(CustomerOrder customerOrder2) {
+		this.customerOrder = customerOrder2;
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -182,8 +185,8 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View arg1, int arg2, long arg3) {
 
-				((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-				if (((TextView) parent.getChildAt(0)).getText().equals("try a meal")) {
+				TextView textView = (TextView) parent.getChildAt(0);
+				if (textView!=null && textView.getText().equals("try a meal")) {
 					adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_timing, android.R.layout.simple_spinner_item);
 					layout.setVisibility(View.VISIBLE);
 					from.setVisibility(View.GONE);

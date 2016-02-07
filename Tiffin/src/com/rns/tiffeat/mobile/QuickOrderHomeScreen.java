@@ -73,6 +73,10 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	}
 
 	private void initialise() {
+		if(customer == null) {
+			return;
+		}
+		
 		todaylistview = (ListView) view.findViewById(R.id.quickorder_homescreen_listView);
 		neworder = (Button) view.findViewById(R.id.quickorder_homescreen_button);
 		relativeLayout=(RelativeLayout) view.findViewById(R.id.quickorder_homescreen_layout);
@@ -116,7 +120,6 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
 		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
 		fontChanger.replaceFonts((ViewGroup) this.getView());
 	}

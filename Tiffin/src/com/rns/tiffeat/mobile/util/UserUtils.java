@@ -19,8 +19,6 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.rns.tiffeat.mobile.R;
-
 public class UserUtils implements AndroidConstants {
 	public static Bitmap getBitmapFromURL(String urlString) {
 		try {

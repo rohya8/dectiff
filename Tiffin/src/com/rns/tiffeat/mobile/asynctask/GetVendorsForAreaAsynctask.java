@@ -56,14 +56,12 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 			return null;
 		}
 		try {
-			// TODO:Change URL
-			String result = CustomerServerUtils.getVendorForArea(params[0]);
-
-			return result;
+			meals = CustomerServerUtils.getMealsForOrder(customerOrder);
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
+			return null;
 		}
-		return null;
+		return RESPONSE_OK;
 
 	};
 
@@ -75,9 +73,6 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, activity);
 			return;
 		}
-		Type typelist = new TypeToken<ArrayList<Vendor>>() {
-		}.getType();
-		meals = new Gson().fromJson(result, typelist);
 
 		if (CollectionUtils.isEmpty(meals)) {
 			CustomerUtils.alertbox(TIFFEAT, NO_MEALS_CURRENTLY_AVAILABLE_IN_THIS_AREA, activity);

@@ -45,7 +45,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 	private int RESULT_OK = 1;
 	private static final int RC_SIGN_IN = 0;
 	private boolean mIsResolving = false;
-	private boolean msignedIn = false;
 	private boolean msignedInClicked = false;
 	private SignInButton signinButton;
 
@@ -70,7 +69,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 
 				@Override
 				public void onClick(View v) {
-					msignedIn = true;
+					//msignedIn = true;
 					googlePlusSignIn();
 				}
 			});
@@ -206,25 +205,6 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 		new GoogleAccessToken().execute();
 	}
 
-	// private void getProfileInformation() {
-	//
-	// if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
-	// Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-	// customer.setEmail(Plus.AccountApi.getAccountName(mGoogleApiClient));
-	// customer.setName(person.getDisplayName());
-	// if (customerOrder == null) {
-	// customerOrder = new CustomerOrder();
-	// }
-	// customerOrder.setCustomer(customer);
-	// new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
-	// } else
-	// return;
-	//
-	// if (mGoogleApiClient.isConnected()) {
-	// Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-	// mGoogleApiClient.disconnect();
-	// }
-	// }
 
 	private void googlePlusSignIn() {
 		msignedInClicked = true;

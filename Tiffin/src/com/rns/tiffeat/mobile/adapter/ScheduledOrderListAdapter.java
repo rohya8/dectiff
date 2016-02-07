@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.FirstTimeUse;
+import com.rns.tiffeat.mobile.NewChangeOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
@@ -287,13 +288,12 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		cancelOrderTask.execute("");
 	}
 
-	private void switchOrder(CustomerOrder customerOrder1) {
+	private void switchOrder(CustomerOrder customerOrder) {
 
-		customerOrder1.setId(customerOrder1.getCustomerOrderId());
-		customerOrder1.setCustomer(customer);
+		customerOrder.setId(customerOrder.getCustomerOrderId());
+		customerOrder.setCustomer(customer);
 		Fragment fragment = null;
-
-		fragment = new FirstTimeUse(customerOrder1);
+		fragment = new NewChangeOrderFragment(customerOrder);
 		CustomerUtils.nextFragment(fragment, scheduledOrderFragment.getSupportFragmentManager(), true);
 	}
 

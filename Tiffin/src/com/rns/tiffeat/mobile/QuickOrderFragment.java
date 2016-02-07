@@ -30,17 +30,15 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 	private RadioButton codpayment, onlinepayment;
 	private EditText address, phone;
-	private static int count=1;
+	private static int count = 1;
 	private Button proceed, plus, minus;
 	private CustomerOrder customerOrder;
 	private EditText tiffintitle, name, emailid, amount, quantity;
 	private View rootView;
 	Context context;
-	private Map<MealType, Date> availableMealType;
 
-	public QuickOrderFragment(CustomerOrder customerOrder, Map<MealType, Date> availableMealType) {
+	public QuickOrderFragment(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
-		this.availableMealType = availableMealType;
 	}
 
 	@Override
@@ -49,23 +47,6 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 	}
 
-	private void getMealDate(Map<MealType, Date> availableMealType) {
-
-		if (availableMealType.get(MealType.LUNCH) != null) {
-			address.setVisibility(View.VISIBLE);
-			// lunch.setText("Lunch for ( " +
-			// CustomerUtils.convertDate(availableMealType.get(MealType.LUNCH))
-			// + " )");
-			// lunch.setVisibility(View.VISIBLE);
-		}
-		if (availableMealType.get(MealType.DINNER) != null) {
-			address.setVisibility(View.VISIBLE);
-			// dinner.setText("Dinner for ( " +
-			// CustomerUtils.convertDate(availableMealType.get(MealType.DINNER))
-			// + " )");
-			// dinner.setVisibility(View.VISIBLE);
-		}
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,7 +82,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		minus = (Button) rootView.findViewById(R.id.quickorder_screen_quantity_minus_button);
 
 		customerData();
-		//getMealDate(availableMealType);
+		// getMealDate(availableMealType);
 	}
 
 	private void customerData() {
@@ -109,8 +90,8 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		tiffintitle.setText(customerOrder.getMeal().getTitle());
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
-		quantity.setText(count);
-
+		quantity.setText(String.valueOf(count));
+		//TODO: Show Meal type
 		if (customerOrder.getAddress() != null)
 			address.setText(customerOrder.getAddress());
 		else
@@ -165,18 +146,18 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			break;
 
 		case R.id.quickorder_screen_quantity_plus_button:
-			if(count<10){
+			if (count < 5) {
 				count++;
-				quantity.setText(count);
-				amount.setText(""+cost());
+				quantity.setText(String.valueOf(count));
+				amount.setText("" + cost());
 			}
 			break;
 
 		case R.id.quickorder_screen_quantity_minus_button:
-			if(count>1){
+			if (count > 1) {
 				count--;
-				quantity.setText(count);
-				amount.setText(""+cost());
+				quantity.setText(String.valueOf(count));
+				amount.setText("" + cost());
 			}
 			break;
 		default:
@@ -185,15 +166,14 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 	}
 
-	private int cost() {
-		int cnt= Integer.parseInt(customerOrder.getMeal().getPrice().toString());
-		int quant=Integer.parseInt(quantity.getText().toString());
-		return cnt*quant;
+	private float cost() {
+		float cnt = Float.parseFloat(customerOrder.getMeal().getPrice().toString());
+		float quant = Float.parseFloat(quantity.getText().toString());
+		return cnt * quant;
 	}
 
 	private void prepareCustomerOrder() {
 		customerOrder.getCustomer().setPhone(phone.getText().toString());
-		customerOrder.setDate(availableMealType.get(customerOrder.getMealType()));
 		customerOrder.setAddress(address.getText().toString());
 	}
 

@@ -42,7 +42,6 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 		}
 		try {
 			result1 = CustomerServerUtils.changeOrder(customerOrder);
-
 			return result1;
 
 		} catch (Exception e) {
@@ -67,7 +66,7 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 
 		if (!result1.equals("OK")) {
 			CustomerUtils.alertbox(TIFFEAT, "You can't order this meal!!", mchangeorder);
-			homeActivity();
+			//homeActivity();
 		} else if (result1.equals("OK")) {
 			CustomerUtils.alertbox(TIFFEAT, "Change Order Successful !! ", mchangeorder);
 			nextActivity();
@@ -79,7 +78,6 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 
 		Fragment fragment = null;
 		fragment = new ScheduledOrderHomeScreen(customerOrder.getCustomer());
-
 		CustomerUtils.nextFragment(fragment, mchangeorder.getSupportFragmentManager(), false);
 	}
 
@@ -89,7 +87,6 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 		CustomerUtils.clearFragmentStack(mchangeorder.getSupportFragmentManager());
 		Fragment fragment = null;
 		fragment = new ScheduledOrderHomeScreen(customer);
-
 		CustomerUtils.nextFragment(fragment, mchangeorder.getSupportFragmentManager(), false);
 
 	}

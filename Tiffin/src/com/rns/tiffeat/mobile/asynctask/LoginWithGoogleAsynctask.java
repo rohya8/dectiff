@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
@@ -21,7 +20,6 @@ import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 import com.rns.tiffeat.web.bo.domain.MealType;
-import com.rns.tiffeat.web.util.Constants;
 
 public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
@@ -53,16 +51,6 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 		try {
 			resultLogin = CustomerServerUtils.customerLoginWithGoogle(customerOrder.getCustomer());
 			customerlogin = new Gson().fromJson(resultLogin, Customer.class);
-			customerOrder.setCustomer(customerlogin);
-			CustomerUtils.storeCurrentCustomer(mGoogleLogin, customerlogin);
-			availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
-
-			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
-
-			String customerOrderString = (String) customerOrderVailableMealTypesMap.get(Constants.MODEL_CUSTOMER_ORDER);
-			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));
-
-			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);
 
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -77,34 +65,29 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 			Validation.showError(mGoogleLogin, ERROR_FETCHING_DATA);
 			return;
 		}
-
 		if (customerlogin == null) {
 			Validation.showError(mGoogleLogin, "Please Try Again Later");
 			return;
 		}
-		if (customerOrder == null) {
-			Validation.showError(mGoogleLogin, ERROR_FETCHING_DATA);
-			return;
+		CustomerUtils.storeCurrentCustomer(mGoogleLogin, customerlogin);
+		if (customerOrder != null) {
+			customerOrder.setCustomer(customerlogin);
 		}
-		customerOrder.setCustomer(customerlogin);
 		nextActivity();
 
 	};
 
 	private void nextActivity() {
-
 		Fragment fragment = null;
-
-		if (customerOrder.getMealFormat() == null) {
+		if (customerOrder == null || customerOrder.getMealFormat() == null) {
 			new DrawerUpdateAsynctask(mGoogleLogin, customerlogin).execute("");
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
-			fragment = new QuickOrderFragment(customerOrder, availableMealType);
+			fragment = new QuickOrderFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, mGoogleLogin.getSupportFragmentManager(), false);
 		} else {
-			fragment = new ScheduledOrderFragment(customerOrder, availableMealType);
+			fragment = new ScheduledOrderFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, mGoogleLogin.getSupportFragmentManager(), false);
 		}
-
 	}
 
 }

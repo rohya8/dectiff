@@ -1,6 +1,7 @@
 package com.rns.tiffeat.mobile.util;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import android.util.Log;
 
+import com.google.android.gms.internal.or;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -85,7 +87,7 @@ public class CustomerServerUtils implements AndroidConstants {
 
 	public static String scheduledOrder(CustomerOrder customerOrderObject) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
-			removeCircularReferences(customerOrderObject);
+		removeCircularReferences(customerOrderObject);
 		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrderObject, CustomerOrder.class));
 		result = CoreServerUtils.serverCall(CUSTOMER_SCHEDULED_ORDER_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
@@ -217,6 +219,15 @@ public class CustomerServerUtils implements AndroidConstants {
 		if (meal.getLunchMenu() == null) {
 			return;
 		}
+	}
+	
+	public static List<Meal> getMealsForOrder(CustomerOrder order) {
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		removeCircularReferences(order);
+		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(order));
+		result = CoreServerUtils.serverCall(GET_MEALS_FOR_ORDER, uriVariables, HttpMethod.POST).getBody();
+		Type typelist = new TypeToken<ArrayList<Meal>>() {}.getType();
+		return new Gson().fromJson(result, typelist);
 	}
 
 }

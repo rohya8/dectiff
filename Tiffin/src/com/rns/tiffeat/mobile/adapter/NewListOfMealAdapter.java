@@ -2,10 +2,12 @@ package com.rns.tiffeat.mobile.adapter;
 
 import java.util.List;
 
-import android.app.Dialog;
+import org.apache.commons.collections.CollectionUtils;
+
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,29 +16,33 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.apache.commons.collections.CollectionUtils;
 
+import com.rns.tiffeat.mobile.ChangeOrderFragment;
 import com.rns.tiffeat.mobile.LoginFragment;
+import com.rns.tiffeat.mobile.NewScheduleLunchOrDinnerFragment;
+import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
+import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.Validation;
+import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
+import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
+import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidConstants {
 
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
 	private Meal meal;
-	private Dialog alertDialog = null;
 	private FragmentActivity activity;
 
 	public class ViewHolder {
 
-		TextView tiffintitle, tiffinprice,vendorname;
+		TextView tiffintitle, tiffinprice, vendorname;
 		ImageView foodimage;
 		Button order;
 
@@ -49,8 +55,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		}
 	}
 
-	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
-			CustomerOrder customerOrder) {
+	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
@@ -91,11 +96,11 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if(meal.getTitle().toString()!=null)
+		if (meal.getTitle().toString() != null)
 			holder.tiffintitle.setText(meal.getTitle().toString());
-		if(meal.getPrice()!=null)
+		if (meal.getPrice() != null)
 			holder.tiffinprice.setText("Rs. " + meal.getPrice());
-		if(meal.getVendor()!=null)
+		if (meal.getVendor() != null)
 			holder.vendorname.setText(meal.getVendor().getName());
 
 		holder.order.setTag(position);
@@ -112,21 +117,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			}
 
 		});
-		// holder.menu.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// if (!Validation.isNetworkAvailable(activity)) {
-		// Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
-		// } else {
-		// int pos = (Integer) v.getTag();
-		// showMenu(pos);
-		//
-		// }
-		// }
-		//
-		// });
-
 		return convertView;
 
 	}
@@ -137,20 +127,30 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			customerOrder.setMeal(returnMeal(position));
-
-			//			if (customerOrder != null && customerOrder.getMealFormat() != null) {
-			//				new ExistingUserAsyncTask(activity, customerOrder).execute();
-			//				return;
-			//			}
-			loginActivity();
+			nextActivity();
 
 		}
 	}
 
-	private void loginActivity() {
-		Fragment fragment;
-		fragment = new LoginFragment(customerOrder);
-		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+	private void nextActivity() {
+		Fragment fragment = null;
+
+		if (customerOrder.getCustomer() == null) {
+			fragment = new LoginFragment(customerOrder);
+			CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+			return;
+		}
+		if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()) && customerOrder.getId() != 0) {
+			new ScheduleChangeOrderTask(activity, customerOrder).execute();
+		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			customerOrder.setDate(customerOrder.getMeal().getAvailableFrom());
+			fragment = new ScheduledOrderFragment(customerOrder);
+		} else {
+			fragment = new QuickOrderFragment(customerOrder);
+		}
+		if (fragment != null) {
+			CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+		}
 	}
 
 	private Meal returnMeal(int position) {
@@ -160,51 +160,4 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		return meals.get(position);
 	}
 
-	/*	private void showMenu(final int position) {
-
-		alertDialog = new Dialog(activity);
-		alertDialog.setContentView(R.layout.activity_mealtype);
-		alertDialog.setTitle("Select Meal Type");
-		alertDialog.setCancelable(true);
-
-		final RadioButton lunch = (RadioButton) alertDialog.findViewById(R.id.mealtype_lunch_radioButton);
-		final RadioButton dinner = (RadioButton) alertDialog.findViewById(R.id.mealtype_dinner_radioButton);
-
-		lunch.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				lunch.setChecked(false);
-				alertDialog.dismiss();
-				viewMealMenu(position, MealType.LUNCH);
-			}
-
-		});
-
-		dinner.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				dinner.setChecked(false);
-				alertDialog.dismiss();
-				viewMealMenu(position, MealType.DINNER);
-			}
-		});
-
-		alertDialog.show();
-	}
-
-	private void viewMealMenu(final int position, MealType mealType) {
-		if (customerOrder == null) {
-			customerOrder = new CustomerOrder();
-		}
-		customerOrder.setMeal(returnMeal(position));
-		customerOrder.setMealType(mealType);
-		nextActivity(customerOrder);
-	}
-
-	private void nextActivity(CustomerOrder custOrder) {
-		new GetMenuAndroidAsyncTask(activity, custOrder).execute();
-	}
-	 */
 }

@@ -40,20 +40,13 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		if (!Validation.isNetworkAvailable(previousActivity)) {
 			return null;
 		}
+		String result = "";
 		try {
-
-			String result = new Gson().fromJson(CustomerServerUtils.scheduledOrder(scheduledOrder), String.class);
-			if ("OK".equals(result)) {
-				currentCustomer = CustomerServerUtils.getCurrentCustomer(scheduledOrder.getCustomer());
-				CustomerUtils.storeCurrentCustomer(previousActivity, currentCustomer);
-				return result;
-			}
-			return result;
-
+			result = CustomerServerUtils.scheduledOrder(scheduledOrder);
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-			return null;
 		}
+		return result;
 
 	}
 
@@ -63,7 +56,6 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 		progressDialog.dismiss();
 		if (result == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, previousActivity);
-			//Validation.showError(previousActivity, ERROR_FETCHING_DATA);
 			return;
 		}
 
@@ -78,8 +70,7 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 	}
 
 	private void nextActivity() {
-		currentCustomer.setRegId("SCHEDULE");		
-		new DrawerUpdateAsynctask(previousActivity, currentCustomer).execute("");
+		new DrawerUpdateAsynctask(previousActivity, currentCustomer).execute();
 	}
 
 }
