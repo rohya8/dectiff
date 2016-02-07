@@ -8,13 +8,14 @@ public interface AndroidConstants {
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "TiffEAT";
 	// String ROOT_URL = "http://d5fb94c7.ngrok.io/tiffeat-web/";
-	String ROOT_URL = "http://192.168.0.13:8080/tiffeat-web/";
+	String ROOT_URL = "http://192.168.1.102:8080/tiffeat-web/";
 	//String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
 	String MEAL_OBJECT = "meal";
 
 	String GET_VENDORS_FOR_AREA = ROOT_URL + "getVendorsForAreaAndroid?pinCode={pinCode}";
+	String GET_MEALS_FOR_ORDER = ROOT_URL + "getMealsAndroid?customerOrder={customerOrderObject}";
 	String GET_MEALS_FOR_VENDORS = ROOT_URL + "getVendorMealsAndroid?vendor={vendor}";
 	String CUSTOMER_REGISTRATION = ROOT_URL + "registerCustomerAndroid?customer={customer}";
 	String CUSTOMER_QUICK_ORDER_URL = ROOT_URL + "quickOrderAndroid?customerOrder={customerOrderObject}";
@@ -44,7 +45,7 @@ public interface AndroidConstants {
 
 	String ERROR_NO_INTERNET_CONNECTION = "No Internet connection";
 	String ERROR_FETCHING_DATA = "Error Fetching Data..... Please check internet connection and Try Again ";
-	String NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA = "No Vendors Currently available in this area ";
+	String NO_MEALS_CURRENTLY_AVAILABLE_IN_THIS_AREA = "No meals currently available in this area ";
 
 	String MODEL_RESULT = "result";
 	String DATE_FORMAT = "EEE, MMM d";
