@@ -18,7 +18,7 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/quick_order_screen_editText_TiffinName"
+                android:id="@+id/quickorder_screen_tiffintitle_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -37,7 +37,7 @@
             </EditText>
 
             <EditText
-                android:id="@+id/quick_order_screen_editText_Name"
+                android:id="@+id/quickorder_screen_name_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -56,7 +56,7 @@
             </EditText>
 
             <EditText
-                android:id="@+id/quick_order_screen_editText_Email"
+                android:id="@+id/quickorder_screen_email_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -74,7 +74,7 @@
                 android:textColor="#FF5722" />
 
             <EditText
-                android:id="@+id/quick_order_screen_editText_Price"
+                android:id="@+id/quickorder_screen_price_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -91,7 +91,7 @@
                 android:textColor="#FF5722" />
 
             <EditText
-                android:id="@+id/quick_order_screen_editText_Phoneno"
+                android:id="@+id/quickorder_screen_phoneno_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -112,67 +112,80 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearlayout_1"
+            android:id="@+id/linearlayout_quatity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearlayout_main"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/quick_order_screen_textview_address"
+                android:id="@+id/quickorder_screen_textview_quant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:ems="10"
-                android:text=" Type Of Meal "
+                android:text=" Quantity "
                 android:textColor="#000"
                 android:textSize="15sp" />
 
-            <RadioGroup
-                android:id="@+id/radioGroup1"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+            <LinearLayout
+                android:id="@+id/linearlayout_quant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
 
-                <LinearLayout
-                    android:id="@+id/linearlayout_3"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/quickorder_screen_quantity_plus_button"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_address"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical" >
+                    android:layout_marginRight="10dp"
+                    android:text=" + "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-                    <RadioButton
-                        android:id="@+id/quick_order_screen_radioButton_lunch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:text=" Lunch "
-                        android:visibility="gone" />
+                <EditText
+                    android:id="@+id/quickorder_screen_textview_quantity"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/rounded"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text=" 1 "
+                    android:textColor="#FF5722"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-                    <RadioButton
-                        android:id="@+id/quick_order_screen_radioButton_dinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:text=" Dinner "
-                        android:visibility="gone" />
-                </LinearLayout>
-            </RadioGroup>
+                <Button
+                    android:id="@+id/quickorder_screen_quantity_minus_button"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text=" - "
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearlayout_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearlayout_1"
+            android:layout_below="@+id/linearlayout_quatity"
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/quick_order_screen_editText_LunchAddress"
+                android:id="@+id/quickorder_screen_lunchaddress_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -220,14 +233,14 @@
                         android:orientation="horizontal" >
 
                         <RadioButton
-                            android:id="@+id/quick_order_screen_radioButton_onlinepayment"
+                            android:id="@+id/quickorder_screen_onlinepayment_radiobutton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text=" Online Payment " />
 
                         <RadioButton
-                            android:id="@+id/quick_order_screen_radioButton_cashondelivery"
+                            android:id="@+id/quickorder_screen_cashondelivery_radiobutton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -237,16 +250,19 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/quick_order_screen_proceed_button"
+                android:id="@+id/quickorder_screen_proceed_button"
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/orangebutton"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/menubutton"
                 android:text="Proceed"
-                android:textColor="#fff" />
+                android:textColor="#FFf"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:typeface="serif" />
         </LinearLayout>
     </RelativeLayout>
 

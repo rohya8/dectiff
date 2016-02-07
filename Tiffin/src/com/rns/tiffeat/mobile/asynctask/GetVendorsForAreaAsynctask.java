@@ -10,20 +10,11 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.NewListOfMeals;
-import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.Validation;
-import com.rns.tiffeat.mobile.adapter.FirstTimeUsedAdapter;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -31,7 +22,6 @@ import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.Vendor;
-import com.rns.tiffeat.web.google.Location;
 
 public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
@@ -39,7 +29,6 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	private ProgressDialog progressDialog;
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
-
 
 	public GetVendorsForAreaAsynctask(FragmentActivity activity, CustomerOrder customerOrder) {
 		this.activity = activity;
@@ -67,9 +56,9 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 			return null;
 		}
 		try {
-			
+			// TODO:Change URL
 			String result = CustomerServerUtils.getVendorForArea(params[0]);
-			
+
 			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -91,14 +80,12 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 		meals = new Gson().fromJson(result, typelist);
 
 		if (CollectionUtils.isEmpty(meals)) {
-			CustomerUtils.alertbox(TIFFEAT, NO_VENDORS_CURRENTLY_AVAILABLE_IN_THIS_AREA, activity);
+			CustomerUtils.alertbox(TIFFEAT, NO_MEALS_CURRENTLY_AVAILABLE_IN_THIS_AREA, activity);
 			return;
-		}
-		else{
-			Fragment fragment = new NewListOfMeals(customerOrder,meals);
-			CustomerUtils.nextFragment(fragment,activity.getSupportFragmentManager(), false);
+		} else {
+			Fragment fragment = new NewListOfMeals(customerOrder, meals);
+			CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
 		}
 
 	}
-
 }
