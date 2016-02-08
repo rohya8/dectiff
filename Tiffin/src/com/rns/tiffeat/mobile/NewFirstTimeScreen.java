@@ -110,7 +110,6 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 
 							new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
 
-					
 						} else
 							CustomerUtils.alertbox(TIFFEAT, "Please Enter Area ", getActivity());
 					}
@@ -186,7 +185,7 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 			public void onItemSelected(AdapterView<?> parent, View arg1, int arg2, long arg3) {
 
 				TextView textView = (TextView) parent.getChildAt(0);
-				if (textView!=null && textView.getText().equals("try a meal")) {
+				if (textView != null && textView.getText().equals("try a meal")) {
 					adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_timing, android.R.layout.simple_spinner_item);
 					layout.setVisibility(View.VISIBLE);
 					from.setVisibility(View.GONE);

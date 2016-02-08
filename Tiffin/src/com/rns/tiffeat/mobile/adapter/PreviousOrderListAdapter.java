@@ -4,20 +4,16 @@ import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.PreviousOrderHomeScreen;
-import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.asynctask.PreviousOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -51,7 +47,6 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 	public class ViewHolder {
 		TextView title, tiffintype, price, date;
 		ImageView foodimage;
-		TextView repeatorderButton;
 		boolean viewMenuClicked;
 
 		public void setViewMenuClicked(boolean viewMenuClicked) {
@@ -98,14 +93,11 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.previousorder_list_adapter_imageview);
 			holder.foodimage = mealImageView;
 			new PreviousOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
-			holder.repeatorderButton = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_repeatorder_button);
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
-		holder.repeatorderButton.setTag(position);
 
 		if (customerOrder.getMeal().getTitle() != null)
 			holder.title.setText(customerOrder.getMeal().getTitle());
@@ -116,22 +108,7 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 		if (customerOrder.getDate() != null)
 			holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
-		holder.repeatorderButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				int pos = (Integer) v.getTag();
-				customerOrder = previousOrders.get(pos);
-				customerOrder.setCustomer(customer);
-				repeatActivity(customerOrder);
-			}
-		});
 		return convertView;
 	}
 
-	private void repeatActivity(CustomerOrder customerOrder2) {
-		customerOrder2.setId(0);
-		Fragment fragment = null;
-		fragment = new SelectType(customerOrder2);
-		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
-	}
 }

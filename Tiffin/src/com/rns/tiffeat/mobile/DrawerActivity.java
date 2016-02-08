@@ -71,6 +71,23 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			}
 
 		}
+
+		if (customer != null) {
+			if (customer.getQuickOrders()!=null && customer.getQuickOrders().size() > 1) {
+				Fragment fragment = null;
+				fragment = new QuickOrderHomeScreen(customer);
+				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				return;
+			} else if (customer.getScheduledOrder()!=null && customer.getScheduledOrder().size() > 1) {
+				Fragment fragment = null;
+				fragment = new ScheduledOrderHomeScreen(customer);
+				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				return;
+			}
+
+		}
+
+
 		displayView(0);
 	}
 
@@ -88,7 +105,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			newUserDrawer(position);
 			return;
 		}
-		if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders()) || !CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+		if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())
+				|| !CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 			loggedInUserDrawer(position);
 			return;
 		}
@@ -215,8 +233,8 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 	}
 
 	private boolean isFragmentToBeAddedToBackStack(Fragment fragment) {
-		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment || fragment instanceof QuickOrderHomeScreen
-				|| fragment instanceof ScheduledOrderHomeScreen;
+		return fragment instanceof TermsFragment || fragment instanceof ContactusFragment || fragment instanceof AboutUsFragment
+				|| fragment instanceof QuickOrderHomeScreen || fragment instanceof ScheduledOrderHomeScreen;
 	}
 
 	public void setContentView(View view) {

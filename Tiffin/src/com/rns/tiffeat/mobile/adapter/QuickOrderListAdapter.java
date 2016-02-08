@@ -56,7 +56,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	public class ViewHolder {
-		TextView title, tiffintype, repeatorder, mealStatus, date, orderStatus;
+		TextView title, tiffintype, mealStatus, date, orderStatus;
 		ImageView foodimage;
 		TextView viewmenuButton;
 
@@ -97,8 +97,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_meal_status_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
-			holder.repeatorder = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_repeatorder_button);
-			
+
 			convertView.setTag(holder);
 
 		} else {
@@ -107,7 +106,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 
 		holder.orderStatus.setTag(position);
 		holder.viewmenuButton.setTag(position);
-		holder.repeatorder.setTag(position);
 
 		if (customerOrder == null) {
 			return convertView;
@@ -117,7 +115,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.title.setText(customerOrder.getMeal().getTitle());
 
 		if (customerOrder.getMealType() != null) {
-			holder.tiffintype.setText("Meal timing : "+customerOrder.getMealType().getDescription());
+			holder.tiffintype.setText("Meal timing : " + customerOrder.getMealType().getDescription());
 		}
 
 		if (OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
@@ -136,18 +134,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 				int pos = (Integer) v.getTag();
 				showMenu(pos);
 			}
-		});
-
-		holder.repeatorder.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				int pos = (Integer) v.getTag();
-				customerOrder = quickOrders.get(pos);
-				customerOrder.setCustomer(customer);
-				repeatOrder(customerOrder);
-			}
-
 		});
 
 		return convertView;
@@ -187,14 +173,6 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		customerOrder = quickOrders.get(position);
 		customerOrder.setCustomer(customer);
 		new GetMealMenuAsyncTask(activity, "QuickOrder", null, customerOrder).execute();
-	}
-
-	private void repeatOrder(CustomerOrder customerOrder) {
-		customerOrder.setId(0);
-		customerOrder.setCustomer(customer);
-		Fragment fragment = null;
-		fragment = new SelectType(customerOrder);
-		CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), false);
 	}
 
 }

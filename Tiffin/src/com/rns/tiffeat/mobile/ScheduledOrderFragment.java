@@ -1,10 +1,6 @@
 package com.rns.tiffeat.mobile;
 
-import java.util.Date;
-import java.util.Map;
-
 import android.content.DialogInterface;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,21 +11,19 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ValidateScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class ScheduledOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
-	//private RadioButton lunch, dinner, both;
-	private EditText lunchaddr, phone;
+	// private RadioButton lunch, dinner, both;
+	private EditText lunchaddr, phone, mealtype;
 	private CustomerOrder customerOrder;
-	private TextView tiffindesc, name, emailid;
+	private EditText tiffindesc, name, emailid;
 	private View rootView;
 	private Button proceed;
 
@@ -61,19 +55,18 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	private void initialise() {
 
 		lunchaddr = (EditText) rootView.findViewById(R.id.scheduled_order_editText_LunchAddress);
-
-		tiffindesc = (TextView) rootView.findViewById(R.id.scheduled_order_editText_TiffinName);
-		name = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Name);
-		emailid = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Email);
+		mealtype = (EditText) rootView.findViewById(R.id.scheduled_order_mealtype_editText);
+		tiffindesc = (EditText) rootView.findViewById(R.id.scheduled_order_editText_TiffinName);
+		name = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Name);
+		emailid = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Email);
 		phone = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
 		proceed = (Button) rootView.findViewById(R.id.scheduled_order_proceed_button);
 
 		customerData();
-		//getMealDate(availableMealType);
 	}
 
 	private void customerData() {
-		
+
 		if (customerOrder.getMeal() == null || customerOrder.getCustomer() == null) {
 			return;
 		}
@@ -82,9 +75,10 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		emailid.setText(customerOrder.getCustomer().getEmail());
 		lunchaddr.setVisibility(View.VISIBLE);
 		lunchaddr.setHint("Enter Address");
-		
-		//TODO: Meal type to be displayed
-		
+
+		if (customerOrder.getMealType() != null)
+			mealtype.setText(customerOrder.getMealType().toString());
+
 		if (customerOrder.getAddress() != null)
 			lunchaddr.setText(customerOrder.getAddress());
 		else
@@ -143,7 +137,8 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 				if (!Validation.isNetworkAvailable(getActivity())) {
 					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					if (customerOrder.getCustomer().getBalance() == null || customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
+					if (customerOrder.getCustomer().getBalance() == null
+							|| customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
 						new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
 					else
 						new ScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
@@ -153,28 +148,6 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		});
 
 		builder.show();
-	}
-
-	private void homeActivity() {
-
-		getActivity().runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				final Handler handler = new Handler();
-				handler.postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						Fragment fragment = null;
-						fragment = new ScheduledOrderHomeScreen(customerOrder.getCustomer());
-						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
-
-					}
-				}, 2000);
-			}
-
-		});
-
 	}
 
 }

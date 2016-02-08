@@ -1,8 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import java.util.Date;
-import java.util.Map;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -23,7 +20,6 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
 
 public class QuickOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
@@ -33,7 +29,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 	private static int count = 1;
 	private Button proceed, plus, minus;
 	private CustomerOrder customerOrder;
-	private EditText tiffintitle, name, emailid, amount, quantity;
+	private EditText tiffintitle, name, emailid, amount, quantity, mealtype;
 	private View rootView;
 	Context context;
 
@@ -46,7 +42,6 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		super.onCreate(savedInstanceState);
 
 	}
-
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,9 +75,9 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		proceed = (Button) rootView.findViewById(R.id.quickorder_screen_proceed_button);
 		plus = (Button) rootView.findViewById(R.id.quickorder_screen_quantity_plus_button);
 		minus = (Button) rootView.findViewById(R.id.quickorder_screen_quantity_minus_button);
+		mealtype = (EditText) rootView.findViewById(R.id.quickorder_screen_mealtype_edittext);
 
 		customerData();
-		// getMealDate(availableMealType);
 	}
 
 	private void customerData() {
@@ -91,11 +86,14 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		name.setText(customerOrder.getCustomer().getName());
 		emailid.setText(customerOrder.getCustomer().getEmail());
 		quantity.setText(String.valueOf(count));
-		//TODO: Show Meal type
+
+		if (customerOrder.getMealType() != null)
+			mealtype.setText(customerOrder.getMealType().toString());
+
 		if (customerOrder.getAddress() != null)
 			address.setText(customerOrder.getAddress());
 		else
-			address.setHint("Enter Address");
+			address.setHint(customerOrder.getMealType() + " Address");
 
 		if (customerOrder.getCustomer().getPhone() != null)
 			phone.setText(customerOrder.getCustomer().getPhone());
@@ -103,7 +101,6 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			phone.setHint("Enter Phone Number");
 
 		amount.setText(customerOrder.getMeal().getPrice().toString());
-
 	}
 
 	@Override

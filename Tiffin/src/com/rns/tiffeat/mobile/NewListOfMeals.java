@@ -47,15 +47,12 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 		} else {
 			initialise();
 			adapter=new NewListOfMealAdapter(getActivity(), R.layout.new_activity_list_of_meals_adapter, mealobj, customerOrder);
-			// = new NewListOfMealAdapter(getActivity(),
-			// R.layout.new_activity_list_of_meals_adapter, );
 
 			LayoutInflater inflate = getActivity().getLayoutInflater();
 			ViewGroup header = (ViewGroup) inflate.inflate(R.layout.custom_header, listview, false);
 			listview.addHeaderView(header, null, false);
 			listview.setAdapter(adapter);
 			meal = (TextView) header.findViewById(R.id.new_list_of_meals_mealtype);
-			//area = (TextView) header.findViewById(R.id.new_list_of_meals_area);
 			listview.setOnScrollListener(new OnScrollListener() {
 
 				@Override
