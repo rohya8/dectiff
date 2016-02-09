@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.adapter.PlacesAutoCompleteAdapter;
+import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
@@ -56,7 +57,8 @@ public class NewScheduleLunchOrDinnerFragment extends Fragment implements Androi
 						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
 					else if (TextUtils.isEmpty(location.getText().toString()) || location.getText().toString().length() < 8)
 						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Location", getActivity());
-
+					else 
+						new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
 				}
 			}
 		});

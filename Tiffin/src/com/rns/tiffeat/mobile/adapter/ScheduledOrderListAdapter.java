@@ -18,8 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rns.tiffeat.mobile.FirstTimeUse;
 import com.rns.tiffeat.mobile.NewChangeOrderFragment;
+import com.rns.tiffeat.mobile.NewFirstTimeScreen;
+import com.rns.tiffeat.mobile.NewScheduleLunchOrDinnerFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
@@ -117,7 +118,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		holder.addOtherMealTypeButton.setTag(position);
 		holder.orderStatus.setVisibility(View.VISIBLE);
 		holder.mealStatus.setVisibility(View.VISIBLE);
-		
+
 		prepareCustomerOrder(customerOrder);
 
 		prepareAddOtherMealTypeButton();
@@ -206,7 +207,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private void newOrder(CustomerOrder customerOrder) {
 
 		Fragment fragment = null;
-		fragment = new FirstTimeUse(customerOrder);
+		fragment = new NewScheduleLunchOrDinnerFragment(customerOrder);
 		CustomerUtils.nextFragment(fragment, scheduledOrderFragment.getSupportFragmentManager(), true);
 
 	}

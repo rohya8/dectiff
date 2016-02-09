@@ -73,14 +73,14 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 	}
 
 	private void initialise() {
-		if(customer == null) {
+		if (customer == null) {
 			return;
 		}
-		
+
 		todaylistview = (ListView) view.findViewById(R.id.quickorder_homescreen_listView);
 		neworder = (Button) view.findViewById(R.id.quickorder_homescreen_button);
-		relativeLayout=(RelativeLayout) view.findViewById(R.id.quickorder_homescreen_layout);
-		welcomeText=(TextView) view.findViewById(R.id.quickorder_homescreen_textView);
+		relativeLayout = (RelativeLayout) view.findViewById(R.id.quickorder_homescreen_layout);
+		welcomeText = (TextView) view.findViewById(R.id.quickorder_homescreen_textView);
 		relativeLayout.setVisibility(View.VISIBLE);
 
 		if (customer.getQuickOrders() != null)
@@ -107,7 +107,7 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 
 	private void newActivity(CustomerOrder customerOrder2) {
 		Fragment fragment = null;
-		fragment = new FirstTimeUse(customerOrder);
+		fragment = new NewFirstTimeScreen(customerOrder);
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 

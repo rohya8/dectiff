@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.SelectType;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.QuickOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -56,7 +54,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	public class ViewHolder {
-		TextView title, tiffintype, mealStatus, date, orderStatus;
+		TextView title, tiffintype, mealStatus, date, orderStatus,quantity,price;
 		ImageView foodimage;
 		TextView viewmenuButton;
 
@@ -91,6 +89,8 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.title = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_name_textView);
 			holder.tiffintype = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_type_textView);
 			holder.date = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_date_textView);
+			holder.price=(TextView) convertView.findViewById(R.id.quickorder_list_adapter_price_textView);
+			holder.quantity=(TextView) convertView.findViewById(R.id.quickorder_list_adapter_quantity_textView);
 			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
 			holder.foodimage = mealImageView;
 			new QuickOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
@@ -123,7 +123,13 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		} else {
 			holder.viewmenuButton.setVisibility(View.GONE);
 		}
-
+		
+		if(customerOrder.getQuantity()!=null)
+			holder.quantity.setText("Quantity :"+ customerOrder.getQuantity().toString());
+			
+		if(customerOrder.getPrice()!=null)
+			holder.price.setText("Rs. "+customerOrder.getPrice().toString());
+		
 		setOrderStatus();
 		if (customerOrder.getDate() != null)
 			holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));

@@ -55,7 +55,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		}
 	}
 
-	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
+	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
+			CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
@@ -144,7 +145,13 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			new ScheduleChangeOrderTask(activity, customerOrder).execute();
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			customerOrder.setDate(customerOrder.getMeal().getAvailableFrom());
-			fragment = new ScheduledOrderFragment(customerOrder);
+
+			if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()) && customerOrder.getId() == 0 && customerOrder.getAddress() != null) {
+				new ScheduledOrderAsyncTask(activity, customerOrder).execute();
+			} else {
+				fragment = new ScheduledOrderFragment(customerOrder);
+			}
+
 		} else {
 			fragment = new QuickOrderFragment(customerOrder);
 		}

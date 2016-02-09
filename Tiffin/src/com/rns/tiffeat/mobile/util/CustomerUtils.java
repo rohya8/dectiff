@@ -73,7 +73,7 @@ public class CustomerUtils implements AndroidConstants {
 		// }
 
 	}
-	
+
 	public static void removeFragment(FragmentManager fragmentManager, Fragment fragment) {
 		FragmentTransaction trans = fragmentManager.beginTransaction();
 		trans.remove(fragment);
@@ -142,6 +142,7 @@ public class CustomerUtils implements AndroidConstants {
 		});
 
 		builder.show();
+
 	}
 
 	public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {

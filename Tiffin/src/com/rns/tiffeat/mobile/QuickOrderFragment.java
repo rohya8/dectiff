@@ -1,5 +1,7 @@
 package com.rns.tiffeat.mobile;
 
+import java.math.BigDecimal;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -170,8 +172,14 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 	}
 
 	private void prepareCustomerOrder() {
+
 		customerOrder.getCustomer().setPhone(phone.getText().toString());
 		customerOrder.setAddress(address.getText().toString());
+		customerOrder.setQuantity(Integer.valueOf(count));
+		String priceamount = amount.getText().toString();
+
+		customerOrder.setPrice(new BigDecimal(priceamount));
+		count = 1;
 	}
 
 	@Override

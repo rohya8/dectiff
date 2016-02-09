@@ -49,7 +49,6 @@ public class NewChangeOrderFragment extends Fragment implements AndroidConstants
 
 		initialise();
 
-		// prepareScreen();
 
 		submit.setOnClickListener(new OnClickListener() {
 

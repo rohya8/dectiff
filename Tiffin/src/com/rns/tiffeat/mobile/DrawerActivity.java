@@ -73,12 +73,12 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		}
 
 		if (customer != null) {
-			if (customer.getQuickOrders()!=null && customer.getQuickOrders().size() > 1) {
+			if (customer.getQuickOrders() != null && customer.getQuickOrders().size() > 0) {
 				Fragment fragment = null;
 				fragment = new QuickOrderHomeScreen(customer);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
-			} else if (customer.getScheduledOrder()!=null && customer.getScheduledOrder().size() > 1) {
+			} else if (customer.getScheduledOrder() != null && customer.getScheduledOrder().size() > 0) {
 				Fragment fragment = null;
 				fragment = new ScheduledOrderHomeScreen(customer);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
@@ -86,7 +86,6 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			}
 
 		}
-
 
 		displayView(0);
 	}
@@ -124,18 +123,36 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			fragment = new NewFirstTimeScreen(customerOrder);
 			break;
 		case 1:
-			CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-			fragment = new ScheduledOrderHomeScreen(customer);
+			if (customer.getScheduledOrder().size() == 0) {
+				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
+				customerOrder.setCustomer(customer);
+
+				fragment = new NewFirstTimeScreen(customerOrder);
+			} else {
+				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+				fragment = new ScheduledOrderHomeScreen(customer);
+			}
 			break;
 
 		case 2:
-			CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-			fragment = new QuickOrderHomeScreen(customer);
+			if (customer.getQuickOrders().size() == 0) {
+				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
+				customerOrder.setCustomer(customer);
+				fragment = new NewFirstTimeScreen(customerOrder);
+			} else{
+				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+				fragment = new QuickOrderHomeScreen(customer);}
 			break;
 
 		case 3:
-			CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-			fragment = new PreviousOrderHomeScreen(customer);
+			if (customer.getPreviousOrders().size() == 0) {
+				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
+				customerOrder.setCustomer(customer);
+				fragment = new NewFirstTimeScreen(customerOrder);
+			}else{
+				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+				fragment = new PreviousOrderHomeScreen(customer);
+			}
 			break;
 
 		case 4:
