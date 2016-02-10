@@ -70,7 +70,7 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 	}
 
 	private void nextActivity() {
-		new DrawerUpdateAsynctask(previousActivity, currentCustomer).execute();
+		new DrawerUpdateAsynctask(previousActivity, currentCustomer,"SCHEDULE").execute();
 	}
 
 }

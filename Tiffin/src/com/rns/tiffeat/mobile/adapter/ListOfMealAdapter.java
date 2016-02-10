@@ -85,7 +85,7 @@ public class ListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidCons
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.list_of_meals_food1_imageView);
 			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.list_of_meals_food1_imageView);
 			holder.foodimage = mealImageView;
-			new MealImageDownloaderTask(holder, mealImageView, getContext()).execute(this.getItem(position));
+			//new MealImageDownloaderTask(holder, mealImageView, getContext()).execute(this.getItem(position));
 			holder.tiffinprice = (TextView) convertView.findViewById(R.id.list_of_meals_count_textView1);
 			holder.menu = (Button) convertView.findViewById(R.id.list_of_meals_button_menu);
 			holder.order = (Button) convertView.findViewById(R.id.list_of_meals_button_order);

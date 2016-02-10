@@ -64,7 +64,7 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 		} else {
 
 			initialise();
-
+			spinnerData();
 			searchmeal.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -133,6 +133,16 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 		spformat = (Spinner) rootview.findViewById(R.id.new_first_time_format_spinner);
 		layout = (LinearLayout) rootview.findViewById(R.id.new_first_time_layout);
 
+
+
+		layout.setVisibility(View.VISIBLE);
+		from.setVisibility(View.GONE);
+		actvAreas.setDropDownWidth(getResources().getDisplayMetrics().widthPixels);
+		getNearbyPlaces();
+		spinnerClick();
+	}
+
+	private void spinnerData() {
 		adapter = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_day, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(R.layout.blacktext_list_item);
 		spday.setAdapter(adapter);
@@ -144,12 +154,6 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 		adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_format, android.R.layout.simple_spinner_item);
 		adapter2.setDropDownViewResource(R.layout.blacktext_list_item);
 		spformat.setAdapter(adapter2);
-
-		layout.setVisibility(View.VISIBLE);
-		from.setVisibility(View.GONE);
-		actvAreas.setDropDownWidth(getResources().getDisplayMetrics().widthPixels);
-		getNearbyPlaces();
-		spinnerClick();
 	}
 
 	private void spinnerClick() {
@@ -157,7 +161,8 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View arg1, int arg2, long arg3) {
-				((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+				if(parent.getChildAt(0)!=null)
+					((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
 			}
 
 			@Override
@@ -185,20 +190,21 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 			public void onItemSelected(AdapterView<?> parent, View arg1, int arg2, long arg3) {
 
 				TextView textView = (TextView) parent.getChildAt(0);
-				if (textView != null && textView.getText().equals("try a meal")) {
-					adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_timing, android.R.layout.simple_spinner_item);
-					layout.setVisibility(View.VISIBLE);
-					from.setVisibility(View.GONE);
+				if (textView != null){
+					if( textView.getText().equals("try a meal")) {
+						adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_timing, android.R.layout.simple_spinner_item);
+						layout.setVisibility(View.VISIBLE);
+						from.setVisibility(View.GONE);
 
-				} else {
-					adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_timing2, android.R.layout.simple_spinner_item);
-					layout.setVisibility(View.GONE);
-					from.setVisibility(View.VISIBLE);
+					} else {
+						adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_timing2, android.R.layout.simple_spinner_item);
+						layout.setVisibility(View.GONE);
+						from.setVisibility(View.VISIBLE);
+					}
+
+					adapter1.setDropDownViewResource(R.layout.blacktext_list_item);
+					sptiming.setAdapter(adapter1);
 				}
-
-				adapter1.setDropDownViewResource(R.layout.blacktext_list_item);
-				sptiming.setAdapter(adapter1);
-
 			}
 
 			@Override

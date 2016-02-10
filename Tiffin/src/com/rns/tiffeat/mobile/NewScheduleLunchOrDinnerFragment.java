@@ -20,11 +20,12 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.google.Location;
 
 public class NewScheduleLunchOrDinnerFragment extends Fragment implements AndroidConstants {
 
 	private View rootview;
-	private TextView date;
+
 	private EditText address;
 	private CustomerOrder customerOrder;
 	private Button submit;
@@ -53,12 +54,21 @@ public class NewScheduleLunchOrDinnerFragment extends Fragment implements Androi
 				if (!Validation.isNetworkAvailable(getActivity())) {
 					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 				} else {
-					if (TextUtils.isEmpty(address.getText()) || address.getText().length() > 8)
+					if (TextUtils.isEmpty(address.getText()) || address.getText().length() < 8)
 						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
 					else if (TextUtils.isEmpty(location.getText().toString()) || location.getText().toString().length() < 8)
 						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Location", getActivity());
-					else 
+					else {
+						String locat = location.getText().toString();
+						Location location = new Location();
+						location.setAddress(locat);
+						customerOrder.setLocation(location);
+						customerOrder.setAddress(address.getText().toString());
+
 						new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
+
+
+					}
 				}
 			}
 		});
@@ -68,10 +78,14 @@ public class NewScheduleLunchOrDinnerFragment extends Fragment implements Androi
 	}
 
 	private void initialise() {
-		date = (TextView) rootview.findViewById(R.id.new_schedulelunchordinner_from_textview);
 		location = (AutoCompleteTextView) rootview.findViewById(R.id.new_schedulelunchordinner_location_autoCompleteTextView);
 		address = (EditText) rootview.findViewById(R.id.new_schedulelunchordinner_address_edittext);
 		submit = (Button) rootview.findViewById(R.id.new_schedulelunchordinner_button);
+
+		if(customerOrder.getAddress()!=null)
+			address.setText(customerOrder.getAddress());
+
+
 		location.setThreshold(1);
 		location.setDropDownWidth(getResources().getDisplayMetrics().widthPixels);
 		getNearbyPlaces();

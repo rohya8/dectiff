@@ -26,7 +26,7 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 	private int lastTopValue = 1;
 	private View rootview;
 	private List<Meal> mealobj;
-	private TextView meal;
+	private TextView meal, location;
 	private NewListOfMealAdapter adapter;
 
 	public NewListOfMeals(CustomerOrder customerOrder, List<Meal> meals) {
@@ -46,13 +46,21 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
-			adapter=new NewListOfMealAdapter(getActivity(), R.layout.new_activity_list_of_meals_adapter, mealobj, customerOrder);
+			adapter = new NewListOfMealAdapter(getActivity(), R.layout.new_activity_list_of_meals_adapter, mealobj, customerOrder);
 
 			LayoutInflater inflate = getActivity().getLayoutInflater();
 			ViewGroup header = (ViewGroup) inflate.inflate(R.layout.custom_header, listview, false);
 			listview.addHeaderView(header, null, false);
 			listview.setAdapter(adapter);
 			meal = (TextView) header.findViewById(R.id.new_list_of_meals_mealtype);
+			location = (TextView) header.findViewById(R.id.new_list_of_meals_area);
+			if (customerOrder.getMealType() != null && customerOrder.getDate() != null)
+				meal.setText(customerOrder.getMealType().toString()+" for " + CustomerUtils.convertDate(customerOrder.getDate()));
+
+			if (customerOrder.getLocation() != null) {
+				location.setText(customerOrder.getLocation().getAddress());
+			}
+
 			listview.setOnScrollListener(new OnScrollListener() {
 
 				@Override

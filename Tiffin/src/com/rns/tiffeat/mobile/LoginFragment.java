@@ -1,5 +1,7 @@
 package com.rns.tiffeat.mobile;
 
+import org.apache.http.protocol.ExecutionContext;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -90,7 +92,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 								customerOrder = new CustomerOrder();
 							}
 							customerOrder.setCustomer(customer);
-							new LoginAsyncTask(getActivity(), customerOrder).execute();
+							new LoginAsyncTask(getActivity(), customerOrder,"LOGINFRAGMENT").execute();
 						} else
 							CustomerUtils.alertbox(TIFFEAT, " Enter Valid Credentials ", getActivity());
 					}
@@ -254,7 +256,7 @@ public class LoginFragment extends Fragment implements AndroidConstants, GoogleA
 					customerOrder = new CustomerOrder();
 				}
 				customerOrder.setCustomer(customer);
-				new LoginWithGoogleAsynctask(getActivity(), customerOrder).execute();
+				new LoginAsyncTask(getActivity(), customerOrder, "LOGINGOOGLE").execute();
 			} else
 				return;
 

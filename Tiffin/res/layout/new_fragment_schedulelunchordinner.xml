@@ -15,6 +15,7 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/new_schedulelunchordinner_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -22,34 +23,6 @@
             android:textColor="#000"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:padding="5dp" >
-
-            <TextView
-                android:id="@+id/new_schedulelunchordinner_from"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="Schedule From:"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/new_schedulelunchordinner_from_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="Date"
-                android:textColor="#000"
-                android:textSize="15sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,6 +69,7 @@
             android:inputType="textMultiLine"
             android:padding="10dp"
             android:textColor="#000"
+            android:maxLines="3"
             android:textSize="16sp" >
         </EditText>
 

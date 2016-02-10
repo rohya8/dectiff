@@ -24,6 +24,7 @@ import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.Validation;
+import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -84,8 +85,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
 			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
 			holder.foodimage = mealImageView;
-			// new MealImageDownloaderTask(holder, mealImageView,
-			// getContext()).execute(this.getItem(position));
+			new MealImageDownloaderTask(holder, mealImageView, getContext()).execute(this.getItem(position));
 			holder.tiffinprice = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_tiffinprice_textView);
 			// holder.menu = (Button)
 			// convertView.findViewById(R.id.list_of_meals_button_menu);
@@ -128,8 +128,17 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			customerOrder.setMeal(returnMeal(position));
-			nextActivity();
-
+			if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
+				nextActivity();
+			} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+				if (customerOrder.getMeal().getAvailableFrom() != null) {
+					customerOrder.setDate(customerOrder.getMeal().getAvailableFrom());
+					nextActivity();
+				} else {
+					CustomerUtils.alertbox(TIFFEAT, "Sorry meal is not available for " + customerOrder.getMealType().toString(), activity);
+					return;
+				}
+			}
 		}
 	}
 
@@ -141,17 +150,14 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
 			return;
 		}
-		if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()) && customerOrder.getId() != 0) {
-			new ScheduleChangeOrderTask(activity, customerOrder).execute();
-		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
-			customerOrder.setDate(customerOrder.getMeal().getAvailableFrom());
-
-			if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat()) && customerOrder.getId() == 0 && customerOrder.getAddress() != null) {
+		if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			if (customerOrder.getId() != 0) {
+				new ScheduleChangeOrderTask(activity, customerOrder).execute();
+			} else if (customerOrder.getId() == 0 && customerOrder.getAddress() != null) {
 				new ScheduledOrderAsyncTask(activity, customerOrder).execute();
 			} else {
 				fragment = new ScheduledOrderFragment(customerOrder);
 			}
-
 		} else {
 			fragment = new QuickOrderFragment(customerOrder);
 		}

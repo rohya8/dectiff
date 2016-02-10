@@ -1,8 +1,5 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import java.util.Date;
-import java.util.Map;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -19,17 +16,13 @@ import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
-import com.rns.tiffeat.web.bo.domain.MealType;
-import com.rns.tiffeat.web.util.Constants;
 
 public class RegistrationTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
 	private FragmentActivity mregistration;
 	private ProgressDialog progressDialog;
 	private CustomerOrder customerOrder;
-	private String availableMealTypeResult;
 	private Customer customer;
-	private Map<MealType, Date> availableMealType;
 
 	public RegistrationTask(FragmentActivity contxt, CustomerOrder customerOrder) {
 		this.mregistration = contxt;
@@ -79,7 +72,7 @@ public class RegistrationTask extends AsyncTask<String, String, String> implemen
 	private void postLogin() {
 		Fragment fragment = null;
 		if (customerOrder.getMealFormat() == null) {
-			new DrawerUpdateAsynctask(mregistration, customer).execute("");
+			new DrawerUpdateAsynctask(mregistration, customer,null).execute("");
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, mregistration.getSupportFragmentManager(), false);

@@ -49,6 +49,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			String customerJson = (String) getIntent().getExtras().get(AndroidConstants.CUSTOMER_OBJECT);
 			customer = new Gson().fromJson(customerJson, Customer.class);
 			action = (String) getIntent().getExtras().get("action");
+
 		}
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);

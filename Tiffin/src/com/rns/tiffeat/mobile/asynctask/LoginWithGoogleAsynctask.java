@@ -1,8 +1,5 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import java.util.Date;
-import java.util.Map;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -19,17 +16,13 @@ import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
-import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
 	private FragmentActivity mGoogleLogin;
-	private String action;
 	private Customer customerlogin;
 	private CustomerOrder customerOrder;
-	private String availableMealTypeResult;
 	private ProgressDialog progressDialog;
-	private Map<MealType, Date> availableMealType;
 
 	public LoginWithGoogleAsynctask(FragmentActivity loginfragment, CustomerOrder customerOrder2) {
 		mGoogleLogin = loginfragment;
@@ -49,6 +42,7 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 			return null;
 		}
 		try {
+
 			resultLogin = CustomerServerUtils.customerLoginWithGoogle(customerOrder.getCustomer());
 			customerlogin = new Gson().fromJson(resultLogin, Customer.class);
 
@@ -80,7 +74,7 @@ public class LoginWithGoogleAsynctask extends AsyncTask<String, String, String> 
 	private void nextActivity() {
 		Fragment fragment = null;
 		if (customerOrder == null || customerOrder.getMealFormat() == null) {
-			new DrawerUpdateAsynctask(mGoogleLogin, customerlogin).execute("");
+			new DrawerUpdateAsynctask(mGoogleLogin, customerlogin, null).execute("");
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, mGoogleLogin.getSupportFragmentManager(), false);

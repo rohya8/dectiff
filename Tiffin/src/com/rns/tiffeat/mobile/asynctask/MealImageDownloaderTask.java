@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.adapter.ListOfMealAdapter.ViewHolder;
+import com.rns.tiffeat.mobile.adapter.NewListOfMealAdapter.ViewHolder;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
@@ -58,7 +58,6 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 		if (result == null)
 			imageView.setImageResource(R.drawable.food5);
 		else {
-			//imageView.setImageBitmap(CustomerUtils.getRoundedCornerBitmap(result));
 			imageView.setImageBitmap(result);
 			UserUtils.scaleImage(imageView, result);
 		}

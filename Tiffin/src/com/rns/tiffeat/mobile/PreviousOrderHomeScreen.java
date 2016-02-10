@@ -96,7 +96,7 @@ public class PreviousOrderHomeScreen extends Fragment implements AndroidConstant
 
 	private void newActivity(CustomerOrder customerOrder2) {
 		Fragment fragment = null;
-		fragment = new FirstTimeUse(customerOrder);
+		fragment = new NewFirstTimeScreen(customerOrder);
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 

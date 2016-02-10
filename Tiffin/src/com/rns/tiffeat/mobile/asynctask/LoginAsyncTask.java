@@ -1,8 +1,5 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import java.util.Date;
-import java.util.Map;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -19,7 +16,6 @@ import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
-import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class LoginAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
 
@@ -27,12 +23,12 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private ProgressDialog progressDialog;
 	private Customer customerlogin;
 	private CustomerOrder customerOrder;
-	private Map<MealType, Date> availableMealType;
+	private String action;
 
-	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2) {
+	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2, String string) {
 		this.fragmentActivity = activity;
 		this.customerOrder = customerOrder2;
-
+		this.action = string;
 	}
 
 	@Override
@@ -43,25 +39,24 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 
 	@Override
 	protected String doInBackground(String... params) {
-		String resultLogin = "";
+		String result = "";
 		if (!Validation.isNetworkAvailable(fragmentActivity)) {
 			return null;
 		}
 		try {
-			resultLogin = CustomerServerUtils.customerLogin(customerOrder.getCustomer());
-			customerlogin = new Gson().fromJson(resultLogin, Customer.class);
-			return resultLogin;
-			/*availableMealTypeResult = CustomerServerUtils.customerGetMealAvailable(customerOrder);
-			Map<String, Object> customerOrderVailableMealTypesMap = CustomerUtils.convertToStringObjectMap(availableMealTypeResult);
-			String customerOrderString = (String) customerOrderVailableMealTypesMap.get(Constants.MODEL_CUSTOMER_ORDER);
-			availableMealType = CustomerUtils.convertToMealTypeDateMap((String) customerOrderVailableMealTypesMap.get(Constants.MODEL_MEAL_TYPE));
+			if (action.equals("LOGINFRAGMENT"))
+				result = CustomerServerUtils.customerLogin(customerOrder.getCustomer());
+			else if (action.equals("LOGINGOOGLE"))
+				result = CustomerServerUtils.customerLoginWithGoogle(customerOrder.getCustomer());
+			else if (action.equals("REGISTRATIONFRAGMENT"))
+				result = CustomerServerUtils.customerRegistration(customerOrder.getCustomer());
 
-			customerOrder = new Gson().fromJson(customerOrderString, CustomerOrder.class);*/
-
+			customerlogin = new Gson().fromJson(result, Customer.class);
+			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
-		return resultLogin;
+		return result;
 
 	}
 
@@ -74,10 +69,23 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			return;
 		}
 
-		if (customerlogin == null) {
-			CustomerUtils.alertbox(TIFFEAT, "Login failed due to : " + result, fragmentActivity);
-			return;
+		if (action.equals("LOGINFRAGMENT")) {
+			if (customerlogin == null) {
+				CustomerUtils.alertbox(TIFFEAT, "Login failed due to invalid username/password", fragmentActivity);
+				return;
+			}
+		} else if (action.equals("LOGINGOOGLE")) {
+			if (customerlogin == null) {
+				CustomerUtils.alertbox(TIFFEAT, "Please Try Again Later", fragmentActivity);
+				return;
+			}
+		} else if (action.equals("REGISTRATIONFRAGMENT")) {
+			if (customerlogin == null) {
+				CustomerUtils.alertbox(TIFFEAT, "Registration failed due to : " + result, fragmentActivity);
+				return;
+			}
 		}
+
 		CustomerUtils.storeCurrentCustomer(fragmentActivity, customerlogin);
 		if (customerOrder != null) {
 			customerOrder.setCustomer(customerlogin);
@@ -88,7 +96,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private void postLogin() {
 		Fragment fragment = null;
 		if (customerOrder == null || customerOrder.getMealFormat() == null) {
-			new DrawerUpdateAsynctask(fragmentActivity, customerlogin).execute("");
+			new DrawerUpdateAsynctask(fragmentActivity, customerlogin, null).execute("");
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			fragment = new QuickOrderFragment(customerOrder);
 			CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
@@ -97,5 +105,4 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			CustomerUtils.nextFragment(fragment, fragmentActivity.getSupportFragmentManager(), false);
 		}
 	}
-
 }

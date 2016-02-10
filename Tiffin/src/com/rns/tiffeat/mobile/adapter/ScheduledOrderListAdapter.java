@@ -336,9 +336,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private void prepareNewOrder(int pos) {
 
 		CustomerOrder order = new CustomerOrder();
+		order.setAddress(customerOrder.getAddress());
 		order.setMealFormat(MealFormat.SCHEDULED);
+		
 		order.setCustomer(customer);
-		if (MealType.DINNER.equals(order.getMealType())) {
+		if (MealType.DINNER.equals(customerOrder.getMealType())) {
 			order.setMealType(MealType.LUNCH);
 		} else {
 			order.setMealType(MealType.DINNER);
