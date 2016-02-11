@@ -7,7 +7,6 @@ import org.apache.commons.collections.CollectionUtils;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,9 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rns.tiffeat.mobile.ChangeOrderFragment;
 import com.rns.tiffeat.mobile.LoginFragment;
-import com.rns.tiffeat.mobile.NewScheduleLunchOrDinnerFragment;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;

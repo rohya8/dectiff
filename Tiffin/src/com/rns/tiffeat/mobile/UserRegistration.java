@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.RegistrationTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
@@ -78,7 +77,8 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 									confirmpass.setError("Password Do Not Match");
 									CustomerUtils.alertbox(TIFFEAT, "Password do not match", getActivity());
 								} else
-									new LoginAsyncTask(getActivity(), customerOrder, "REGISTRATIONFRAGMENT").execute();							}
+									new LoginAsyncTask(getActivity(), customerOrder, "REGISTRATIONFRAGMENT").execute();
+							}
 						} catch (Exception e) {
 							CustomerUtils.alertbox(TIFFEAT, "Enter valid credentials", getActivity());
 							CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -99,7 +99,6 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 		password = (EditText) rootview.findViewById(R.id.registration_password_editText);
 
 		submit = (Button) rootview.findViewById(R.id.registration_Loginbutton);
-//		submit.setBackgroundColor(Color.parseColor("#8bc3fa"));
 
 		customer = new Customer();
 	}

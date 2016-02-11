@@ -11,11 +11,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.rns.tiffeat.mobile.asynctask.GetMealsForVendorAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
@@ -126,7 +124,7 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private void nextActivity() {
 		CustomerUtils.removeFragment(getFragmentManager(), this);
-		Fragment fragment = null;
+		//Fragment fragment = null;
 		//CustomerUtils.clearFragmentStack(getFragmentManager());
 		/*if (customerOrder.getCustomer() != null && customerOrder.getMealFormat() != null) {
 

@@ -60,7 +60,7 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 
 		if (result1.equals("OK")) {
 			CustomerUtils.alertbox(TIFFEAT, "Cancel Order Successful !! ", mscheduleorder);
-			new GetCurrentCustomerAsyncTask(mscheduleorder, scheduledUser).execute("");
+		new GetCurrentCustomerAsyncTask(mscheduleorder, scheduledUser).execute("");
 		} else
 			CustomerUtils.alertbox(TIFFEAT, "Cancel failed due to : " + result, mscheduleorder);
 		

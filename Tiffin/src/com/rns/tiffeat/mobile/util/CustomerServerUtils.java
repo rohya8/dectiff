@@ -171,7 +171,7 @@ public class CustomerServerUtils implements AndroidConstants {
 		result = CoreServerUtils.serverCall(VALIDATE_CUSTOMER_QUICKORDER_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
 	}
-	
+
 	public static String validateScheduledOrder(CustomerOrder customerOrder) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
@@ -220,13 +220,14 @@ public class CustomerServerUtils implements AndroidConstants {
 			return;
 		}
 	}
-	
+
 	public static List<Meal> getMealsForOrder(CustomerOrder order) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		removeCircularReferences(order);
 		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(order));
 		result = CoreServerUtils.serverCall(GET_MEALS_FOR_ORDER, uriVariables, HttpMethod.POST).getBody();
-		Type typelist = new TypeToken<ArrayList<Meal>>() {}.getType();
+		Type typelist = new TypeToken<ArrayList<Meal>>() {
+		}.getType();
 		return new Gson().fromJson(result, typelist);
 	}
 

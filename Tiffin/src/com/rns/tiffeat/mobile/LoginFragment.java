@@ -1,7 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import org.apache.http.protocol.ExecutionContext;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -28,7 +26,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
-import com.rns.tiffeat.mobile.asynctask.LoginWithGoogleAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.asynctask.GetAreaAsynctask;
+import com.rns.tiffeat.mobile.asynctask.DrawerUpdateAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
@@ -176,10 +176,10 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		case 7:
 			if (customer != null) {
 				CustomerUtils.logout(this);
-				new GetAreaAsynctask(this).execute();
+				new DrawerUpdateAsynctask(this, null, null);
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, " You are not logged in  ", DrawerActivity.this);
-				fragment = new FirstTimeUse();
+				fragment = new NewFirstTimeScreen();
 			}
 			break;
 

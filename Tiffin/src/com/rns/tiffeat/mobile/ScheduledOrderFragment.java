@@ -19,7 +19,6 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class ScheduledOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
-	// private RadioButton lunch, dinner, both;
 	private EditText lunchaddr, phone, mealtype;
 	private CustomerOrder customerOrder;
 	private EditText tiffindesc, name, emailid;
@@ -148,5 +147,4 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 		builder.show();
 	}
-
 }

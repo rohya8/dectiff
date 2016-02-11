@@ -17,7 +17,6 @@ import com.rns.tiffeat.mobile.asynctask.GetCurrentCustomerAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
-import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstants {
 
@@ -75,7 +74,8 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 		if (customer.getBalance() != null)
 			wallet.setText(customer.getBalance().toString());
 
-		if (CollectionUtils.isEmpty(customer.getScheduledOrder()))
+		
+		if (!CollectionUtils.isEmpty(customer.getScheduledOrder()))
 			scheduledOrdersAdapter.setScheduledOrders(customer.getScheduledOrder());
 
 		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(),
@@ -88,7 +88,7 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 	@Override
 	public void onResume() {
 		super.onResume();
-		new GetCurrentCustomerAsyncTask(getActivity(), this).execute();
+		new GetCurrentCustomerAsyncTask(getActivity(), ScheduledOrderHomeScreen.this).execute();
 	}
 
 	public void prepareScreen() {

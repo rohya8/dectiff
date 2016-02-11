@@ -71,9 +71,9 @@ public class AboutUsFragment extends Fragment implements AndroidConstants {
 
 		Fragment fragment = null;
 		if (customerOrder != null)
-			fragment = new FirstTimeUse(customerOrder);
+			fragment = new NewFirstTimeScreen(customerOrder);
 		else
-			fragment = new FirstTimeUse();
+			fragment = new NewFirstTimeScreen();
 
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}

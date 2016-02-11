@@ -1,4 +1,3 @@
-
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.ProgressDialog;
@@ -66,11 +65,10 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 			CustomerUtils.alertbox(TIFFEAT, result, previousActivity);
 			return;
 		}
-
 	}
 
 	private void nextActivity() {
-		new DrawerUpdateAsynctask(previousActivity, currentCustomer,"SCHEDULE").execute();
+		new DrawerUpdateAsynctask(previousActivity, currentCustomer, "SCHEDULE").execute();
 	}
 
 }
