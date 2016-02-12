@@ -1,7 +1,5 @@
 package com.rns.tiffeat.mobile.asynctask;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -11,8 +9,6 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.mobile.NewListOfMeals;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -21,7 +17,6 @@ import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
-import com.rns.tiffeat.web.bo.domain.Vendor;
 
 public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 

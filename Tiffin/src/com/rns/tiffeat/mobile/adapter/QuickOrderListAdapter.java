@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -147,6 +148,17 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	private void setOrderStatus() {
+		if(customerOrder.getDate() == null || customerOrder.getMeal() == null) {
+			return;
+		}
+		
+		//TODO: Check if works..
+		if(!DateUtils.isToday(customerOrder.getDate().getTime())) {
+			holder.orderStatus.setVisibility(View.VISIBLE);
+			holder.orderStatus.setText("Your have ordered " + customerOrder.getMeal().getTitle() + " for tomorrow.");
+			return;
+		}
+		
 		if (customerOrder.getStatus() == null) {
 			return;
 		}

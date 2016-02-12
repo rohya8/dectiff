@@ -1,5 +1,6 @@
 package com.rns.tiffeat.mobile.adapter;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -19,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.NewChangeOrderFragment;
-import com.rns.tiffeat.mobile.NewFirstTimeScreen;
 import com.rns.tiffeat.mobile.NewScheduleLunchOrDinnerFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
@@ -338,7 +338,8 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		CustomerOrder order = new CustomerOrder();
 		order.setAddress(customerOrder.getAddress());
 		order.setMealFormat(MealFormat.SCHEDULED);
-		
+		order.setLocation(customerOrder.getLocation());
+		order.setDate(new Date());
 		order.setCustomer(customer);
 		if (MealType.DINNER.equals(customerOrder.getMealType())) {
 			order.setMealType(MealType.LUNCH);

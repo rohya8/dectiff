@@ -20,6 +20,8 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.MealFormat;
+import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.google.Location;
 
 public class NewScheduleLunchOrDinnerFragment extends Fragment implements AndroidConstants {
@@ -30,6 +32,7 @@ public class NewScheduleLunchOrDinnerFragment extends Fragment implements Androi
 	private CustomerOrder customerOrder;
 	private Button submit;
 	private AutoCompleteTextView location;
+	private TextView title;
 
 	public NewScheduleLunchOrDinnerFragment(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
@@ -67,7 +70,6 @@ public class NewScheduleLunchOrDinnerFragment extends Fragment implements Androi
 
 						new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
 
-
 					}
 				}
 			}
@@ -81,11 +83,15 @@ public class NewScheduleLunchOrDinnerFragment extends Fragment implements Androi
 		location = (AutoCompleteTextView) rootview.findViewById(R.id.new_schedulelunchordinner_location_autoCompleteTextView);
 		address = (EditText) rootview.findViewById(R.id.new_schedulelunchordinner_address_edittext);
 		submit = (Button) rootview.findViewById(R.id.new_schedulelunchordinner_button);
-
-		if(customerOrder.getAddress()!=null)
+		title = (TextView) rootview.findViewById(R.id.new_schedulelunchordinner_textview);
+		if (customerOrder.getMealType() != null) {
+			title.setText("Start Daily " + customerOrder.getMealType().getDescription());
+		}
+		if (customerOrder.getAddress() != null)
 			address.setText(customerOrder.getAddress());
-
-
+		if (customerOrder.getLocation() != null) {
+			location.setText(customerOrder.getLocation().getAddress());
+		}
 		location.setThreshold(1);
 		location.setDropDownWidth(getResources().getDisplayMetrics().widthPixels);
 		getNearbyPlaces();
