@@ -21,6 +21,7 @@ import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.Validation;
+import com.rns.tiffeat.mobile.asynctask.GetMenuAndroidAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
@@ -30,6 +31,7 @@ import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
+import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidConstants {
 
@@ -40,7 +42,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 	public class ViewHolder {
 
-		TextView tiffintitle, tiffinprice, vendorname;
+		TextView tiffintitle, tiffinprice, vendorname, description;
 		ImageView foodimage;
 		Button order;
 
@@ -84,9 +86,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.foodimage = mealImageView;
 			new MealImageDownloaderTask(holder, mealImageView, getContext()).execute(this.getItem(position));
 			holder.tiffinprice = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_tiffinprice_textView);
-			// holder.menu = (Button)
-			// convertView.findViewById(R.id.list_of_meals_button_menu);
-			holder.order = (Button) convertView.findViewById(R.id.new_listofmeals__adapter_order_button);
+			holder.description = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_desc_textView);
+			holder.order = (Button) convertView.findViewById(R.id.new_listofmeals_adapter_order_button);
 
 			convertView.setTag(holder);
 
@@ -102,19 +103,33 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.vendorname.setText(meal.getVendor().getName());
 
 		holder.order.setTag(position);
-		holder.order.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(activity)) {
-					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					int pos = (Integer) v.getTag();
-					orderMeal(pos);
-				}
+		if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
+			if (meal.getDescription() != null) {
+				holder.description.setText(meal.getDescription());
+			}  
+			
+		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			if (meal.getAvailableFrom() != null) {
+				holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
 			}
+		}
+		
 
-		});
+			holder.order.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					if (!Validation.isNetworkAvailable(activity)) {
+						Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
+					} else {
+						int pos = (Integer) v.getTag();
+						orderMeal(pos);
+					}
+				}
+
+			});
+
 		return convertView;
 
 	}
@@ -128,8 +143,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 				nextActivity();
 			} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
-				if (customerOrder.getMeal().getAvailableFrom() != null) {
-					customerOrder.setDate(customerOrder.getMeal().getAvailableFrom());
+				if (meals.get(position).getAvailableFrom() != null) {
+					customerOrder.setDate(meals.get(position).getAvailableFrom());
 					nextActivity();
 				} else {
 					CustomerUtils.alertbox(TIFFEAT, "Sorry meal is not available for " + customerOrder.getMealType().toString(), activity);

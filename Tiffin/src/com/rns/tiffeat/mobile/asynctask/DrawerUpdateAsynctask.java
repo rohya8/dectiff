@@ -15,19 +15,20 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 
 	private FragmentActivity activity;
 	private Customer customer;
-	private String action=null;
+	private String action = null;
 
 	public DrawerUpdateAsynctask(FragmentActivity fragmentActivity, Customer customerlogin, String string) {
 		this.activity = fragmentActivity;
 		this.customer = customerlogin;
-		this.action=string;
+		this.action = string;
 	}
 
 	@Override
 	protected String doInBackground(String... arg) {
 		if (!Validation.isNetworkAvailable(activity)) {
 			return null;
-		} 
+		}
+
 		return "Hello";
 	}
 
@@ -39,10 +40,9 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 
 		Intent i = new Intent(activity, DrawerActivity.class);
 		i.putExtra(AndroidConstants.CUSTOMER_OBJECT, new Gson().toJson(customer));
-		i.putExtra("action",action);
+		i.putExtra("action", action);
 		activity.startActivity(i);
 		activity.finish();
 	};
-
 
 }
