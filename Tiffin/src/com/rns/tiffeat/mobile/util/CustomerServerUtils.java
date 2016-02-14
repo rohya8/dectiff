@@ -11,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 
 import android.util.Log;
 
-import com.google.android.gms.internal.or;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.web.bo.domain.Customer;
@@ -199,7 +198,6 @@ public class CustomerServerUtils implements AndroidConstants {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		removeCircularReferences(currentCustomer);
 		uriVariables.put(CUSTOMER_OBJECT, new Gson().toJson(currentCustomer));
-
 		result = CoreServerUtils.serverCall(ADD_TO_WALLET_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;
 	}

@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.asynctask.AddToWalletAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.QuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 
@@ -42,6 +43,7 @@ public class PaymentGatewayFragment extends Fragment implements AndroidConstants
 		if (!Validation.isNetworkAvailable(getActivity())) {
 			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
+			CustomerServerUtils.removeCircularReferences(customerOrder);
 			String url = new Gson().toJson(customerOrder);
 			WebSettings webSettings = paymentscreen.getSettings();
 			webSettings.setJavaScriptEnabled(true);
