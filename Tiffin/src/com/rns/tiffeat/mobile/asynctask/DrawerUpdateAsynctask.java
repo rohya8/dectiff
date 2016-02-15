@@ -40,7 +40,7 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 
 		Intent i = new Intent(activity, DrawerActivity.class);
 		i.putExtra(AndroidConstants.CUSTOMER_OBJECT, new Gson().toJson(customer));
-		i.putExtra("action", action);
+		i.putExtra(ACTION, action);
 		activity.startActivity(i);
 		activity.finish();
 	};

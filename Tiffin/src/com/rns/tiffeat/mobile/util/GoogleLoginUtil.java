@@ -20,17 +20,17 @@ public class GoogleLoginUtil implements ConnectionCallbacks, OnConnectionFailedL
 	private boolean mIsResolving = false;
 	private boolean msignedInClicked = false;
 	private GoogleApiClient mGoogleApiClient;
-	private Activity acitivity;
+	private Activity activity;
 	private CustomerOrder customerOrder;
 	private FragmentActivity fragmentActivity;
 
 	public GoogleLoginUtil(FragmentActivity fragmentActivity, Activity context, CustomerOrder customerOrder) {
-		this.acitivity = context;
-		mGoogleApiClient = new GoogleApiClient.Builder(acitivity).addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
-				.addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this).addApi(Plus.API, Plus.PlusOptions.builder().build())
-				.addScope(Plus.SCOPE_PLUS_PROFILE).build();
+		this.activity = context;
 		this.customerOrder = customerOrder;
 		this.fragmentActivity = fragmentActivity;
+		mGoogleApiClient = new GoogleApiClient.Builder(fragmentActivity).addConnectionCallbacks(this)
+				.addOnConnectionFailedListener(this).addApi(Plus.API)
+				.addScope(Plus.SCOPE_PLUS_PROFILE).build();
 	}
 
 	public GoogleApiClient getmGoogleApiClient() {
@@ -49,14 +49,14 @@ public class GoogleLoginUtil implements ConnectionCallbacks, OnConnectionFailedL
 		if (!mIsResolving && msignedInClicked) {
 			if (result.hasResolution()) {
 				try {
-					result.startResolutionForResult(acitivity, RC_SIGN_IN);
+					result.startResolutionForResult(activity, RC_SIGN_IN);
 					mIsResolving = true;
 				} catch (IntentSender.SendIntentException e) {
 					mIsResolving = false;
 					mGoogleApiClient.connect();
 				}
 			} else {
-				CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", acitivity);
+				CustomerUtils.alertbox(TIFFEAT, "Connection with Google failed!!", activity);
 			}
 		}
 	}
@@ -64,7 +64,7 @@ public class GoogleLoginUtil implements ConnectionCallbacks, OnConnectionFailedL
 	@Override
 	public void onConnected(Bundle arg0) {
 		msignedInClicked = false;
-		Toast.makeText(acitivity, "Login successful", Toast.LENGTH_SHORT).show();
+		Toast.makeText(activity, "Login successful", Toast.LENGTH_SHORT).show();
 		new GoogleAccessToken(fragmentActivity, mGoogleApiClient, customerOrder, RC_SIGN_IN).execute();
 	}
 
@@ -84,7 +84,7 @@ public class GoogleLoginUtil implements ConnectionCallbacks, OnConnectionFailedL
 			}
 
 		} else
-			Toast.makeText(acitivity, "Login failed", Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity, "Login failed", Toast.LENGTH_SHORT).show();
 	}
 
 }

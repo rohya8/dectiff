@@ -56,6 +56,10 @@
             android:label="@string/title_activity_drawer"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.rns.tiffeat.mobile.util.LoginActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

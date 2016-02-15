@@ -2,6 +2,7 @@ package com.rns.tiffeat.mobile;
 
 import org.springframework.util.CollectionUtils;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,11 +15,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.asynctask.DrawerUpdateAsynctask;
 import com.rns.tiffeat.mobile.asynctask.logoutAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
+import com.rns.tiffeat.mobile.util.LoginActivity;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
@@ -46,11 +47,12 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		setContentView(R.layout.activity_drawer);
 
 		mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+		CustomerOrder customerOrder = new CustomerOrder();
 		if (getIntent().getExtras() != null) {
 			String customerJson = (String) getIntent().getExtras().get(AndroidConstants.CUSTOMER_OBJECT);
 			customer = new Gson().fromJson(customerJson, Customer.class);
 			action = (String) getIntent().getExtras().get("action");
-
+			customerOrder = new Gson().fromJson(getIntent().getExtras().getString(CUSTOMER_ORDER_OBJECT), CustomerOrder.class);
 		}
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -60,18 +62,27 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		drawerFragment.setDrawerListener(this);
 
 		if (action != null) {
-			if (action.equals("QUICK") == true) {
+			if (action.equals(ACTION_QUICK_HOME) == true) {
 				Fragment fragment = null;
 				fragment = new QuickOrderHomeScreen(customer);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
-			} else if (action.equals("SCHEDULE") == true) {
+			} else if (action.equals(ACTION_SCHEDULED_HOME) == true) {
 				Fragment fragment = null;
 				fragment = new ScheduledOrderHomeScreen(customer);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
+			} else if (action.equals(ACTION_QUICK_ORDER) == true) {
+				Fragment fragment = null;
+				fragment = new QuickOrderFragment(customerOrder);
+				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				return;
+			} else if (action.equals(ACTION_SCHEDULED_ORDER) == true) {
+				Fragment fragment = null;
+				fragment = new ScheduledOrderFragment(customerOrder);
+				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				return;
 			}
-
 		}
 
 		if (customer != null) {
@@ -216,7 +227,9 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		case 4:
 
-			fragment = new LoginFragment(null);
+			Intent intent = new Intent(this, LoginActivity.class);
+			//fragment = new LoginFragment(null);
+			startActivity(intent);
 			break;
 
 		case 1:

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -16,22 +17,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.LoginFragment;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
 import com.rns.tiffeat.mobile.Validation;
-import com.rns.tiffeat.mobile.asynctask.GetMenuAndroidAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
+import com.rns.tiffeat.mobile.util.LoginActivity;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
-import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidConstants {
 
@@ -158,8 +160,12 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		Fragment fragment = null;
 
 		if (customerOrder.getCustomer() == null) {
-			fragment = new LoginFragment(customerOrder);
-			CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+			Intent intent = new Intent(activity.getApplicationContext(), LoginActivity.class);
+			CustomerServerUtils.removeCircularReferences(customerOrder);
+			intent.putExtra(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
+			//fragment = new LoginFragment(customerOrder);
+			//CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
+			activity.startActivity(intent);
 			return;
 		}
 		if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
