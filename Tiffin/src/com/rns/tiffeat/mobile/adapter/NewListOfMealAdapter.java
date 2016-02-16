@@ -163,9 +163,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			Intent intent = new Intent(activity.getApplicationContext(), LoginActivity.class);
 			CustomerServerUtils.removeCircularReferences(customerOrder);
 			intent.putExtra(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
-			//fragment = new LoginFragment(customerOrder);
-			//CustomerUtils.nextFragment(fragment, activity.getSupportFragmentManager(), true);
 			activity.startActivity(intent);
+			activity.finish();
 			return;
 		}
 		if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {

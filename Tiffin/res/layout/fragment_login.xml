@@ -13,7 +13,7 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
+            android:id="@+id/linearLayout1_frag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -22,7 +22,6 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -32,7 +31,7 @@
                 android:textColor="#000" />
 
             <EditText
-                android:id="@+id/login_editText_email"
+                android:id="@+id/login_editText_email_frag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -47,7 +46,7 @@
                 android:singleLine="true" />
 
             <EditText
-                android:id="@+id/login_editText_Password"
+                android:id="@+id/login_editText_Password_frag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -63,7 +62,7 @@
                 android:singleLine="true" />
 
             <Button
-                android:id="@+id/login_submit_button"
+                android:id="@+id/login_submit_button_frag"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +74,7 @@
                 android:textColor="#fff" />
 
             <TextView
-                android:id="@+id/login_newuser_textview"
+                android:id="@+id/login_newuser_textview_frag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -86,7 +85,7 @@
                 android:textColor="#000" />
 
             <TextView
-                android:id="@+id/login_newuser_button"
+                android:id="@+id/login_newuser_button_frag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -100,7 +99,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/signinFrame"
+            android:id="@+id/signinFrame_frag"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -109,7 +108,7 @@
             android:visibility="visible" >
 
             <com.google.android.gms.common.SignInButton
-                android:id="@+id/signin"
+                android:id="@+id/signin_frag"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"

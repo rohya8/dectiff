@@ -61,7 +61,9 @@ public class LoginFragment extends Fragment implements AndroidConstants/*, Googl
 
 				@Override
 				public void onClick(View v) {
-					googleLoginUtil.signIn();
+					/*googleLoginUtil.signIn();
+					googleLoginUtil.signIn();*/
+				
 				}
 			});
 			submit.setOnClickListener(new OnClickListener() {
@@ -107,11 +109,11 @@ public class LoginFragment extends Fragment implements AndroidConstants/*, Googl
 
 	private void initialise() {
 		customer = new Customer();
-		submit = (Button) rootview.findViewById(R.id.login_submit_button);
-		newuser = (TextView) rootview.findViewById(R.id.login_newuser_button);
-		email = (EditText) rootview.findViewById(R.id.login_editText_email);
-		password = (EditText) rootview.findViewById(R.id.login_editText_Password);
-		signinButton = (SignInButton) rootview.findViewById(R.id.signin);
+		submit = (Button) rootview.findViewById(R.id.login_submit_button_frag);
+		newuser = (TextView) rootview.findViewById(R.id.login_newuser_button_frag);
+		email = (EditText) rootview.findViewById(R.id.login_editText_email_frag);
+		password = (EditText) rootview.findViewById(R.id.login_editText_Password_frag);
+		signinButton = (SignInButton) rootview.findViewById(R.id.signin_frag);
 		initGoogleLogin();
 	}
 

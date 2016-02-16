@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.asynctask.logoutAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.mobile.util.LoginActivity;
@@ -227,9 +228,16 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		case 4:
 
-			Intent intent = new Intent(this, LoginActivity.class);
-			//fragment = new LoginFragment(null);
+//			Intent intent = new Intent(this, LoginActivity.class);
+//			startActivity(intent);
+			
+			CustomerOrder customerOrder = new CustomerOrder();
+			Intent intent = new Intent(DrawerActivity.this, LoginActivity.class);
+			intent.putExtra(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
 			startActivity(intent);
+			finish();
+			
+			
 			break;
 
 		case 1:

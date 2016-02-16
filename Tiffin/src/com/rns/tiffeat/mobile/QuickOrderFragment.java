@@ -84,9 +84,13 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 	private void customerData() {
 
-		tiffintitle.setText(customerOrder.getMeal().getTitle());
-		name.setText(customerOrder.getCustomer().getName());
-		emailid.setText(customerOrder.getCustomer().getEmail());
+		if (customerOrder.getMeal().getTitle() != null)
+			tiffintitle.setText(customerOrder.getMeal().getTitle());
+		if (customerOrder.getCustomer().getName() != null)
+			name.setText(customerOrder.getCustomer().getName());
+		if (customerOrder.getCustomer().getEmail() != null)
+			emailid.setText(customerOrder.getCustomer().getEmail());
+
 		quantity.setText(String.valueOf(count));
 
 		if (customerOrder.getMealType() != null)

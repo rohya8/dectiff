@@ -1,19 +1,17 @@
 package com.rns.tiffeat.mobile.util;
 
-import java.io.InputStream;
-
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +26,8 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.R;
+import com.rns.tiffeat.mobile.UserRegistration;
+import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
@@ -37,14 +37,15 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 	private static final int RC_SIGN_IN = 0;
 
 	private GoogleApiClient mGoogleApiClient;
-
+	private EditText email, password;
+	private Button submit;
+	private TextView newuser;
+	private Customer customer;
 	private boolean mIntentInProgress;
 	private boolean signedInUser;
 	private ConnectionResult mConnectionResult;
 	private SignInButton signinButton;
-	private ImageView image;
-	private TextView username, emailLabel;
-	private LinearLayout profileFrame, signinFrame;
+	private LinearLayout signinFrame;
 
 	private CustomerOrder customerOrder;
 
@@ -53,22 +54,69 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		signinButton = (SignInButton) findViewById(R.id.signin);
+		initialise();
+
 		if (getIntent().getExtras() != null) {
 			String customerOrderJson = getIntent().getExtras().getString(CUSTOMER_ORDER_OBJECT);
 			customerOrder = new Gson().fromJson(customerOrderJson, CustomerOrder.class);
 		}
-		// image = (ImageView) findViewById(R.id.image);
-		username = (TextView) findViewById(R.id.username);
-		emailLabel = (TextView) findViewById(R.id.email);
-
-		profileFrame = (LinearLayout) findViewById(R.id.profileFrame);
-		signinFrame = (LinearLayout) findViewById(R.id.signinFrame);
 
 		signinButton.setOnClickListener(this);
-		mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(Plus.API, Plus.PlusOptions.builder().build())
-				.addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
+		mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this)
+				.addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_LOGIN).build();
+
+		submit.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				if (imm != null) {
+					imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
+				}
+
+				if (!Validation.isNetworkAvailable(LoginActivity.this)) {
+					Validation.showError(LoginActivity.this, ERROR_NO_INTERNET_CONNECTION);
+				} else {
+					if (validateInfo()) {
+						customer.setEmail(email.getText().toString());
+						customer.setPassword(password.getText().toString());
+						customerOrder.setCustomer(customer);
+						new LoginAsyncTask(LoginActivity.this, customerOrder, "LOGINFRAGMENT").execute();
+					} else
+						CustomerUtils.alertbox(TIFFEAT, " Enter Valid Credentials ", LoginActivity.this);
+				}
+			}
+		});
+
+		newuser.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (!Validation.isNetworkAvailable(LoginActivity.this)) {
+					Validation.showError(LoginActivity.this, ERROR_NO_INTERNET_CONNECTION);
+				} else {
+					Fragment fragment = null;
+					if (customerOrder == null) {
+						customerOrder = new CustomerOrder();
+					}
+					fragment = new UserRegistration(customerOrder);
+					CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				}
+			}
+		});
+
+	}
+
+	private void initialise() {
+
+		customer = new Customer();
+		signinButton = (SignInButton) findViewById(R.id.signin);
+		submit = (Button) findViewById(R.id.login_submit_button);
+		newuser = (TextView) findViewById(R.id.login_newuser_button);
+		email = (EditText) findViewById(R.id.login_editText_email);
+		password = (EditText) findViewById(R.id.login_editText_Password);
+		signinFrame = (LinearLayout) findViewById(R.id.signinFrame);
 	}
 
 	protected void onStart() {
@@ -144,11 +192,8 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 	private void updateProfile(boolean isSignedIn) {
 		if (isSignedIn) {
 			signinFrame.setVisibility(View.GONE);
-			profileFrame.setVisibility(View.VISIBLE);
-
 		} else {
 			signinFrame.setVisibility(View.VISIBLE);
-			profileFrame.setVisibility(View.GONE);
 		}
 	}
 
@@ -157,11 +202,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 			if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
 				Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
 				String personName = currentPerson.getDisplayName();
-				String personPhotoUrl = currentPerson.getImage().getUrl();
 				String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-
-				username.setText(personName);
-				emailLabel.setText(email);
 
 				Customer customer = new Customer();
 				customer.setEmail(email);
@@ -171,13 +212,9 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 					customerOrder = new CustomerOrder();
 				}
 				customerOrder.setCustomer(customer);
+				googlePlusLogout();
 				new LoginAsyncTask(this, customerOrder, LOGIN_W_GOOGLE).execute();
 
-				// new LoadProfileImage(image).execute(personPhotoUrl);
-
-				// update profile frame with new info about Google Account
-				// profile
-				// updateProfile(true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -223,34 +260,14 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 		}
 	}
 
-	// download Google Account profile image, to complete profile
-	private class LoadProfileImage extends AsyncTask {
-		ImageView downloadedImage;
-
-		public LoadProfileImage(ImageView image) {
-			this.downloadedImage = image;
+	private boolean validateInfo() {
+		if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(password.getText())) {
+			return false;
 		}
+		if (!Validation.isEmailAddress(email, true))
+			return false;
 
-		protected Bitmap doInBackground(String... urls) {
-			String url = urls[0];
-			Bitmap icon = null;
-			try {
-				InputStream in = new java.net.URL(url).openStream();
-				icon = BitmapFactory.decodeStream(in);
-			} catch (Exception e) {
-				Log.e("Error", e.getMessage());
-				e.printStackTrace();
-			}
-			return icon;
-		}
-
-		protected void onPostExecute(Bitmap result) {
-			downloadedImage.setImageBitmap(result);
-		}
-
-		@Override
-		protected Object doInBackground(Object... params) {
-			return null;
-		}
+		return true;
 	}
+
 }
