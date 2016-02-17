@@ -1,5 +1,6 @@
 package com.rns.tiffeat.mobile.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
@@ -34,11 +35,12 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class LoginActivity extends ActionBarActivity implements OnClickListener, ConnectionCallbacks, OnConnectionFailedListener, AndroidConstants {
 
+
 	private static final int RC_SIGN_IN = 0;
 
 	private GoogleApiClient mGoogleApiClient;
 	private EditText email, password;
-	private Button submit;
+	private Button login;
 	private TextView newuser;
 	private Customer customer;
 	private boolean mIntentInProgress;
@@ -46,8 +48,8 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 	private ConnectionResult mConnectionResult;
 	private SignInButton signinButton;
 	private LinearLayout signinFrame;
-
 	private CustomerOrder customerOrder;
+	private Activity currentActivity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 		mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this)
 				.addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
-		submit.setOnClickListener(new OnClickListener() {
+		login.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -88,21 +90,12 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 				}
 			}
 		});
-
+		currentActivity = this;
 		newuser.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(LoginActivity.this)) {
-					Validation.showError(LoginActivity.this, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					Fragment fragment = null;
-					if (customerOrder == null) {
-						customerOrder = new CustomerOrder();
-					}
-					fragment = new UserRegistration(customerOrder);
-					CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
-				}
+				CustomerUtils.startDrawerActivity(currentActivity, customerOrder, customer, ACTION_REGISTRATION);
 			}
 		});
 
@@ -112,7 +105,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 
 		customer = new Customer();
 		signinButton = (SignInButton) findViewById(R.id.signin);
-		submit = (Button) findViewById(R.id.login_submit_button);
+		login = (Button) findViewById(R.id.login_submit_button);
 		newuser = (TextView) findViewById(R.id.login_newuser_button);
 		email = (EditText) findViewById(R.id.login_editText_email);
 		password = (EditText) findViewById(R.id.login_editText_Password);

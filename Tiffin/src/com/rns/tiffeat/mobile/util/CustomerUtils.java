@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -27,9 +29,11 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.web.bo.domain.Customer;
+import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class CustomerUtils implements AndroidConstants {
@@ -164,6 +168,19 @@ public class CustomerUtils implements AndroidConstants {
 		canvas.drawBitmap(bitmap, rect, rect, paint);
 
 		return output;
+	}
+
+	public static void startDrawerActivity(Activity activity, CustomerOrder customerOrder, Customer customer, String action) {
+		Intent i = new Intent(activity, DrawerActivity.class);
+		i.putExtra(ACTION, action);
+		if (customerOrder != null) {
+			i.putExtra(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
+		}
+		if (customer != null) {
+			i.putExtra(AndroidConstants.CUSTOMER_OBJECT, new Gson().toJson(customerOrder.getCustomer()));
+		}
+		activity.startActivity(i);
+		activity.finish();
 	}
 
 }

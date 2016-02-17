@@ -10,13 +10,13 @@ import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 
-public class logoutAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
+public class LogoutAsynctask extends AsyncTask<String, String, String> implements AndroidConstants {
 
 	Activity mSplashScreen;
 	String action;
 	ProgressDialog pd;
 
-	public logoutAsynctask(Activity splashScreen) {
+	public LogoutAsynctask(Activity splashScreen) {
 		mSplashScreen = splashScreen;
 	}
 

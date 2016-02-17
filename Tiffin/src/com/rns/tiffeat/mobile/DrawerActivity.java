@@ -15,9 +15,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.asynctask.logoutAsynctask;
+import com.rns.tiffeat.mobile.asynctask.LogoutAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
-import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.mobile.util.LoginActivity;
@@ -63,24 +62,29 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		drawerFragment.setDrawerListener(this);
 
 		if (action != null) {
-			if (action.equals(ACTION_QUICK_HOME) == true) {
+			if (action.equals(ACTION_QUICK_HOME)) {
 				Fragment fragment = null;
 				fragment = new QuickOrderHomeScreen(customer);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
-			} else if (action.equals(ACTION_SCHEDULED_HOME) == true) {
+			} else if (action.equals(ACTION_SCHEDULED_HOME)) {
 				Fragment fragment = null;
 				fragment = new ScheduledOrderHomeScreen(customer);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
-			} else if (action.equals(ACTION_QUICK_ORDER) == true) {
+			} else if (action.equals(ACTION_QUICK_ORDER)) {
 				Fragment fragment = null;
 				fragment = new QuickOrderFragment(customerOrder);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
-			} else if (action.equals(ACTION_SCHEDULED_ORDER) == true) {
+			} else if (action.equals(ACTION_SCHEDULED_ORDER)) {
 				Fragment fragment = null;
 				fragment = new ScheduledOrderFragment(customerOrder);
+				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
+				return;
+			} else if (action.equals(ACTION_REGISTRATION)) {
+				Fragment fragment = null;
+				fragment = new UserRegistration(customerOrder, getApplicationContext());
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
 			}
@@ -190,7 +194,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			
 			if (customer != null) {
 				CustomerUtils.logout(this);
-				new logoutAsynctask(this).execute();
+				new LogoutAsynctask(this).execute();
 			} else {
 				CustomerUtils.alertbox(TIFFEAT, " You are not logged in  ", DrawerActivity.this);
 				fragment = new NewFirstTimeScreen();

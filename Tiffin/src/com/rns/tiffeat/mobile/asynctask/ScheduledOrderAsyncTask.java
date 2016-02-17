@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
-import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -68,7 +67,7 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 	}
 
 	private void nextActivity() {
-		new DrawerUpdateAsynctask(previousActivity, currentCustomer, "SCHEDULE").execute();
+		CustomerUtils.startDrawerActivity(previousActivity, scheduledOrder, currentCustomer, ACTION_SCHEDULED_HOME);
 	}
 
 }

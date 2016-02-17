@@ -71,8 +71,7 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 	}
 
 	private void nextActivity() {
-		new DrawerUpdateAsynctask(proceedtopay, currentCustomer,"QUICK").execute("");
-
+		CustomerUtils.startDrawerActivity(proceedtopay, customerOrder, currentCustomer, ACTION_QUICK_HOME);
 	}
 
 }

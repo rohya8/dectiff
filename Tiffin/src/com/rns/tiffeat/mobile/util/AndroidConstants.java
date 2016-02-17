@@ -7,7 +7,7 @@ public interface AndroidConstants {
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "TiffEAT";
-	String ROOT_URL = "http://192.168.0.6:8080/tiffeat-web/";
+	String ROOT_URL = "http://192.168.1.102:8080/tiffeat-web/";
 	//String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
@@ -58,4 +58,5 @@ public interface AndroidConstants {
 	String ACTION_QUICK_ORDER = "QUICK";
 	String ACTION_SCHEDULED_HOME = "SCHEDULE HOME";
 	String ACTION_QUICK_HOME = "QUICK HOME";
+	String ACTION_REGISTRATION = "REGISTRATION";
 }
