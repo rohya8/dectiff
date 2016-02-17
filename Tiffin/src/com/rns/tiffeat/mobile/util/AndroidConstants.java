@@ -1,4 +1,3 @@
-
 package com.rns.tiffeat.mobile.util;
 
 public interface AndroidConstants {
@@ -7,8 +6,8 @@ public interface AndroidConstants {
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "TiffEAT";
-	String ROOT_URL = "http://192.168.1.102:8080/tiffeat-web/";
-	//String ROOT_URL = "http://www.tiffeat.com/";
+	String ROOT_URL = "http://192.168.0.10:8080/tiffeat-web/";
+	// String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
 	String MEAL_OBJECT = "meal";
@@ -48,11 +47,11 @@ public interface AndroidConstants {
 
 	String MODEL_RESULT = "result";
 	String DATE_FORMAT = "EEE, MMM d";
-	
+
 	String REGISTRATION_FRAGMENT = "REGISTRATIONFRAGMENT";
 	String LOGIN_W_GOOGLE = "LOGINGOOGLE";
 	String LOGIN_FRAGMENT = "LOGINFRAGMENT";
-	
+
 	String ACTION = "action";
 	String ACTION_SCHEDULED_ORDER = "SCHEDULE";
 	String ACTION_QUICK_ORDER = "QUICK";

@@ -57,9 +57,10 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 			}
 
-			if (customerOrder.getMeal() != null && customerOrder.getMeal().getPrice() != null) {
-				price.setText(customerOrder.getMeal().getPrice().toString());
-			}
+//			if (customerOrder.getMeal() != null && customerOrder.getMeal().getPrice() != null) {
+//				//price.setText(customerOrder.getMeal().getPrice().toString());
+//				price.setText(customerOrder.getPrice().toString());
+//			}
 
 			if (customerOrder.getContent() != null) {
 				if (customerOrder.getMealType() != null)

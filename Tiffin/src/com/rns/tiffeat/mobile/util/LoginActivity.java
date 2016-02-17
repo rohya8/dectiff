@@ -84,7 +84,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 						customer.setEmail(email.getText().toString());
 						customer.setPassword(password.getText().toString());
 						customerOrder.setCustomer(customer);
-						new LoginAsyncTask(LoginActivity.this, customerOrder, "LOGINFRAGMENT").execute();
+						new LoginAsyncTask(LoginActivity.this, customerOrder, LOGIN_FRAGMENT).execute();
 					} else
 						CustomerUtils.alertbox(TIFFEAT, " Enter Valid Credentials ", LoginActivity.this);
 				}
@@ -150,7 +150,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 		}
 
 		if (!mIntentInProgress) {
-			// store mConnectionResult
 			mConnectionResult = result;
 
 			if (signedInUser) {
@@ -178,7 +177,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 	@Override
 	public void onConnected(Bundle arg0) {
 		signedInUser = false;
-		Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Login successful !!!", Toast.LENGTH_LONG).show();
 		getProfileInformation();
 	}
 

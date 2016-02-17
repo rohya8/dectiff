@@ -69,7 +69,12 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				return;
 			} else if (action.equals(ACTION_SCHEDULED_HOME)) {
 				Fragment fragment = null;
-				fragment = new ScheduledOrderHomeScreen(customer);
+				if (customer.getScheduledOrder().size() == 0 || customer.getScheduledOrder() == null) {
+					customerOrder.setCustomer(customer);
+					fragment = new NewFirstTimeScreen(customerOrder);
+				} else
+					fragment = new ScheduledOrderHomeScreen(customer);
+				
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
 			} else if (action.equals(ACTION_QUICK_ORDER)) {
@@ -157,9 +162,10 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
 				customerOrder.setCustomer(customer);
 				fragment = new NewFirstTimeScreen(customerOrder);
-			} else{
+			} else {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-				fragment = new QuickOrderHomeScreen(customer);}
+				fragment = new QuickOrderHomeScreen(customer);
+			}
 			break;
 
 		case 3:
@@ -167,7 +173,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
 				customerOrder.setCustomer(customer);
 				fragment = new NewFirstTimeScreen(customerOrder);
-			}else{
+			} else {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new PreviousOrderHomeScreen(customer);
 			}
@@ -191,7 +197,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			break;
 
 		case 7:
-			
+
 			if (customer != null) {
 				CustomerUtils.logout(this);
 				new LogoutAsynctask(this).execute();
@@ -232,16 +238,15 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		case 4:
 
-//			Intent intent = new Intent(this, LoginActivity.class);
-//			startActivity(intent);
-			
+			// Intent intent = new Intent(this, LoginActivity.class);
+			// startActivity(intent);
+
 			CustomerOrder customerOrder = new CustomerOrder();
 			Intent intent = new Intent(DrawerActivity.this, LoginActivity.class);
 			intent.putExtra(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
 			startActivity(intent);
 			finish();
-			
-			
+
 			break;
 
 		case 1:

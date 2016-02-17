@@ -107,8 +107,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		holder.order.setTag(position);
 
 		if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
-			if (meal.getDescription() != null) {
-				holder.description.setText(meal.getDescription());
+			if (meal.getMenu() != null) {
+				holder.description.setText(meal.getMenu());
 			}  
 			
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {

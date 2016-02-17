@@ -23,34 +23,28 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private Customer customerlogin;
 	private CustomerOrder customerOrder;
 	private String action;
-	//private LoginActivity loginActivity;
-	//private FragmentActivity fragmentActivity;
+	// private LoginActivity loginActivity;
+	// private FragmentActivity fragmentActivity;
 	private Activity context;
 
 	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2, String string) {
-		//this.fragmentActivity = activity;
+		// this.fragmentActivity = activity;
 		this.context = activity;
 		this.customerOrder = customerOrder2;
 		this.action = string;
 	}
 
 	public LoginAsyncTask(LoginActivity loginActivity, CustomerOrder customerOrder2, String string) {
-		//this.loginActivity = loginActivity;
+		// this.loginActivity = loginActivity;
 		this.context = loginActivity;
 		this.customerOrder = customerOrder2;
 		this.action = string;
 	}
 
-	/*public LoginAsyncTask(Context context2, CustomerOrder customerOrder2, String registrationFragment) {
-		this.context = context2;
-		this.customerOrder = customerOrder2;
-		this.action = registrationFragment;
-	}*/
-
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(context, "Checking  Details ", "Please Wait.....");
+		progressDialog = UserUtils.showLoadingDialog(context, "Checking  Details ", "Please Wait...");
 	}
 
 	@Override
@@ -60,11 +54,11 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			return null;
 		}
 		try {
-			if (action.equals(LOGIN_FRAGMENT))
+			if (action.equals("LOGINFRAGMENT"))
 				result = CustomerServerUtils.customerLogin(customerOrder.getCustomer());
-			else if (action.equals(LOGIN_W_GOOGLE))
+			else if (action.equals("LOGINGOOGLE"))
 				result = CustomerServerUtils.customerLoginWithGoogle(customerOrder.getCustomer());
-			else if (action.equals(REGISTRATION_FRAGMENT))
+			else if (action.equals("REGISTRATIONFRAGMENT"))
 				result = CustomerServerUtils.customerRegistration(customerOrder.getCustomer());
 
 			customerlogin = new Gson().fromJson(result, Customer.class);
@@ -85,17 +79,17 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 			return;
 		}
 
-		if (action.equals(LOGIN_FRAGMENT)) {
+		if (action.equals("LOGINFRAGMENT")) {
 			if (customerlogin == null) {
 				CustomerUtils.alertbox(TIFFEAT, "Login failed due to invalid username/password", context);
 				return;
 			}
-		} else if (action.equals(LOGIN_W_GOOGLE)) {
+		} else if (action.equals("LOGINGOOGLE")) {
 			if (customerlogin == null) {
 				CustomerUtils.alertbox(TIFFEAT, "Please Try Again Later", context);
 				return;
 			}
-		} else if (action.equals(REGISTRATION_FRAGMENT)) {
+		} else if (action.equals("REGISTRATIONFRAGMENT")) {
 			if (customerlogin == null) {
 				CustomerUtils.alertbox(TIFFEAT, "Registration failed due to : " + result, context);
 				return;
@@ -110,21 +104,22 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	}
 
 	private void postLogin() {
-		//Fragment fragment = null;
+		// Fragment fragment = null;
 		if (customerOrder == null || customerOrder.getMealFormat() == null) {
 			action = ACTION_SCHEDULED_HOME;
-			//new DrawerUpdateAsynctask(context, customerlogin, null).execute("");
 		} else if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
-			//fragment = new QuickOrderFragment(customerOrder);
-			//CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), false);
+			// fragment = new QuickOrderFragment(customerOrder);
+			// CustomerUtils.nextFragment(fragment,
+			// context.getSupportFragmentManager(), false);
 			action = ACTION_QUICK_ORDER;
 		} else {
-			//fragment = new ScheduledOrderFragment(customerOrder);
-			//CustomerUtils.nextFragment(fragment, context.getSupportFragmentManager(), false);
+			// fragment = new ScheduledOrderFragment(customerOrder);
+			// CustomerUtils.nextFragment(fragment,
+			// context.getSupportFragmentManager(), false);
 			action = ACTION_SCHEDULED_ORDER;
 		}
-		
+
 		CustomerUtils.startDrawerActivity(context, customerOrder, customerlogin, action);
 	}
-	
+
 }
