@@ -63,10 +63,10 @@ public class FragmentDrawer extends Fragment {
 		Customer currentCustomer = CustomerUtils.getCurrentCustomer(getActivity());
 		if (currentCustomer.getName() == null) {
 			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_new_user);
-		} else if (!CollectionUtils.isEmpty(currentCustomer.getQuickOrders()) || !CollectionUtils.isEmpty(currentCustomer.getPreviousOrders())
-				|| !CollectionUtils.isEmpty(currentCustomer.getScheduledOrder())) {
+		} else if (currentCustomer.getName() != null) {
 			titles = getActivity().getResources().getStringArray(R.array.nav_drawer_label_loggedin_user);
 		}
+
 	}
 
 	@Override

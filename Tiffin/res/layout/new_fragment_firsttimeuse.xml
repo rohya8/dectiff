@@ -36,7 +36,6 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/new_first_time_heading_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -44,6 +43,15 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="15dp"
                     android:text="We currently serve in Pune"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Save 20% by starting daily service !"
                     android:textColor="#000"
                     android:textSize="18sp" />
 

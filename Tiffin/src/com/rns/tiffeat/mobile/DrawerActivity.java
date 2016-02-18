@@ -74,7 +74,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 					fragment = new NewFirstTimeScreen(customerOrder);
 				} else
 					fragment = new ScheduledOrderHomeScreen(customer);
-				
+
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
 			} else if (action.equals(ACTION_QUICK_ORDER)) {
@@ -127,11 +127,11 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			newUserDrawer(position);
 			return;
 		}
-		if (!CollectionUtils.isEmpty(customer.getQuickOrders()) || !CollectionUtils.isEmpty(customer.getPreviousOrders())
-				|| !CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+		if (customer.getName() != null) {
 			loggedInUserDrawer(position);
 			return;
 		}
+
 	}
 
 	private void loggedInUserDrawer(int position) {
