@@ -7,11 +7,11 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
+import com.rns.tiffeat.mobile.LoginActivity;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
-import com.rns.tiffeat.mobile.util.LoginActivity;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;

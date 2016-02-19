@@ -45,6 +45,7 @@
                     android:text="We currently serve in Pune"
                     android:textColor="#000"
                     android:textSize="18sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,9 +77,11 @@
                     <Spinner
                         android:id="@+id/new_first_time_format_spinner"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:minWidth="200dp"
                         android:padding="10dp" />
                 </LinearLayout>
 
@@ -86,8 +89,8 @@
                     android:id="@+id/new_first_time_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:gravity="end"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -95,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:gravity="start"
                         android:text="for "
                         android:textColor="#000"
@@ -104,9 +108,11 @@
                     <Spinner
                         android:id="@+id/new_first_time_day_spinner"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="25dp"
+                        android:gravity="center"
+                        android:minWidth="200dp"
                         android:padding="10dp"
                         android:visibility="visible" />
                 </LinearLayout>
@@ -114,6 +120,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -132,10 +140,12 @@
                     <Spinner
                         android:id="@+id/new_first_time_timing_spinner"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="25dp"
+                        android:gravity="center"
+                        android:minWidth="200dp"
                         android:padding="10dp" />
                 </LinearLayout>
 
@@ -161,8 +171,8 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:ems="10"
-                    android:maxLines="3"
                     android:hint="Area "
+                    android:maxLines="3"
                     android:padding="10dp"
                     android:textColor="#000"
                     android:textSize="16sp"

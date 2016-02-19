@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.rns.tiffeat.mobile.LoginActivity;
 import com.rns.tiffeat.mobile.LoginFragment;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
@@ -30,7 +31,6 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
-import com.rns.tiffeat.mobile.util.LoginActivity;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
@@ -113,7 +113,9 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			if (meal.getAvailableFrom() != null) {
+				//if(meal.getStartsFromDay()!=null)
 				holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
+				//holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getStartsFromDay()));
 			}
 		}
 		

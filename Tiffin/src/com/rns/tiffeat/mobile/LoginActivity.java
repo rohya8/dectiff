@@ -1,4 +1,4 @@
-package com.rns.tiffeat.mobile.util;
+package com.rns.tiffeat.mobile;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,9 +27,9 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.UserRegistration;
-import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
+import com.rns.tiffeat.mobile.util.AndroidConstants;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
