@@ -69,8 +69,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			} else if (action.equals(ACTION_SCHEDULED_HOME)) {
 				Fragment fragment = null;
 				if (customer.getScheduledOrder().size() == 0 || customer.getScheduledOrder() == null) {
-					customerOrder.setCustomer(customer);
-					fragment = new NewFirstTimeScreen(customerOrder);
+					fragment = homeScreen(customerOrder);
 				} else
 					fragment = new ScheduledOrderHomeScreen(customer);
 
@@ -141,15 +140,12 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		switch (position) {
 
 		case 0:
-			customerOrder.setCustomer(customer);
-			fragment = new NewFirstTimeScreen(customerOrder);
+			fragment = homeScreen(customerOrder);
 			break;
 		case 1:
 			if (customer.getScheduledOrder().size() == 0) {
 				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
-				customerOrder.setCustomer(customer);
-
-				fragment = new NewFirstTimeScreen(customerOrder);
+				fragment = homeScreen(customerOrder);
 			} else {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new ScheduledOrderHomeScreen(customer);
@@ -159,8 +155,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		case 2:
 			if (customer.getQuickOrders().size() == 0) {
 				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
-				customerOrder.setCustomer(customer);
-				fragment = new NewFirstTimeScreen(customerOrder);
+				fragment = homeScreen(customerOrder);
 			} else {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new QuickOrderHomeScreen(customer);
@@ -170,8 +165,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		case 3:
 			if (customer.getPreviousOrders().size() == 0) {
 				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
-				customerOrder.setCustomer(customer);
-				fragment = new NewFirstTimeScreen(customerOrder);
+				fragment = homeScreen(customerOrder);
 			} else {
 				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
 				fragment = new PreviousOrderHomeScreen(customer);
@@ -180,19 +174,16 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 
 		case 4:
 			fragment = new TermsFragment();
-			title = getString(R.string.nav_item_terms);
 			break;
 
 		case 5:
 			CustomerOrder custOrder = new CustomerOrder();
 			custOrder.setCustomer(customer);
 			fragment = new AboutUsFragment(custOrder);
-			title = getString(R.string.nav_item_terms);
 			break;
 
 		case 6:
 			fragment = new ContactusFragment();
-			title = getString(R.string.nav_item_contactus);
 			break;
 
 		case 7:
@@ -220,6 +211,14 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			}
 		}
 
+	}
+
+	private Fragment homeScreen(CustomerOrder customerOrder) {
+		Fragment fragment;
+		customerOrder.setCustomer(customer);
+
+		fragment = new NewFirstTimeScreen(customerOrder);
+		return fragment;
 	}
 
 	private void newUserDrawer(int position) {
