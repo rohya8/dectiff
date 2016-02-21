@@ -83,26 +83,27 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		welcomeText = (TextView) view.findViewById(R.id.quickorder_homescreen_textView);
 		relativeLayout.setVisibility(View.VISIBLE);
 
-		if (customer.getQuickOrders() != null)
+		if (customer.getQuickOrders() != null) {
 			quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
-		else if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-			welcomeText.setText("Sorry " + customer.getName() + " you have not order today");
-			relativeLayout.setVisibility(View.GONE);
-		}
-
+		} 
 		todaylistview.setFooterDividersEnabled(true);
 
 	}
 
 	public void prepareScreen() {
-
+		
+		initialise();
 		quickOrdersAdapter.setQuickHome(this);
-
-		if (CollectionUtils.isEmpty(quickOrdersAdapter.getQuickOrders())) {
-			quickOrdersAdapter.setQuickOrders(customer.getQuickOrders());
-			todaylistview.setAdapter(quickOrdersAdapter);
-		} else
-			todaylistview.setAdapter(quickOrdersAdapter);
+		if(CollectionUtils.isEmpty(customer.getQuickOrders())) {
+			welcomeText.setText("You have no orders today..");
+			relativeLayout.setVisibility(View.GONE);
+			return;
+		}
+		
+		welcomeText.setText("Todays Orders");
+		quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
+		quickOrdersAdapter.setQuickOrders(customer.getQuickOrders());
+		todaylistview.setAdapter(quickOrdersAdapter);
 	}
 
 	private void newActivity(CustomerOrder customerOrder2) {

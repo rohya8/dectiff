@@ -102,6 +102,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			holder.switchButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_switch_button);
 			holder.viewMenuButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_viewmenu_button);
 			holder.addOtherMealTypeButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_edit_button);
+			holder.price = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_price_textView);
 
 			convertView.setTag(holder);
 
@@ -217,6 +218,9 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			return;
 		}
 		holder.title.setText(customerOrder.getMeal().getTitle());
+		if (customerOrder.getMeal().getPrice() != null) {
+			holder.price.setText("Rs. " + customerOrder.getMeal().getPrice().toString());
+		}
 
 		if (customerOrder.getDate() != null)
 			holder.date.setText("Scheduled From :" + CustomerUtils.convertDate(customerOrder.getDate()));

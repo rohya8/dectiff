@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.LoginActivity;
-import com.rns.tiffeat.mobile.LoginFragment;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
@@ -39,7 +38,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
-	private Meal meal;
+	// private Meal meal;
 	private FragmentActivity activity;
 
 	public class ViewHolder {
@@ -57,8 +56,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		}
 	}
 
-	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
-			CustomerOrder customerOrder) {
+	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
@@ -73,7 +71,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		ViewHolder holder = null;
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
 
-		meal = meals.get(position);
+		Meal meal = meals.get(position);
 
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -109,30 +107,34 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
 			if (meal.getMenu() != null) {
 				holder.description.setText(meal.getMenu());
-			}  
-			
+			}
+
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			if (meal.getAvailableFrom() != null) {
-				//if(meal.getStartsFromDay()!=null)
-				holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
-				//holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getStartsFromDay()));
+				// if(meal.getStartsFromDay()!=null)
+				if (customerOrder.getId() != 0) {
+					holder.description.setText(meal.getMenu());
+				} else {
+					holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
+				}
+				// holder.description.setText("Starts from : " +
+				// CustomerUtils.convertDate(meal.getStartsFromDay()));
 			}
 		}
-		
 
-			holder.order.setOnClickListener(new OnClickListener() {
+		holder.order.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					if (!Validation.isNetworkAvailable(activity)) {
-						Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
-					} else {
-						int pos = (Integer) v.getTag();
-						orderMeal(pos);
-					}
+			@Override
+			public void onClick(View v) {
+				if (!Validation.isNetworkAvailable(activity)) {
+					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
+				} else {
+					int pos = (Integer) v.getTag();
+					orderMeal(pos);
 				}
+			}
 
-			});
+		});
 
 		return convertView;
 

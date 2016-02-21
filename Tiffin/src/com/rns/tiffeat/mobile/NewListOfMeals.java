@@ -18,6 +18,7 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.Meal;
+import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class NewListOfMeals extends Fragment implements AndroidConstants {
 
@@ -54,9 +55,7 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 			listview.setAdapter(adapter);
 			meal = (TextView) header.findViewById(R.id.new_list_of_meals_mealtype);
 			location = (TextView) header.findViewById(R.id.new_list_of_meals_area);
-			if (customerOrder.getMealType() != null && customerOrder.getDate() != null)
-				meal.setText(customerOrder.getMealType().toString()+" for " + CustomerUtils.convertDate(customerOrder.getDate()));
-
+			meal.setText(getOrderDescription());
 			if (customerOrder.getLocation() != null) {
 				location.setText(customerOrder.getLocation().getAddress());
 			}
@@ -82,6 +81,16 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 
 		}
 		return rootview;
+	}
+
+	private String getOrderDescription() {
+		if (customerOrder.getMealType() == null || customerOrder.getDate() == null) {
+			return "";
+		}
+		if(MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			return customerOrder.getMealType().getDescription() +" starting from " + CustomerUtils.convertDate(customerOrder.getDate());
+		}
+		return customerOrder.getMealType().getDescription() +" for " + CustomerUtils.convertDate(customerOrder.getDate());
 	}
 
 	private void initialise() {

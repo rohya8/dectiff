@@ -29,7 +29,7 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(activity, "Scheduled order", "Preparing.....");
+		progressDialog = UserUtils.showLoadingDialog(activity, "Daily Tiffin", "Adding money to wallet ..");
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 	private void nextActivity() {
 
 		CustomerUtils.clearFragmentStack(activity.getSupportFragmentManager());
-		if (customerOrder != null) {
+		if (customerOrder != null && customerOrder.getMeal() != null) {
 			new ScheduledOrderAsyncTask(activity, customerOrder).execute();
 		} else {
 			Fragment scheduledHomeFragment = new ScheduledOrderHomeScreen(customerOrder.getCustomer());

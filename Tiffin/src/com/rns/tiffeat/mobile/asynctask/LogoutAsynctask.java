@@ -43,6 +43,7 @@ public class LogoutAsynctask extends AsyncTask<String, String, String> implement
 		Intent i = new Intent(mSplashScreen, DrawerActivity.class);
 		mSplashScreen.startActivity(i);
 		mSplashScreen.finish();
+		CustomerUtils.alertbox(TIFFEAT, "Logged Out!", mSplashScreen);
 	};
 
 }

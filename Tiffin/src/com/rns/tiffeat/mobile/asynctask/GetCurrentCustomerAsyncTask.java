@@ -1,10 +1,10 @@
 package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.DrawerActivity;
@@ -15,6 +15,7 @@ import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.Customer;
 
 public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Customer> implements AndroidConstants {
@@ -23,6 +24,12 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	private Context context;
 	private ScheduledOrderHomeScreen scheduledHome;
 	private PreviousOrderHomeScreen previousOrderHomeScreen;
+	private ProgressDialog progressDialog;
+	private boolean noLoader;
+	
+	public void setNoLoader(boolean noLoader) {
+		this.noLoader = noLoader;
+	}
 
 	public GetCurrentCustomerAsyncTask(Context context, QuickOrderHomeScreen quickHome) {
 		this.quickOrderHome = quickHome;
@@ -39,8 +46,17 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	}
 
 	public GetCurrentCustomerAsyncTask(Context activity, PreviousOrderHomeScreen previousOrderHomeScreen) {
-		this.previousOrderHomeScreen=previousOrderHomeScreen;
+		this.previousOrderHomeScreen = previousOrderHomeScreen;
 		this.context = activity;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		if(noLoader) {
+			return;
+		}
+		progressDialog = UserUtils.showLoadingDialog(context, null, "Preparing.....");
 	}
 
 	@Override
@@ -65,6 +81,9 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	@Override
 	protected void onPostExecute(Customer result) {
 		super.onPostExecute(result);
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
 		if (result == null) {
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, context);
 			return;
@@ -75,11 +94,10 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 			scheduledHome.prepareScreen();
 		} else if (quickOrderHome == null && scheduledHome == null && previousOrderHomeScreen == null) {
 			nextActivity(result);
-		} else if (quickOrderHome != null){
+		} else if (quickOrderHome != null) {
 			quickOrderHome.setCustomer(result);
 			quickOrderHome.prepareScreen();
-		}
-		else if(previousOrderHomeScreen == null){
+		} else if (previousOrderHomeScreen == null) {
 			previousOrderHomeScreen.setCustomer(result);
 			previousOrderHomeScreen.prepareScreen();
 		}

@@ -16,6 +16,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+        
+        <TextView
+            android:id="@+id/current_balance_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@drawable/wallet"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="phone"
+            android:padding="5dp" >
+        </TextView>
 
         <EditText
             android:id="@+id/add_amount_edittext"

@@ -21,8 +21,10 @@ import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
+import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
+import com.rns.tiffeat.web.util.CommonUtil;
 
 public class QuickOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
@@ -34,6 +36,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 	private EditText tiffintitle, name, emailid, amount, quantity, mealtype;
 	private View rootView;
 	Context context;
+	private EditText date;
 
 	public QuickOrderFragment(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
@@ -78,7 +81,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		plus = (Button) rootView.findViewById(R.id.quickorder_screen_quantity_plus_button);
 		minus = (Button) rootView.findViewById(R.id.quickorder_screen_quantity_minus_button);
 		mealtype = (EditText) rootView.findViewById(R.id.quickorder_screen_mealtype_edittext);
-
+		date = (EditText) rootView.findViewById(R.id.quickorder_screen_order_date);
 		customerData();
 	}
 
@@ -105,7 +108,8 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
 			phone.setHint("Enter Phone Number");
-
+		
+		date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 		amount.setText(customerOrder.getMeal().getPrice().toString());
 	}
 
@@ -125,7 +129,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 				if (TextUtils.isEmpty(address.getText())) {
 					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
-				} else if (TextUtils.isEmpty(address.getText()) || address.getText().toString().length() <= 8) {
+				} else if (TextUtils.isEmpty(address.getText())) {
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
 				} else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false) {
 					CustomerUtils.alertbox(TIFFEAT, " Select A Payment Method ", getActivity());

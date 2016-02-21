@@ -75,7 +75,9 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 			startActivity(i);
 			finish();
 		} else {
-			new GetCurrentCustomerAsyncTask(SplashScreen.this).execute();
+			GetCurrentCustomerAsyncTask getCurrentCustomerAsyncTask = new GetCurrentCustomerAsyncTask(SplashScreen.this);
+			getCurrentCustomerAsyncTask.setNoLoader(true);
+			getCurrentCustomerAsyncTask.execute();
 
 		}
 	}

@@ -104,7 +104,9 @@ public class UserUtils implements AndroidConstants {
 		ProgressDialog progressDialog = new ProgressDialog(myactivity);
 		//progressDialog.setIndeterminate(true);
 		//progressDialog.setIndeterminateDrawable(myactivity.getResources().getDrawable(R.anim.progress_dialog_anim));
-		progressDialog.setTitle(title);
+		if(title != null) {
+			progressDialog.setTitle(title);
+		}
 		progressDialog.setMessage(text);
 		progressDialog.setCancelable(false);
 		progressDialog.show();

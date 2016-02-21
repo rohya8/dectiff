@@ -166,6 +166,7 @@ public class CustomerServerUtils implements AndroidConstants {
 
 	public static String validateQuickOrder(CustomerOrder customerOrder) {
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		removeCircularReferences(customerOrder);
 		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
 		result = CoreServerUtils.serverCall(VALIDATE_CUSTOMER_QUICKORDER_URL, uriVariables, HttpMethod.POST).getBody();
 		return result;

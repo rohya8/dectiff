@@ -3,8 +3,6 @@ package com.rns.tiffeat.mobile;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.CollectionUtils;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;

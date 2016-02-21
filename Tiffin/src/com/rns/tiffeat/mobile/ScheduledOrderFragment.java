@@ -4,12 +4,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ValidateScheduledOrderAsyncTask;
@@ -24,6 +26,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	private EditText tiffindesc, name, emailid;
 	private View rootView;
 	private Button proceed;
+	private TextView price;
 
 	public ScheduledOrderFragment(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
@@ -59,7 +62,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		emailid = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Email);
 		phone = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
 		proceed = (Button) rootView.findViewById(R.id.scheduled_order_proceed_button);
-
+		price = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Price);
 		customerData();
 	}
 
@@ -86,6 +89,10 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
 			phone.setHint("Enter Phone Number");
+		
+		if(customerOrder.getMeal().getPrice() != null) {
+			price.setText(customerOrder.getMeal().getPrice().toString());
+		}
 
 	}
 
@@ -99,17 +106,13 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			if (!Validation.isNetworkAvailable(getActivity())) {
 				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 			} else {
-				if (lunchaddr.getText().toString().equals(""))
-					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
-				else if (lunchaddr.getText().toString().length() <= 8)
+				if (TextUtils.isEmpty(lunchaddr.getText()))
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
 				else if (!Validation.isPhoneNumber(phone, true))
 					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
 				else {
-
 					customerOrder.setAddress(lunchaddr.getText().toString());
 					customerOrder.getCustomer().setPhone(phone.getText().toString());
-
 					alertbox();
 				}
 			}

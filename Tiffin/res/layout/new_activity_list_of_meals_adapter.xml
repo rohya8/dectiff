@@ -83,7 +83,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:maxLines="3"
-                android:text="hello 123 hello 123hello 123hello 1233"
+                android:text="Menu Not available yet .."
                 android:textColor="#607D8B"
                 android:textSize="14sp" />
 

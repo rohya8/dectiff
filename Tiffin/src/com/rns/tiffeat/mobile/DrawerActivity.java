@@ -1,7 +1,5 @@
 package com.rns.tiffeat.mobile;
 
-import org.springframework.util.CollectionUtils;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -63,16 +61,12 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 		if (action != null) {
 			if (action.equals(ACTION_QUICK_HOME)) {
 				Fragment fragment = null;
-				fragment = new QuickOrderHomeScreen(customer);
+				fragment = quickOrdersHome(customerOrder);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
 			} else if (action.equals(ACTION_SCHEDULED_HOME)) {
 				Fragment fragment = null;
-				if (customer.getScheduledOrder().size() == 0 || customer.getScheduledOrder() == null) {
-					fragment = homeScreen(customerOrder);
-				} else
-					fragment = new ScheduledOrderHomeScreen(customer);
-
+				fragment = scheduledOrdersHome(customerOrder);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
 			} else if (action.equals(ACTION_QUICK_ORDER)) {
@@ -143,27 +137,15 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			fragment = homeScreen(customerOrder);
 			break;
 		case 1:
-			if (customer.getScheduledOrder().size() == 0) {
-				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
-				fragment = homeScreen(customerOrder);
-			} else {
-				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-				fragment = new ScheduledOrderHomeScreen(customer);
-			}
+			fragment = scheduledOrdersHome(customerOrder);
 			break;
 
 		case 2:
-			if (customer.getQuickOrders().size() == 0) {
-				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
-				fragment = homeScreen(customerOrder);
-			} else {
-				CustomerUtils.clearFragmentStack(getSupportFragmentManager());
-				fragment = new QuickOrderHomeScreen(customer);
-			}
+			fragment = quickOrdersHome(customerOrder);
 			break;
 
 		case 3:
-			if (customer.getPreviousOrders().size() == 0) {
+			if (org.apache.commons.collections.CollectionUtils.isEmpty(customer.getPreviousOrders())) {
 				CustomerUtils.alertbox(TIFFEAT, "No orders yet...", DrawerActivity.this);
 				fragment = homeScreen(customerOrder);
 			} else {
@@ -211,6 +193,20 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			}
 		}
 
+	}
+
+	private Fragment quickOrdersHome(CustomerOrder customerOrder) {
+		Fragment fragment;
+		CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+		fragment = new QuickOrderHomeScreen(customer);
+		return fragment;
+	}
+
+	private Fragment scheduledOrdersHome(CustomerOrder customerOrder) {
+		Fragment fragment;
+		CustomerUtils.clearFragmentStack(getSupportFragmentManager());
+		fragment = new ScheduledOrderHomeScreen(customer);
+		return fragment;
 	}
 
 	private Fragment homeScreen(CustomerOrder customerOrder) {

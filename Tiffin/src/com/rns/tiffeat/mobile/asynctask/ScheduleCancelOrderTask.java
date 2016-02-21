@@ -29,7 +29,7 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(mscheduleorder, "Cancel Order ", "Canceling Order....");
+		progressDialog = UserUtils.showLoadingDialog(mscheduleorder, "Cancel Order", "Canceling Order....");
 	}
 
 	@Override
@@ -60,10 +60,10 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 
 		if (result1.equals("OK")) {
 			CustomerUtils.alertbox(TIFFEAT, "Cancel Order Successful !! ", mscheduleorder);
+		} else {
+			CustomerUtils.alertbox(TIFFEAT, "Cancel failed!" + result, mscheduleorder);
+		}
 		new GetCurrentCustomerAsyncTask(mscheduleorder, scheduledUser).execute("");
-		} else
-			CustomerUtils.alertbox(TIFFEAT, "Cancel failed due to : " + result, mscheduleorder);
-		
 	}
 
 	public ScheduledOrderHomeScreen getScheduledUser() {

@@ -81,6 +81,15 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/scheduledorder_adapter_price_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textColor="#607D8B"
+                        android:textSize="15sp"
+                        android:text="Rs. " />
+                    
+                    <TextView
                         android:id="@+id/scheduledorder_adapter_orderstatus_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
