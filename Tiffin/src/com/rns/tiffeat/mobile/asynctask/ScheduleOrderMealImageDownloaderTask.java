@@ -56,7 +56,7 @@ public class ScheduleOrderMealImageDownloaderTask extends AsyncTask<Meal, Void, 
 		super.onPostExecute(result);
 
 		if (result == null)
-			imageView.setImageResource(R.drawable.spl);
+			imageView.setImageResource(R.drawable.defaultimage);
 		else {
 			imageView.setImageBitmap(result);
 			UserUtils.scaleImage(imageView, result);
