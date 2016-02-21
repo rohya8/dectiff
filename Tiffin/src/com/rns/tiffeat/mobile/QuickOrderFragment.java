@@ -30,7 +30,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 	private RadioButton codpayment, onlinepayment;
 	private EditText address, phone;
-	private static int count = 1;
+	private int count = 1;
 	private Button proceed, plus, minus;
 	private CustomerOrder customerOrder;
 	private EditText tiffintitle, name, emailid, amount, quantity, mealtype;
@@ -108,9 +108,12 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
 			phone.setHint("Enter Phone Number");
-		
-		date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
-		amount.setText(customerOrder.getMeal().getPrice().toString());
+
+		if(customerOrder.getDate()!=null)
+			date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
+
+		if(customerOrder.getMeal()!=null)
+			amount.setText(customerOrder.getMeal().getPrice().toString());
 	}
 
 	@Override

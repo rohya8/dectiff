@@ -89,6 +89,23 @@
                 android:padding="10dp"
                 android:text=" Lunch for Date"
                 android:textColor="#FF5722" />
+            <EditText
+                android:id="@+id/scheduleorder_screen_order_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded"
+                android:drawableLeft="@drawable/smallcalendar"
+                android:drawablePadding="10dp"
+                android:ems="8"
+                android:enabled="false"
+                android:gravity="left"
+                android:inputType="text"
+                android:padding="10dp"
+                android:text=""
+                android:textColor="#FF5722" />
 
             <EditText
                 android:id="@+id/scheduled_order_editText_Price"

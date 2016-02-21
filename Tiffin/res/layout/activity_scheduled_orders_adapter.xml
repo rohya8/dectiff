@@ -45,17 +45,37 @@
                         android:adjustViewBounds="true"
                         android:src="@drawable/food5" />
 
-                    <TextView
-                        android:id="@+id/scheduledorder_adapter_mealtitle_textView"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="5dp"
-                        android:gravity="left"
-                        android:text="Todays Menu of ABC Tiffins:"
-                        android:textColor="#000"
-                        android:textSize="15sp" />
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/scheduledorder_adapter_mealtitle_textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="Todays Menu of ABC Tiffins:"
+                            android:textColor="#000"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/scheduledorder_adapter_price_textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="2.3"
+                            android:gravity="left"
+                            android:text="Rs. 1000.00"
+                            android:textColor="#607D8B"
+                            android:textSize="15sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/scheduledorder_adapter_date_textView"
@@ -80,15 +100,6 @@
                         android:textColor="#607D8B"
                         android:textSize="15sp" />
 
-                    <TextView
-                        android:id="@+id/scheduledorder_adapter_price_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:textColor="#607D8B"
-                        android:textSize="15sp"
-                        android:text="Rs. " />
-                    
                     <TextView
                         android:id="@+id/scheduledorder_adapter_orderstatus_textView"
                         android:layout_width="match_parent"

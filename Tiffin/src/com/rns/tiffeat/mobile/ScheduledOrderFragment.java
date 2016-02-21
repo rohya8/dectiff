@@ -23,7 +23,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 	private EditText lunchaddr, phone, mealtype;
 	private CustomerOrder customerOrder;
-	private EditText tiffindesc, name, emailid;
+	private EditText tiffindesc, name, emailid,date;
 	private View rootView;
 	private Button proceed;
 	private TextView price;
@@ -63,6 +63,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		phone = (EditText) rootView.findViewById(R.id.scheduled_order_editText_Phoneno);
 		proceed = (Button) rootView.findViewById(R.id.scheduled_order_proceed_button);
 		price = (TextView) rootView.findViewById(R.id.scheduled_order_editText_Price);
+		date = (EditText) rootView.findViewById(R.id.scheduleorder_screen_order_date);
 		customerData();
 	}
 
@@ -93,6 +94,10 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		if(customerOrder.getMeal().getPrice() != null) {
 			price.setText(customerOrder.getMeal().getPrice().toString());
 		}
+		
+		if(customerOrder.getDate()!=null)
+			date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
+
 
 	}
 
