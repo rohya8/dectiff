@@ -28,7 +28,7 @@ public class ValidateScheduledOrderAsyncTask extends AsyncTask<String, String, S
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(scheduleOrderFragmentActivity, "Validating order", "Please Wait.....");
+		progressDialog = UserUtils.showLoadingDialog(scheduleOrderFragmentActivity, "Verifying order", "Please Wait.....");
 	}
 
 	@Override

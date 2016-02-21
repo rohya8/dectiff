@@ -33,7 +33,7 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(activity, "Available Meals", "Getting nearby vendors..");
+		progressDialog = UserUtils.showLoadingDialog(activity, "Available Meals", "Getting nearby meals..");
 	}
 
 	public List<Meal> getMeals() {

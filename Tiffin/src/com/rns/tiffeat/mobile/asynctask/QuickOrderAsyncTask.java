@@ -28,7 +28,7 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressdialog = UserUtils.showLoadingDialog(proceedtopay, "Quick Order ", "Please Wait...");
+		progressdialog = UserUtils.showLoadingDialog(proceedtopay, "Placing order", "Please Wait...");
 	}
 
 	@Override

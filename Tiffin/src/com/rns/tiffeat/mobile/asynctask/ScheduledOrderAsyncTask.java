@@ -29,7 +29,7 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 	protected void onPreExecute() {
 		super.onPreExecute();
 
-		progressDialog = UserUtils.showLoadingDialog(previousActivity, "Daily Tiffin", "Preparing.....");
+		progressDialog = UserUtils.showLoadingDialog(previousActivity, "Ordering Daily Tiffin", "Preparing.....");
 	}
 
 	@Override

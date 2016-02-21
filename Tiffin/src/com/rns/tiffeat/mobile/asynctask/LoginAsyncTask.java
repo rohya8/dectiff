@@ -43,7 +43,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(context, "Checking  Details ", "Please Wait...");
+		progressDialog = UserUtils.showLoadingDialog(context, "Checking  Details", "Please Wait...");
 	}
 
 	@Override

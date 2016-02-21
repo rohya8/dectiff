@@ -34,7 +34,7 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		progressDialog = UserUtils.showLoadingDialog(previousActivity, "Validating order", "Please Wait.....");
+		progressDialog = UserUtils.showLoadingDialog(previousActivity, "Verifying order", "Please Wait.....");
 	}
 
 	@Override
