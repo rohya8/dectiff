@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/food5" />
+                        android:src="@drawable/spl" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight="2.3"
                             android:gravity="left"
-                            android:text="Rs. 1000.00"
+                            android:text="Rs. 0.0"
                             android:textColor="#607D8B"
                             android:textSize="15sp" />
                     </LinearLayout>

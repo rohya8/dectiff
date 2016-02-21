@@ -56,7 +56,7 @@ public class QuickOrderMealImageDownloaderTask extends AsyncTask<Meal, Void, Bit
 		super.onPostExecute(result);
 
 		if (result == null)
-			imageView.setImageResource(R.drawable.food5);
+			imageView.setImageResource(R.drawable.spl);
 		else {
 			imageView.setImageBitmap(result);
 			UserUtils.scaleImage(imageView, result);
