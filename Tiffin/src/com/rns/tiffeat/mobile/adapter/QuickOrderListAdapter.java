@@ -84,7 +84,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		customerOrder = quickOrders.get(position);
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = vi.inflate(R.layout.activity_quickorder_list_adapter, null);
+			convertView = vi.inflate(R.layout.activity_quickorder_list_adapter, parent, false);
 			holder = new ViewHolder();
 			fontChanger.replaceFonts((ViewGroup) convertView);
 			holder.title = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_name_textView);

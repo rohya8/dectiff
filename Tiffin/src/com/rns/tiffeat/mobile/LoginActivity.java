@@ -1,11 +1,22 @@
 package com.rns.tiffeat.mobile;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,7 +37,6 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -35,9 +45,8 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class LoginActivity extends ActionBarActivity implements OnClickListener, ConnectionCallbacks, OnConnectionFailedListener, AndroidConstants {
 
-
 	private static final int RC_SIGN_IN = 0;
-
+	
 	private GoogleApiClient mGoogleApiClient;
 	private EditText email, password;
 	private Button login;
@@ -50,6 +59,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 	private LinearLayout signinFrame;
 	private CustomerOrder customerOrder;
 	private Activity currentActivity;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,11 +134,10 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 		}
 	}
 
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		finish();
-	}
+	/*
+	 * @Override public void onBackPressed() { super.onBackPressed(); finish();
+	 * }
+	 */
 
 	private void resolveSignInError() {
 		if (mConnectionResult.hasResolution()) {
@@ -138,6 +147,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 			} catch (SendIntentException e) {
 				mIntentInProgress = false;
 				mGoogleApiClient.connect();
+				return;
 			}
 		}
 	}
@@ -154,6 +164,7 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 
 			if (signedInUser) {
 				resolveSignInError();
+
 			}
 		}
 	}
@@ -179,14 +190,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 		signedInUser = false;
 		Toast.makeText(this, "Login successful !!!", Toast.LENGTH_LONG).show();
 		getProfileInformation();
-	}
-
-	private void updateProfile(boolean isSignedIn) {
-		if (isSignedIn) {
-			signinFrame.setVisibility(View.GONE);
-		} else {
-			signinFrame.setVisibility(View.VISIBLE);
-		}
 	}
 
 	private void getProfileInformation() {
@@ -261,5 +264,14 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 
 		return true;
 	}
+
+	private void updateProfile(boolean isSignedIn) {
+		if (isSignedIn) {
+			signinFrame.setVisibility(View.GONE);
+		} else {
+			signinFrame.setVisibility(View.VISIBLE);
+		}
+	}
+
 
 }

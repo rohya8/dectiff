@@ -82,7 +82,7 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 								customerOrder = new CustomerOrder();
 							}
 
-							if (spformat.getSelectedItem().toString().equals("try a meal"))
+							if (spformat.getSelectedItem().toString().equals("Try a meal"))
 								customerOrder.setMealFormat(MealFormat.QUICK);
 							else
 								customerOrder.setMealFormat(MealFormat.SCHEDULED);
@@ -191,7 +191,7 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 
 				TextView textView = (TextView) parent.getChildAt(0);
 				if (textView != null){
-					if( textView.getText().equals("try a meal")) {
+					if( textView.getText().equals("Try a meal")) {
 						adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.spinner_timing, android.R.layout.simple_spinner_item);
 						layout.setVisibility(View.VISIBLE);
 						from.setVisibility(View.GONE);

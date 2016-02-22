@@ -117,7 +117,6 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		holder.switchButton.setTag(position);
 		holder.viewMenuButton.setTag(position);
 		holder.addOtherMealTypeButton.setTag(position);
-		holder.orderStatus.setVisibility(View.VISIBLE);
 		holder.mealStatus.setVisibility(View.VISIBLE);
 
 		prepareCustomerOrder(customerOrder);
@@ -246,9 +245,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			return;
 		}
 		if (OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
+			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your Order has been cancelled..");
 			hideControls();
 		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) {
+			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your order has been delivered!! Please rate us!!");
 			hideControls();
 		} else if (OrderStatus.PAYABLE.equals(customerOrder.getStatus())) {
@@ -282,6 +283,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 	private void hideControls() {
 		mealTypeCooking();
+		holder.mealStatus.setVisibility(View.GONE);
 		holder.viewMenuButton.setVisibility(View.GONE);
 	}
 
@@ -311,7 +313,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(scheduledOrderFragment, R.style.AppCompatAlertDialogStyle);
 		builder.setTitle("Order Status");
-		builder.setMessage("Are you sure you want to cancel your order?.");
+		builder.setMessage("Are you sure you want to cancel your order?");
 
 		builder.setNegativeButton("No", null);
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

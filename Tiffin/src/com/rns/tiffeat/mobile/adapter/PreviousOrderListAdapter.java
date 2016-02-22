@@ -24,7 +24,6 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implements AndroidConstants {
 	private FragmentActivity activity;
 	private List<CustomerOrder> previousOrders;
-
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
@@ -83,7 +82,8 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = vi.inflate(R.layout.activity_previousorder_list_adapter, null);
+
+			convertView = vi.inflate(R.layout.activity_previousorder_list_adapter, parent, false);
 
 			holder = new ViewHolder();
 			fontChanger.replaceFonts((ViewGroup) convertView);

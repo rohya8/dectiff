@@ -38,7 +38,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
-	// private Meal meal;
 	private FragmentActivity activity;
 
 	public class ViewHolder {
@@ -56,7 +55,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		}
 	}
 
-	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
+	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
+			CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
@@ -75,7 +75,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = vi.inflate(R.layout.new_activity_list_of_meals_adapter, null);
+
+			convertView = vi.inflate(R.layout.new_activity_list_of_meals_adapter, parent, false);
 
 			holder = new ViewHolder();
 			fontChanger.replaceFonts((ViewGroup) convertView);

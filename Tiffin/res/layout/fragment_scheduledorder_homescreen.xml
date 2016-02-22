@@ -22,9 +22,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_weight="0.9"
                 android:ems="10"
                 android:inputType="number"
-                android:layout_weight="0.9"
                 android:text="You Don&apos;t have any Daily Tiffins .."
                 android:textColor="#000"
                 android:textSize="13sp"
@@ -85,8 +85,7 @@
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="7sp"
-            android:transcriptMode="alwaysScroll" >
+            android:dividerHeight="7sp" >
         </ListView>
     </LinearLayout>
 

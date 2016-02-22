@@ -99,8 +99,6 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 		header = (TextView) rootview.findViewById(R.id.scheduled_homescreen_textview_header);
 		addLunch = (Button) rootview.findViewById(R.id.scheduled_homescreen_button_add_lunch);
 		addDinner = (Button) rootview.findViewById(R.id.scheduled_homescreen_button_add_dinner);
-		addLunch.setVisibility(View.GONE);
-		addDinner.setVisibility(View.GONE);
 		
 		addLunch.setOnClickListener(new OnClickListener() {
 			

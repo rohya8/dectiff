@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
+import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class WalletFragment extends Fragment implements AndroidConstants {
@@ -44,7 +45,7 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 		balanceEditText = (EditText) rootView.findViewById(R.id.add_amount_edittext);
 		currentBalance = (TextView) rootView.findViewById(R.id.current_balance_textview);
 		currentBalance.setText("Balance : Rs. 0");
-		
+
 		if (customerOrder.getCustomer().getBalance() != null) {
 			if (BigDecimal.TEN.compareTo(customerOrder.getCustomer().getBalance()) < 0) {
 				addLater.setVisibility(View.VISIBLE);
@@ -68,6 +69,7 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 						CustomerUtils.alertbox(TIFFEAT, "Invalid amount!", getActivity());
 						return;
 					}
+
 					customerOrder.getCustomer().setBalance(new BigDecimal(balance));
 					nextActivity();
 
@@ -94,4 +96,11 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), FONT);
+		fontChanger.replaceFonts((ViewGroup) this.getView());
+	}
 }

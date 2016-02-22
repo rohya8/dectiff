@@ -21,10 +21,8 @@ import com.rns.tiffeat.mobile.asynctask.ValidateQuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
-import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.PaymentType;
-import com.rns.tiffeat.web.util.CommonUtil;
 
 public class QuickOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
@@ -190,7 +188,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		String priceamount = amount.getText().toString();
 
 		customerOrder.setPrice(new BigDecimal(priceamount));
-		count = 1;
+		
 	}
 
 	@Override
