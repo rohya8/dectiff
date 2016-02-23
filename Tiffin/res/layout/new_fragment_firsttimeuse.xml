@@ -187,44 +187,13 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/menubutton"
+                    android:minHeight="40dip"
                     android:text="Find Meals"
                     android:textColor="#FFf"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textSize="15sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/new_first_time_area_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:text=""
-            android:textColor="#000"
-            android:textSize="14sp"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:id="@+id/new_first_time_used_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            android:visibility="gone" >
-
-            <ListView
-                android:id="@+id/new_first_time_used_listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="6sp"
-                android:transcriptMode="alwaysScroll" >
-            </ListView>
-        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

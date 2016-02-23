@@ -57,15 +57,16 @@
 
         <Button
             android:id="@+id/login_submit_button"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/orangebutton"
+            android:minHeight="40dip"
             android:text="Log In"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -74,8 +75,8 @@
             android:gravity="center_horizontal"
             android:text="OR"
             android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/signinFrame"
@@ -95,7 +96,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 google.confirm_logout="false"
-                android:textSize="18dp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <TextView

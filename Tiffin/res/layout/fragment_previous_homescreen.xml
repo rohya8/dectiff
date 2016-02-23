@@ -7,15 +7,16 @@
 
     <Button
         android:id="@+id/previousorder_homescreen_neworder_button"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/orangebutton"
+        android:minHeight="40dip"
         android:text="Make New Order"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/previousorder_homescreen_textView"

@@ -37,7 +37,7 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 	private Button searchmeal;
 	private CustomerOrder customerOrder;
 	private AutoCompleteTextView actvAreas;
-	private TextView text, from;
+	private TextView  from;
 	private Spinner spday, sptiming, spformat;
 	private LinearLayout layout;
 	private ArrayAdapter<CharSequence> adapter, adapter1, adapter2;
@@ -77,7 +77,6 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 
 						String area = actvAreas.getText().toString();
 						if (!TextUtils.isEmpty(area)) {
-							text.setVisibility(View.VISIBLE);
 							if (customerOrder == null) {
 								customerOrder = new CustomerOrder();
 							}
@@ -128,7 +127,6 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 		spday = (Spinner) rootview.findViewById(R.id.new_first_time_day_spinner);
 		sptiming = (Spinner) rootview.findViewById(R.id.new_first_time_timing_spinner);
 		actvAreas.setThreshold(1);
-		text = (TextView) rootview.findViewById(R.id.new_first_time_area_textView);
 		from = (TextView) rootview.findViewById(R.id.new_first_time_from_textview);
 		spformat = (Spinner) rootview.findViewById(R.id.new_first_time_format_spinner);
 		layout = (LinearLayout) rootview.findViewById(R.id.new_first_time_layout);

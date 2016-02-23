@@ -42,6 +42,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/orangebutton"
             android:gravity="center"
+            android:minHeight="40dip"
             android:text="OK"
             android:textColor="#FFF"
             android:textSize="16sp" />

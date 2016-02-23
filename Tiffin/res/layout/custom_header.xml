@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="Today&apos;s LUNCH"
         android:textColor="#607D8B"
-        android:textSize="13sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/new_list_of_meals_area"
@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="Shivajinagar, Pune, Maharashtra"
         android:textColor="#607D8B"
-        android:textSize="13sp" />
+        android:textSize="16sp" />
 
 </FrameLayout>

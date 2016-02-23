@@ -50,82 +50,78 @@
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
-                <!-- android:theme="@style/MyEditTextTheme" -->
-
                 <EditText
                     android:id="@+id/registration_name_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="Name"
                     android:imeOptions="actionNext"
                     android:inputType="textCapSentences|textCapWords"
                     android:singleLine="true"
-                    android:textColor="#000" />
-
-                <!-- android:theme="@style/MyEditTextTheme" -->
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/registration_emailid_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="Email_id"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/registration_password_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="Password"
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textColor="#000" />
-
-                <!-- android:theme="@style/MyEditTextTheme" -->
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/registration_confirmpassword_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="Confirm Password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textColor="#000" />
-
-                <!-- android:theme="@style/MyEditTextTheme" > -->
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/registration_Loginbutton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/orangebutton"
+                    android:minHeight="40dip"
                     android:text="Register"
                     android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

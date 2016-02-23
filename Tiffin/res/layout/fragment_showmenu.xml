@@ -231,8 +231,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/price_textView"
@@ -269,8 +269,10 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/orangebutton"
             android:gravity="center"
+            android:minHeight="40dip"
             android:text="Back"
-            android:textColor="#FFF" />
+            android:textColor="#FFF"
+            android:textSize="15sp" />
     </LinearLayout>
 
 </ScrollView>

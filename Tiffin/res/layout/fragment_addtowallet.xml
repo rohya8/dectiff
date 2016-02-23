@@ -28,7 +28,8 @@
             android:layout_marginTop="30dp"
             android:ems="10"
             android:gravity="center"
-            android:inputType="phone" >
+            android:inputType="phone"
+            android:textSize="16sp" >
         </TextView>
 
         <EditText
@@ -43,11 +44,12 @@
             android:background="@drawable/rounded"
             android:drawableLeft="@drawable/wallet"
             android:ems="10"
-            android:maxLength="4"
             android:gravity="center"
             android:hint="Enter Amount"
             android:inputType="phone"
-            android:padding="5dp" >
+            android:maxLength="4"
+            android:padding="5dp"
+            android:textSize="16sp" >
         </EditText>
 
         <Button
@@ -57,12 +59,14 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="30dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/orangebutton"
+            android:minHeight="40dip"
             android:text="Add Amount"
-            android:textColor="#FFF" />
+            android:textColor="#FFF"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/add_later_button"
@@ -73,8 +77,10 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/orangebutton"
+            android:minHeight="40dip"
             android:text="Add Later"
             android:textColor="#FFF"
+            android:textSize="15sp"
             android:visibility="gone" />
     </LinearLayout>
 

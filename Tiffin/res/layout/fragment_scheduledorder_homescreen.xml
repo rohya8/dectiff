@@ -27,8 +27,7 @@
                 android:inputType="number"
                 android:text="You Don&apos;t have any Daily Tiffins .."
                 android:textColor="#000"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -47,7 +46,7 @@
                 android:inputType="number"
                 android:text="0.0"
                 android:textColor="#000"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -56,10 +55,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/orangebutton"
+            android:minHeight="40dip"
             android:text="Add Daily Lunch"
             android:textColor="#fff"
             android:textSize="14sp"
@@ -70,10 +70,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/orangebutton"
+            android:minHeight="40dip"
             android:text="Add Daily Dinner"
             android:textColor="#fff"
             android:textSize="14sp"

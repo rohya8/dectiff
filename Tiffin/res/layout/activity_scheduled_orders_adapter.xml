@@ -55,8 +55,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
                             android:layout_marginRight="2dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:gravity="left"
                             android:text="Todays Menu of ABC Tiffins:"
@@ -67,8 +67,8 @@
                             android:id="@+id/scheduledorder_adapter_price_textView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
                             android:layout_marginLeft="2dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_weight="2.3"
                             android:gravity="left"
@@ -109,8 +109,8 @@
                         android:layout_marginTop="5dp"
                         android:gravity="left"
                         android:textColor="#607D8B"
-                        android:visibility="gone"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/scheduledorder_adapter_mealstatus_textView"
@@ -139,6 +139,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/orangebutton"
+                            android:minHeight="40dip"
                             android:text="Cancel"
                             android:textColor="#fff"
                             android:textSize="14sp" />
@@ -153,6 +154,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/orangebutton"
+                            android:minHeight="40dip"
                             android:text="View Menu"
                             android:textColor="#fff"
                             android:textSize="14sp" />
@@ -167,6 +169,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/orangebutton"
+                            android:minHeight="40dip"
                             android:text="Switch"
                             android:textColor="#fff"
                             android:textSize="14sp" />
@@ -186,10 +189,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/orangebutton"
+            android:minHeight="40dip"
             android:text="Add"
             android:textColor="#fff"
             android:textSize="14sp" />
