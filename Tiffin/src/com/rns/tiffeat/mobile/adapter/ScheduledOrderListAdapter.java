@@ -93,9 +93,8 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			holder.title = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealtitle_textView);
 			holder.mealType = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealtype_textView);
 			holder.date = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_date_textView);
-			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.scheduledorder_adapter_imageview);
-			holder.foodimage = mealImageView;
-			new ScheduleOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
+			holder.foodimage = (ImageView) convertView.findViewById(R.id.scheduledorder_adapter_imageview);
+
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealstatus_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_orderstatus_textView);
 			holder.cancelOrderButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_cancel_button);
@@ -109,6 +108,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		new ScheduleOrderMealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(customerOrder.getMeal());
 		if (CollectionUtils.isEmpty(scheduledOrders)) {
 			return convertView;
 		}

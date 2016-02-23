@@ -71,7 +71,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		ViewHolder holder = null;
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
 
-		Meal meal = meals.get(position);
+		
+		Meal meal = this.getItem(position);
 
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,9 +84,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.tiffintitle = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_title_textView);
 			holder.vendorname = (TextView) convertView.findViewById(R.id.new_listofmeals__adapter_vendorname_textView);
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
-			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
-			holder.foodimage = mealImageView;
-			new MealImageDownloaderTask(holder, mealImageView, getContext()).execute(this.getItem(position));
+			 //mealImageView= (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
+
 			holder.tiffinprice = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_tiffinprice_textView);
 			holder.description = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_desc_textView);
 			holder.order = (Button) convertView.findViewById(R.id.new_listofmeals_adapter_order_button);
@@ -95,6 +95,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
 
 		if (meal.getTitle().toString() != null)
 			holder.tiffintitle.setText(meal.getTitle().toString());
@@ -112,7 +113,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			if (meal.getAvailableFrom() != null) {
-				// if(meal.getStartsFromDay()!=null)
 				if (customerOrder.getId() != 0) {
 					holder.description.setText(meal.getMenu());
 				} else {

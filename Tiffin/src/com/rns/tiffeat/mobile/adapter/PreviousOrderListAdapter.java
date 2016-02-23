@@ -90,14 +90,14 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 			holder.title = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_name_textView);
 			holder.tiffintype = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_type_textView);
 			holder.date = (TextView) convertView.findViewById(R.id.previousorder_list_adapter_date_textView);
-			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.previousorder_list_adapter_imageview);
-			holder.foodimage = mealImageView;
-			new PreviousOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
+			holder.foodimage = (ImageView) convertView.findViewById(R.id.previousorder_list_adapter_imageview);
+
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		new PreviousOrderMealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(customerOrder.getMeal());
 
 		if (customerOrder.getMeal().getTitle() != null)
 			holder.title.setText(customerOrder.getMeal().getTitle());

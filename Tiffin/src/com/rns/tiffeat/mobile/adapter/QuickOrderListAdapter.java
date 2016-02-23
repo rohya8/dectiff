@@ -55,7 +55,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	public class ViewHolder {
-		TextView title, tiffintype, mealStatus, date, orderStatus,quantity,price;
+		TextView title, tiffintype, mealStatus, date, orderStatus, quantity, price;
 		ImageView foodimage;
 		TextView viewmenuButton;
 
@@ -90,11 +90,10 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.title = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_name_textView);
 			holder.tiffintype = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_type_textView);
 			holder.date = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_date_textView);
-			holder.price=(TextView) convertView.findViewById(R.id.quickorder_list_adapter_price_textView);
-			holder.quantity=(TextView) convertView.findViewById(R.id.quickorder_list_adapter_quantity_textView);
-			ImageView mealImageView = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
-			holder.foodimage = mealImageView;
-			new QuickOrderMealImageDownloaderTask(holder, mealImageView, getContext()).execute(customerOrder.getMeal());
+			holder.price = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_price_textView);
+			holder.quantity = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_quantity_textView);
+			holder.foodimage = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
+
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_meal_status_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
@@ -104,7 +103,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
+		new QuickOrderMealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(customerOrder.getMeal());
 		holder.orderStatus.setTag(position);
 		holder.viewmenuButton.setTag(position);
 
@@ -124,13 +123,13 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		} else {
 			holder.viewmenuButton.setVisibility(View.GONE);
 		}
-		
-		if(customerOrder.getQuantity()!=null)
-			holder.quantity.setText("Quantity :"+ customerOrder.getQuantity().toString());
-			
-		if(customerOrder.getPrice()!=null)
-			holder.price.setText("Rs. "+customerOrder.getPrice().toString());
-		
+
+		if (customerOrder.getQuantity() != null)
+			holder.quantity.setText("Quantity :" + customerOrder.getQuantity().toString());
+
+		if (customerOrder.getPrice() != null)
+			holder.price.setText("Rs. " + customerOrder.getPrice().toString());
+
 		setOrderStatus();
 		if (customerOrder.getDate() != null)
 			holder.date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
@@ -148,17 +147,17 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	private void setOrderStatus() {
-		if(customerOrder.getDate() == null || customerOrder.getMeal() == null) {
+		if (customerOrder.getDate() == null || customerOrder.getMeal() == null) {
 			return;
 		}
-		
-		//TODO: Check if works..
-		if(!DateUtils.isToday(customerOrder.getDate().getTime())) {
+
+		// TODO: Check if works..
+		if (!DateUtils.isToday(customerOrder.getDate().getTime())) {
 			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your have ordered " + customerOrder.getMeal().getTitle() + " for tomorrow.");
 			return;
 		}
-		
+
 		if (customerOrder.getStatus() == null) {
 			return;
 		}
