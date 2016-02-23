@@ -39,7 +39,7 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 	public void setAddLater(boolean addLater) {
 		this.addLater = addLater;
 	}
-	
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
@@ -57,7 +57,7 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 		rootview = inflater.inflate(R.layout.fragment_scheduledorder_homescreen, container, false);
 
 		if (lowOnCash() && !addLater) {
-			CustomerUtils.alertbox(TIFFEAT, "Your balance is low. Please add Money to your wallet .. " , getActivity());
+			CustomerUtils.alertbox(TIFFEAT, "Your balance is low. Please add Money to your wallet .. ", getActivity());
 			CustomerOrder customerOrder = new CustomerOrder();
 			customerOrder.setMealFormat(MealFormat.SCHEDULED);
 			customerOrder.setCustomer(customer);
@@ -93,35 +93,17 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 		if (customer == null) {
 			return;
 		}
-		
+
 		scheduledOrdersListView = (ListView) rootview.findViewById(R.id.scheduled_homescreen_scheduledorderlist);
 		wallet = (TextView) rootview.findViewById(R.id.scheduled_homescreen_textview_Wallet);
 		header = (TextView) rootview.findViewById(R.id.scheduled_homescreen_textview_header);
 		addLunch = (Button) rootview.findViewById(R.id.scheduled_homescreen_button_add_lunch);
 		addDinner = (Button) rootview.findViewById(R.id.scheduled_homescreen_button_add_dinner);
-		
-		addLunch.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Fragment fragment = null;
-				fragment = new NewScheduleLunchOrDinnerFragment(prepareCustomerOrder(MealType.LUNCH));
-				CustomerUtils.nextFragment(fragment, getFragmentManager(), true);
-			}
-		});
 
-		
-		addDinner.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Fragment fragment = null;
-				fragment = new NewScheduleLunchOrDinnerFragment(prepareCustomerOrder(MealType.DINNER));
-				CustomerUtils.nextFragment(fragment, getFragmentManager(), true);
-			}
-		});
-		
-		if (org.apache.commons.collections.CollectionUtils.isEmpty(customer.getScheduledOrder())) {
+		addLunch.setVisibility(View.GONE);
+		addDinner.setVisibility(View.GONE);
+
+		if (customer.getScheduledOrder().size()<1) {
 			header.setText("You don't have any Daily Tiffins yet ..");
 			addLunch.setVisibility(View.VISIBLE);
 			addDinner.setVisibility(View.VISIBLE);
@@ -132,7 +114,28 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 		if (customer.getBalance() != null)
 			wallet.setText(customer.getBalance().toString());
 
-		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(), customer);
+		addLunch.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Fragment fragment = null;
+				fragment = new NewScheduleLunchOrDinnerFragment(prepareCustomerOrder(MealType.LUNCH));
+				CustomerUtils.nextFragment(fragment, getFragmentManager(), true);
+			}
+		});
+
+		addDinner.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Fragment fragment = null;
+				fragment = new NewScheduleLunchOrDinnerFragment(prepareCustomerOrder(MealType.DINNER));
+				CustomerUtils.nextFragment(fragment, getFragmentManager(), true);
+			}
+		});
+
+		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(),
+				customer);
 		if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 			scheduledOrdersAdapter.setScheduledOrders(customer.getScheduledOrder());
 		}
@@ -140,7 +143,7 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 		scheduledOrdersListView.setAdapter(scheduledOrdersAdapter);
 
 	}
-	
+
 	public CustomerOrder prepareCustomerOrder(MealType mealType) {
 		CustomerOrder order = new CustomerOrder();
 		order.setMealFormat(MealFormat.SCHEDULED);
