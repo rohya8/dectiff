@@ -49,26 +49,16 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		view = inflater.inflate(R.layout.fragment_quickorder_homescreen, container, false);
 
 		customerOrder = new CustomerOrder();
+		initialise();
+		neworder.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				customerOrder.setCustomer(customer);
+				newActivity(customerOrder);
+			}
+		});
 
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
-
-			initialise();
-			neworder.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					if (!Validation.isNetworkAvailable(getActivity())) {
-						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-					} else {
-						customerOrder.setCustomer(customer);
-						newActivity(customerOrder);
-					}
-				}
-			});
-
-			prepareScreen();
-		}
+		prepareScreen();
 		return view;
 	}
 
@@ -85,21 +75,21 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 
 		if (customer.getQuickOrders() != null) {
 			quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
-		} 
+		}
 		todaylistview.setFooterDividersEnabled(true);
 
 	}
 
 	public void prepareScreen() {
-		
+
 		initialise();
 		quickOrdersAdapter.setQuickHome(this);
-		if(CollectionUtils.isEmpty(customer.getQuickOrders())) {
+		if (CollectionUtils.isEmpty(customer.getQuickOrders())) {
 			welcomeText.setText("You have no orders today..");
 			relativeLayout.setVisibility(View.GONE);
 			return;
 		}
-		
+
 		welcomeText.setText("Todays Orders");
 		quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
 		quickOrdersAdapter.setQuickOrders(customer.getQuickOrders());

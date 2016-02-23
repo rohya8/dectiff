@@ -34,13 +34,7 @@ public class GetMenuAndroidAsyncTask extends AsyncTask<String, String, DailyCont
 
 	@Override
 	protected DailyContent doInBackground(String... arg0) {
-
-		if (!Validation.isNetworkAvailable(context)) {
-			return null;
-		}
-
 		try {
-
 			DailyContent result = new Gson().fromJson(CustomerServerUtils.getMealMenuAndroid(customerOrder), DailyContent.class);
 			if (result == null) {
 				result = new DailyContent();

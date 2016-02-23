@@ -40,36 +40,32 @@ public class PaymentGatewayFragment extends Fragment implements AndroidConstants
 
 		paymentscreen = (WebView) rootView.findViewById(R.id.payment_screen_webview);
 
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
-			CustomerServerUtils.removeCircularReferences(customerOrder);
-			String url = new Gson().toJson(customerOrder);
-			WebSettings webSettings = paymentscreen.getSettings();
-			webSettings.setJavaScriptEnabled(true);
-			WebViewClient webViewClient = new WebViewClient() {
-				@Override
-				public boolean shouldOverrideUrlLoading(WebView view, String url) {
-					if (url != null && url.contains("paymentAndroidResult.htm")) {
-						String[] urls = url.split("=");
-						if (urls.length > 0 && "success".equals(urls[1])) {
-							if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
-								new QuickOrderAsyncTask(getActivity(), customerOrder).execute("");
-							} else {
-								new AddToWalletAsyncTask(getActivity(), customerOrder).execute("");
-							}
-							return true;
+		CustomerServerUtils.removeCircularReferences(customerOrder);
+		String url = new Gson().toJson(customerOrder);
+		WebSettings webSettings = paymentscreen.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		WebViewClient webViewClient = new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				if (url != null && url.contains("paymentAndroidResult.htm")) {
+					String[] urls = url.split("=");
+					if (urls.length > 0 && "success".equals(urls[1])) {
+						if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
+							new QuickOrderAsyncTask(getActivity(), customerOrder).execute("");
 						} else {
-							Log.d(MYTAG, "Payment failed!");
-							return true;
+							new AddToWalletAsyncTask(getActivity(), customerOrder).execute("");
 						}
+						return true;
+					} else {
+						Log.d(MYTAG, "Payment failed!");
+						return true;
 					}
-					return false;
 				}
-			};
-			paymentscreen.setWebViewClient(webViewClient);
-			paymentscreen.loadUrl(ROOT_URL + "paymentAndroid?customerOrder=" + url);
-		}
+				return false;
+			}
+		};
+		paymentscreen.setWebViewClient(webViewClient);
+		paymentscreen.loadUrl(ROOT_URL + "paymentAndroid?customerOrder=" + url);
 		return rootView;
 	}
 }

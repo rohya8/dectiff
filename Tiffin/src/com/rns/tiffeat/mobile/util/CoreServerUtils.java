@@ -9,6 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,6 +35,9 @@ public class CoreServerUtils implements AndroidConstants {
 		// requestHeaders.setContentType(new MediaType("text", "xml"));
 		HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeaders);
 		RestTemplate restTemplate = new RestTemplate();
+		SimpleClientHttpRequestFactory rf = (SimpleClientHttpRequestFactory) restTemplate.getRequestFactory();
+		rf.setReadTimeout(1 * 5000);
+		rf.setConnectTimeout(1 * 5000);
 		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 		ResponseEntity<String> responseEntity = restTemplate.exchange(url, method, requestEntity, String.class, uriVariables);
 		Log.d("Response Received ..", responseEntity.getBody());

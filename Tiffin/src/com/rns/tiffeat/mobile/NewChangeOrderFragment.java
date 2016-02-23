@@ -49,24 +49,19 @@ public class NewChangeOrderFragment extends Fragment implements AndroidConstants
 
 		initialise();
 
-
 		submit.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(getActivity())) {
-					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					if (TextUtils.isEmpty(address.getText())) {
-						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
-						return;
-					} else if (TextUtils.isEmpty(googleLocation.getText().toString())) {
-						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Location", getActivity());
-						return;
-					}
-					prepareCustomerOrder();
-					new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
+				if (TextUtils.isEmpty(address.getText())) {
+					CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
+					return;
+				} else if (TextUtils.isEmpty(googleLocation.getText().toString())) {
+					CustomerUtils.alertbox(TIFFEAT, "Enter Valid Location", getActivity());
+					return;
 				}
+				prepareCustomerOrder();
+				new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
 			}
 
 		});
@@ -96,7 +91,8 @@ public class NewChangeOrderFragment extends Fragment implements AndroidConstants
 	}
 
 	private void prepareScreen() {
-		if(customerOrder == null || customerOrder.getMeal() == null || customerOrder.getMeal().getVendor() == null || customerOrder.getMealType() == null || customerOrder.getLocation() == null) {
+		if (customerOrder == null || customerOrder.getMeal() == null || customerOrder.getMeal().getVendor() == null || customerOrder.getMealType() == null
+				|| customerOrder.getLocation() == null) {
 			return;
 		}
 		meal.setText(customerOrder.getMeal().getTitle());

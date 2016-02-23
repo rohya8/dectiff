@@ -26,7 +26,7 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	private PreviousOrderHomeScreen previousOrderHomeScreen;
 	private ProgressDialog progressDialog;
 	private boolean noLoader;
-	
+
 	public void setNoLoader(boolean noLoader) {
 		this.noLoader = noLoader;
 	}
@@ -53,7 +53,7 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		if(noLoader) {
+		if (noLoader) {
 			return;
 		}
 		progressDialog = UserUtils.showLoadingDialog(context, null, "Preparing.....");
@@ -61,18 +61,13 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 
 	@Override
 	protected Customer doInBackground(String... arg0) {
-		if (!Validation.isNetworkAvailable(context)) {
-			return null;
-		} else {
-
-			try {
-				Customer currentCustomer = CustomerUtils.getCurrentCustomer(context);
-				Customer latestCustomer = currentCustomer;
-				latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
-				return latestCustomer;
-			} catch (Exception e) {
-				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-			}
+		try {
+			Customer currentCustomer = CustomerUtils.getCurrentCustomer(context);
+			Customer latestCustomer = currentCustomer;
+			latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
+			return latestCustomer;
+		} catch (Exception e) {
+			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
 

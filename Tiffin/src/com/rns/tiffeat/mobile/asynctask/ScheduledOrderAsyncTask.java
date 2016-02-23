@@ -34,10 +34,6 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 
 	@Override
 	protected String doInBackground(String... params) {
-
-		if (!Validation.isNetworkAvailable(previousActivity)) {
-			return null;
-		}
 		String result = "";
 		try {
 			result = CustomerServerUtils.scheduledOrder(scheduledOrder);
@@ -45,7 +41,6 @@ public class ScheduledOrderAsyncTask extends AsyncTask<String, String, String> i
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return result;
-
 	}
 
 	@Override

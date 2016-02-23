@@ -34,10 +34,6 @@ public class ScheduleCancelOrderTask extends AsyncTask<String, String, String> i
 
 	@Override
 	protected String doInBackground(String... args) {
-
-		if (!Validation.isNetworkAvailable(mscheduleorder)) {
-			return null;
-		}
 		try {
 			result1 = CustomerServerUtils.cancelScheduleOrder(customerOrder);
 			return result1;

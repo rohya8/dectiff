@@ -22,21 +22,12 @@ public class LogoutAsynctask extends AsyncTask<String, String, String> implement
 
 	@Override
 	protected String doInBackground(String... arg) {
-		if (!Validation.isNetworkAvailable(mSplashScreen)) {
-			return null;
-		} else {
-			try {
-				
-			} catch (Exception e) {
-				CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
-			}
-			return "Hello";
-		}
+		return "Hello";
 	}
 
 	protected void onPostExecute(String result) {
 		if (result == null) {
-			//Validation.showError(mSplashScreen, ERROR_FETCHING_DATA);
+			// Validation.showError(mSplashScreen, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mSplashScreen);
 			return;
 		}

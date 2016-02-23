@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,7 +18,9 @@ import android.widget.TextView;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
+import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.MealFormat;
 
 public class WalletFragment extends Fragment implements AndroidConstants {
 
@@ -26,6 +29,7 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 	private CustomerOrder customerOrder;
 	private EditText balanceEditText;
 	private TextView currentBalance;
+	private BigDecimal balance;
 
 	public WalletFragment(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
@@ -50,30 +54,41 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 			if (BigDecimal.TEN.compareTo(customerOrder.getCustomer().getBalance()) < 0) {
 				addLater.setVisibility(View.VISIBLE);
 			}
-			currentBalance.setText("Balance : Rs. "  + customerOrder.getCustomer().getBalance().toString());
+			currentBalance.setText("Balance : Rs. " + customerOrder.getCustomer().getBalance().toString());
 		}
 
 		addAmt.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(getActivity())) {
-					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-					inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+				InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-					String balance = balanceEditText.getText().toString();
+				String balance = balanceEditText.getText().toString();
 
-					if (balance.equals("") || balance.length() == 0 || !balance.matches("[0-9]+")) {
-						CustomerUtils.alertbox(TIFFEAT, "Invalid amount!", getActivity());
-						return;
-					}
-
-					customerOrder.getCustomer().setBalance(new BigDecimal(balance));
-					nextActivity();
-
+				if (balance.equals("") || balance.length() == 0 || !balance.matches("[0-9]+")) {
+					CustomerUtils.alertbox(TIFFEAT, "Invalid amount!", getActivity());
+					return;
 				}
+
+				nextActivity(prepareCustomerOrder(balance));
+
+			}
+
+			private CustomerOrder prepareCustomerOrder(String balance) {
+				CustomerOrder order = new CustomerOrder();
+				BigDecimal balanceAmount = new BigDecimal(balance);
+				order.setMeal(customerOrder.getMeal());
+				order.setMealFormat(MealFormat.SCHEDULED);
+				Customer currentCustomer = new Customer();
+				Customer customer = customerOrder.getCustomer();
+				currentCustomer.setId(customer.getId());
+				currentCustomer.setEmail(customer.getEmail());
+				currentCustomer.setPhone(customer.getPhone());
+				currentCustomer.setName(customer.getName());
+				currentCustomer.setBalance(balanceAmount);
+				order.setCustomer(currentCustomer);
+				return order;
 			}
 
 		});
@@ -91,8 +106,8 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 		return rootView;
 	}
 
-	private void nextActivity() {
-		Fragment fragment = new PaymentGatewayFragment(customerOrder);
+	private void nextActivity(CustomerOrder order) {
+		Fragment fragment = new PaymentGatewayFragment(order);
 		CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
 	}
 

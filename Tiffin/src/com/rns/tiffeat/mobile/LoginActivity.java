@@ -34,7 +34,7 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 public class LoginActivity extends ActionBarActivity implements OnClickListener, ConnectionCallbacks, OnConnectionFailedListener, AndroidConstants {
 
 	private static final int RC_SIGN_IN = 0;
-	
+
 	private GoogleApiClient mGoogleApiClient;
 	private EditText email, password;
 	private Button login;
@@ -47,7 +47,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 	private LinearLayout signinFrame;
 	private CustomerOrder customerOrder;
 	private Activity currentActivity;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +62,8 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 
 		signinButton.setOnClickListener(this);
 
-		mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this)
-				.addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_LOGIN).build();
+		mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(Plus.API, Plus.PlusOptions.builder().build())
+				.addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
 		login.setOnClickListener(new OnClickListener() {
 
@@ -75,17 +74,13 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 					imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
 				}
 
-				if (!Validation.isNetworkAvailable(LoginActivity.this)) {
-					Validation.showError(LoginActivity.this, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					if (validateInfo()) {
-						customer.setEmail(email.getText().toString());
-						customer.setPassword(password.getText().toString());
-						customerOrder.setCustomer(customer);
-						new LoginAsyncTask(LoginActivity.this, customerOrder, LOGIN_FRAGMENT).execute();
-					} else
-						CustomerUtils.alertbox(TIFFEAT, " Enter Valid Credentials ", LoginActivity.this);
-				}
+				if (validateInfo()) {
+					customer.setEmail(email.getText().toString());
+					customer.setPassword(password.getText().toString());
+					customerOrder.setCustomer(customer);
+					new LoginAsyncTask(LoginActivity.this, customerOrder, LOGIN_FRAGMENT).execute();
+				} else
+					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Credentials ", LoginActivity.this);
 			}
 		});
 		currentActivity = this;
@@ -260,6 +255,5 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 			signinFrame.setVisibility(View.VISIBLE);
 		}
 	}
-
 
 }

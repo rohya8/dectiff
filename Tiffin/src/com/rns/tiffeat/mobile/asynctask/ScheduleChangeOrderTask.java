@@ -36,10 +36,6 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 
 	@Override
 	protected String doInBackground(String... args) {
-
-		if (!Validation.isNetworkAvailable(mchangeorder)) {
-			return null;
-		}
 		try {
 			result1 = CustomerServerUtils.changeOrder(customerOrder);
 			return result1;
@@ -48,7 +44,6 @@ public class ScheduleChangeOrderTask extends AsyncTask<String, String, String> i
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
-
 	}
 
 	@Override

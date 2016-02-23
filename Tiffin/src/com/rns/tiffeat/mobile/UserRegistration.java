@@ -48,42 +48,33 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		rootview = inflater.inflate(R.layout.fragment_userregistration, container, false);
 
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
+		initialise();
 
-			initialise();
+		submit.setOnClickListener(new OnClickListener() {
 
-			submit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
 
-				@Override
-				public void onClick(View v) {
+				tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+				InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+				if (checkValidation()) {
+					getDetails();
+					customer.setDeviceId(registerdeviceid);
+					customer.setEmail(registeremailid);
+					customer.setName(registerpersonName);
+					customer.setPassword(registerpassword);
+					customerOrder.setCustomer(customer);
 
-					if (!Validation.isNetworkAvailable(getActivity())) {
-						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-					} else {
-						tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-						InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-						inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-						if (checkValidation()) {
-							getDetails();
-							customer.setDeviceId(registerdeviceid);
-							customer.setEmail(registeremailid);
-							customer.setName(registerpersonName);
-							customer.setPassword(registerpassword);
-							customerOrder.setCustomer(customer);
-
-							if (!confirmpass.getText().toString().equals(password.getText().toString())) {
-								confirmpass.setError("Password Do Not Match");
-								CustomerUtils.alertbox(TIFFEAT, "Password do not match", getActivity());
-								return;
-							}
-							new LoginAsyncTask(getActivity(), customerOrder, REGISTRATION_FRAGMENT).execute();
-						}
+					if (!confirmpass.getText().toString().equals(password.getText().toString())) {
+						confirmpass.setError("Password Do Not Match");
+						CustomerUtils.alertbox(TIFFEAT, "Password do not match", getActivity());
+						return;
 					}
+					new LoginAsyncTask(getActivity(), customerOrder, REGISTRATION_FRAGMENT).execute();
 				}
-			});
-		}
+			}
+		});
 		return rootview;
 	}
 

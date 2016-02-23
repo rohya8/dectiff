@@ -46,10 +46,6 @@ public class GetVendorsForAreaAsynctask extends AsyncTask<String, String, String
 
 	@Override
 	protected String doInBackground(String... params) {
-
-		if (!Validation.isNetworkAvailable(activity)) {
-			return null;
-		}
 		try {
 			meals = CustomerServerUtils.getMealsForOrder(customerOrder);
 		} catch (Exception e) {

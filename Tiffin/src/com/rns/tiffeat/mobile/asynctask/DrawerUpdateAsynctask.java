@@ -25,9 +25,6 @@ public class DrawerUpdateAsynctask extends AsyncTask<String, String, String> imp
 
 	@Override
 	protected String doInBackground(String... arg) {
-		if (!Validation.isNetworkAvailable(activity)) {
-			return null;
-		}
 
 		return "Hello";
 	}

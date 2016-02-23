@@ -55,8 +55,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		}
 	}
 
-	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
-			CustomerOrder customerOrder) {
+	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
@@ -71,7 +70,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		ViewHolder holder = null;
 		FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), FONT);
 
-		
 		Meal meal = this.getItem(position);
 
 		if (convertView == null) {
@@ -84,7 +82,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.tiffintitle = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_title_textView);
 			holder.vendorname = (TextView) convertView.findViewById(R.id.new_listofmeals__adapter_vendorname_textView);
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
-			 //mealImageView= (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
+			// mealImageView= (ImageView)
+			// convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
 
 			holder.tiffinprice = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_tiffinprice_textView);
 			holder.description = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_desc_textView);
@@ -127,12 +126,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(activity)) {
-					Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					int pos = (Integer) v.getTag();
-					orderMeal(pos);
-				}
+				int pos = (Integer) v.getTag();
+				orderMeal(pos);
 			}
 
 		});
@@ -143,20 +138,16 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 	private void orderMeal(int position) {
 
-		if (!Validation.isNetworkAvailable(activity)) {
-			Validation.showError(activity, ERROR_NO_INTERNET_CONNECTION);
-		} else {
-			customerOrder.setMeal(returnMeal(position));
-			if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
+		customerOrder.setMeal(returnMeal(position));
+		if (MealFormat.QUICK.equals(customerOrder.getMealFormat())) {
+			nextActivity();
+		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
+			if (meals.get(position).getAvailableFrom() != null) {
+				customerOrder.setDate(meals.get(position).getAvailableFrom());
 				nextActivity();
-			} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
-				if (meals.get(position).getAvailableFrom() != null) {
-					customerOrder.setDate(meals.get(position).getAvailableFrom());
-					nextActivity();
-				} else {
-					CustomerUtils.alertbox(TIFFEAT, "Sorry meal is not available for " + customerOrder.getMealType().toString(), activity);
-					return;
-				}
+			} else {
+				CustomerUtils.alertbox(TIFFEAT, "Sorry meal is not available for " + customerOrder.getMealType().toString(), activity);
+				return;
 			}
 		}
 	}

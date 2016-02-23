@@ -48,10 +48,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 
 	@Override
 	protected String doInBackground(String... params) {
-		String result = "";
-		if (!Validation.isNetworkAvailable(context)) {
-			return null;
-		}
+		String result = null;
 		try {
 			if (action.equals("LOGINFRAGMENT"))
 				result = CustomerServerUtils.customerLogin(customerOrder.getCustomer());

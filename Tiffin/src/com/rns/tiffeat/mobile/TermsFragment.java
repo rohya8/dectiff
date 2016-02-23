@@ -28,15 +28,10 @@ public class TermsFragment extends Fragment implements AndroidConstants {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_terms, container, false);
-
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
-			termsweb = (WebView) rootView.findViewById(R.id.termsandcondition_webview);
-			WebSettings webSettings = termsweb.getSettings();
-			webSettings.setJavaScriptEnabled(true);
-			termsweb.loadUrl("file:///android_asset/terrms.html");
-		}
+		termsweb = (WebView) rootView.findViewById(R.id.termsandcondition_webview);
+		WebSettings webSettings = termsweb.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		termsweb.loadUrl("file:///android_asset/terrms.html");
 		return rootView;
 	}
 

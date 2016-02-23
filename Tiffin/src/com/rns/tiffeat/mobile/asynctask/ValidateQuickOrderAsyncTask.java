@@ -39,9 +39,6 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 
 	@Override
 	protected String doInBackground(String... arg0) {
-		if (!Validation.isNetworkAvailable(previousActivity)) {
-			return null;
-		}
 		try {
 			if (customerOrder.getLocation() == null) {
 				Location location = new Location();
@@ -55,7 +52,6 @@ public class ValidateQuickOrderAsyncTask extends AsyncTask<String, String, Strin
 			Log.d(MYTAG, "Log occurred in " + getClass().getName() + " Exception : " + e);
 		}
 		return null;
-
 	}
 
 	@Override

@@ -54,23 +54,19 @@ public class NewScheduleLunchOrDinnerFragment extends Fragment implements Androi
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(getActivity())) {
-					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					if (TextUtils.isEmpty(address.getText()) || address.getText().length() < 8)
-						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
-					else if (TextUtils.isEmpty(location.getText().toString()) || location.getText().toString().length() < 8)
-						CustomerUtils.alertbox(TIFFEAT, "Enter Valid Location", getActivity());
-					else {
-						String locat = location.getText().toString();
-						Location location = new Location();
-						location.setAddress(locat);
-						customerOrder.setLocation(location);
-						customerOrder.setAddress(address.getText().toString());
+				if (TextUtils.isEmpty(address.getText()) || address.getText().length() < 8)
+					CustomerUtils.alertbox(TIFFEAT, "Enter Valid Address", getActivity());
+				else if (TextUtils.isEmpty(location.getText().toString()) || location.getText().toString().length() < 8)
+					CustomerUtils.alertbox(TIFFEAT, "Enter Valid Location", getActivity());
+				else {
+					String locat = location.getText().toString();
+					Location location = new Location();
+					location.setAddress(locat);
+					customerOrder.setLocation(location);
+					customerOrder.setAddress(address.getText().toString());
 
-						new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
+					new GetVendorsForAreaAsynctask(getActivity(), customerOrder).execute();
 
-					}
 				}
 			}
 		});

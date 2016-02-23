@@ -51,16 +51,12 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 		rootView = inflater.inflate(R.layout.fragment_quickorder, container, false);
 
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
-			initialise();
-			proceed.setOnClickListener(this);
-			codpayment.setOnClickListener(this);
-			onlinepayment.setOnClickListener(this);
-			plus.setOnClickListener(this);
-			minus.setOnClickListener(this);
-		}
+		initialise();
+		proceed.setOnClickListener(this);
+		codpayment.setOnClickListener(this);
+		onlinepayment.setOnClickListener(this);
+		plus.setOnClickListener(this);
+		minus.setOnClickListener(this);
 		return rootView;
 
 	}
@@ -107,10 +103,10 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		else
 			phone.setHint("Enter Phone Number");
 
-		if(customerOrder.getDate()!=null)
+		if (customerOrder.getDate() != null)
 			date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
-		if(customerOrder.getMeal()!=null)
+		if (customerOrder.getMeal() != null)
 			amount.setText(customerOrder.getMeal().getPrice().toString());
 	}
 
@@ -121,25 +117,20 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 		case R.id.quickorder_screen_proceed_button:
 
-			if (!Validation.isNetworkAvailable(getActivity())) {
-				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
+			InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+
+			if (TextUtils.isEmpty(address.getText())) {
+				CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
+			} else if (TextUtils.isEmpty(address.getText())) {
+				CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
+			} else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false) {
+				CustomerUtils.alertbox(TIFFEAT, " Select A Payment Method ", getActivity());
+			} else if (!Validation.isPhoneNumber(phone, true)) {
+				CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
 			} else {
-
-				InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-
-				if (TextUtils.isEmpty(address.getText())) {
-					CustomerUtils.alertbox(TIFFEAT, " Do not Leave Empty Field ", getActivity());
-				} else if (TextUtils.isEmpty(address.getText())) {
-					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
-				} else if (codpayment.isChecked() == false && onlinepayment.isChecked() == false) {
-					CustomerUtils.alertbox(TIFFEAT, " Select A Payment Method ", getActivity());
-				} else if (!Validation.isPhoneNumber(phone, true)) {
-					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
-				} else {
-					prepareCustomerOrder();
-					alertbox();
-				}
+				prepareCustomerOrder();
+				alertbox();
 			}
 			break;
 
@@ -188,7 +179,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 		String priceamount = amount.getText().toString();
 
 		customerOrder.setPrice(new BigDecimal(priceamount));
-		
+
 	}
 
 	@Override
@@ -210,11 +201,7 @@ public class QuickOrderFragment extends Fragment implements OnClickListener, And
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if (!Validation.isNetworkAvailable(getActivity())) {
-					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					new ValidateQuickOrderAsyncTask(getActivity(), customerOrder).execute();
-				}
+				new ValidateQuickOrderAsyncTask(getActivity(), customerOrder).execute();
 			}
 		});
 

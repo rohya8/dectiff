@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
-import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -34,10 +33,6 @@ public class AddToWalletAsyncTask extends AsyncTask<String, String, String> impl
 
 	@Override
 	protected String doInBackground(String... arg0) {
-
-		if (!Validation.isNetworkAvailable(activity)) {
-			return null;
-		}
 		try {
 			return CustomerServerUtils.addToWallet(customerOrder.getCustomer());
 		} catch (Exception e) {

@@ -36,11 +36,6 @@ public class GetMealMenuAsyncTask extends AsyncTask<String, String, DailyContent
 
 	@Override
 	protected DailyContent doInBackground(String... arg0) {
-
-		if (!Validation.isNetworkAvailable(context)) {
-			return null;
-		}
-
 		try {
 			/*Customer currentCustomer = CustomerUtils.getCurrentCustomer(context);
 			Customer latestCustomer = currentCustomer;

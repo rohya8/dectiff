@@ -46,35 +46,24 @@ public class PreviousOrderHomeScreen extends Fragment implements AndroidConstant
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_previous_homescreen, container, false);
 		customerOrder = new CustomerOrder();
-
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
-
-			initialise();
-
-			neworder.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					if (!Validation.isNetworkAvailable(getActivity())) {
-						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-					} else {
-						customerOrder.setCustomer(customer);
-						newActivity(customerOrder);
-					}
-				}
-			});
-			prepareScreen();
-		}
+		initialise();
+		neworder.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				customerOrder.setCustomer(customer);
+				newActivity(customerOrder);
+			}
+		});
+		prepareScreen();
 		return rootView;
 	}
 
 	private void initialise() {
 
-		if(customer == null) {
+		if (customer == null) {
 			return;
 		}
-		
+
 		previouslistview = (ListView) rootView.findViewById(R.id.previousorder_homescreen_listView);
 		neworder = (Button) rootView.findViewById(R.id.previousorder_homescreen_neworder_button);
 		previousText = (TextView) rootView.findViewById(R.id.previousorder_homescreen_textView);
@@ -87,8 +76,7 @@ public class PreviousOrderHomeScreen extends Fragment implements AndroidConstant
 			relativeLayout.setVisibility(View.GONE);
 
 		} else if (customer.getPreviousOrders() != null) {
-			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders(),
-					customer);
+			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders(), customer);
 		}
 
 		previouslistview.setFooterDividersEnabled(true);

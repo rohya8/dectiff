@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.WalletFragment;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -34,9 +33,6 @@ public class ValidateScheduledOrderAsyncTask extends AsyncTask<String, String, S
 	@Override
 	protected String doInBackground(String... arg0) {
 		progressDialog.dismiss();
-		if (!Validation.isNetworkAvailable(scheduleOrderFragmentActivity)) {
-			return null;
-		}
 		try {
 			String result = CustomerServerUtils.validateScheduledOrder(customerOrder);
 			return result;
@@ -45,7 +41,6 @@ public class ValidateScheduledOrderAsyncTask extends AsyncTask<String, String, S
 			Log.d(MYTAG, "Log occurred in " + getClass().getName() + " Exception : " + e);
 		}
 		return null;
-
 	}
 
 	@Override

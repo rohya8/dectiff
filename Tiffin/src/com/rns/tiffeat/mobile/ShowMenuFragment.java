@@ -18,7 +18,7 @@ import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private Button alertbtn;
-	private TextView roti, sabji, rice, salad, extra, price, menu, date, availability,vendorname;
+	private TextView roti, sabji, rice, salad, extra, price, menu, date, availability, vendorname;
 	private View rootView;
 	private LinearLayout menulayout;
 	private CustomerOrder customerOrder;
@@ -36,31 +36,20 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.fragment_showmenu, container, false);
+		initialise();
 
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
-			initialise();
+		if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())) {
 
-			if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())) {
-
-				if (customerOrder.getMealType() != null) {
-					menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
-				}
-
-				availability.setVisibility(View.VISIBLE);
-				availability.setText("Menu not available yet..");
-				menulayout.setVisibility(View.GONE);
-
-				CustomerUtils.alertbox(TIFFEAT, "Menu not available for " + customerOrder.getMealType(), getActivity());
-				nextActivity();
-
+			if (customerOrder.getMealType() != null) {
+				menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
 			}
 
-//			if (customerOrder.getMeal() != null && customerOrder.getMeal().getPrice() != null) {
-//				//price.setText(customerOrder.getMeal().getPrice().toString());
-//				price.setText(customerOrder.getPrice().toString());
-//			}
+			availability.setVisibility(View.VISIBLE);
+			availability.setText("Menu not available yet..");
+			menulayout.setVisibility(View.GONE);
+
+			CustomerUtils.alertbox(TIFFEAT, "Menu not available for " + customerOrder.getMealType(), getActivity());
+			nextActivity();
 
 			if (customerOrder.getContent() != null) {
 				if (customerOrder.getMealType() != null)
@@ -78,19 +67,14 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 				if (customerOrder.getContent().getSubItem4() != null)
 					extra.setText(customerOrder.getContent().getSubItem4());
 				if (customerOrder.getMeal().getVendor() != null)
-					vendorname.setText("Vendor name : "+ customerOrder.getMeal().getVendor().getName());
+					vendorname.setText("Vendor name : " + customerOrder.getMeal().getVendor().getName());
 
 			}
 
 			alertbtn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-
-					if (!Validation.isNetworkAvailable(getActivity())) {
-						Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-					} else {
-						nextActivity();
-					}
+					nextActivity();
 				}
 
 			});
@@ -125,30 +109,28 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private void nextActivity() {
 		CustomerUtils.removeFragment(getFragmentManager(), this);
-		//Fragment fragment = null;
-		//CustomerUtils.clearFragmentStack(getFragmentManager());
-		/*if (customerOrder.getCustomer() != null && customerOrder.getMealFormat() != null) {
-
-			if (customerOrder.getMealFormat().equals(MealFormat.QUICK)) {
-				if (customerOrder.getTransactionId() != null) {
-					if (customerOrder.getTransactionId().equals("-20")) {
-						fragment = new QuickOrderHomeScreen(customerOrder.getCustomer());
-						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
-					}
-				} else {
-					new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
-				}
-			} else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED)) {
-				if (customerOrder.getTransactionId() != null) {
-					if (customerOrder.getTransactionId().equals("-20")) {
-						fragment = new ScheduledUser(customerOrder.getCustomer());
-						CustomerUtils.nextFragment(fragment, getFragmentManager(), false);
-					}
-				} else {
-					new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();
-				}
-			}
-		} else
-			new GetMealsForVendorAsynctask(getActivity(), customerOrder.getMeal().getVendor(), customerOrder).execute();*/
+		// Fragment fragment = null;
+		// CustomerUtils.clearFragmentStack(getFragmentManager());
+		/*
+		 * if (customerOrder.getCustomer() != null &&
+		 * customerOrder.getMealFormat() != null) {
+		 * 
+		 * if (customerOrder.getMealFormat().equals(MealFormat.QUICK)) { if
+		 * (customerOrder.getTransactionId() != null) { if
+		 * (customerOrder.getTransactionId().equals("-20")) { fragment = new
+		 * QuickOrderHomeScreen(customerOrder.getCustomer());
+		 * CustomerUtils.nextFragment(fragment, getFragmentManager(), false); }
+		 * } else { new GetMealsForVendorAsynctask(getActivity(),
+		 * customerOrder.getMeal().getVendor(), customerOrder).execute(); } }
+		 * else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED))
+		 * { if (customerOrder.getTransactionId() != null) { if
+		 * (customerOrder.getTransactionId().equals("-20")) { fragment = new
+		 * ScheduledUser(customerOrder.getCustomer());
+		 * CustomerUtils.nextFragment(fragment, getFragmentManager(), false); }
+		 * } else { new GetMealsForVendorAsynctask(getActivity(),
+		 * customerOrder.getMeal().getVendor(), customerOrder).execute(); } } }
+		 * else new GetMealsForVendorAsynctask(getActivity(),
+		 * customerOrder.getMeal().getVendor(), customerOrder).execute();
+		 */
 	}
 }

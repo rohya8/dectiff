@@ -127,14 +127,10 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
-					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
-				} else {
 
-					int pos = (Integer) v.getTag();
-					customerOrder = scheduledOrders.get(pos);
-					cancelConfirmationAlert(customerOrder);
-				}
+				int pos = (Integer) v.getTag();
+				customerOrder = scheduledOrders.get(pos);
+				cancelConfirmationAlert(customerOrder);
 
 			}
 
@@ -144,13 +140,9 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
-					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					int pos = (Integer) v.getTag();
-					customerOrder = scheduledOrders.get(pos);
-					switchOrder(customerOrder);
-				}
+				int pos = (Integer) v.getTag();
+				customerOrder = scheduledOrders.get(pos);
+				switchOrder(customerOrder);
 			}
 
 		});
@@ -159,13 +151,9 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 			@Override
 			public void onClick(View v) {
-				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
-					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					int pos = (Integer) v.getTag();
-					customerOrder = scheduledOrders.get(pos);
-					viewMenu(customerOrder);
-				}
+				int pos = (Integer) v.getTag();
+				customerOrder = scheduledOrders.get(pos);
+				viewMenu(customerOrder);
 			}
 		});
 
@@ -173,13 +161,8 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 			@Override
 			public void onClick(View v) {
-
-				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
-					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					int pos = (Integer) v.getTag();
-					prepareNewOrder(pos);
-				}
+				int pos = (Integer) v.getTag();
+				prepareNewOrder(pos);
 			}
 
 		});
@@ -320,11 +303,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if (!Validation.isNetworkAvailable(scheduledOrderFragment)) {
-					Validation.showError(scheduledOrderFragment, ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					cancelOrder();
-				}
+				cancelOrder();
 			}
 		});
 

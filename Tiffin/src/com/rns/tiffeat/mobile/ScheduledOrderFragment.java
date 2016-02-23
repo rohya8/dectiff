@@ -23,7 +23,7 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 	private EditText lunchaddr, phone, mealtype;
 	private CustomerOrder customerOrder;
-	private EditText tiffindesc, name, emailid,date;
+	private EditText tiffindesc, name, emailid, date;
 	private View rootView;
 	private Button proceed;
 	private TextView price;
@@ -41,15 +41,8 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_scheduledorder, container, false);
-
-		if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-		} else {
-
-			initialise();
-			proceed.setOnClickListener(this);
-
-		}
+		initialise();
+		proceed.setOnClickListener(this);
 		return rootView;
 	}
 
@@ -90,14 +83,13 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 			phone.setText(customerOrder.getCustomer().getPhone());
 		else
 			phone.setHint("Enter Phone Number");
-		
-		if(customerOrder.getMeal().getPrice() != null) {
+
+		if (customerOrder.getMeal().getPrice() != null) {
 			price.setText(customerOrder.getMeal().getPrice().toString());
 		}
-		
-		if(customerOrder.getDate()!=null)
-			date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
+		if (customerOrder.getDate() != null)
+			date.setText(CustomerUtils.convertDate(customerOrder.getDate()));
 
 	}
 
@@ -108,18 +100,14 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 		case R.id.scheduled_order_proceed_button:
 
-			if (!Validation.isNetworkAvailable(getActivity())) {
-				Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-			} else {
-				if (TextUtils.isEmpty(lunchaddr.getText()))
-					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
-				else if (!Validation.isPhoneNumber(phone, true))
-					CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
-				else {
-					customerOrder.setAddress(lunchaddr.getText().toString());
-					customerOrder.getCustomer().setPhone(phone.getText().toString());
-					alertbox();
-				}
+			if (TextUtils.isEmpty(lunchaddr.getText()))
+				CustomerUtils.alertbox(TIFFEAT, " Enter Valid Address ", getActivity());
+			else if (!Validation.isPhoneNumber(phone, true))
+				CustomerUtils.alertbox(TIFFEAT, " Enter Valid Phone number ", getActivity());
+			else {
+				customerOrder.setAddress(lunchaddr.getText().toString());
+				customerOrder.getCustomer().setPhone(phone.getText().toString());
+				alertbox();
 			}
 			break;
 
@@ -140,16 +128,11 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if (!Validation.isNetworkAvailable(getActivity())) {
-					Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
-				} else {
-					if (customerOrder.getCustomer().getBalance() == null
-							|| customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
-						new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
-					else
-						new ScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
+				if (customerOrder.getCustomer().getBalance() == null || customerOrder.getCustomer().getBalance().compareTo(customerOrder.getMeal().getPrice()) < 0)
+					new ValidateScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
+				else
+					new ScheduledOrderAsyncTask(getActivity(), customerOrder).execute();
 
-				}
 			}
 		});
 

@@ -33,10 +33,6 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 
 	@Override
 	protected String doInBackground(String... args) {
-
-		if (!Validation.isNetworkAvailable(proceedtopay)) {
-			return null;
-		}
 		try {
 			String result = CustomerServerUtils.quickOrder(customerOrder);
 			result = new Gson().fromJson(result, String.class);
@@ -49,7 +45,6 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
 		}
 		return null;
-
 	}
 
 	@Override

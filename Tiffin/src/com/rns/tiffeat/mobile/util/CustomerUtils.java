@@ -138,9 +138,6 @@ public class CustomerUtils implements AndroidConstants {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if (!Validation.isNetworkAvailable(context)) {
-					Validation.showError(context, ERROR_NO_INTERNET_CONNECTION);
-				}
 
 			}
 		});

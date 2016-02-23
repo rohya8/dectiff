@@ -63,8 +63,6 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 			customerOrder.setCustomer(customer);
 			Fragment fobj = new WalletFragment(customerOrder);
 			CustomerUtils.nextFragment(fobj, getFragmentManager(), false);
-		} else if (!Validation.isNetworkAvailable(getActivity())) {
-			Validation.showError(getActivity(), ERROR_NO_INTERNET_CONNECTION);
 		} else {
 			initialise();
 		}
@@ -103,7 +101,7 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 		addLunch.setVisibility(View.GONE);
 		addDinner.setVisibility(View.GONE);
 
-		if (customer.getScheduledOrder().size()<1) {
+		if (customer.getScheduledOrder().size() < 1) {
 			header.setText("You don't have any Daily Tiffins yet ..");
 			addLunch.setVisibility(View.VISIBLE);
 			addDinner.setVisibility(View.VISIBLE);
@@ -134,8 +132,7 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 			}
 		});
 
-		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(),
-				customer);
+		scheduledOrdersAdapter = new ScheduledOrderListAdapter(getActivity(), R.layout.activity_scheduled_orders_adapter, customer.getScheduledOrder(), customer);
 		if (!CollectionUtils.isEmpty(customer.getScheduledOrder())) {
 			scheduledOrdersAdapter.setScheduledOrders(customer.getScheduledOrder());
 		}
