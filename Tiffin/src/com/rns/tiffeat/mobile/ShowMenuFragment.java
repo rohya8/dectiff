@@ -38,47 +38,42 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 		rootView = inflater.inflate(R.layout.fragment_showmenu, container, false);
 		initialise();
 
-		if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem())) {
-
-			if (customerOrder.getMealType() != null) {
-				menu.setText(customerOrder.getMealType().toString() + " Menu of " + customerOrder.getMeal().getTitle());
-			}
-
+		if (customerOrder == null || customerOrder.getContent() == null || TextUtils.isEmpty(customerOrder.getContent().getMainItem()) || customerOrder.getMealType() == null) {
+			CustomerUtils.alertbox(TIFFEAT, "Menu not available for " + customerOrder.getMealType().getDescription(), getActivity());
 			availability.setVisibility(View.VISIBLE);
 			availability.setText("Menu not available yet..");
 			menulayout.setVisibility(View.GONE);
-
-			CustomerUtils.alertbox(TIFFEAT, "Menu not available for " + customerOrder.getMealType(), getActivity());
 			nextActivity();
+			return rootView;
+		}
 
-			if (customerOrder.getContent() != null) {
-				if (customerOrder.getMealType() != null)
-					menu.setText(customerOrder.getMealType().getDescription() + " Menu of " + customerOrder.getMeal().getTitle());
-				if (customerOrder.getContent().getDate() != null)
-					date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()));
-				if (customerOrder.getContent().getMainItem() != null)
-					sabji.setText(customerOrder.getContent().getMainItem());
-				if (customerOrder.getContent().getSubItem1() != null)
-					roti.setText(customerOrder.getContent().getSubItem1());
-				if (customerOrder.getContent().getSubItem2() != null)
-					rice.setText(customerOrder.getContent().getSubItem2());
-				if (customerOrder.getContent().getSubItem3() != null)
-					salad.setText(customerOrder.getContent().getSubItem3());
-				if (customerOrder.getContent().getSubItem4() != null)
-					extra.setText(customerOrder.getContent().getSubItem4());
-				if (customerOrder.getMeal().getVendor() != null)
-					vendorname.setText("Vendor name : " + customerOrder.getMeal().getVendor().getName());
+		if (customerOrder.getContent() != null) {
+			if (customerOrder.getMealType() != null)
+				menu.setText(customerOrder.getMealType().getDescription() + " Menu of " + customerOrder.getMeal().getTitle());
+			if (customerOrder.getContent().getDate() != null)
+				date.setText(" For : " + CustomerUtils.convertDate(customerOrder.getContent().getDate()));
+			if (customerOrder.getContent().getMainItem() != null)
+				sabji.setText(customerOrder.getContent().getMainItem());
+			if (customerOrder.getContent().getSubItem1() != null)
+				roti.setText(customerOrder.getContent().getSubItem1());
+			if (customerOrder.getContent().getSubItem2() != null)
+				rice.setText(customerOrder.getContent().getSubItem2());
+			if (customerOrder.getContent().getSubItem3() != null)
+				salad.setText(customerOrder.getContent().getSubItem3());
+			if (customerOrder.getContent().getSubItem4() != null)
+				extra.setText(customerOrder.getContent().getSubItem4());
+			if (customerOrder.getMeal().getVendor() != null)
+				vendorname.setText("Vendor name : " + customerOrder.getMeal().getVendor().getName());
 
+		}
+
+		alertbtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				nextActivity();
 			}
 
-			alertbtn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					nextActivity();
-				}
-
-			});
-		}
+		});
 		return rootView;
 	}
 
@@ -109,28 +104,5 @@ public class ShowMenuFragment extends Fragment implements AndroidConstants {
 
 	private void nextActivity() {
 		CustomerUtils.removeFragment(getFragmentManager(), this);
-		// Fragment fragment = null;
-		// CustomerUtils.clearFragmentStack(getFragmentManager());
-		/*
-		 * if (customerOrder.getCustomer() != null &&
-		 * customerOrder.getMealFormat() != null) {
-		 * 
-		 * if (customerOrder.getMealFormat().equals(MealFormat.QUICK)) { if
-		 * (customerOrder.getTransactionId() != null) { if
-		 * (customerOrder.getTransactionId().equals("-20")) { fragment = new
-		 * QuickOrderHomeScreen(customerOrder.getCustomer());
-		 * CustomerUtils.nextFragment(fragment, getFragmentManager(), false); }
-		 * } else { new GetMealsForVendorAsynctask(getActivity(),
-		 * customerOrder.getMeal().getVendor(), customerOrder).execute(); } }
-		 * else if (customerOrder.getMealFormat().equals(MealFormat.SCHEDULED))
-		 * { if (customerOrder.getTransactionId() != null) { if
-		 * (customerOrder.getTransactionId().equals("-20")) { fragment = new
-		 * ScheduledUser(customerOrder.getCustomer());
-		 * CustomerUtils.nextFragment(fragment, getFragmentManager(), false); }
-		 * } else { new GetMealsForVendorAsynctask(getActivity(),
-		 * customerOrder.getMeal().getVendor(), customerOrder).execute(); } } }
-		 * else new GetMealsForVendorAsynctask(getActivity(),
-		 * customerOrder.getMeal().getVendor(), customerOrder).execute();
-		 */
 	}
 }

@@ -36,8 +36,8 @@ public class CoreServerUtils implements AndroidConstants {
 		HttpEntity<String> requestEntity = new HttpEntity<String>(requestHeaders);
 		RestTemplate restTemplate = new RestTemplate();
 		SimpleClientHttpRequestFactory rf = (SimpleClientHttpRequestFactory) restTemplate.getRequestFactory();
-		rf.setReadTimeout(1 * 5000);
-		rf.setConnectTimeout(1 * 5000);
+		rf.setReadTimeout(15000);
+		rf.setConnectTimeout(15000);
 		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 		ResponseEntity<String> responseEntity = restTemplate.exchange(url, method, requestEntity, String.class, uriVariables);
 		Log.d("Response Received ..", responseEntity.getBody());

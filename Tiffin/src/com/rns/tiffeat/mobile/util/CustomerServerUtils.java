@@ -134,11 +134,14 @@ public class CustomerServerUtils implements AndroidConstants {
 	}
 
 	public static void removeCircularReferences(CustomerOrder customerOrderObject) {
-		if (customerOrderObject == null || customerOrderObject.getMeal() == null || customerOrderObject.getCustomer() == null) {
+		if (customerOrderObject == null) {
 			return;
 		}
-		if (customerOrderObject.getMeal().getVendor() != null) {
-			customerOrderObject.getMeal().getVendor().setMeals(null); // -------
+		if (customerOrderObject.getMeal()!=null && customerOrderObject.getMeal().getVendor() != null) {
+			customerOrderObject.getMeal().getVendor().setMeals(null); 
+		}
+		if(customerOrderObject.getCustomer() == null) {
+			return;
 		}
 		customerOrderObject.getCustomer().setPreviousOrders(null);
 		customerOrderObject.getCustomer().setQuickOrders(null);

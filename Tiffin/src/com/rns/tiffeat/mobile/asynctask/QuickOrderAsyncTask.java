@@ -5,12 +5,10 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
-import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class QuickOrderAsyncTask extends AsyncTask<String, String, String> implements AndroidConstants {
@@ -18,7 +16,7 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 	private FragmentActivity proceedtopay;
 	private ProgressDialog progressdialog;
 	private CustomerOrder customerOrder;
-	private Customer currentCustomer;
+	//private Customer currentCustomer;
 
 	public QuickOrderAsyncTask(FragmentActivity contxt, CustomerOrder customerOrder) {
 		proceedtopay = contxt;
@@ -36,10 +34,10 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 		try {
 			String result = CustomerServerUtils.quickOrder(customerOrder);
 			result = new Gson().fromJson(result, String.class);
-			if ("OK".equals(result)) {
+			/*if ("OK".equals(result)) {
 				currentCustomer = CustomerServerUtils.getCurrentCustomer(customerOrder.getCustomer());
 				CustomerUtils.storeCurrentCustomer(proceedtopay, currentCustomer);
-			}
+			}*/
 			return result;
 		} catch (Exception e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -57,16 +55,14 @@ public class QuickOrderAsyncTask extends AsyncTask<String, String, String> imple
 		}
 		if ("OK".equals(result)) {
 			CustomerUtils.alertbox(TIFFEAT, "Order Successfull! ", proceedtopay);
-			if (currentCustomer != null) {
-				nextActivity();
-			}
+			nextActivity();
 		} else {
 			CustomerUtils.alertbox(TIFFEAT, "Order Failed due to : " + result, proceedtopay);
 		}
 	}
 
 	private void nextActivity() {
-		CustomerUtils.startDrawerActivity(proceedtopay, customerOrder, currentCustomer, ACTION_QUICK_HOME);
+		CustomerUtils.startDrawerActivity(proceedtopay, customerOrder, customerOrder.getCustomer(), ACTION_QUICK_HOME);
 	}
 
 }
