@@ -59,7 +59,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:gravity="left"
-                                android:text="ABC Tiffin"
+                                android:text=""
                                 android:textColor="#000"
                                 android:textSize="14sp" />
 
@@ -67,7 +67,7 @@
                                 android:id="@+id/quickorder_list_adapter_date_textView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
+                                android:layout_marginRight="10dp"
                                 android:layout_weight="2.3"
                                 android:gravity="left"
                                 android:text="4-11-2015"
@@ -95,7 +95,7 @@
                                 android:id="@+id/quickorder_list_adapter_price_textView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
+                                android:layout_marginRight="10dp"
                                 android:layout_weight="1"
                                 android:gravity="end"
                                 android:text=""
@@ -108,9 +108,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="10dp"
                             android:gravity="left"
-                            android:text="Veg-Special"
+                            android:text=""
                             android:textColor="#607D8B"
                             android:textSize="14sp" />
 
@@ -119,7 +119,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:gravity="left"
                             android:textColor="#607D8B"

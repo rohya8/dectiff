@@ -18,6 +18,7 @@ import com.rns.tiffeat.mobile.asynctask.ValidateScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
+import com.rns.tiffeat.web.bo.domain.MealType;
 
 public class ScheduledOrderFragment extends Fragment implements OnClickListener, AndroidConstants {
 
@@ -72,7 +73,12 @@ public class ScheduledOrderFragment extends Fragment implements OnClickListener,
 		lunchaddr.setHint("Enter Address");
 
 		if (customerOrder.getMealType() != null)
-			mealtype.setText(customerOrder.getMealType().toString());
+			if(MealType.BOTH.equals(customerOrder.getMealType())){
+				mealtype.setText("Both ( Lunch and Dinner )");
+			}
+			else{
+				mealtype.setText(customerOrder.getMealType().toString());
+			}
 
 		if (customerOrder.getAddress() != null)
 			lunchaddr.setText(customerOrder.getAddress());

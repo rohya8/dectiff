@@ -55,7 +55,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		}
 	}
 
-	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
+	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
+			CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
@@ -82,8 +83,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.tiffintitle = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_title_textView);
 			holder.vendorname = (TextView) convertView.findViewById(R.id.new_listofmeals__adapter_vendorname_textView);
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
-			// mealImageView= (ImageView)
-			// convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
 
 			holder.tiffinprice = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_tiffinprice_textView);
 			holder.description = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_desc_textView);
@@ -117,8 +116,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 				} else {
 					holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
 				}
-				// holder.description.setText("Starts from : " +
-				// CustomerUtils.convertDate(meal.getStartsFromDay()));
 			}
 		}
 
@@ -167,7 +164,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			if (customerOrder.getId() != 0) {
 				new ScheduleChangeOrderTask(activity, customerOrder).execute();
 			} else if (customerOrder.getId() == 0 && customerOrder.getAddress() != null) {
-				new ScheduledOrderAsyncTask(activity, customerOrder).execute();
+				//new ScheduledOrderAsyncTask(activity, customerOrder).execute();
+				fragment = new ScheduledOrderFragment(customerOrder);
 			} else {
 				fragment = new ScheduledOrderFragment(customerOrder);
 			}
