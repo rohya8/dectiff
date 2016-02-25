@@ -78,7 +78,10 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 			private CustomerOrder prepareCustomerOrder(String balance) {
 				CustomerOrder order = new CustomerOrder();
 				BigDecimal balanceAmount = new BigDecimal(balance);
+				//	order.setAddress(customerOrder.getAddress());
+				//	order.setLocation(customerOrder.getLocation());
 				order.setMeal(customerOrder.getMeal());
+				//order.setMealType(customerOrder.getMealType());
 				order.setMealFormat(MealFormat.SCHEDULED);
 				Customer currentCustomer = new Customer();
 				Customer customer = customerOrder.getCustomer();

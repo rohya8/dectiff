@@ -76,20 +76,20 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 
 		} else {*/
 
-			runOnUiThread(new Runnable() {
+		runOnUiThread(new Runnable() {
 
-				@Override
-				public void run() {
-					final Handler handler = new Handler();
-					handler.postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							asyncTaskCall();
-						}
-					}, 10000);
-				}
-			});
-		}
+			@Override
+			public void run() {
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						asyncTaskCall();
+					}
+				}, 10000);
+			}
+		});
+	}
 	//}
 	public void asyncTaskCall() {
 		Customer customer = CustomerUtils.getCurrentCustomer(SplashScreen.this);
@@ -149,20 +149,25 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 			} else {
 				askForPermission();
 			}
+		}else if (ContextCompat.checkSelfPermission(SplashScreen.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(SplashScreen.this, Manifest.permission.CALL_PHONE)) {
+
+				askForPermission();
+			} else {
+				askForPermission();
+			}
 		}
+
+
 
 	}
 
 	private void askForPermission() {
 		ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.GET_ACCOUNTS,
 				Manifest.permission.USE_CREDENTIALS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_NETWORK_STATE,
-				Manifest.permission.INTERNET }, MY_PERMISSIONS_REQUEST_CODE);
+				Manifest.permission.INTERNET,Manifest.permission.CALL_PHONE }, MY_PERMISSIONS_REQUEST_CODE);
 	}
 
-	/*
-	 * Show alert dialog with message that some permissions are disbled means
-	 * denied by user And redirect him to settings of app to enable permissons.
-	 */
 	private void showPermissionSettings() {
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(SplashScreen.this);
 		alertDialog.setMessage("It seems that you have disabled some permissions for this application. To use this application enable required permissions. ");
@@ -201,6 +206,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 			perms.put(Manifest.permission.READ_PHONE_STATE, PackageManager.PERMISSION_GRANTED);
 			perms.put(Manifest.permission.ACCESS_NETWORK_STATE, PackageManager.PERMISSION_GRANTED);
 			perms.put(Manifest.permission.INTERNET, PackageManager.PERMISSION_GRANTED);
+			perms.put(Manifest.permission.CALL_PHONE, PackageManager.PERMISSION_GRANTED);
 
 			for (int i = 0; i < permissions.length; i++)
 				perms.put(permissions[i], grantResults[i]);
@@ -210,6 +216,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 					&& perms.get(Manifest.permission.USE_CREDENTIALS) == PackageManager.PERMISSION_GRANTED
 					&& perms.get(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
 					&& perms.get(Manifest.permission.ACCESS_NETWORK_STATE) == PackageManager.PERMISSION_GRANTED
+					&& perms.get(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED
 					&& perms.get(Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
 				Toast.makeText(SplashScreen.this, "All required permission granted", Toast.LENGTH_SHORT).show();
 			} else {

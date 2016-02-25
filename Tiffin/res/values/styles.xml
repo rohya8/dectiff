@@ -17,15 +17,4 @@
         <item name="android:background">#ffffff</item>
     </style>
 
-    <!-- <style name="MyEditTextTheme"> -->
-
-
-    <!-- Used for the bottom line when not selected / focused -->
-    <!-- <item name="colorAccent">#81D4FA</item> -->
-    <!-- <item name="colorControlNormal">#FFB74D</item> -->
-    <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
-
-
-    <!-- </style> -->
-
 </resources>
