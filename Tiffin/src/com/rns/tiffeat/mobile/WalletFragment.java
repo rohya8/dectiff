@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,9 +31,14 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 	private EditText balanceEditText;
 	private TextView currentBalance;
 	private BigDecimal balance;
+	private boolean isOrderInProcess;
 
 	public WalletFragment(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
+	}
+
+	public void setOrderInProcess(boolean isOrderInProcess) {
+		this.isOrderInProcess = isOrderInProcess;
 	}
 
 	@Override
@@ -70,19 +76,29 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 					CustomerUtils.alertbox(TIFFEAT, "Invalid amount!", getActivity());
 					return;
 				}
-
-				nextActivity(prepareCustomerOrder(balance));
-
+				CustomerOrder order = prepareCustomerOrder(balance);
+				if (!isOrderInProcess) {
+					order.setMeal(null);
+				}
+				nextActivity(order);
 			}
 
 			private CustomerOrder prepareCustomerOrder(String balance) {
 				CustomerOrder order = new CustomerOrder();
 				BigDecimal balanceAmount = new BigDecimal(balance);
-				//	order.setAddress(customerOrder.getAddress());
-				//	order.setLocation(customerOrder.getLocation());
+				order.setAddress(customerOrder.getAddress());
+				order.setLocation(customerOrder.getLocation());
 				order.setMeal(customerOrder.getMeal());
-				//order.setMealType(customerOrder.getMealType());
+				order.setMealType(customerOrder.getMealType());
 				order.setMealFormat(MealFormat.SCHEDULED);
+				order.setDate(customerOrder.getDate());
+				Log.d(TIFFEAT, "Date set is :" + order.getDate());
+				order.setPrice(customerOrder.getPrice());
+				prepareCurrentCustomer(order, balanceAmount);
+				return order;
+			}
+
+			private void prepareCurrentCustomer(CustomerOrder order, BigDecimal balanceAmount) {
 				Customer currentCustomer = new Customer();
 				Customer customer = customerOrder.getCustomer();
 				currentCustomer.setId(customer.getId());
@@ -91,7 +107,6 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 				currentCustomer.setName(customer.getName());
 				currentCustomer.setBalance(balanceAmount);
 				order.setCustomer(currentCustomer);
-				return order;
 			}
 
 		});

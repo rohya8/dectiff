@@ -63,8 +63,9 @@ public class ValidateScheduledOrderAsyncTask extends AsyncTask<String, String, S
 	}
 
 	private void nextActivity() {
-		Fragment fobj = new WalletFragment(customerOrder);
-		CustomerUtils.nextFragment(fobj, scheduleOrderFragmentActivity.getSupportFragmentManager(), false);
+		WalletFragment wallet = new WalletFragment(customerOrder);
+		wallet.setOrderInProcess(true);
+		CustomerUtils.nextFragment(wallet, scheduleOrderFragmentActivity.getSupportFragmentManager(), false);
 	}
 
 }

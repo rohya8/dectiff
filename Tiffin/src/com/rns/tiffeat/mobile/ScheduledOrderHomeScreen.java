@@ -61,8 +61,9 @@ public class ScheduledOrderHomeScreen extends Fragment implements AndroidConstan
 			CustomerOrder customerOrder = new CustomerOrder();
 			customerOrder.setMealFormat(MealFormat.SCHEDULED);
 			customerOrder.setCustomer(customer);
-			Fragment fobj = new WalletFragment(customerOrder);
-			CustomerUtils.nextFragment(fobj, getFragmentManager(), false);
+			WalletFragment wallet = new WalletFragment(customerOrder);
+			wallet.setOrderInProcess(false);
+			CustomerUtils.nextFragment(wallet, getFragmentManager(), false);
 		} else {
 			initialise();
 		}
