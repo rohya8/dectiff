@@ -2,8 +2,10 @@ package com.rns.tiffeat.mobile.asynctask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
+import android.telephony.TelephonyManager;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.LoginActivity;
@@ -22,9 +24,8 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	private Customer customerlogin;
 	private CustomerOrder customerOrder;
 	private String action;
-	// private LoginActivity loginActivity;
-	// private FragmentActivity fragmentActivity;
 	private Activity context;
+	private TelephonyManager tm;
 
 	public LoginAsyncTask(FragmentActivity activity, CustomerOrder customerOrder2, String string) {
 		// this.fragmentActivity = activity;
@@ -43,12 +44,15 @@ public class LoginAsyncTask extends AsyncTask<String, String, String> implements
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
+		tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
 		progressDialog = UserUtils.showLoadingDialog(context, "Checking  Details", "Please Wait...");
 	}
 
 	@Override
 	protected String doInBackground(String... params) {
 		String result = null;
+		customerOrder.getCustomer().setDeviceId(CustomerUtils.imeino(tm));
 		try {
 			if (action.equals("LOGINFRAGMENT"))
 				result = CustomerServerUtils.customerLogin(customerOrder.getCustomer());

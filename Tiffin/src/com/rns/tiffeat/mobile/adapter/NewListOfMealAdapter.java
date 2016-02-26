@@ -110,13 +110,13 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			}
 
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
-			if (meal.getAvailableFrom() != null) {
-				if (customerOrder.getId() != 0) {
-					holder.description.setText(meal.getMenu());
-				} else {
-					holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
-				}
+			if (customerOrder.getId() != 0) {
+				holder.description.setText(meal.getMenu());
 			}
+			else if (meal.getAvailableFrom() != null) {
+				holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
+			}
+
 		}
 
 		holder.order.setOnClickListener(new OnClickListener() {
@@ -164,7 +164,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			if (customerOrder.getId() != 0) {
 				new ScheduleChangeOrderTask(activity, customerOrder).execute();
 			} else if (customerOrder.getId() == 0 && customerOrder.getAddress() != null) {
-				//new ScheduledOrderAsyncTask(activity, customerOrder).execute();
+				// new ScheduledOrderAsyncTask(activity,
+				// customerOrder).execute();
 				fragment = new ScheduledOrderFragment(customerOrder);
 			} else {
 				fragment = new ScheduledOrderFragment(customerOrder);

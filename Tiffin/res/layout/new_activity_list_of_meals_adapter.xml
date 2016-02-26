@@ -84,7 +84,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="left"
                 android:maxLines="3"
-                android:text="Menu Not available yet .."
+                android:text=""
                 android:textColor="#607D8B"
                 android:textSize="14sp" />
 

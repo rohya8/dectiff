@@ -1,5 +1,7 @@
 package com.rns.tiffeat.mobile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.rns.tiffeat.mobile.asynctask.AddToWalletAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.QuickOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
+import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealFormat;
 
@@ -41,10 +44,40 @@ public class PaymentGatewayFragment extends Fragment implements AndroidConstants
 		paymentscreen = (WebView) rootView.findViewById(R.id.payment_screen_webview);
 
 		CustomerServerUtils.removeCircularReferences(customerOrder);
-		String url = new Gson().toJson(customerOrder);
+		final String url = new Gson().toJson(customerOrder);
 		WebSettings webSettings = paymentscreen.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		WebViewClient webViewClient = new WebViewClient() {
+
+			@Override
+			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+				super.onReceivedError(view, errorCode, description, failingUrl);
+
+				try {
+					paymentscreen.stopLoading();
+				} catch (Exception e) {
+				}
+				try {
+					paymentscreen.clearView();
+				} catch (Exception e) {
+				}
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
+				builder.setTitle(TIFFEAT);
+				builder.setMessage("No internet connection ");
+
+				builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						CustomerUtils.removeFragment(getFragmentManager(), PaymentGatewayFragment.this);
+					}
+				});
+
+				builder.show();
+
+			}
+
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				if (url != null && url.contains("paymentAndroidResult.htm")) {

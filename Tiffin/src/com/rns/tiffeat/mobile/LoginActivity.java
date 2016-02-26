@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -171,7 +170,6 @@ public class LoginActivity extends ActionBarActivity implements OnClickListener,
 	@Override
 	public void onConnected(Bundle arg0) {
 		signedInUser = false;
-		Toast.makeText(this, "Login successful !!!", Toast.LENGTH_LONG).show();
 		getProfileInformation();
 	}
 

@@ -86,7 +86,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 					public void run() {
 						asyncTaskCall();
 					}
-				}, 10000);
+				}, 6000);
 			}
 		});
 	}

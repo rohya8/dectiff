@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.telephony.TelephonyManager;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.DrawerActivity;
@@ -64,6 +65,8 @@ public class GetCurrentCustomerAsyncTask extends AsyncTask<String, String, Custo
 		try {
 			Customer currentCustomer = CustomerUtils.getCurrentCustomer(context);
 			Customer latestCustomer = currentCustomer;
+			TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			currentCustomer.setDeviceId(CustomerUtils.imeino(tm));
 			latestCustomer = CustomerServerUtils.getCurrentCustomer(currentCustomer);
 			return latestCustomer;
 		} catch (Exception e) {

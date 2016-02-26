@@ -24,6 +24,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -178,6 +179,15 @@ public class CustomerUtils implements AndroidConstants {
 		}
 		activity.startActivity(i);
 		activity.finish();
+	}
+
+	public static String imeino(TelephonyManager tm) {
+
+		String IMEI = tm.getDeviceId().toString();
+		if (IMEI != null)
+			return IMEI;
+		else
+			return "No Device ID Found";
 	}
 
 }

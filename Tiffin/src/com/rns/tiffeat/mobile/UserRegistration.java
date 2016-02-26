@@ -3,7 +3,6 @@ package com.rns.tiffeat.mobile;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,11 +22,10 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 
 	private Button submit;
 	private EditText emailid, name, password, confirmpass;
-	private String registerpersonName, registerpassword, registeremailid, registerdeviceid;
+	private String registerpersonName, registerpassword, registeremailid;
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private View rootview;
-	private TelephonyManager tm;
 	private Context context;
 
 	public UserRegistration(CustomerOrder customerOrder2) {
@@ -55,12 +53,11 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 			@Override
 			public void onClick(View v) {
 
-				tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+				//tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
 				InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 				if (checkValidation()) {
 					getDetails();
-					customer.setDeviceId(registerdeviceid);
 					customer.setEmail(registeremailid);
 					customer.setName(registerpersonName);
 					customer.setPassword(registerpassword);
@@ -113,17 +110,8 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 		registeremailid = emailid.getText().toString();
 		registerpersonName = name.getText().toString();
 		registerpassword = password.getText().toString();
-		registerdeviceid = imeino();
 	}
 
-	private String imeino() {
-
-		String IMEI = tm.getDeviceId().toString();
-		if (IMEI != null)
-			return IMEI;
-		else
-			return "No Device ID Found";
-	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {

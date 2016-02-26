@@ -1,5 +1,7 @@
 package com.rns.tiffeat.mobile;
 
+import java.util.Date;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.internal.nu;
 import com.rns.tiffeat.mobile.adapter.PlacesAutoCompleteAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -75,6 +78,12 @@ public class NewChangeOrderFragment extends Fragment implements AndroidConstants
 		Location location = new Location();
 		location.setAddress(this.googleLocation.getText().toString());
 		customerOrder.setLocation(location);
+		if (customerOrder.getContent()==null) {
+			customerOrder.setDate(new Date());	
+		}
+		else{
+			customerOrder.setDate(customerOrder.getContent().getDate());
+		}
 	}
 
 	private void initialise() {
