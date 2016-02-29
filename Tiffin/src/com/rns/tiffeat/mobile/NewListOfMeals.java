@@ -33,6 +33,7 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 	public NewListOfMeals(CustomerOrder customerOrder, List<Meal> meals) {
 		this.customerOrder = customerOrder;
 		this.mealobj = meals;
+
 	}
 
 	@Override
@@ -50,13 +51,12 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 		ViewGroup header = (ViewGroup) inflate.inflate(R.layout.custom_header, listview, false);
 		listview.addHeaderView(header, null, false);
 		listview.setAdapter(adapter);
-		
+
 		meal = (TextView) header.findViewById(R.id.new_list_of_meals_mealtype);
 		location = (TextView) header.findViewById(R.id.new_list_of_meals_area);
-		
+
 		meal.setText(getOrderDescription());
-		
-		
+
 		if (customerOrder.getLocation() != null) {
 			location.setText(customerOrder.getLocation().getAddress());
 		}
@@ -88,10 +88,10 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 			return "";
 		}
 		if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
-			if(customerOrder.getId()!=0){
+			if (customerOrder.getId() != 0) {
 				return customerOrder.getMealType().getDescription() + " change for " + CustomerUtils.convertDate(customerOrder.getDate());
 			}
-			
+
 			return customerOrder.getMealType().getDescription() + " starting from " + CustomerUtils.convertDate(customerOrder.getDate());
 		}
 		return customerOrder.getMealType().getDescription() + " for " + CustomerUtils.convertDate(customerOrder.getDate());

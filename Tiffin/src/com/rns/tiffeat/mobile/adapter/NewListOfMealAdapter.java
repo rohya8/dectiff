@@ -1,13 +1,19 @@
 package com.rns.tiffeat.mobile.adapter;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,10 +28,8 @@ import com.rns.tiffeat.mobile.LoginActivity;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
-import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
-import com.rns.tiffeat.mobile.asynctask.ScheduledOrderAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -39,7 +43,10 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
 	private FragmentActivity activity;
-
+//	private LruCache<String, Bitmap> mLruCache;
+//	ArrayList<Uri> imageList;
+	
+	
 	public class ViewHolder {
 
 		TextView tiffintitle, tiffinprice, vendorname, description;
@@ -63,6 +70,34 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		this.activity = activity;
 		this.meals = mealList;
 
+/*		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+		final int cacheSize = maxMemory / 4;
+		mLruCache = new LruCache<String, Bitmap>(cacheSize) {
+			@Override
+			protected int sizeOf(String key, Bitmap bitmap) {
+				return bitmap.getByteCount() / 1024;
+			}
+		};
+
+		imageList  = new ArrayList<Uri>();
+		//Change this directory to where the images are stored
+		String imagesFolderPath = Environment.getExternalStorageDirectory().getPath()+"/backups/";
+
+		File imageSrcDir = new File (imagesFolderPath);
+		// if directory not present, build it
+		if (!imageSrcDir.exists()){
+			imageSrcDir.mkdirs();
+		}
+
+		ArrayList<File> imagesInDir = getImagesFromDirectory(imageSrcDir);
+		 
+        for (File file: imagesInDir){
+            // imageList will hold Uri of all images
+            imageList.add(Uri.fromFile(file));
+        }
+ 
+*/		
+		
 	}
 
 	@Override
@@ -93,7 +128,9 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
+		
+			new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
+
 
 		if (meal.getTitle().toString() != null)
 			holder.tiffintitle.setText(meal.getTitle().toString());

@@ -182,7 +182,6 @@
                     android:id="@+id/new_first_time_use_area_autoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
@@ -195,9 +194,23 @@
                     android:windowSoftInputMode="stateHidden" >
                 </AutoCompleteTextView>
 
+                <TextView
+                    android:id="@+id/getlocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:drawableLeft="@drawable/locatio"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:minHeight="40dip"
+                    android:text="Use my current location"
+                    android:textColor="#ff5535"
+                    android:textSize="15sp" />
+
                 <Button
                     android:id="@+id/new_first_time_use_search_button"
-                    style="?android:attr/buttonStyleSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"

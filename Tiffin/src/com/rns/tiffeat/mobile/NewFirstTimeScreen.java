@@ -1,17 +1,21 @@
 package com.rns.tiffeat.mobile;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -21,6 +25,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rns.tiffeat.mobile.adapter.PlacesAutoCompleteAdapter;
 import com.rns.tiffeat.mobile.asynctask.GetVendorsForAreaAsynctask;
@@ -43,6 +48,9 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 	private LinearLayout layout;
 	private ArrayAdapter<CharSequence> adapter, adapter1, adapter2;
 
+	private TextView getLocation;
+	private LocationTracker tracker;
+
 	public NewFirstTimeScreen() {
 	}
 
@@ -52,7 +60,6 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 
 	}
 
@@ -108,6 +115,27 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 			}
 
 		});
+
+		getLocation.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				tracker = new LocationTracker(getActivity());
+				// check if location is available
+				if (tracker.isLocationEnabled) {
+					double latitude = tracker.getLatitude();
+					double longitude = tracker.getLongitude();
+					//	Toast.makeText(getActivity(), "Your Location is Latitude= " + latitude + " Longitude= " + longitude, Toast.LENGTH_LONG).show();
+					String addres = getCompleteAddressString(latitude, longitude);
+					actvAreas.setText(addres);
+				} else {
+					// show dialog box to user to enable location
+					tracker.askToOnLocation();
+				}
+			}
+		});
+
 		return rootview;
 
 	}
@@ -122,6 +150,7 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 		from = (TextView) rootview.findViewById(R.id.new_first_time_from_textview);
 		spformat = (Spinner) rootview.findViewById(R.id.new_first_time_format_spinner);
 		layout = (LinearLayout) rootview.findViewById(R.id.new_first_time_layout);
+		getLocation = (TextView) rootview.findViewById(R.id.getlocation);
 
 		layout.setVisibility(View.VISIBLE);
 		from.setVisibility(View.GONE);
@@ -225,4 +254,34 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 		CustomerUtils.changeFont(getActivity().getAssets(), this);
 	}
 
+	private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
+		String strAdd = "";
+		Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+		try {
+			List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+			if (addresses != null) {
+				android.location.Address returnedAddress = addresses.get(0);
+				StringBuilder strReturnedAddress = new StringBuilder("");
+				//				for (int i = 1; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+				//					strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+				//				}
+				if(returnedAddress.getLocality().equals("Pune")){
+					strReturnedAddress.append(returnedAddress.getAddressLine(1)).append(", "+returnedAddress.getLocality()+", "+returnedAddress.getAdminArea()+", "+returnedAddress.getCountryName());
+
+					strAdd = strReturnedAddress.toString().trim();
+					Log.w(" location address", "" + strReturnedAddress.toString());
+				}
+				else{
+					Toast.makeText(getActivity(),"Sorry we donot serve in area you requested for" , Toast.LENGTH_SHORT).show();
+
+				}
+			} else {
+				Log.w(" location address", "No Address returned!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.w(" location address", "Cannot get Address!");
+		}
+		return strAdd;
+	}
 }
