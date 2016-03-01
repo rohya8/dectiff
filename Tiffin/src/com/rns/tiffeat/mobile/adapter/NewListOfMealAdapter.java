@@ -28,6 +28,7 @@ import com.rns.tiffeat.mobile.LoginActivity;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
+import com.rns.tiffeat.mobile.TempClass;
 import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -43,10 +44,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
 	private FragmentActivity activity;
-//	private LruCache<String, Bitmap> mLruCache;
-//	ArrayList<Uri> imageList;
-	
-	
+
 	public class ViewHolder {
 
 		TextView tiffintitle, tiffinprice, vendorname, description;
@@ -70,34 +68,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		this.activity = activity;
 		this.meals = mealList;
 
-/*		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-		final int cacheSize = maxMemory / 4;
-		mLruCache = new LruCache<String, Bitmap>(cacheSize) {
-			@Override
-			protected int sizeOf(String key, Bitmap bitmap) {
-				return bitmap.getByteCount() / 1024;
-			}
-		};
 
-		imageList  = new ArrayList<Uri>();
-		//Change this directory to where the images are stored
-		String imagesFolderPath = Environment.getExternalStorageDirectory().getPath()+"/backups/";
-
-		File imageSrcDir = new File (imagesFolderPath);
-		// if directory not present, build it
-		if (!imageSrcDir.exists()){
-			imageSrcDir.mkdirs();
-		}
-
-		ArrayList<File> imagesInDir = getImagesFromDirectory(imageSrcDir);
-		 
-        for (File file: imagesInDir){
-            // imageList will hold Uri of all images
-            imageList.add(Uri.fromFile(file));
-        }
- 
-*/		
-		
 	}
 
 	@Override
@@ -128,9 +99,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
-			new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
 
+		new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
 
 		if (meal.getTitle().toString() != null)
 			holder.tiffintitle.setText(meal.getTitle().toString());
@@ -149,8 +119,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		} else if (MealFormat.SCHEDULED.equals(customerOrder.getMealFormat())) {
 			if (customerOrder.getId() != 0) {
 				holder.description.setText(meal.getMenu());
-			}
-			else if (meal.getAvailableFrom() != null) {
+			} else if (meal.getAvailableFrom() != null) {
 				holder.description.setText("Starts from : " + CustomerUtils.convertDate(meal.getAvailableFrom()));
 			}
 
@@ -201,8 +170,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			if (customerOrder.getId() != 0) {
 				new ScheduleChangeOrderTask(activity, customerOrder).execute();
 			} else if (customerOrder.getId() == 0 && customerOrder.getAddress() != null) {
-				// new ScheduledOrderAsyncTask(activity,
-				// customerOrder).execute();
 				fragment = new ScheduledOrderFragment(customerOrder);
 			} else {
 				fragment = new ScheduledOrderFragment(customerOrder);

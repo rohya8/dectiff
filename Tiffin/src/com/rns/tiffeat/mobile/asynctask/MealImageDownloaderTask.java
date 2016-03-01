@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.rns.tiffeat.mobile.R;
+import com.rns.tiffeat.mobile.TempClass;
 import com.rns.tiffeat.mobile.adapter.NewListOfMealAdapter.ViewHolder;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -25,10 +26,6 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 	public MealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context) {
 		this.holder = holder;
 		this.imageView = mealImageView;
-	}
-
-	public MealImageDownloaderTask(ViewHolder holder) {
-		this.holder = holder;
 	}
 
 	public ImageView getImageView() {
@@ -69,8 +66,9 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 	private Bitmap setimage(Meal meal) throws MalformedURLException, IOException {
 
 		Bitmap bitmap = null;
-		bitmap = UserUtils.getBitmapFromURL(VendorServerUtils.createMealImageUrl(meal));
+		String url = VendorServerUtils.createMealImageUrl(meal);
 
+		bitmap = UserUtils.getBitmapFromURL(url);
 		return bitmap;
 	}
 

@@ -54,7 +54,7 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 		addLater = (Button) rootView.findViewById(R.id.add_later_button);
 		balanceEditText = (EditText) rootView.findViewById(R.id.add_amount_edittext);
 		currentBalance = (TextView) rootView.findViewById(R.id.current_balance_textview);
-		currentBalance.setText("Balance : Rs. 0");
+		currentBalance.setText("Current Balance : Rs. 0");
 
 		if (customerOrder.getCustomer().getBalance() != null) {
 			if (BigDecimal.TEN.compareTo(customerOrder.getCustomer().getBalance()) < 0) {

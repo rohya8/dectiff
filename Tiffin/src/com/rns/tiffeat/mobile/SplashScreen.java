@@ -44,7 +44,7 @@ public class SplashScreen extends AppCompatActivity implements AndroidConstants 
 
 		text = (TextView) findViewById(R.id.splashscreen_name_textView);
 
-		String multiColorText = "<font color=0x4CAF50>T    i    f   f</font><font color=0xf44336>   E   a   t</font>";
+		String multiColorText = "<font color=0xf44336 >T    i    f   f</font><font color=0x4CAF50 >   E   a   t</font>";
 		text.setText(Html.fromHtml(multiColorText));
 
 		try {

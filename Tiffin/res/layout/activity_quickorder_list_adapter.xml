@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
+                android:padding="10dp"
                 android:src="@drawable/defaultimage" />
 
             <LinearLayout
@@ -40,13 +41,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical" >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:orientation="horizontal" >
 
                         <TextView
@@ -71,8 +72,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:orientation="horizontal" >
 
                         <TextView
@@ -98,8 +97,6 @@
                         android:id="@+id/quickorder_list_adapter_type_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:gravity="start"
                         android:textColor="#607D8B"
                         android:textSize="14sp" />
@@ -108,8 +105,6 @@
                         android:id="@+id/quickorder_list_adapter_meal_status_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:textColor="#607D8B"
@@ -119,8 +114,6 @@
                         android:id="@+id/quickorder_list_adapter_order_status_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:textColor="#000"
@@ -133,6 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"
                         android:gravity="fill_horizontal"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
