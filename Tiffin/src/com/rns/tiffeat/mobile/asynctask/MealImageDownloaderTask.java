@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.rns.tiffeat.mobile.R;
@@ -22,10 +23,12 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 
 	private ImageView imageView;
 	private ViewHolder holder;
+	private LruCache<String, Bitmap> mMemoryCache;
 
-	public MealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context) {
+	public MealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context, LruCache<String, Bitmap> mMemoryCache) {
 		this.holder = holder;
 		this.imageView = mealImageView;
+		this.mMemoryCache=mMemoryCache;
 	}
 
 	public ImageView getImageView() {
@@ -59,8 +62,6 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 			UserUtils.scaleImage(imageView, result);
 		}
 		holder.setFoodimage(imageView);
-
-		Log.d(AndroidConstants.MYTAG, "Downloaded the Image ..");
 	}
 
 	private Bitmap setimage(Meal meal) throws MalformedURLException, IOException {
@@ -69,6 +70,9 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 		String url = VendorServerUtils.createMealImageUrl(meal);
 
 		bitmap = UserUtils.getBitmapFromURL(url);
+		if (bitmap != null) {
+			mMemoryCache.put(url, bitmap);
+		}
 		return bitmap;
 	}
 
