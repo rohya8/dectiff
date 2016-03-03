@@ -2,30 +2,28 @@ package com.rns.tiffeat.mobile;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.rns.tiffeat.mobile.adapter.NewListOfMealAdapter.ViewHolder;
 import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.UserUtils;
-import com.rns.tiffeat.mobile.util.VendorServerUtils;
 import com.rns.tiffeat.web.bo.domain.Meal;
 
 public class ImageCache {
 	private static LruCache<String, Bitmap> mMemoryCache = null;
-	private static int cacheSize = 1024 * 1024 * 10;
+	private static int cacheSize = 1024 * 1024 * 8;
 	private static ImageView imageView;
 	private static ViewHolder holder;
 	private static Context context;
 	private static Meal meal;
 
-	public void setImageView(ImageView imageView2) {
-		imageView = imageView2;
-	}
+	public static void loadToView(String key) {
 
-	public static void loadToView(String url) {
-
-		if (url == null || url.length() == 0)
+		if (key == null || key.length() == 0)
 			return;
 
 		if (mMemoryCache == null) {
@@ -39,13 +37,16 @@ public class ImageCache {
 			};
 		}
 
-		Bitmap bitmap = getBitmapFromMemCache(url);
+		Bitmap bitmap = getBitmapFromMemCache(key);
 
 		if (bitmap == null) {
-			new MealImageDownloaderTask(holder, imageView, context,mMemoryCache).execute(meal);
+			new MealImageDownloaderTask(holder, imageView, context, mMemoryCache).execute(meal);
 		} else {
+
 			UserUtils.scaleImage(imageView, bitmap);
+
 			imageView.setImageBitmap(bitmap);
+
 			holder.setFoodimage(imageView);
 		}
 	}
@@ -60,7 +61,7 @@ public class ImageCache {
 		context = context2;
 		meal = meal2;
 
-		String url = VendorServerUtils.createMealImageUrl(meal);
-		loadToView(url);
+		loadToView(String.valueOf(meal.getId()));
 	}
+
 }

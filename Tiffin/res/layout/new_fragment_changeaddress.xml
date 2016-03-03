@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="Lunch"
+                android:text=""
                 android:textColor="#000"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="iaskhdjaskjdasjd"
+                android:text=""
                 android:textColor="#000"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="Vendor"
+                android:text=""
                 android:textColor="#000"
                 android:textSize="15sp" />
         </LinearLayout>

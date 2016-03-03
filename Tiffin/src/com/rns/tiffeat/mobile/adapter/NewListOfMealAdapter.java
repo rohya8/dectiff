@@ -1,19 +1,13 @@
 package com.rns.tiffeat.mobile.adapter;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,8 +23,6 @@ import com.rns.tiffeat.mobile.LoginActivity;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
-import com.rns.tiffeat.mobile.TempClass;
-import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;

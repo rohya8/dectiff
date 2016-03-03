@@ -6,14 +6,11 @@ import java.net.MalformedURLException;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.rns.tiffeat.mobile.R;
-import com.rns.tiffeat.mobile.TempClass;
 import com.rns.tiffeat.mobile.adapter.NewListOfMealAdapter.ViewHolder;
-import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.UserUtils;
 import com.rns.tiffeat.mobile.util.VendorServerUtils;
@@ -71,7 +68,9 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 
 		bitmap = UserUtils.getBitmapFromURL(url);
 		if (bitmap != null) {
-			mMemoryCache.put(url, bitmap);
+			if (mMemoryCache.get(String.valueOf(meal.getId())) == null) {
+				mMemoryCache.put(String.valueOf(meal.getId()), bitmap);
+			}
 		}
 		return bitmap;
 	}
