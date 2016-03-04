@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
-import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;

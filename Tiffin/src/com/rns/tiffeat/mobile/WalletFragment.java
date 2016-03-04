@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,6 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 	private CustomerOrder customerOrder;
 	private EditText balanceEditText;
 	private TextView currentBalance;
-	private BigDecimal balance;
 	private boolean isOrderInProcess;
 
 	public WalletFragment(CustomerOrder customerOrder) {

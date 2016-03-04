@@ -18,13 +18,11 @@ import com.rns.tiffeat.mobile.asynctask.PreviousOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
-import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 
 public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implements AndroidConstants {
 	private FragmentActivity activity;
 	private List<CustomerOrder> previousOrders;
-	private Customer customer;
 	private CustomerOrder customerOrder;
 	private ViewHolder holder;
 
@@ -66,10 +64,9 @@ public class PreviousOrderListAdapter extends ArrayAdapter<CustomerOrder> implem
 
 	}
 
-	public PreviousOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter, List<CustomerOrder> previousOrders, Customer customer) {
+	public PreviousOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter, List<CustomerOrder> previousOrders) {
 		super(activity, activityQuickorderListAdapter, previousOrders);
 		this.activity = activity;
-		this.customer = customer;
 		this.previousOrders = previousOrders;
 		Collections.reverse(this.previousOrders);
 	}

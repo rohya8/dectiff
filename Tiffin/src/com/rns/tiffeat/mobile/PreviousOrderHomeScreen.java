@@ -76,7 +76,7 @@ public class PreviousOrderHomeScreen extends Fragment implements AndroidConstant
 			relativeLayout.setVisibility(View.GONE);
 
 		} else if (customer.getPreviousOrders() != null) {
-			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders(), customer);
+			previousOrderAdapter = new PreviousOrderListAdapter(getActivity(), R.layout.activity_previousorder_list_adapter, customer.getPreviousOrders());
 		}
 
 		previouslistview.setFooterDividersEnabled(true);

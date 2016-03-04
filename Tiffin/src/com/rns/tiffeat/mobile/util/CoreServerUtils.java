@@ -23,6 +23,7 @@ public class CoreServerUtils implements AndroidConstants {
 
 	public static List<String> areaNames = new ArrayList<String>();
 
+	@SuppressWarnings("unchecked")
 	public static List<String> retrieveVendorAreaNames() {
 		Map<String, Object> uriVariables = new HashMap<String, Object>();
 		ResponseEntity<String> responseEntity = serverCall(GET_VENDORS_URL, uriVariables, HttpMethod.POST);

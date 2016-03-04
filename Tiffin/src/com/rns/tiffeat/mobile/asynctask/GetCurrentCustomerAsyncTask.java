@@ -12,7 +12,6 @@ import com.rns.tiffeat.mobile.DrawerActivity;
 import com.rns.tiffeat.mobile.PreviousOrderHomeScreen;
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
-import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;

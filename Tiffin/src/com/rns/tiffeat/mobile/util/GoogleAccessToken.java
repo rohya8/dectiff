@@ -20,7 +20,6 @@ public class GoogleAccessToken extends AsyncTask<String, String, String> {
 	private CustomerOrder customerOrder;
 	private int rcSignIn;
 
-
 	public GoogleAccessToken(FragmentActivity activity, GoogleApiClient googleApiClient, CustomerOrder customerOrder, int rcSignIn) {
 		this.activity = activity;
 		this.mGoogleApiClient = googleApiClient;
@@ -52,9 +51,9 @@ public class GoogleAccessToken extends AsyncTask<String, String, String> {
 			if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
 				Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
 				String mPersonName = currentPerson.getDisplayName();
-				String mPersonGooglePlusProfile = currentPerson.getUrl();
+				// String mPersonGooglePlusProfile = currentPerson.getUrl();
 				String mEmail = Plus.AccountApi.getAccountName(mGoogleApiClient);
-				String mPersonID = currentPerson.getId();
+				// String mPersonID = currentPerson.getId();
 				Customer customer = new Customer();
 				customer.setEmail(mEmail);
 				customer.setName(mPersonName);
@@ -76,5 +75,5 @@ public class GoogleAccessToken extends AsyncTask<String, String, String> {
 			}
 		}
 	}
-	
+
 }

@@ -18,11 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.rns.tiffeat.mobile.ImageCache;
 import com.rns.tiffeat.mobile.LoginActivity;
 import com.rns.tiffeat.mobile.QuickOrderFragment;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderFragment;
+import com.rns.tiffeat.mobile.asynctask.MealImageDownloaderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleChangeOrderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
@@ -61,7 +61,6 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		this.activity = activity;
 		this.meals = mealList;
 
-
 	}
 
 	@Override
@@ -93,8 +92,9 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageCache.imageData(holder, holder.foodimage, getContext(),this.getItem(position));
-		//new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
+		// ImageCache.imageData(holder, holder.foodimage, getContext(),
+		// this.getItem(position));
+		new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
 
 		if (meal.getTitle().toString() != null)
 			holder.tiffintitle.setText(meal.getTitle().toString());

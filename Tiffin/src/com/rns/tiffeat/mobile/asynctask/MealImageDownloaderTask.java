@@ -25,7 +25,13 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 	public MealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context, LruCache<String, Bitmap> mMemoryCache) {
 		this.holder = holder;
 		this.imageView = mealImageView;
-		this.mMemoryCache=mMemoryCache;
+		this.mMemoryCache = mMemoryCache;
+	}
+
+	public MealImageDownloaderTask(ViewHolder holder2, ImageView foodimage, Context context) {
+		this.holder = holder;
+		this.imageView = foodimage;
+
 	}
 
 	public ImageView getImageView() {
@@ -67,11 +73,11 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 		String url = VendorServerUtils.createMealImageUrl(meal);
 
 		bitmap = UserUtils.getBitmapFromURL(url);
-		if (bitmap != null) {
-			if (mMemoryCache.get(String.valueOf(meal.getId())) == null) {
-				mMemoryCache.put(String.valueOf(meal.getId()), bitmap);
-			}
-		}
+		/*
+		 * if (bitmap != null) { if
+		 * (mMemoryCache.get(String.valueOf(meal.getId())) == null) {
+		 * mMemoryCache.put(String.valueOf(meal.getId()), bitmap); } }
+		 */
 		return bitmap;
 	}
 

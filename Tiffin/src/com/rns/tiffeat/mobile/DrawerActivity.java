@@ -81,7 +81,7 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 				return;
 			} else if (action.equals(ACTION_REGISTRATION)) {
 				Fragment fragment = null;
-				fragment = new UserRegistration(customerOrder, getApplicationContext());
+				fragment = new UserRegistration(customerOrder);
 				CustomerUtils.nextFragment(fragment, getSupportFragmentManager(), false);
 				return;
 			}

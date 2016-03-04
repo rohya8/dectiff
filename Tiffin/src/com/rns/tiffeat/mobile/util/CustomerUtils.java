@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +27,6 @@ import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.ViewGroup;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rns.tiffeat.mobile.DrawerActivity;
@@ -69,6 +68,7 @@ public class CustomerUtils implements AndroidConstants {
 		Log.d(MYTAG, "Logged Out!");
 	}
 
+	@SuppressWarnings("static-access")
 	public static void clearFragmentStack(FragmentManager fragmentManager) {
 
 		// for(int i = 0; i < fragmentManager.getBackStackEntryCount()-1; ++i) {
@@ -118,6 +118,7 @@ public class CustomerUtils implements AndroidConstants {
 		return map;
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public static String convertDate(Date date) {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);

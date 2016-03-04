@@ -26,15 +26,9 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 	private Customer customer;
 	private CustomerOrder customerOrder;
 	private View rootview;
-	private Context context;
 
 	public UserRegistration(CustomerOrder customerOrder2) {
 		this.customerOrder = customerOrder2;
-	}
-
-	public UserRegistration(CustomerOrder customerOrder2, Context applicationContext) {
-		this.customerOrder = customerOrder2;
-		this.context = applicationContext;
 	}
 
 	@Override
@@ -53,7 +47,6 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 			@Override
 			public void onClick(View v) {
 
-				//tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
 				InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 				if (checkValidation()) {
@@ -111,7 +104,6 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 		registerpersonName = name.getText().toString();
 		registerpassword = password.getText().toString();
 	}
-
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
