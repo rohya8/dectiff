@@ -122,15 +122,12 @@ public class NewFirstTimeScreen extends Fragment implements AndroidConstants {
 			public void onClick(View v) {
 
 				tracker = new LocationTracker(getActivity());
-				// check if location is available
 				if (tracker.isLocationEnabled) {
 					double latitude = tracker.getLatitude();
 					double longitude = tracker.getLongitude();
-					//	Toast.makeText(getActivity(), "Your Location is Latitude= " + latitude + " Longitude= " + longitude, Toast.LENGTH_LONG).show();
 					String addres = getCompleteAddressString(latitude, longitude);
 					actvAreas.setText(addres);
 				} else {
-					// show dialog box to user to enable location
 					tracker.askToOnLocation();
 				}
 			}

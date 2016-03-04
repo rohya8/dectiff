@@ -27,7 +27,6 @@ public class LogoutAsynctask extends AsyncTask<String, String, String> implement
 
 	protected void onPostExecute(String result) {
 		if (result == null) {
-			// Validation.showError(mSplashScreen, ERROR_FETCHING_DATA);
 			CustomerUtils.alertbox(TIFFEAT, ERROR_FETCHING_DATA, mSplashScreen);
 			return;
 		}

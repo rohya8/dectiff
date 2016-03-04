@@ -20,8 +20,6 @@ import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
 import com.rns.tiffeat.mobile.util.FontChangeCrawler;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
-import com.rns.tiffeat.web.bo.domain.MealFormat;
-import com.rns.tiffeat.web.bo.domain.MealType;
 import com.rns.tiffeat.web.google.Location;
 
 public class NewScheduleLunchOrDinnerFragment extends Fragment implements AndroidConstants {
