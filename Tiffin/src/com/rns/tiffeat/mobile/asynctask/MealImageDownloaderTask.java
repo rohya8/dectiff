@@ -21,14 +21,15 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 	private ImageView imageView;
 	private ViewHolder holder;
 	private LruCache<String, Bitmap> mMemoryCache;
+	private Meal meal;
 
-	public MealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context, LruCache<String, Bitmap> mMemoryCache) {
+	public MealImageDownloaderTask(ViewHolder holder, ImageView mealImageView, Context context, LruCache<String, Bitmap> mealImagesMap) {
 		this.holder = holder;
 		this.imageView = mealImageView;
-		this.mMemoryCache = mMemoryCache;
+		this.mMemoryCache = mealImagesMap;
 	}
 
-	public MealImageDownloaderTask(ViewHolder holder2, ImageView foodimage, Context context) {
+	public MealImageDownloaderTask(ViewHolder holder, ImageView foodimage, Context context) {
 		this.holder = holder;
 		this.imageView = foodimage;
 
@@ -47,6 +48,7 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 
 		Bitmap bitmap = null;
 		try {
+			this.meal = arg[0];
 			bitmap = setimage(arg[0]);
 		} catch (IOException e) {
 			CustomerUtils.exceptionOccurred(e.getMessage(), getClass().getSimpleName());
@@ -63,6 +65,7 @@ public class MealImageDownloaderTask extends AsyncTask<Meal, Void, Bitmap> {
 		else {
 			imageView.setImageBitmap(result);
 			UserUtils.scaleImage(imageView, result);
+			mMemoryCache.put(Long.valueOf(meal.getId()).toString(), result);
 		}
 		holder.setFoodimage(imageView);
 	}

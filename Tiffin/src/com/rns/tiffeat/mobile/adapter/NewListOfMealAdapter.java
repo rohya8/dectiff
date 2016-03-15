@@ -6,8 +6,11 @@ import org.apache.commons.collections.CollectionUtils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +40,7 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 	private List<Meal> meals;
 	private CustomerOrder customerOrder;
 	private FragmentActivity activity;
+	private LruCache<String, Bitmap> mealImagesMap;
 
 	public class ViewHolder {
 
@@ -53,14 +57,15 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		}
 	}
 
-	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList,
-			CustomerOrder customerOrder) {
+	public NewListOfMealAdapter(FragmentActivity activity, int activityFirstTimeUsedAdapter, List<com.rns.tiffeat.web.bo.domain.Meal> mealList, CustomerOrder customerOrder) {
 
 		super(activity, activityFirstTimeUsedAdapter, mealList);
 		this.customerOrder = customerOrder;
 		this.activity = activity;
 		this.meals = mealList;
-
+		if(mealImagesMap == null) {
+			mealImagesMap = new LruCache<String, Bitmap>(50);
+		}
 	}
 
 	@Override
@@ -86,6 +91,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.description = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_desc_textView);
 			holder.order = (Button) convertView.findViewById(R.id.new_listofmeals_adapter_order_button);
 
+			//Log.d(TIFFEAT, "**********Called for :" + position + " ******************");
+			
 			convertView.setTag(holder);
 
 		} else {
@@ -94,7 +101,15 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 
 		// ImageCache.imageData(holder, holder.foodimage, getContext(),
 		// this.getItem(position));
-		new MealImageDownloaderTask(holder, holder.foodimage, getContext()).execute(this.getItem(position));
+		
+		Log.d(TIFFEAT, "**********Called for :" + meal.getId() + " ********** Cache :" + mealImagesMap);
+		
+		if (mealImagesMap.get(Long.valueOf(meal.getId()).toString()) != null) {
+			holder.foodimage.setImageBitmap(mealImagesMap.get(Long.valueOf(meal.getId()).toString()));
+		} else {
+			new MealImageDownloaderTask(holder, holder.foodimage, getContext(), mealImagesMap).execute(meal);
+		}
+
 
 		if (meal.getTitle().toString() != null)
 			holder.tiffintitle.setText(meal.getTitle().toString());
