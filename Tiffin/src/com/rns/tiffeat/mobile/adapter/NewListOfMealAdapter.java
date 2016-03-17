@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -47,7 +48,8 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 		TextView tiffintitle, tiffinprice, vendorname, description;
 		ImageView foodimage;
 		Button order;
-
+		RatingBar rating;
+		
 		public ImageView getFoodimage() {
 			return foodimage;
 		}
@@ -86,7 +88,9 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			holder.tiffintitle = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_title_textView);
 			holder.vendorname = (TextView) convertView.findViewById(R.id.new_listofmeals__adapter_vendorname_textView);
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.new_listofmeals_adapter_food_imageView);
-
+			holder.rating = (RatingBar) convertView.findViewById(R.id.new_listofmeals_adapter_rating);
+			holder.rating.setClickable(false);
+			holder.rating.setIsIndicator(true);
 			holder.tiffinprice = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_tiffinprice_textView);
 			holder.description = (TextView) convertView.findViewById(R.id.new_listofmeals_adapter_desc_textView);
 			holder.order = (Button) convertView.findViewById(R.id.new_listofmeals_adapter_order_button);
@@ -110,6 +114,12 @@ public class NewListOfMealAdapter extends ArrayAdapter<Meal> implements AndroidC
 			new MealImageDownloaderTask(holder, holder.foodimage, getContext(), mealImagesMap).execute(meal);
 		}
 
+		holder.rating.setStepSize(0.5f);
+		if(meal.getRating() != null) {
+			holder.rating.setRating(meal.getRating().floatValue());
+		} else {
+			holder.rating.setRating(0);
+		}
 
 		if (meal.getTitle().toString() != null)
 			holder.tiffintitle.setText(meal.getTitle().toString());
