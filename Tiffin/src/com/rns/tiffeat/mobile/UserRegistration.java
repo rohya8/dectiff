@@ -11,6 +11,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Random;
+
+import com.rns.tiffeat.mobile.asynctask.AuthenticationAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.LoginAsyncTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -47,7 +50,8 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 			@Override
 			public void onClick(View v) {
 
-				InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+				InputMethodManager inputMethodManager = (InputMethodManager) getActivity()
+						.getSystemService(Context.INPUT_METHOD_SERVICE);
 				inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 				if (checkValidation()) {
 					getDetails();
@@ -55,17 +59,25 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 					customer.setName(registerpersonName);
 					customer.setPassword(registerpassword);
 					customerOrder.setCustomer(customer);
-
+					String code = verification();
 					if (!confirmpass.getText().toString().equals(password.getText().toString())) {
 						confirmpass.setError("Password Do Not Match");
 						CustomerUtils.alertbox(TIFFEAT, "Password do not match", getActivity());
 						return;
 					}
-					new LoginAsyncTask(getActivity(), customerOrder, REGISTRATION_FRAGMENT).execute();
+					new AuthenticationAsyncTask(getActivity(), customerOrder, code).execute(); 
+				//	new LoginAsyncTask(getActivity(), customerOrder, REGISTRATION_FRAGMENT).execute();
 				}
 			}
+
 		});
 		return rootview;
+	}
+
+	public String verification() {
+		int randomPIN = (int) (Math.random() * 9000) + 1000;
+		String PINString = String.valueOf(randomPIN);
+		return (PINString);
 	}
 
 	private void initialise() {

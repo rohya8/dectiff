@@ -19,10 +19,10 @@ public class RateUs
 		private final static String PACKAGE_NAME = "com.rns.tiffeat.mobile";
 
 		// Day until the Rate Us Dialog Prompt(Default 2 Days)
-		private final static int DAYS_UNTIL_PROMPT = 1;
+		private final static int DAYS_UNTIL_PROMPT = 0;
 
 		// App launches until Rate Us Dialog Prompt(Default 5 Launches)
-		private final static int LAUNCHES_UNTIL_PROMPT = 5;
+		private final static int LAUNCHES_UNTIL_PROMPT = 1;
 
 		public static void app_launched(Context mContext) {
 			SharedPreferences prefs = mContext.getSharedPreferences("rateus", 0);
@@ -64,7 +64,7 @@ public class RateUs
 
 			TextView tv = (TextView) dialog.findViewById(R.id.rateus_textView);
 			tv.setText("If you like " + TITLE
-					+ ", please give us some stars and comment");
+					+ ", please rate us and comment");
 
 			// First Button
 			Button b1 = (Button) dialog.findViewById(R.id.ratenow_button);

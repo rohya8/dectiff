@@ -35,19 +35,23 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		this.customer = currentCustomer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(Customer customer) 
+	{
 		this.customer = customer;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		view = inflater.inflate(R.layout.fragment_quickorder_homescreen, container, false);
-
+		RateUs.app_launched(getActivity());
+		
+		
 		customerOrder = new CustomerOrder();
 		initialise();
 		neworder.setOnClickListener(new OnClickListener() {

@@ -98,10 +98,11 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="20dp"
                 android:backgroundTint="#FDD835"
+                android:progressTint="#FDD835"
                 android:numStars="5"
                 android:stepSize="0.5" />
-           <!--       android:progressTint="#FDD835"
-                android:secondaryProgressTint="#FDD835"-->
+                 
+                <!--  android:secondaryProgressTint="#FDD835"-->
                 
             
             <LinearLayout

@@ -2,33 +2,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     tools:context="${relativePackage}.${activityClass}" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/verificationcode_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/verification_register_button"
+        android:layout_alignRight="@+id/verification_register_button"
         android:layout_centerVertical="true"
-        android:ems="10"
-        android:padding="12dp"
-        android:hint="Verification Code"
         android:background="@drawable/rounded"
-        android:inputType="textPersonName" >
-
-        <requestFocus />
+        android:ems="10"
+        android:hint="Verification Code"
+        android:inputType="textPersonName"
+        android:padding="12dp" >
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/verification_register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verificationcode_editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="17dp"
+        android:background="#00ACC1"
+        android:gravity="center"
+        android:text="REGISTER"
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_above="@+id/verificationcode_editText"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="57dp"
         android:gravity="center"
-        android:textColor="#FFF"
-        android:background="#00ACC1"
-        android:text="NEXT" />
+        android:text="Please enter the verification code sent on your email_id" />
 
 </RelativeLayout>

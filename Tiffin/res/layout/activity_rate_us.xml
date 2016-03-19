@@ -27,35 +27,35 @@
             android:id="@+id/rate_imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/rate" />
+            android:src="@drawable/rating" />
 
         <ImageView
             android:id="@+id/rate_imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/rate" />
+            android:src="@drawable/rating" />
 
         <ImageView
             android:id="@+id/rate_imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/rate" />
+            android:src="@drawable/rating" />
 
         <ImageView
             android:id="@+id/rate_imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/rate" />
+            android:src="@drawable/rating" />
 
         <ImageView
             android:id="@+id/rate_imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/rate" />
+            android:src="@drawable/rating" />
     </LinearLayout>
 
     <Button
@@ -81,7 +81,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="15dp"
-        android:background="#7CB342"
+        android:background="#4CAF50"
         android:gravity="center"
         android:padding="10dp"
         android:text="Remind Me Later"
