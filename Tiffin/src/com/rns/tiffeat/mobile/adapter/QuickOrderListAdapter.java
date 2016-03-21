@@ -1,22 +1,13 @@
 package com.rns.tiffeat.mobile.adapter;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.text.format.DateUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.rns.tiffeat.mobile.QuickOrderHomeScreen;
 import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.MealRatingAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.QuickOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerUtils;
@@ -25,6 +16,22 @@ import com.rns.tiffeat.web.bo.domain.Customer;
 import com.rns.tiffeat.web.bo.domain.CustomerOrder;
 import com.rns.tiffeat.web.bo.domain.MealStatus;
 import com.rns.tiffeat.web.bo.domain.OrderStatus;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.text.format.DateUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implements AndroidConstants {
 	private FragmentActivity activity;
@@ -55,7 +62,7 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 	}
 
 	public class ViewHolder {
-		TextView title, tiffintype, mealStatus, date, orderStatus, quantity, price;
+		TextView title, tiffintype, mealStatus, date, orderStatus, quantity, price, rate_us;
 		ImageView foodimage;
 		TextView viewmenuButton;
 
@@ -69,7 +76,8 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 
 	}
 
-	public QuickOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter, List<CustomerOrder> quickOrders, Customer customer) {
+	public QuickOrderListAdapter(FragmentActivity activity, int activityQuickorderListAdapter,
+			List<CustomerOrder> quickOrders, Customer customer) {
 		super(activity, activityQuickorderListAdapter, quickOrders);
 		this.quickOrders = quickOrders;
 		this.activity = activity;
@@ -93,9 +101,10 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.price = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_price_textView);
 			holder.quantity = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_quantity_textView);
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.quickorder_list_adapter_imageview);
-
+			holder.rate_us = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_rate_us_textview);
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_meal_status_textView);
-			holder.orderStatus = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_order_status_textView);
+			holder.orderStatus = (TextView) convertView
+					.findViewById(R.id.quickorder_list_adapter_order_status_textView);
 			holder.viewmenuButton = (TextView) convertView.findViewById(R.id.quickorder_list_adapter_viewmenu_button);
 
 			convertView.setTag(holder);
@@ -166,7 +175,38 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 			holder.orderStatus.setText("Your Order has been cancelled..");
 		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setVisibility(View.VISIBLE);
-			holder.orderStatus.setText("Your order has been delivered!! Please rate us!!");
+			holder.rate_us.setVisibility(View.VISIBLE);
+			holder.orderStatus.setText("Your order has been delivered!!");
+
+			holder.rate_us.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					final Dialog rankDialog = new Dialog(getContext());
+					rankDialog.setContentView(R.layout.activity_meal_rate_us);
+					rankDialog.setCancelable(true);
+					final RatingBar ratingBar = (RatingBar) rankDialog
+							.findViewById(R.id.quickOrder_rate_this_meal_ratingBar);
+					ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+						@Override
+						public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+						}
+					});
+
+					Button updateButton = (Button) rankDialog.findViewById(R.id.quickOrder_rate_this_meal_button);
+					updateButton.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) 
+						{
+							customerOrder.setRating(new BigDecimal(ratingBar.getRating()));
+							new  MealRatingAsyncTask(getContext(),customerOrder).execute();
+						//	Toast.makeText(getContext(), "" + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
+							rankDialog.dismiss();
+						}
+					});
+					// now that the dialog is set up, it's time to show it
+					rankDialog.show();
+				}
+			});
 		}
 	}
 

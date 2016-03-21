@@ -63,13 +63,11 @@
         <item>Dinner</item>
         <item>Both (Lunch And Dinner)</item>
     </string-array>
-    
-	<string-array name="spinner_format">
+    <string-array name="spinner_format">
         <item>Try a meal</item>
         <item>Start daily tiffin service</item>
     </string-array>
-    
-    
+
     <string name="title_activity_first_time_used_adapter">FirstTimeUsedAdapter</string>
     <string name="title_activity_list_of_meals_adapter">ListOfMealsAdapter</string>
     <string name="title_activity_scheduled_order">ScheduledOrder</string>
@@ -78,9 +76,10 @@
     <string name="title_activity_add_to_wallet">AddToWallet</string>
     <string name="title_activity_alert_box">AlertBox</string>
 
-    <integer name="google_play_services_version">6171000</integer>
+    <integer name="google_play_services_version">7571000</integer>
 
     <string name="title_activity_try_login">Login Activity</string>
     <string name="title_activity_login_wgoogle">TiffEat</string>
+    <string name="title_activity_verification">Verification</string>
 
 </resources>

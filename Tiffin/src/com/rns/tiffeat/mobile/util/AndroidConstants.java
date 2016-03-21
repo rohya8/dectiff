@@ -6,12 +6,11 @@ public interface AndroidConstants {
 	String RESPONSE_OK = "OK";
 	String VENDOR_OBJECT = "vendor";
 	String TAG = "TiffEAT";
-	String ROOT_URL = "http://192.168.1.102:8080/tiffeat-web/";
+	String ROOT_URL = "http://192.168.0.7:8080/tiffeat-web/";
 	//String ROOT_URL = "http://www.tiffeat.com/";
 	String CUSTOMER_OBJECT = "customer";
 	String CUSTOMER_ORDER_OBJECT = "customerOrderObject";
 	String MEAL_OBJECT = "meal";
-
 	String GET_VENDORS_FOR_AREA = ROOT_URL + "getVendorsForAreaAndroid?pinCode={pinCode}";
 	String GET_MEALS_FOR_ORDER = ROOT_URL + "getMealsAndroid?customerOrder={customerOrderObject}";
 	String GET_MEALS_FOR_VENDORS = ROOT_URL + "getVendorMealsAndroid?vendor={vendor}";
@@ -31,7 +30,7 @@ public interface AndroidConstants {
 	String CANCEL_ORDER_URL = ROOT_URL + "cancelOrderAndroid?customerOrder={customerOrderObject}";
 	String CHANGE_ORDER_URL = ROOT_URL + "changeOrderAndroid?customerOrder={customerOrderObject}";
 	String DOWNLOAD_MEAL_IMAGE_ANDROID = "downloadMealImageAndroid?meal=";
-
+	String GET_RATING_FOR_MEALS = ROOT_URL + "rateMealAndroid?customerOrder={customerOrderObject}";
 	String CUSTOMER_SHARED_CONTEXT = "customerShared";
 	String PIN_CODE = "pinCode";
 	String REG_ID = "regId";

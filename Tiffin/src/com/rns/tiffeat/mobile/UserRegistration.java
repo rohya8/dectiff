@@ -65,8 +65,8 @@ public class UserRegistration extends Fragment implements AndroidConstants {
 						CustomerUtils.alertbox(TIFFEAT, "Password do not match", getActivity());
 						return;
 					}
-					new AuthenticationAsyncTask(getActivity(), customerOrder, code).execute(); 
-				//	new LoginAsyncTask(getActivity(), customerOrder, REGISTRATION_FRAGMENT).execute();
+		//			new AuthenticationAsyncTask(getActivity(), customerOrder, code).execute(); 
+					new LoginAsyncTask(getActivity(), customerOrder, REGISTRATION_FRAGMENT).execute();
 				}
 			}
 

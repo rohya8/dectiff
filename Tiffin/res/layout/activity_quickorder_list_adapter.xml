@@ -110,15 +110,34 @@
                         android:textColor="#607D8B"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/quickorder_list_adapter_order_status_textView"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:textColor="#000"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/quickorder_list_adapter_order_status_textView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:textColor="#000"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/quickorder_list_adapter_rate_us_textview"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text="Rate this Meal"
+                            android:textColor="#FF5722"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/quickorder_list_adapter_viewmenu_button"

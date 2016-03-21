@@ -43,4 +43,14 @@
         android:gravity="center"
         android:text="Please enter the verification code sent on your email_id" />
 
+    <TextView
+        android:id="@+id/customer_email_textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/verificationcode_editText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="sshdgd"
+        android:gravity="center" />
+
 </RelativeLayout>

@@ -9,7 +9,7 @@ import android.telephony.TelephonyManager;
 
 import com.google.gson.Gson;
 import com.rns.tiffeat.mobile.LoginActivity;
-import com.rns.tiffeat.mobile.Validation;
+import com.rns.tiffeat.mobile.Verification;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
 import com.rns.tiffeat.mobile.util.CustomerServerUtils;
 import com.rns.tiffeat.mobile.util.CustomerUtils;

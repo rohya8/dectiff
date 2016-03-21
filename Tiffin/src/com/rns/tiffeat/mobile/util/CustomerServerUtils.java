@@ -39,6 +39,17 @@ public class CustomerServerUtils implements AndroidConstants {
 		Log.d(MYTAG, "Result of meal :" + result);
 		return result;
 	}
+	
+	public static String getRatingForMeals(CustomerOrder customerOrder) {
+
+		final Map<String, Object> uriVariables = new HashMap<String, Object>();
+		Type type = new TypeToken<CustomerOrder>() {
+		}.getType();
+		removeCircularReferences(customerOrder);
+		uriVariables.put(CUSTOMER_ORDER_OBJECT, new Gson().toJson(customerOrder));
+		result = CoreServerUtils.serverCall(GET_RATING_FOR_MEALS, uriVariables, HttpMethod.POST).getBody();
+		return result;
+	}
 
 	public static String customerRegistration(Customer customer) {
 

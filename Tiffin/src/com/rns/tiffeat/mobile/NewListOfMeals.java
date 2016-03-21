@@ -37,13 +37,17 @@ public class NewListOfMeals extends Fragment implements AndroidConstants {
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
+		//RateUs.app_launched(getActivity());
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		rootview = inflater.inflate(R.layout.new_fragment_listofmeal, container, false);
 
+		
+		
 		initialise();
 		adapter = new NewListOfMealAdapter(getActivity(), R.layout.new_activity_list_of_meals_adapter, mealobj, customerOrder);
 

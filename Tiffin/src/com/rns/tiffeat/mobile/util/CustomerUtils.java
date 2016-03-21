@@ -139,7 +139,7 @@ public class CustomerUtils implements AndroidConstants {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-
+					dialog.dismiss();
 			}
 		});
 
