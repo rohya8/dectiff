@@ -41,7 +41,6 @@ public class CustomerServerUtils implements AndroidConstants {
 	}
 	
 	public static String getRatingForMeals(CustomerOrder customerOrder) {
-
 		final Map<String, Object> uriVariables = new HashMap<String, Object>();
 		Type type = new TypeToken<CustomerOrder>() {
 		}.getType();
