@@ -77,7 +77,9 @@ public class QuickOrderHomeScreen extends Fragment implements AndroidConstants {
 		welcomeText = (TextView) view.findViewById(R.id.quickorder_homescreen_textView);
 		relativeLayout.setVisibility(View.VISIBLE);
 
-		if (customer.getQuickOrders() != null) {
+		if (customer.getQuickOrders() != null) 
+		{
+			
 			quickOrdersAdapter = new QuickOrderListAdapter(getActivity(), R.layout.activity_quickorder_list_adapter, customer.getQuickOrders(), customer);
 		}
 		todaylistview.setFooterDividersEnabled(true);

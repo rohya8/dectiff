@@ -59,10 +59,10 @@ public class MealRatingAsyncTask extends AsyncTask<String, String, String> imple
 			return;
 		}
 		if ("OK".equals(result)) {
-			CustomerUtils.alertbox(TIFFEAT, "Thankyou for rating this meal !!", rating);
+			CustomerUtils.alertbox(TIFFEAT, "Thank you for rating this meal !!", rating);
 
 		} else {
-			CustomerUtils.alertbox(TIFFEAT, "Order Failed due to : " + result, rating);
+			CustomerUtils.alertbox(TIFFEAT, "Rating Failed due to : " + result, rating);
 		}
 	}
 

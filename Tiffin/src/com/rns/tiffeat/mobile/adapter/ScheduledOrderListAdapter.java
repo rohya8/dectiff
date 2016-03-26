@@ -1,10 +1,12 @@
 package com.rns.tiffeat.mobile.adapter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
@@ -17,7 +19,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 
 import com.rns.tiffeat.mobile.NewChangeOrderFragment;
 import com.rns.tiffeat.mobile.NewScheduleLunchOrDinnerFragment;
@@ -25,6 +29,7 @@ import com.rns.tiffeat.mobile.R;
 import com.rns.tiffeat.mobile.ScheduledOrderHomeScreen;
 import com.rns.tiffeat.mobile.Validation;
 import com.rns.tiffeat.mobile.asynctask.GetMealMenuAsyncTask;
+import com.rns.tiffeat.mobile.asynctask.MealRatingAsyncTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleCancelOrderTask;
 import com.rns.tiffeat.mobile.asynctask.ScheduleOrderMealImageDownloaderTask;
 import com.rns.tiffeat.mobile.util.AndroidConstants;
@@ -48,7 +53,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private ScheduledOrderHomeScreen scheduledUserHome;
 
 	public class ViewHolder {
-		TextView title, mealType, price, mealStatus, date, orderStatus;
+		TextView title, mealType, price, mealStatus, date, orderStatus,rateus;
 		ImageView foodimage;
 		Button viewMenuButton, switchButton, cancelOrderButton, addOtherMealTypeButton;
 
@@ -94,7 +99,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 			holder.mealType = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealtype_textView);
 			holder.date = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_date_textView);
 			holder.foodimage = (ImageView) convertView.findViewById(R.id.scheduledorder_adapter_imageview);
-
+			holder.rateus = (TextView)convertView.findViewById(R.id.scheduledorder_adapter_rateus_textView);
 			holder.mealStatus = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_mealstatus_textView);
 			holder.orderStatus = (TextView) convertView.findViewById(R.id.scheduledorder_adapter_orderstatus_textView);
 			holder.cancelOrderButton = (Button) convertView.findViewById(R.id.scheduledorder_adapter_cancel_button);
@@ -217,7 +222,7 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		if (customerOrder.getStatus() == null || OrderStatus.ORDERED.equals(customerOrder.getStatus())) {
 			setMealStatus(customerOrder);
 		} else {
-			hideControls();
+			hideControls(customerOrder);
 		}
 
 	}
@@ -230,11 +235,11 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 		if (OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your Order has been cancelled..");
-			hideControls();
+			hideControls(customerOrder);
 		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your order has been delivered!! Please rate us!!");
-			hideControls();
+			hideControls(customerOrder);
 		} else if (OrderStatus.PAYABLE.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setText("Insufficient funds in the wallet!!!");
 			holder.mealStatus.setVisibility(View.GONE);
@@ -245,27 +250,69 @@ public class ScheduledOrderListAdapter extends ArrayAdapter<CustomerOrder> imple
 	private void setMealStatus(CustomerOrder customerOrder) {
 		if (customerOrder.getContent() == null || customerOrder.getMealStatus() == null) {
 			holder.mealStatus.setText("Vendor has not decided your menu yet. Hang on..");
-			hideControls();
+			hideControls(customerOrder);
 			return;
 		}
 		if (MealStatus.PREPARE.equals(customerOrder.getMealStatus())) {
 			holder.mealStatus.setText("Vendor is preparing your meal..");
 		} else if (MealStatus.COOKING.equals(customerOrder.getMealStatus())) {
 			holder.mealStatus.setText("Vendor started cooking your meal");
-			mealTypeCooking();
-		} else if (MealStatus.DISPATCH.equals(customerOrder.getMealStatus())) {
+			mealTypeCooking(customerOrder);
+		} else if (MealStatus.DISPATCH.equals(customerOrder.getMealStatus())) 
+		{
 			holder.mealStatus.setText("Your tiffin is dispatched and will reach you soon..");
-			mealTypeCooking();
+			mealTypeCooking(customerOrder);
 		}
 	}
 
-	private void mealTypeCooking() {
+	private void mealTypeCooking(CustomerOrder customerOrder2) 
+	{
+
 		holder.cancelOrderButton.setVisibility(View.GONE);
 		holder.switchButton.setVisibility(View.GONE);
+		holder.rateus.setVisibility(View.VISIBLE);
+		if(customerOrder.getRating()!= null)
+		{
+			holder.rateus.setText("You have rated" + " " +customerOrder2.getRating());
+
+		}
+		else
+		{
+			holder.rateus.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					final Dialog rankDialog = new Dialog(getContext());
+					rankDialog.setContentView(R.layout.activity_meal_rate_us);
+					rankDialog.setCancelable(true);
+					final RatingBar ratingBar = (RatingBar) rankDialog
+							.findViewById(R.id.quickOrder_rate_this_meal_ratingBar);
+					ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+						@Override
+						public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+						}
+					});
+
+					Button updateButton = (Button) rankDialog.findViewById(R.id.quickOrder_rate_this_meal_button);
+					updateButton.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) 
+						{
+							customerOrder.setRating(new BigDecimal(ratingBar.getRating()));
+							new  MealRatingAsyncTask(getContext(),customerOrder).execute();
+							//	Toast.makeText(getContext(), "" + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
+							rankDialog.dismiss();
+						}
+					});
+					// now that the dialog is set up, it's time to show it
+					rankDialog.show();
+				}
+			});
+		}
+
 	}
 
-	private void hideControls() {
-		mealTypeCooking();
+	private void hideControls(CustomerOrder customerOrder2) {
+		mealTypeCooking(customerOrder2);
 		holder.mealStatus.setVisibility(View.GONE);
 		holder.viewMenuButton.setVisibility(View.GONE);
 	}

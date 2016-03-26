@@ -130,7 +130,7 @@
                             android:id="@+id/quickorder_list_adapter_rate_us_textview"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.8"
                             android:gravity="center"
                             android:text="Rate this Meal"
                             android:textColor="#FF5722"

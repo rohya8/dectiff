@@ -19,10 +19,10 @@ public class RateUs
 		private final static String PACKAGE_NAME = "com.rns.tiffeat.mobile";
 
 		// Day until the Rate Us Dialog Prompt(Default 2 Days)
-		private final static int DAYS_UNTIL_PROMPT = 0;
+		private final static int DAYS_UNTIL_PROMPT = 2;
 
 		// App launches until Rate Us Dialog Prompt(Default 5 Launches)
-		private final static int LAUNCHES_UNTIL_PROMPT = 1;
+		private final static int LAUNCHES_UNTIL_PROMPT = 3;
 
 		public static void app_launched(Context mContext) {
 			SharedPreferences prefs = mContext.getSharedPreferences("rateus", 0);

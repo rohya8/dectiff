@@ -173,41 +173,48 @@ public class QuickOrderListAdapter extends ArrayAdapter<CustomerOrder> implement
 		if (OrderStatus.CANCELLED.equals(customerOrder.getStatus())) {
 			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your Order has been cancelled..");
-		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) {
+		} else if (OrderStatus.DELIVERED.equals(customerOrder.getStatus())) 
+		{
 			holder.orderStatus.setVisibility(View.VISIBLE);
 			holder.rate_us.setVisibility(View.VISIBLE);
 			holder.orderStatus.setText("Your order has been delivered!!");
+			if(customerOrder.getRating()!= null)
+			{
+				holder.rate_us.setText("You have rated" + " " +customerOrder.getRating());
 
-			holder.rate_us.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					final Dialog rankDialog = new Dialog(getContext());
-					rankDialog.setContentView(R.layout.activity_meal_rate_us);
-					rankDialog.setCancelable(true);
-					final RatingBar ratingBar = (RatingBar) rankDialog
-							.findViewById(R.id.quickOrder_rate_this_meal_ratingBar);
-					ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
-						@Override
-						public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-						}
-					});
+			}
+			else
+			{
+				holder.rate_us.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						final Dialog rankDialog = new Dialog(getContext());
+						rankDialog.setContentView(R.layout.activity_meal_rate_us);
+						rankDialog.setCancelable(true);
+						final RatingBar ratingBar = (RatingBar) rankDialog
+								.findViewById(R.id.quickOrder_rate_this_meal_ratingBar);
+						ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+							@Override
+							public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+							}
+						});
 
-					Button updateButton = (Button) rankDialog.findViewById(R.id.quickOrder_rate_this_meal_button);
-					updateButton.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) 
-						{
-							customerOrder.setRating(new BigDecimal(ratingBar.getRating()));
-							new  MealRatingAsyncTask(getContext(),customerOrder).execute();
-						//	Toast.makeText(getContext(), "" + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
-							rankDialog.dismiss();
-						}
-					});
-					// now that the dialog is set up, it's time to show it
-					rankDialog.show();
-				}
-			});
-		}
+						Button updateButton = (Button) rankDialog.findViewById(R.id.quickOrder_rate_this_meal_button);
+						updateButton.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View v) 
+							{
+								customerOrder.setRating(new BigDecimal(ratingBar.getRating()));
+								new  MealRatingAsyncTask(getContext(),customerOrder).execute();
+								//	Toast.makeText(getContext(), "" + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
+								rankDialog.dismiss();
+							}
+						});
+						// now that the dialog is set up, it's time to show it
+						rankDialog.show();
+					}
+				});
+			}}
 	}
 
 	private void setMealStatus() {
