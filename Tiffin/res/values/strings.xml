@@ -32,6 +32,8 @@
     <string name="nav_item_aboutus">About Us</string>
     <string name="nav_item_login">Login</string>
     <string name="nav_item_logout">Logout</string>
+    <string name="nav_item_myWallet">My Wallet</string>
+    
 
     <string-array name="nav_drawer_label_new_user">
         <item>@string/nav_item_make_new_order</item>
@@ -45,6 +47,7 @@
         <item>@string/nav_item_scheduleorder</item>
         <item>@string/nav_item_quickorder</item>
         <item>@string/nav_item_previousorder</item>
+        <item >@string/nav_item_myWallet</item>
         <item>@string/nav_item_terms</item>
         <item>@string/nav_item_aboutus</item>
         <item>@string/nav_item_contactus</item>

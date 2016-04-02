@@ -155,20 +155,24 @@ public class DrawerActivity extends ActionBarActivity implements FragmentDrawer.
 			break;
 
 		case 4:
+			fragment = new WalletFragment();
+			break;
+			
+		case 5:
 			fragment = new TermsFragment();
 			break;
 
-		case 5:
+		case 6:
 			CustomerOrder custOrder = new CustomerOrder();
 			custOrder.setCustomer(customer);
 			fragment = new AboutUsFragment(custOrder);
 			break;
 
-		case 6:
+		case 7:
 			fragment = new ContactusFragment();
 			break;
 
-		case 7:
+		case 8:
 
 			if (customer != null) {
 				CustomerUtils.logout(this);

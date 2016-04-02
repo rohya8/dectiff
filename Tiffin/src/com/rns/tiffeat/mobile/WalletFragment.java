@@ -35,6 +35,11 @@ public class WalletFragment extends Fragment implements AndroidConstants {
 		this.customerOrder = customerOrder;
 	}
 
+	public WalletFragment() 
+	{
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setOrderInProcess(boolean isOrderInProcess) {
 		this.isOrderInProcess = isOrderInProcess;
 	}
